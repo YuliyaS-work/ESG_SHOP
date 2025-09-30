@@ -9,19 +9,22 @@
 <div>
     {% for rubric in rubrics %}
         <p><b>{{ rubric.rubric_name }}</b></p>
+
         {% if rubric.rubric_name == "Электрика" %}
             {% for subrubric in rubric.electro_set.all %}
-                {{ subrubric.title }}<br>
+                <a href="{% url 'rubric_electro' subrubric.pk %}">{{ subrubric.title }}</a><br>
             {% endfor %}
         {% endif %}
+
         {% if rubric.rubric_name == "Газовое оборудование" %}
             {% for subrubric in rubric.gas_set.all %}
-                {{ subrubric.title }}<br>
+            <a href="{% url 'rubric_gas' subrubric.pk %}">{{ subrubric.title }}</a><br>
             {% endfor %}
         {% endif %}
+
         {% if rubric.rubric_name == "Сантехника" %}
              {% for subrubric in rubric.santeh_set.all %}
-                 {{ subrubric.title }}<br>
+                 <a href="{% url 'rubric_santeh' subrubric.pk %}">{{ subrubric.title }}</a><br>
              {% endfor %}
         {% endif %}
     {% endfor %}

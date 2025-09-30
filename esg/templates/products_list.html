@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+<h2>{{ current_rubric }}</h2>
+
+    {% if current_rubric.rubric.rubric_name == "Газовое оборудование" %}
+        {% for product in products %}
+            <a href="{% url 'product_gas'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {{ product.description }}<br>
+            {{ product.price }} BYN<br><br>
+        {% endfor %}
+    {% endif %}
+
+    {% if current_rubric.rubric.rubric_name == "Электрика" %}
+        {% for product in products %}
+            <a href="{% url 'product_electro'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {{ product.description }}<br>
+            {{ product.price }} BYN<br><br>
+        {% endfor %}
+    {% endif %}
+
+    {% if current_rubric.rubric.rubric_name == "Сантехника" %}
+        {% for product in products %}
+            <a href="{% url 'product_santeh'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {{ product.description }}<br>
+            {{ product.price }} BYN<br><br>
+        {% endfor %}
+    {% endif %}
+  </div>
+
+</body>
+</html>
