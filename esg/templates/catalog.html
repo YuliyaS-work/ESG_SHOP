@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    {% for rubric in rubrics %}
+        <p><b>{{ rubric.rubric_name }}</b></p>
+        {% if rubric.rubric_name == "Электрика" %}
+            {% for subrubric in rubric.electro_set.all %}
+                {{ subrubric.title }}<br>
+                {{ subrubric.price }}<br>
+            {% endfor %}
+        {% endif %}
+        {% if rubric.rubric_name == "Газовое оборудование" %}
+            {% for subrubric in rubric.gas_set.all %}
+                {{ subrubric.title }}<br>
+                {{ subrubric.price }}<br>
+            {% endfor %}
+        {% endif %}
+        {% if rubric.rubric_name == "Сантехника" %}
+             {% for subrubric in rubric.santeh_set.all %}
+                 {{ subrubric.title }}<br>
+                 {{ subrubric.price }}<br>
+             {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+</body>
+</html>
