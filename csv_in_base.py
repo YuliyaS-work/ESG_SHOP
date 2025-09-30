@@ -2,10 +2,10 @@ import pandas as pd
 import sqlite3
 
 
-csv_path = r'D:\Yulya\PYTHON\PYTHON\projects\ESG_SHOP\esg_shop\gas.csv'
+csv_path = r'D:\Yulya\PYTHON\PYTHON\projects\ESG_SHOP\esg_shop\santeh.csv'
 
 # Название таблицы в базе данных
-table_name = 'esg_gasproduct'
+table_name = 'esg_santehproduct'
 
 # Имена колонок в CSV, которые нужно взять
 columns_in_csv = ['1', '2','3']
