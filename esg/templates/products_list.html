@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,28 +11,37 @@
 
     {% if current_rubric.rubric.rubric_name == "Газовое оборудование" %}
         {% for product in products %}
+            <div>
             <a href="{% url 'product_gas'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            </div>
         {% endfor %}
     {% endif %}
 
     {% if current_rubric.rubric.rubric_name == "Электрика" %}
         {% for product in products %}
+            <div>
             <a href="{% url 'product_electro'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            </div>
         {% endfor %}
     {% endif %}
 
     {% if current_rubric.rubric.rubric_name == "Сантехника" %}
         {% for product in products %}
+            <div>
             <a href="{% url 'product_santeh'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            </div>
         {% endfor %}
     {% endif %}
   </div>
-
+<script src="{% static 'js/set_basket.js' %}" defer></script>
 </body>
 </html>
