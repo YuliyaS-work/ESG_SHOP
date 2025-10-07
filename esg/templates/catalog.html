@@ -1,8 +1,10 @@
-{% extends 'basic.html' %}
-{% load static %}
-
-{% block title %}Каталог{% endblock %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 
 <div>
     {% for rubric in rubrics %}
@@ -10,21 +12,23 @@
 
         {% if rubric.rubric_name == "Электрика" %}
             {% for subrubric in rubric.electro_set.all %}
-                <a href="{% url 'rubric_electro' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+                <a href="{% url 'rubric_electro' subrubric.pk %}">{{ subrubric.title }}</a><br>
             {% endfor %}
         {% endif %}
 
         {% if rubric.rubric_name == "Газовое оборудование" %}
             {% for subrubric in rubric.gas_set.all %}
-            <a href="{% url 'rubric_gas' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+            <a href="{% url 'rubric_gas' subrubric.pk %}">{{ subrubric.title }}</a><br>
             {% endfor %}
         {% endif %}
 
         {% if rubric.rubric_name == "Сантехника" %}
              {% for subrubric in rubric.santeh_set.all %}
-                 <a href="{% url 'rubric_santeh' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+                 <a href="{% url 'rubric_santeh' subrubric.pk %}">{{ subrubric.title }}</a><br>
              {% endfor %}
         {% endif %}
     {% endfor %}
 </div>
-{% endblock %}
+
+</body>
+</html>
