@@ -6,26 +6,35 @@
     <title>{% block title %}Главная{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
-
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <div class="container">
     <header class="header">
-        <a href="{% url 'main' %}"><img src="{% static 'image/esg.png' %}" alt="СпецЭлектроБелТорг"></a>
-        <div class="button_container">
-            <a href="{% url 'rubric_electro' electro.pk %}" class="button-link">Электрика</a>
-            <a href="{% url 'rubric_santeh' santeh.pk %}" class="button-link">Сантехника и канализация</a>
-            <a href="{% url 'rubric_gas' gas.pk %}" class="button-link">Газификация</a>
+        <div class="top-links">
+        <a href="#">Главная</a>
+        <a href="#">Каталог</a>
+        <a href="#">Оплата и доставка</a>
+        <a href="#">Отзывы</a>
+        <a href="#">Контакты</a>
+        <a href="#">Наши партнеры</a>
+        </div>
+
+        <div class="main-header">
+        <a href="{% url 'main' %}"><img src="{% static 'image/electro.png' %}" alt="СпецЭлектроБелТорг"></a>
         </div>
     </header>
-<div class="catalog-layout">
-    <aside class="sidebar">
-        <p>Боковое меню</p>
+    <nav class="sidebar">
         <ul class="catalog-list">
             {% for rubric in rubrics %}
                 <li>
-                    <button class="toggle-btn">{{ rubric.rubric_name }}</button>
-                    <strong>{{ rubric.rubric_name }}</strong>
+                    <a href="#">
+          <!-- Иконка категории -->
+<i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-house-fire{% else %}fas fa-folder{% endif %}"></i>
+          <span class="text">{{ rubric.rubric_name }}</span>
+        </a>
+<!--                    <button class="toggle-btn">{{ rubric.rubric_name }}</button>-->
+<!--                    <strong>{{ rubric.rubric_name }}</strong>-->
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all %}
                             <li> <a href="{% url 'rubric_electro' sub.pk %}"> {{ sub.title }}</a></li>
@@ -40,11 +49,15 @@
                 </li>
             {% endfor %}
         </ul>
-    </aside>
-</div>
+    </nav>
+
    <main class="main-content">
-        {% block content %}
-        <h1>Добро пожаловать в каталог!</h1>
+        <div class="button_container">
+            <a href="{% url 'rubric_electro' electro.pk %}" class="button-link">Электрика</a>
+            <a href="{% url 'rubric_santeh' santeh.pk %}" class="button-link">Сантехника и канализация</a>
+            <a href="{% url 'rubric_gas' gas.pk %}" class="button-link">Газификация</a>
+        </div>
+       {% block content %}
 
         {% endblock %}
     </main>
@@ -58,6 +71,28 @@
         <p>© 2025 СпецЭлектроБелТорг</p>
     </footer>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const btn = document.getElementById('menu-toggle');
+  const overlay = document.getElementById('overlay');
 
+  if (btn) {
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('sidebar-open');
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      document.body.classList.remove('sidebar-open');
+    });
+  }
+
+  // закрываем по Esc
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') document.body.classList.remove('sidebar-open');
+  });
+});
+</script>
 </body>
 </html>
