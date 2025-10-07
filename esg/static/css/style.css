@@ -1,0 +1,270 @@
+/* === Страница basic === */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #CDCDC0;
+}
+/* Узкий сайдбар */
+.sidebar {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 60px;             /* узкая версия */
+  height: calc(100% - 100px);
+  background: linear-gradient(#626D71, #4B5357);
+  padding: 20px 0;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  z-index: 1100;
+}
+/* Расширяем при hover */
+.sidebar:hover {
+  width: 250px;
+}
+
+/* Список категорий */
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ссылки категорий */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* иконка сверху */
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* Иконки категорий */
+.sidebar ul li a i {
+  font-size: 28px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+}
+
+/* Текст категорий */
+.sidebar ul li a .text {
+  opacity: 0;
+  margin-top: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+/* Появление текста при hover на сайдбар */
+.sidebar:hover ul li a .text {
+  opacity: 1;
+}
+
+/* Hover на ссылку */
+.sidebar ul li a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #FFD700;
+}
+
+/* Подкатегории */
+.subcategory {
+  max-height: 0;
+  overflow: hidden;
+  padding-left: 20px;
+  list-style: none;
+  margin-top: 5px;
+}
+/* Ссылки подкатегорий */
+.subcategory li a {
+  display: block;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transform: translateX(-20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Появление подкатегорий при hover на родительский li */
+.sidebar ul li:hover .subcategory {
+  max-height: 500px;
+}
+
+.sidebar ul li:hover .subcategory li a {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Задержка для плавного выезда подкатегорий */
+.sidebar ul li:hover .subcategory li:nth-child(1) a { transition-delay: 0.05s; }
+.sidebar ul li:hover .subcategory li:nth-child(2) a { transition-delay: 0.1s; }
+.sidebar ul li:hover .subcategory li:nth-child(3) a { transition-delay: 0.15s; }
+
+/* === Header и контент === */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: #DDBC95;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+.top-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  padding: 5px 20px;
+  font-size: 14px;
+}
+
+.top-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.top-links a:hover {
+  text-decoration: underline;
+}
+.main-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  gap: 20px;
+}
+
+.main-header a img {
+  height: 60px;
+}
+/* Основной контент под header */
+.main-content {
+  margin-left: 60px; /* ширина узкого sidebar */
+  margin-top: 100px; /* высота header */
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: margin-left 0.3s ease;
+}
+.sidebar:hover ~ .main-content {
+  margin-left: 250px;
+}
+
+.main-content .button_container {
+display: flex;
+  justify-content: center; /* центрируем по горизонтали */
+  gap: 15px;
+  margin-bottom: 20px;
+  margin-top: 20px; /* отступ сверху */
+  }
+
+.main-content .button_link {
+  text-decoration: none;
+  color: #fff;
+  background-color: #9C9C9C;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.main-content .button_link:hover {
+  background-color: #005fa3;
+}
+
+/* При hover на сайдбар сдвигаем контент */
+.sidebar:hover ~ .main-content {
+  margin-left: 250px;
+}
+
+/* Footer */
+.footer {
+  background: #B38867;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+   margin-top: 20px;
+}
+
+/* === Страница main_page === */
+.popular-products {
+    margin: 30px 0;
+}
+
+.popular-products h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+    color: #005fa3;
+}
+
+.product-carousel {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto; /* горизонтальный скролл, если карточек много */
+    padding-bottom: 10px;
+}
+
+.product-card {
+    flex: 0 0 auto;
+    width: 180px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    margin: 0 0 5px 0;
+}
+
+.product-card p {
+    font-size: 0.9rem;
+    color: #333;
+    margin: 0;
+}
+.catalog-section{
+padding: 20px
+}
+.catalog-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap:20px;
+}
+.catalog-card{
+    display:flex;
+     flex-direction:column;
+     align-items:center;
+     justify-content:center;
+     background:#fff; border-radius:12px;
+     padding:20px;
+     text-align:center;
+     text-decoration:none;
+     color:#333;
+     box-shadow:0 2px 6px rgba(0,0,0,0.1);
+     transition: transform 0.2s;
+}
+.catalog-card i.fas {
+    font-size: 48px;
+    color: #005fa3;
+    margin-bottom: 10px;
+}

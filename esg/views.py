@@ -5,8 +5,16 @@ from .models import *
 
 def get_main_page(request):
     ''' Отдает данные на главную страницу. '''
-    pass
-    return render(request, 'main_page.html')
+    electro = Electro.objects.first()
+    santeh = Santeh.objects.first()
+    gas = Gas.objects.first()
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    return render(request, 'main_page.html', {
+        'electro': electro,
+        'santeh': santeh,
+        'gas': gas,
+        'rubrics': rubrics,
+    })
 
 
 def get_catalog(request):
@@ -14,7 +22,7 @@ def get_catalog(request):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     # electro_subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
     # gas_subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
-    # santeh_subrubrics = Electro.objects.prefetch_related('santehproduct_set').all()
+    # santeh_subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all() #опечатка
 
     context = {
         'rubrics': rubrics,

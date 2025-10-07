@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}Товары{% endblock %}
+{% block content %}
+<div>
 {{ product.title }}<br>
 {{ product.description }}<br>
-{{ product.price }} BYN<br><br>
-</body>
-</html>
+{{ product.price }} BYN<br>
+</div>
+{% endblock %}
