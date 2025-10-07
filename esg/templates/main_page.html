@@ -1,49 +1,22 @@
-{% extends 'basic.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
 
-{% block title %}Вы на главной странице{% endblock %}
-{% block content %}
-<!-- Лента популярных товаров -->
-    <section class="popular-products">
-        <h2>Популярные товары</h2>
-        <div class="product-carousel">
-            {% for product in popular_products %}
-            <div class="product-card">
-                <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                <h3>{{ product.title }}</h3>
-                <p>{{ product.description }}</p>
-                <p>{{ product.price }} BYN</p>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
-<!-- Секция каталога -->
-<section class="catalog-section">
-<h2 style="text-align:center; margin-bottom:20px;"><a href="{% url 'catalog' %}">Каталог</a></h2>
-    <div class="catalog-grid">
-        {% for rubric in rubrics %}
-            {% for sub in rubric.electro_set.all %}
-            <a href="{% url 'rubric_electro' sub.pk %}" class="catalog-card">
-                <i class="fas fa-lightbulb" ></i>
-                <span>{{ sub.title }}</span>
-            </a>
-            {% endfor %}
-            {% for sub in rubric.santeh_set.all %}
-            <a href="{% url 'rubric_santeh' sub.pk %}" class="catalog-card">
-                <i class="fas fa-tint" ></i>
-                <span>{{ sub.title }}</span>
-            </a>
-            {% endfor %}
+<h2><a href="{% url 'catalog' %}">Каталог</a></h2>
 
-            {% for sub in rubric.gas_set.all %}
-            <a href="{% url 'rubric_gas' sub.pk %}" class="catalog-card">
-                <i class="fas fa-fire"></i>
-                <span>{{ sub.title }}</span>
-            </a>
-            {% endfor %}
-        {% endfor %}
+<!--карта-->
+<div style="position:relative;overflow:hidden;">
+    <a href="https://yandex.by/maps/org/spetselektrobeltorg/64618297849/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">СпецЭлектроБелТорг</a>
+    <a href="https://yandex.by/maps/26002/logoysk/category/electronic_goods_store/184108095/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Магазин электротоваров в Логойске</a>
+    <iframe src="https://yandex.by/map-widget/v1/org/spetselektrobeltorg/64618297849/?ll=27.835430%2C54.199529&z=15.72" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
+</div>
 
-    </div>
-</section>
 
-{% endblock %}
+
+
+</body>
+</html>
