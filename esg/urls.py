@@ -10,5 +10,5 @@ urlpatterns = [
     path('catalog/santeh<int:rubric_id>/', get_rubric_santeh, name='rubric_santeh'),
     path('catalog/gas<int:rubric_id>/<int:gasproduct_id>/', get_product_gas, name='product_gas'),
     path('catalog/electro<int:rubric_id>/<int:electroproduct_id>/', get_product_electro, name='product_electro'),
-    path('catalog/santeh<int:rubric_id>/<int:santehproduct_id>'/, get_product_santeh, name='product_santeh'),
+    path('catalog/santeh<int:rubric_id>/<int:santehproduct_id>/', get_product_santeh, name='product_santeh'),
 ]
