@@ -53,9 +53,15 @@
 
    <main class="main-content">
         <div class="button_container">
-            <a href="{% url 'rubric_electro' electro.pk %}" class="button-link">Электрика</a>
-            <a href="{% url 'rubric_santeh' santeh.pk %}" class="button-link">Сантехника и канализация</a>
-            <a href="{% url 'rubric_gas' gas.pk %}" class="button-link">Газификация</a>
+            {% for rubric in rubrics %}
+            {% if rubric.rubric_name == "Электрика" %}
+            <a href="{% url 'rubric_electro' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            {% elif rubric.rubric_name == "Сантехника" %}
+            <a href="{% url 'rubric_santeh' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            {% elif rubric.rubric_name == "Газовое оборудование" %}
+            <a href="{% url 'rubric_gas' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            {% endif %}
+            {% endfor %}
         </div>
        {% block content %}
 

@@ -2,6 +2,10 @@ from django.shortcuts import render
 
 from .models import *
 
+def get_basic(request):
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    context = { 'rubrics': rubrics }
+    return render(request, 'basic.html', context)
 
 def get_main_page(request):
     ''' Отдает данные на главную страницу. '''
@@ -9,12 +13,14 @@ def get_main_page(request):
     santeh = Santeh.objects.first()
     gas = Gas.objects.first()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    return render(request, 'main_page.html', {
+    context = {
         'electro': electro,
         'santeh': santeh,
         'gas': gas,
         'rubrics': rubrics,
-    })
+    }
+    return render(request, 'main_page.html', context)
+
 
 
 def get_catalog(request):
