@@ -76,3 +76,6 @@ def get_product_santeh(request, rubric_id, santehproduct_id):
     product = SantehProduct.objects.get(pk=santehproduct_id)
     context = {'product':product}
     return render(request, 'product.html', context)
+
+def get_basket(request):
+    return render(request, 'basket.html')
