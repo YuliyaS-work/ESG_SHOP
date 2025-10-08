@@ -22,24 +22,31 @@
 <h2 style="text-align:center; margin-bottom:20px;"><a href="{% url 'catalog' %}">Каталог</a></h2>
     <div class="catalog-grid">
         {% for rubric in rubrics %}
+        <h3>{{ rubric.rubric_name }}</h3>
             {% for sub in rubric.electro_set.all %}
-            <a href="{% url 'rubric_electro' sub.pk %}" class="catalog-card">
-                <i class="fas fa-lightbulb" ></i>
-                <span>{{ sub.title }}</span>
-            </a>
+                {% if sub.pk %}
+                <a href="{% url 'rubric_electro' sub.pk %}" class="catalog-card">
+                    <i class="fas fa-lightbulb" ></i>
+                    <span>{{ sub.title }}</span>
+                </a>
+                {% endif %}
             {% endfor %}
             {% for sub in rubric.santeh_set.all %}
+            {% if sub.pk %}
             <a href="{% url 'rubric_santeh' sub.pk %}" class="catalog-card">
                 <i class="fas fa-tint" ></i>
                 <span>{{ sub.title }}</span>
             </a>
+            {% endif %}
             {% endfor %}
 
             {% for sub in rubric.gas_set.all %}
+            {% if sub.pk %}
             <a href="{% url 'rubric_gas' sub.pk %}" class="catalog-card">
                 <i class="fas fa-fire"></i>
                 <span>{{ sub.title }}</span>
             </a>
+            {% endif %}
             {% endfor %}
         {% endfor %}
 

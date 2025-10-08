@@ -12,3 +12,4 @@ urlpatterns = [
     path('catalog/electro<int:rubric_id>/<int:electroproduct_id>', get_product_electro, name='product_electro'),
     path('catalog/santeh<int:rubric_id>/<int:santehproduct_id>', get_product_santeh, name='product_santeh'),
 ]
+handler404 = 'esg.views.custom_404'

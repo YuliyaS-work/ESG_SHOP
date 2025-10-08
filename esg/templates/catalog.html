@@ -10,19 +10,34 @@
 
         {% if rubric.rubric_name == "Электрика" %}
             {% for subrubric in rubric.electro_set.all %}
+                <div style="margin-bottom: 10px;">
+                    {% if subrubric.photo %}
+                    <img src="{{ subrubric.photo.url }}" alt="{{ subrubric.title }}" width="100">
+                {% endif %}
                 <a href="{% url 'rubric_electro' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+            </div>
             {% endfor %}
         {% endif %}
 
         {% if rubric.rubric_name == "Газовое оборудование" %}
             {% for subrubric in rubric.gas_set.all %}
-            <a href="{% url 'rubric_gas' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+             <div style="margin-bottom: 10px;">
+                    {% if subrubric.photo %}
+                        <img src="{{ subrubric.photo.url }}" alt="{{ subrubric.title }}" width="100">
+                    {% endif %}
+                    <a href="{% url 'rubric_gas' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+            </div>
             {% endfor %}
         {% endif %}
 
         {% if rubric.rubric_name == "Сантехника" %}
              {% for subrubric in rubric.santeh_set.all %}
-                 <a href="{% url 'rubric_santeh' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+                <div style="margin-bottom: 10px;">
+                    {% if subrubric.photo %}
+                        <img src="{{ subrubric.photo.url }}" alt="{{ subrubric.title }}" width="100">
+                    {% endif %}
+                    <a href="{% url 'rubric_santeh' rubric_id=subrubric.pk %}">{{ subrubric.title }}</a><br>
+             </div>
              {% endfor %}
         {% endif %}
     {% endfor %}
