@@ -39,15 +39,19 @@
             </a>
             {% endif %}
             {% endfor %}
+        {% endif %}
+
 
             {% for rubric in rubric.gas_set.all %}
             {% if rubric.pk %}
             <a href="{% url 'rubric_gas' rubric.pk %}" class="catalog-card">
                 <i class="fas fa-fire"></i>
                 <span>{{ rubric.title }}</span>
+
             </a>
             {% endif %}
             {% endfor %}
+        {% endif %}
         {% endfor %}
 
     </div>
