@@ -35,23 +35,23 @@
                     </a>
         <ul class="subcategory">
             {% if rubric.electro_set.all %}
-                {% for sub in rubric.electro_set.all %}
-                    {% if sub.pk %}
-                       <li><a href="{% url 'rubric_electro' sub.pk %}"> {{ sub.title }}</a></li>
+                {% for rubric in rubric.electro_set.all %}
+                    {% if rubric.pk %}
+                       <li><a href="{% url 'rubric_electro' rubric.pk %}"> {{ rubric.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
             {% if rubric.gas_set.all %}
-                {% for sub in rubric.gas_set.all %}
-                    {% if sub.pk %}
-                        <li><a href="{% url 'rubric_gas' sub.pk %}">{{ sub.title }}</a></li>
+                {% for rubric in rubric.gas_set.all %}
+                    {% if rubric.pk %}
+                        <li><a href="{% url 'rubric_gas' rubric.pk %}">{{ rubric.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
             {% if rubric.santeh_set.all %}
-                {% for sub in rubric.santeh_set.all %}
-                    {% if sub.pk %}
-                        <li><a href="{% url 'rubric_santeh' sub.pk %}">{{ sub.title }}</a></li>
+                {% for rubric in rubric.santeh_set.all %}
+                    {% if rubric.pk %}
+                        <li><a href="{% url 'rubric_santeh' rubric.pk %}">{{ rubric.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -63,9 +63,9 @@
 
    <main class="main-content">
         <div class="button_container">
-            <a href="{% url 'rubric_electro' electro.pk %}" class="button-link">Электрика</a>
-            <a href="{% url 'rubric_santeh' santeh.pk %}" class="button-link">Сантехника и канализация</a>
-            <a href="{% url 'rubric_gas' gas.pk %}" class="button-link">Газификация</a>
+            <a href="#" class="button-link">Электрика</a>
+            <a href="#" class="button-link">Сантехника и канализация</a>
+            <a href="#" class="button-link">Газификация</a>
         </div>
        {% block content %}
 

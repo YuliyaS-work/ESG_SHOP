@@ -33,107 +33,133 @@ def get_catalog(request):
 
 def get_rubric_gas(request, rubric_id):
     '''Выводит страницу оттдельного подраздела газового оборудования'''
-    # products = GasProduct.objects.filter(rubric=rubric_id)
-    current_rubric = get_object_or_404(Gas, pk=rubric_id)
-    products = GasProduct.objects.filter(rubric=current_rubric)
+    # current_rubric = get_object_or_404(Gas, pk=rubric_id)
+    # products = GasProduct.objects.filter(rubric=current_rubric)
+    # gas = Gas.objects.all()
+    # context = {
+    #     # 'products':products,
+    #     # 'gas':gas,
+    #     # 'current_rubric':current_rubric,
+    #     'products': products,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
+    #     'electro': Electro.objects.all(),
+    #     'santeh': Santeh.objects.all(),
+    #     'gas': Gas.objects.all(),
+    # }
+    # return render(request, 'products_list.html', context)
+    products = GasProduct.objects.filter(rubric=rubric_id)
     gas = Gas.objects.all()
+    current_rubric = Gas.objects.get(pk=rubric_id)
     context = {
-        # 'products':products,
-        # 'gas':gas,
-        # 'current_rubric':current_rubric,
         'products': products,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
-        'electro': Electro.objects.all(),
-        'santeh': Santeh.objects.all(),
-        'gas': Gas.objects.all(),
+        'gas': gas,
+        'current_rubric': current_rubric
     }
     return render(request, 'products_list.html', context)
 
+
 def get_rubric_electro(request, rubric_id):
     '''Выводит страницу оттдельного подраздела'''
-    # products = ElectroProduct.objects.filter(rubric=rubric_id)
+    # current_rubric = get_object_or_404(Electro, pk=rubric_id)
+    # products = ElectroProduct.objects.filter(rubric=current_rubric)
     # electro = Electro.objects.all()
-    # current_rubric = Electro.objects.get(pk=rubric_id)
-    current_rubric = get_object_or_404(Electro, pk=rubric_id)
-    products = ElectroProduct.objects.filter(rubric=current_rubric)
+    # context = {
+    #     # 'products':products,
+    #     # 'electro':electro,
+    #     # 'current_rubric':current_rubric,
+    #     'products': products,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
+    #     'electro': Electro.objects.all(),
+    #     'santeh': Santeh.objects.all(),
+    #     'gas': Gas.objects.all(),
+    # }
+    # return render(request, 'products_list.html', context)
+    products = ElectroProduct.objects.filter(rubric=rubric_id)
     electro = Electro.objects.all()
+    current_rubric = Electro.objects.get(pk=rubric_id)
     context = {
-        # 'products':products,
-        # 'electro':electro,
-        # 'current_rubric':current_rubric,
         'products': products,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
-        'electro': Electro.objects.all(),
-        'santeh': Santeh.objects.all(),
-        'gas': Gas.objects.all(),
+        'electro': electro,
+        'current_rubric': current_rubric
     }
     return render(request, 'products_list.html', context)
 
 def get_rubric_santeh(request, rubric_id):
     '''Выводит страницу оттдельного подраздела'''
-    # products = SantehProduct.objects.filter(rubric=rubric_id)
+    # current_rubric = get_object_or_404(Santeh, pk=rubric_id)
+    # products = SantehProduct.objects.filter(rubric=current_rubric)
     # santeh = Santeh.objects.all()
-    # current_rubric = Santeh.objects.get(pk=rubric_id)
-    current_rubric = get_object_or_404(Santeh, pk=rubric_id)
-    products = SantehProduct.objects.filter(rubric=current_rubric)
+    # context = {
+    #     # 'products':products,
+    #     # 'santeh':santeh,
+    #     # 'current_rubric':current_rubric,
+    #     'products': products,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
+    #     'electro': Electro.objects.all(),
+    #     'santeh': Santeh.objects.all(),
+    #     'gas': Gas.objects.all(),
+    # }
+    # return render(request, 'products_list.html', context)
+    products = SantehProduct.objects.filter(rubric=rubric_id)
     santeh = Santeh.objects.all()
+    current_rubric = Santeh.objects.get(pk=rubric_id)
     context = {
-        # 'products':products,
-        # 'santeh':santeh,
-        # 'current_rubric':current_rubric,
         'products': products,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),  # для бокового меню
-        'electro': Electro.objects.all(),
-        'santeh': Santeh.objects.all(),
-        'gas': Gas.objects.all(),
+        'santeh': santeh,
+        'current_rubric': current_rubric
     }
     return render(request, 'products_list.html', context)
 
-
 def get_product_gas(request, rubric_id, gasproduct_id):
-    product = get_object_or_404(GasProduct, pk=gasproduct_id)
-    current_rubric = product.rubric
-    # product = GasProduct.objects.get(pk=gasproduct_id)
-    context = {
-        'product': product,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
-        'electro': Electro.objects.all(),
-        'santeh': Santeh.objects.all(),
-        'gas': Gas.objects.all(),
-    }
+    # product = get_object_or_404(GasProduct, pk=gasproduct_id)
+    # current_rubric = product.rubric
+    # context = {
+    #     'product': product,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
+    #     'electro': Electro.objects.all(),
+    #     'santeh': Santeh.objects.all(),
+    #     'gas': Gas.objects.all(),
+    # }
+    # return render(request, 'product.html', context)
+    product = GasProduct.objects.get(pk=gasproduct_id)
+    context = {'product': product}
     return render(request, 'product.html', context)
 
 def get_product_electro(request, rubric_id, electroproduct_id):
-    product = get_object_or_404(ElectroProduct, pk=electroproduct_id)
-    current_rubric = product.rubric  # берем раздел товара
-    # product = ElectroProduct.objects.get(pk=electroproduct_id)
-    context = {
-        'product': product,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
-        'electro': Electro.objects.first(),
-        'santeh': Santeh.objects.first(),
-        'gas': Gas.objects.first(),
-    }
+    # product = get_object_or_404(ElectroProduct, pk=electroproduct_id)
+    # current_rubric = product.rubric  # берем раздел товара
+    # context = {
+    #     'product': product,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
+    #     'electro': Electro.objects.first(),
+    #     'santeh': Santeh.objects.first(),
+    #     'gas': Gas.objects.first(),
+    # }
+    # return render(request, 'product.html', context)
+    product = ElectroProduct.objects.get(pk=electroproduct_id)
+    context = {'product': product}
     return render(request, 'product.html', context)
 
 def get_product_santeh(request, rubric_id, santehproduct_id):
-    product = get_object_or_404(SantehProduct, pk=santehproduct_id)
-    current_rubric = product.rubric
-    # product = SantehProduct.objects.get(pk=santehproduct_id)
-    context = {
-        'product': product,
-        'current_rubric': current_rubric,
-        'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
-        'electro': Electro.objects.first(),
-        'santeh': Santeh.objects.first(),
-        'gas': Gas.objects.first(),
-    }
+    # product = get_object_or_404(SantehProduct, pk=santehproduct_id)
+    # current_rubric = product.rubric
+    # context = {
+    #     'product': product,
+    #     'current_rubric': current_rubric,
+    #     'rubrics': Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all(),
+    #     'electro': Electro.objects.first(),
+    #     'santeh': Santeh.objects.first(),
+    #     'gas': Gas.objects.first(),
+    # }
+    # return render(request, 'product.html', context)
+    product = SantehProduct.objects.get(pk=santehproduct_id)
+    context = {'product': product}
     return render(request, 'product.html', context)
-
-def custom_404(request, exception):
-    return render(request, '404.html', status=404)
+#
+# def custom_404(request, exception):
+#     return render(request, '404.html', status=404)

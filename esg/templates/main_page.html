@@ -23,28 +23,28 @@
     <div class="catalog-grid">
         {% for rubric in rubrics %}
         <h3>{{ rubric.rubric_name }}</h3>
-            {% for sub in rubric.electro_set.all %}
-                {% if sub.pk %}
-                <a href="{% url 'rubric_electro' sub.pk %}" class="catalog-card">
+            {% for rubric in rubric.electro_set.all %}
+                {% if rubric.pk %}
+                <a href="{% url 'rubric_electro' rubric.pk %}" class="catalog-card">
                     <i class="fas fa-lightbulb" ></i>
-                    <span>{{ sub.title }}</span>
+                    <span>{{ rubric.title }}</span>
                 </a>
                 {% endif %}
             {% endfor %}
-            {% for sub in rubric.santeh_set.all %}
-            {% if sub.pk %}
-            <a href="{% url 'rubric_santeh' sub.pk %}" class="catalog-card">
+            {% for rubric in rubric.santeh_set.all %}
+            {% if rubric.pk %}
+            <a href="{% url 'rubric_santeh' rubric.pk %}" class="catalog-card">
                 <i class="fas fa-tint" ></i>
-                <span>{{ sub.title }}</span>
+                <span>{{ rubric.title }}</span>
             </a>
             {% endif %}
             {% endfor %}
 
-            {% for sub in rubric.gas_set.all %}
-            {% if sub.pk %}
-            <a href="{% url 'rubric_gas' sub.pk %}" class="catalog-card">
+            {% for rubric in rubric.gas_set.all %}
+            {% if rubric.pk %}
+            <a href="{% url 'rubric_gas' rubric.pk %}" class="catalog-card">
                 <i class="fas fa-fire"></i>
-                <span>{{ sub.title }}</span>
+                <span>{{ rubric.title }}</span>
             </a>
             {% endif %}
             {% endfor %}
