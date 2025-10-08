@@ -25,7 +25,7 @@
 
         {% if rubric.rubric_name == "Электрика" %}
             {% for subrubric in rubric.electro_set.all %}
-            <a href="{% url 'rubric_electro' subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
                 <i class="fas fa-lightbulb" ></i>
                 <span>{{ subrubric.title }}</span>
             </a>
@@ -34,7 +34,7 @@
 
         {% if rubric.rubric_name == "Сантехника" %}
             {% for subrubric in rubric.santeh_set.all %}
-            <a href="{% url 'rubric_santeh' subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
                 <i class="fas fa-tint" ></i>
                 <span>{{ subrubric.title }}</span>
             </a>
@@ -43,7 +43,7 @@
 
         {% if rubric.rubric_name == "Газовое оборудование" %}
             {% for subrubric in rubric.gas_set.all %}
-            <a href="{% url 'rubric_gas' subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products'  rubric.pk subrubric.pk %}" class="catalog-card">
                 <i class="fas fa-fire"></i>
                 <span>{{ subrubric.title }}</span>
             </a>

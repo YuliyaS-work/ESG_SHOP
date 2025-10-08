@@ -24,6 +24,7 @@
         <a href="{% url 'main' %}"><img src="{% static 'image/electro.png' %}" alt="СпецЭлектроБелТорг"></a>
         </div>
     </header>
+
     <nav class="sidebar">
         <ul class="catalog-list">
             {% for rubric in rubrics %}
@@ -37,13 +38,13 @@
 <!--                    <strong>{{ rubric.rubric_name }}</strong>-->
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all %}
-                            <li> <a href="{% url 'rubric_electro' sub.pk %}"> {{ sub.title }}</a></li>
+                            <li> <a href="{% url 'products' sub.rubric.pk sub.pk  %}"> {{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.gas_set.all %}
-                            <li><a href="{% url 'rubric_gas' sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.santeh_set.all %}
-                            <li><a href="{% url 'rubric_santeh' sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -55,13 +56,17 @@
         <div class="button_container">
             {% for rubric in rubrics %}
             {% if rubric.rubric_name == "Электрика" %}
-            <a href="{% url 'rubric_electro' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
-            {% elif rubric.rubric_name == "Сантехника" %}
-            <a href="{% url 'rubric_santeh' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
-            {% elif rubric.rubric_name == "Газовое оборудование" %}
-            <a href="{% url 'rubric_gas' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            {% endif %}
+            {% if rubric.rubric_name == "Сантехника" %}
+            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
+            {% endif %}
+            {% if rubric.rubric_name == "Газовое оборудование" %}
+            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>
             {% endif %}
             {% endfor %}
+
+
         </div>
        {% block content %}
 
@@ -77,28 +82,6 @@
         <p>© 2025 СпецЭлектроБелТорг</p>
     </footer>
 </div>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const btn = document.getElementById('menu-toggle');
-  const overlay = document.getElementById('overlay');
-
-  if (btn) {
-    btn.addEventListener('click', () => {
-      document.body.classList.toggle('sidebar-open');
-    });
-  }
-
-  if (overlay) {
-    overlay.addEventListener('click', () => {
-      document.body.classList.remove('sidebar-open');
-    });
-  }
-
-  // закрываем по Esc
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') document.body.classList.remove('sidebar-open');
-  });
-});
-</script>
+<script src="{% static 'js.menu.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,20 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}Список подразделов{% endblock %}
+{% block content %}
+<div>
+    <b>{{ rubric}}</b><br>
+    {% for subrubric in subrubrics %}
+        {% if subrubric.rubric.rubric_name == 'Газовое оборудование' %}
+            <a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a><br>
+        {% endif %}
+        {% if subrubric.rubric.rubric_name == 'Электрика' %}
+            <a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a><br>
+        {% endif %}
+        {% if subrubric.rubric.rubric_name == 'Сантехника' %}
+            <a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a><br>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}
