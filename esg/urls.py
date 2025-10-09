@@ -10,4 +10,4 @@ urlpatterns = [
     path('catalog/<int:rubric_id>/<int:subrubric_id>/<int:product_id>', get_product, name='product'),
 
 ]
-handler404 = 'esg.views.custom_404'
+# handler404 = 'esg.views.custom_404'
