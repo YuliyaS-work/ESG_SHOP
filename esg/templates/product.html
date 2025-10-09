@@ -1,32 +1,37 @@
 {% extends 'basic.html' %}
 {% load static %}
 
-{% block title %}{{ product.title }}{% endblock %}
+{% block title %}Товары{% endblock %}
 {% block content %}
-<div style="max-width: 800px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+<main class="main-content">
+<div class="product-card-single">
 
     <h2>{{ product.title }}</h2>
-
     {% if product.photo %}
-        <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width: 100%; height: auto; margin-bottom: 20px;">
+        <div class="product-image-container">
+            <img src="{{ product.photo.url }}" class="product-img" alt="{{ product.title }}">
+        </div>
+    {% else %}
+        <div class="product-image-container">
+            <p>Нет изображения</p>
+        </div>
     {% endif %}
 
-    {% if product.description %}
-        <p><b>Описание:</b> {{ product.description }}</p>
+    {% if product %}
+        <p><b>Описание:</b> {{ product.description|default:"Нет описания" }}</p>
+        <p><b>Цена:</b>
+            {% if product.price %}
+                {{ product.price|floatformat:2|stringformat:"d"}} руб.
+            {% else %}
+                по запросу
+           {% endif %}
+       </p>
+        <p><b>Код товара:</b> {{product.code}}</p>
     {% endif %}
-
-    {% if product.price %}
-        <p><b>Цена:</b> {{ product.price }} руб.</p>
-    {% endif %}
-
-    {% if product.code %}
-        <p><b>Код товара:</b> {{ product.code }}</p>
-    {% endif %}
-
-    <p><b>Раздел:</b> {{ product.rubric.title }}</p>
 
     <a href="{% url 'subrubrics' product.rubric.rubric.pk %}" style="display: inline-block; margin-top: 15px; padding: 8px 12px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">
-        Вернуться к подразделу
+        Вернуться: <br>{{ product.rubric.title }}
     </a>
 </div>
+</main>
 {% endblock %}
