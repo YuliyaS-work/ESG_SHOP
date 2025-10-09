@@ -15,7 +15,7 @@
             <a href="{% url 'product_gas'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
             {{ product.price }} BYN<br>
-            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            <button type="submit" data-id="{{product.pk}}"  data-title="{{ product.title }}" class="basket">Купить</button><br>
             </div>
         {% endfor %}
     {% endif %}
@@ -26,7 +26,7 @@
             <a href="{% url 'product_electro'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
             {{ product.price }} BYN<br>
-            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            <button type="submit" data-id="{{product.pk}}" data-title="{{ product.title }}" class="basket">Купить</button><br>
             </div>
         {% endfor %}
     {% endif %}
@@ -37,7 +37,7 @@
             <a href="{% url 'product_santeh'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
             {{ product.price }} BYN<br>
-            <button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+            <button type="submit" data-id="{{product.pk}}" data-title="{{ product.title }}" class="basket">Купить</button><br>
             </div>
         {% endfor %}
     {% endif %}

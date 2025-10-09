@@ -10,7 +10,7 @@
 {{ product.title }}<br>
 {{ product.description }}<br>
 {{ product.price }} BYN<br>
-<button type="submit" data-id="{{product.pk}}" class="basket">Купить</button><br>
+<button type="submit" data-id="{{ product.pk }}" data-title="{{ product.title }}" class="basket">Купить</button><br>
 </div>
 <script src="{% static 'js/set_basket.js' %}" defer></script>
 </body>

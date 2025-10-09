@@ -1,3 +1,5 @@
+// Для Тани 31, 34, 43, 49 указаны классы для css чтобы кнопка меняла цвет
+
 function getBasketFromCookies() {
   try {
     const cookie = document.cookie
@@ -23,18 +25,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const productId = button.dataset.id;
     const productTitle = button.dataset.title;
 
+    // Устанавливаем начальное состояние кнопки
     if (basket[productId]) {
-      button.disabled = true;
-      button.textContent = 'Уже в корзине';
+      button.textContent = 'Удалить из корзины';
+//      button.classList.add('in-basket');
+    } else {
+      button.textContent = 'Купить';
+//      button.classList.remove('in-basket');
     }
 
     button.addEventListener('click', () => {
-      if (!basket[productId]) {
+      if (basket[productId]) {
+        // Удаление из корзины
+        delete basket[productId];
+        saveBasketToCookies(basket);
+        button.textContent = 'Купить';
+//        button.classList.remove('in-basket');
+      } else {
+        // Добавление в корзину
         basket[productId] = { name: productTitle };
         saveBasketToCookies(basket);
-        button.disabled = true;
-        button.textContent = 'Уже в корзине';
+        button.textContent = 'Удалить из корзины';
+//        button.classList.add('in-basket');
       }
     });
   });
-});
+ })
