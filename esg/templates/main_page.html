@@ -22,34 +22,31 @@
 <h2 style="text-align:center; margin-bottom:20px;"><a href="{% url 'catalog' %}">Каталог</a></h2>
     <div class="catalog-grid">
         {% for rubric in rubrics %}
-        <h3>{{ rubric.rubric_name }}</h3>
-            {% for rubric in rubric.electro_set.all %}
-                {% if rubric.pk %}
-                <a href="{% url 'rubric_electro' rubric.pk %}" class="catalog-card">
-                    <i class="fas fa-lightbulb" ></i>
-                    <span>{{ rubric.title }}</span>
-                </a>
-                {% endif %}
-            {% endfor %}
-            {% for rubric in rubric.santeh_set.all %}
-            {% if rubric.pk %}
-            <a href="{% url 'rubric_santeh' rubric.pk %}" class="catalog-card">
-                <i class="fas fa-tint" ></i>
-                <span>{{ rubric.title }}</span>
+
+        {% if rubric.rubric_name == "Электрика" %}
+            {% for subrubric in rubric.electro_set.all %}
+            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
+                <i class="fas fa-lightbulb" ></i>
+                <span>{{ subrubric.title }}</span>
             </a>
-            {% endif %}
             {% endfor %}
         {% endif %}
 
-
-            {% for rubric in rubric.gas_set.all %}
-            {% if rubric.pk %}
-            <a href="{% url 'rubric_gas' rubric.pk %}" class="catalog-card">
-                <i class="fas fa-fire"></i>
-                <span>{{ rubric.title }}</span>
-
+        {% if rubric.rubric_name == "Сантехника" %}
+            {% for subrubric in rubric.santeh_set.all %}
+            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
+                <i class="fas fa-tint" ></i>
+                <span>{{ subrubric.title }}</span>
             </a>
-            {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if rubric.rubric_name == "Газовое оборудование" %}
+            {% for subrubric in rubric.gas_set.all %}
+            <a href="{% url 'products'  rubric.pk subrubric.pk %}" class="catalog-card">
+                <i class="fas fa-fire"></i>
+                <span>{{ subrubric.title }}</span>
+            </a>
             {% endfor %}
         {% endif %}
         {% endfor %}
