@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Главная{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="top-links">
+        <a href="{% url 'main' %}">Главная</a>
+        <a href="{% url 'catalog' %}">Каталог</a>
+        <a href="{% url 'payments' %}">Оплата и доставка</a>
+        <a href="{% url 'reviews' %}">Отзывы</a>
+        <a href="{% url 'contacts' %}" >Контакты</a>
+        <a href="{% url 'partners' %}">Наши партнеры</a>
+        </div>
+
+        <div class="main-header">
+        <a href="{% url 'main' %}"><img src="{% static 'image/electro.png' %}" alt="СпецЭлектроБелТорг"></a>
+
+            <!-- Контакты и корзина справа -->
+        <div class="header-right">
+            <div class="contact-info">
+            <p><i class="fa-solid fa-phone"></i> +375 17 742-71-27</p>
+            <p><i class="fa-solid fa-mobile-screen-button"></i> +375 29 867-72-95</p>
+        </div>
+
+    <div class="cart-icon">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </div>
+  </div>
+
+        </div>
+    </header>
+
+    <nav class="sidebar">
+        <ul class="catalog-list">
+            {% for rubric in rubrics %}
+                <li>
+                    <a href="{% url 'subrubrics' rubric.pk %}">
+          <!-- Иконка категории -->
+<i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-house-fire{% else %}fas fa-folder{% endif %}"></i>
+          <span class="text">{{ rubric.rubric_name }}</span>
+        </a>
+<!--                    <button class="toggle-btn">{{ rubric.rubric_name }}</button>-->
+<!--                    <strong>{{ rubric.rubric_name }}</strong>-->
+                    <ul class="subcategory">
+                        {% for sub in rubric.electro_set.all %}
+                            <li> <a href="{% url 'products' sub.rubric.pk sub.pk  %}"> {{ sub.title }}</a></li>
+                        {% endfor %}
+                        {% for sub in rubric.gas_set.all %}
+                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
+                        {% endfor %}
+                        {% for sub in rubric.santeh_set.all %}
+                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+   <main class="main-content">
+<!--        <div class="button_container">-->
+<!--            {% for rubric in rubrics %}-->
+<!--            {% if rubric.rubric_name == "Электрика" %}-->
+<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
+<!--            {% endif %}-->
+<!--            {% if rubric.rubric_name == "Сантехника" %}-->
+<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
+<!--            {% endif %}-->
+<!--            {% if rubric.rubric_name == "Газовое оборудование" %}-->
+<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
+<!--            {% endif %}-->
+<!--            {% endfor %}-->
+
+
+<!--        </div>-->
+    <div class="button_container">
+  {% for rubric in rubrics %}
+    {% if rubric.rubric_name == "Электрика" %}
+      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
+        <i class="fas fa-bolt"></i>
+        <span>{{ rubric.rubric_name }}</span>
+      </a>
+    {% elif rubric.rubric_name == "Сантехника" %}
+      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
+        <i class="fas fa-faucet"></i>
+        <span>{{ rubric.rubric_name }}</span>
+      </a>
+    {% elif rubric.rubric_name == "Газовое оборудование" %}
+      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
+        <i class="fas fa-fire"></i>
+        <span>{{ rubric.rubric_name }}</span>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+       {% block content %}
+
+        {% endblock %}
+    </main>
+    <footer class="footer">
+        <p>© 2025 СпецЭлектроБелТорг</p>
+    </footer>
+</div>
+<script src="{% static 'js.menu.js' %}"></script>
+</body>
+</html>

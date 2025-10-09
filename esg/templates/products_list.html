@@ -1,18 +1,16 @@
-<!DOCTYPE html>
+{% extends 'basic.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<div>
-<h2>{{ current_rubric }}</h2>
 
-    {% if current_rubric.rubric.rubric_name == "Газовое оборудование" %}
+{% block title %}Список товаров{% endblock %}
+{% block content %}
+<main class="main-content">
+    <h2> <a href="{% url 'subrubrics' current_subrubric.rubric.pk %}">{{ current_subrubric }}</a></h2>
+    {% if current_subrubric.rubric.rubric_name == "Газовое оборудование" %}
         {% for product in products %}
-            <div>
-            <a href="{% url 'product_gas'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">
+            {% endif %}
+            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
             {{ product.price }} BYN<br>
             <button type="submit" data-id="{{product.pk}}"  data-title="{{ product.title }}" class="basket">Купить</button><br>
@@ -20,10 +18,12 @@
         {% endfor %}
     {% endif %}
 
-    {% if current_rubric.rubric.rubric_name == "Электрика" %}
+    {% if current_subrubric.rubric.rubric_name == "Электрика" %}
         {% for product in products %}
-            <div>
-            <a href="{% url 'product_electro'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">
+            {% endif %}
+            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
             {{ product.price }} BYN<br>
             <button type="submit" data-id="{{product.pk}}" data-title="{{ product.title }}" class="basket">Купить</button><br>
@@ -31,17 +31,15 @@
         {% endfor %}
     {% endif %}
 
-    {% if current_rubric.rubric.rubric_name == "Сантехника" %}
+    {% if current_subrubric.rubric.rubric_name == "Сантехника" %}
         {% for product in products %}
-            <div>
-            <a href="{% url 'product_santeh'  current_rubric.pk product.pk %}">{{ product.title }}</a><br>
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">
+            {% endif %}
+            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br>
-            <button type="submit" data-id="{{product.pk}}" data-title="{{ product.title }}" class="basket">Купить</button><br>
-            </div>
+            {{ product.price }} BYN<br><br>
         {% endfor %}
     {% endif %}
-  </div>
-<script src="{% static 'js/set_basket.js' %}" defer></script>
-</body>
-</html>
+</main>
+{% endblock %}
