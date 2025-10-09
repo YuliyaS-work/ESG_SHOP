@@ -86,3 +86,24 @@ def get_product(request, rubric_id, subrubric_id, product_id):
 
     context = {'product':product}
     return render(request, 'product.html', context)
+
+
+def get_contact(request):
+    rubrics = Rubric.objects.all()
+    context = {'rubrics': rubrics}
+    return render(request, 'contact.html', context)
+
+def get_payments(request):
+    rubrics = Rubric.objects.all()
+    context = {'rubrics': rubrics}
+    return render(request, 'payments.html', context)
+
+def get_reviews(request):
+    rubrics = Rubric.objects.all()
+    context = {'rubrics': rubrics}
+    return render(request, 'reviews.html', context)
+
+def get_partners(request):
+    rubrics = Rubric.objects.all()
+    context = {'rubrics': rubrics}
+    return render(request, 'partners.html', context)
