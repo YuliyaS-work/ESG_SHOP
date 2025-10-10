@@ -33,7 +33,7 @@ def get_catalog(request):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     # electro_subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
     # gas_subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
-    # santeh_subrubrics = Santex.objects.prefetch_related('santehproduct_set').all()
+    # santeh_subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all() #опечатка
 
     context = {
         'rubrics': rubrics,
@@ -52,7 +52,10 @@ def get_subrubrics(request, rubric_id):
     elif rubric.rubric_name == 'Сантехника':
         subrubrics = Santeh.objects.all()
 
-    context = {'subrubrics': subrubrics, 'rubric': rubric}
+    # Получаем все рубрики для сайдбара
+    rubrics = Rubric.objects.all()
+
+    context = {'subrubrics': subrubrics, 'rubric': rubric, 'rubrics': rubrics}
     return render(request, 'subrubrics_list.html', context)
 
 
@@ -71,9 +74,13 @@ def get_products(request, rubric_id, subrubric_id):
         products = SantehProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Santeh.objects.get(pk=subrubric_id)
 
+    # Получаем все рубрики для сайдбара
+    rubrics = Rubric.objects.all()
+
     context = {
         'products':products,
-        'current_subrubric':current_subrubric
+        'current_subrubric':current_subrubric,
+        'rubrics': rubrics
     }
     return render(request, 'products_list.html', context)
 
@@ -89,7 +96,10 @@ def get_product(request, rubric_id, subrubric_id, product_id):
     elif rubric.rubric_name == 'Электрика':
         product = ElectroProduct.objects.get(pk=product_id)
 
-    context = {'product':product}
+    # Получаем все рубрики для сайдбара
+    rubrics = Rubric.objects.all()
+
+    context = {'product':product, 'rubrics': rubrics}
     return render(request, 'product.html', context)
 
 
