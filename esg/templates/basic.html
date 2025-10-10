@@ -16,35 +16,33 @@
         <a href="{% url 'catalog' %}">Каталог</a>
         <a href="{% url 'payments' %}">Оплата и доставка</a>
         <a href="{% url 'reviews' %}">Отзывы</a>
+        <a href="{% url 'partners' %}">Наши партнёры</a>
         <a href="{% url 'contacts' %}" >Контакты</a>
-        <a href="{% url 'partners' %}">Наши партнеры</a>
         </div>
 
         <div class="main-header">
         <a href="{% url 'main' %}"><img src="{% static 'image/electro.png' %}" alt="СпецЭлектроБелТорг"></a>
+            <div class="header-right">
+                <div class="contact-info-wrapper">
+                <div class="contact-info">
+                <p><i class="fa-solid fa-phone"></i>
+                <a href="tel:+375177427127" class="phone-link">+375 17 742-71-27</a></p>
+                <p><i class="fa-solid fa-mobile-screen-button"></i>
+                <a href="tel:+375298677295" class="phone-link">+375 29 867-72-95</a></p>
+                </div>
+                </div>
+            </div>
 
-            <!-- Контакты и корзина справа -->
-        <div class="header-right">
-            <div class="contact-info">
-            <p><i class="fa-solid fa-phone"></i> +375 17 742-71-27</p>
-            <p><i class="fa-solid fa-mobile-screen-button"></i> +375 29 867-72-95</p>
-        </div>
-
-    <div class="cart-icon">
-      <i class="fa-solid fa-cart-shopping"></i>
-    </div>
-  </div>
-
+            <div class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></div>
         </div>
     </header>
 
     <nav class="sidebar">
         <ul class="catalog-list">
             {% for rubric in rubrics %}
-                <li>
-                    <a href="{% url 'subrubrics' rubric.pk %}">
+                <li><a href="{% url 'subrubrics' rubric.pk %}">
           <!-- Иконка категории -->
-<i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-house-fire{% else %}fas fa-folder{% endif %}"></i>
+                    <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-house-fire{% else %}fas fa-folder{% endif %}"></i>
           <span class="text">{{ rubric.rubric_name }}</span>
         </a>
 <!--                    <button class="toggle-btn">{{ rubric.rubric_name }}</button>-->
@@ -66,21 +64,6 @@
     </nav>
 
    <main class="main-content">
-<!--        <div class="button_container">-->
-<!--            {% for rubric in rubrics %}-->
-<!--            {% if rubric.rubric_name == "Электрика" %}-->
-<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
-<!--            {% endif %}-->
-<!--            {% if rubric.rubric_name == "Сантехника" %}-->
-<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
-<!--            {% endif %}-->
-<!--            {% if rubric.rubric_name == "Газовое оборудование" %}-->
-<!--            <a href="{% url 'subrubrics' rubric.pk %}" class="button-link">{{ rubric.rubric_name }}</a>-->
-<!--            {% endif %}-->
-<!--            {% endfor %}-->
-
-
-<!--        </div>-->
     <div class="button_container">
   {% for rubric in rubrics %}
     {% if rubric.rubric_name == "Электрика" %}
@@ -105,10 +88,18 @@
 
         {% endblock %}
     </main>
+
+
+
+
     <footer class="footer">
+        <h4>Частное предприятие «СпецЭлектроБелТорг» — магазин «Электротовары»</h4>
+        <h4> тел +375 17 742-71-27, +375 29 867-72-95</h4>
+        <h4> УНП 690846458 </h4>
         <p>© 2025 СпецЭлектроБелТорг</p>
     </footer>
 </div>
-<script src="{% static 'js.menu.js' %}"></script>
+<script src="{% static 'js/menu.js' %}"></script>
+<script src="{% static 'js/reviews.js' %}"></script>
 </body>
 </html>
