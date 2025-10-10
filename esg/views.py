@@ -107,3 +107,7 @@ def get_partners(request):
     rubrics = Rubric.objects.all()
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
+
+
+def get_basket(request):
+    return render(request, 'basket.html')

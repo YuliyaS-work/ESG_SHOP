@@ -1,15 +1,12 @@
-<!DOCTYPE html>
+{% extends 'basic.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Корзина
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<!--нужен для js-->
 <div id="basket"></div>
 
 <button type="submit">Оформить</button>
 <script src="{% static 'js/basket.js'%} " defer></script>
-</body>
-</html>
+{% endblock %}
