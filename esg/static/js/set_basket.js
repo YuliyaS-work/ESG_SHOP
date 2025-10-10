@@ -22,11 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   let basket = getBasketFromCookies();
 
   buttons.forEach(button => {
-    const productId = button.dataset.id;
     const productTitle = button.dataset.title;
 
     // Устанавливаем начальное состояние кнопки
-    if (basket[productId]) {
+    if (basket[productTitle]) {
       button.textContent = 'Удалить из корзины';
 //      button.classList.add('in-basket');
     } else {
@@ -35,15 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     button.addEventListener('click', () => {
-      if (basket[productId]) {
+      if (basket[productTitle]) {
         // Удаление из корзины
-        delete basket[productId];
+        delete basket[productTitle];
         saveBasketToCookies(basket);
         button.textContent = 'Купить';
 //        button.classList.remove('in-basket');
       } else {
         // Добавление в корзину
-        basket[productId] = { name: productTitle };
+        basket[productTitle] = 1;
         saveBasketToCookies(basket);
         button.textContent = 'Удалить из корзины';
 //        button.classList.add('in-basket');

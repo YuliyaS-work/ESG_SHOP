@@ -1,6 +1,11 @@
+from django.db.migrations import serializer
 from django.shortcuts import render
+from rest_framework import generics
 
-from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct
+from .forms import OrderForm
+from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order
+from .serializers import OrderSerializer
+
 
 def get_basic(request):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -110,4 +115,14 @@ def get_partners(request):
 
 
 def get_basket(request):
-    return render(request, 'basket.html')
+    form = OrderForm()
+    context = {'form':form}
+    return render(request, 'basket.html', context)
+
+
+class OrderAPICreate(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+

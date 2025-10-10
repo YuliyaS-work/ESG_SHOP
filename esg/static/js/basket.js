@@ -1,93 +1,63 @@
-//const sliderItemBasketBtn = document.querySelectorAll('.slider__item-basket');
-//const headerBottomBasketCount = document.querySelector('.header__bottom-basket > p')
-//
-//
-//
-//let count = 0;
-//headerBottomBasketCount.textContent = count
-//
-//sliderItemBasketBtn.forEach(item => {
-//    item.addEventListener('click', () => {
-//        count++
-//        headerBottomBasketCount.textContent = count
-//    })
-//})
-
-function getBasketFromCookies() {
-  try {
-    const cookie = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('basket='));
-    const parsed = cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : {};
-    return typeof parsed === 'object' && parsed !== null ? parsed : {};
-  } catch (e) {
-    console.warn('Ошибка чтения куки basket:', e);
-    return {};
-  }
-}
-
-function saveBasketToCookies(basket) {
-  document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=2592000';
-}
 
 document.addEventListener('DOMContentLoaded', () => {
   const basketContainer = document.getElementById('basket');
-  let rawBasket = getBasketFromCookies();
-  let basket = {};
-
-  Object.entries(rawBasket).forEach(([id, item]) => {
-    if (item && typeof item.name === 'string') {
-      basket[id] = {
-        name: item.name,
-        quantity: 1
-      };
-    }
-  });
+  const form = document.getElementById('order-form');
+  const overlay = document.getElementById('overlay');
+  let basket = getBasketFromCookies();
 
   function renderBasket() {
     basketContainer.innerHTML = '';
-    Object.entries(basket).forEach(([id, item]) => {
+
+    const titles = Object.keys(basket);
+    if (titles.length === 0) {
+      basketContainer.innerHTML = '<p>Корзина пуста.</p>';
+      return;
+    }
+//
+    Object.entries(basket).forEach(([title, quantity]) => {
       const div = document.createElement('div');
       div.className = 'basket-item';
       div.innerHTML = `
-        <span>${item.name}</span>
+        <span>${title}</span>
         <button class="decrease">−</button>
-        <span class="quantity">${item.quantity}</span>
+        <span class="quantity">${quantity}</span>
         <button class="increase">+</button>
         <button class="remove">🗑️</button>
       `;
 
       div.querySelector('.increase').onclick = () => {
-        item.quantity++;
+        basket[title]++;
+        saveBasketToCookies(basket);
         renderBasket();
       };
 
       div.querySelector('.decrease').onclick = () => {
-        item.quantity--;
-        if (item.quantity <= 0) {
-          delete basket[id];
+        basket[title]--;
+        if (basket[title] <= 0) {
+          delete basket[title];
         }
-        updateCookies();
+        saveBasketToCookies(basket);
         renderBasket();
       };
 
       div.querySelector('.remove').onclick = () => {
-        delete basket[id];
-        updateCookies();
+        delete basket[title];
+        saveBasketToCookies(basket);
         renderBasket();
       };
 
       basketContainer.appendChild(div);
     });
-  }
 
-  function updateCookies() {
-    const updatedBasket = {};
-    Object.entries(basket).forEach(([id, item]) => {
-      updatedBasket[id] = { name: item.name };
-    });
-    saveBasketToCookies(updatedBasket);
+    const orderButton = document.createElement('button');
+    orderButton.textContent = 'Оформить заказ';
+    orderButton.onclick = () => {
+      form.style.display = 'block';
+      overlay.style.display = 'block';
+    };
+    basketContainer.appendChild(orderButton);
   }
 
   renderBasket();
 });
+

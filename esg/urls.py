@@ -1,5 +1,6 @@
 from django.urls import path
 
+from .views import OrderAPICreate
 from .views import *
 
 urlpatterns = [
@@ -13,5 +14,9 @@ urlpatterns = [
     path('reviews/', get_reviews, name='reviews'),
     path('partners/', get_partners, name='partners'),
 
-    path('basket/', get_basket, name='basket')
+    path('basket/', get_basket, name='basket'),
+
+
+    path('basket/api/order/', OrderAPICreate.as_view(), name='order_api_create'),
+
 ]
