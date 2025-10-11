@@ -46,7 +46,7 @@ class OrderAdmin(admin.ModelAdmin):
         'get_electroproducts',
         'get_santehproducts'
     )
-    ordering = ('date',)
+    ordering = ('-date',)
     search_fields = ('last_name', 'date', 'phone', 'status')
 
     def get_gasproducts(self, obj):
