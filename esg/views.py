@@ -126,7 +126,8 @@ def get_partners(request):
 
 def get_basket(request):
     form = OrderForm()
-    context = {'form':form}
+    rubrics = Rubric.objects.all()
+    context = {'form':form, 'rubrics': rubrics }
     return render(request, 'basket.html', context)
 
 
