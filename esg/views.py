@@ -1,6 +1,14 @@
-from django.shortcuts import render
+import json
+import urllib
 
-from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct
+from django.db.migrations import serializer
+from django.shortcuts import render
+from rest_framework import generics
+
+from .forms import OrderForm
+from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order
+from .serializers import OrderSerializer
+from .signals import get_cookies
 
 def get_basic(request):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -97,6 +105,7 @@ def get_product(request, rubric_id, subrubric_id, product_id):
     context = {'product':product, 'rubrics': rubrics}
     return render(request, 'product.html', context)
 
+
 def get_contact(request):
     rubrics = Rubric.objects.all()
     context = {'rubrics': rubrics}
@@ -116,3 +125,24 @@ def get_partners(request):
     rubrics = Rubric.objects.all()
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
+
+
+def get_basket(request):
+    form = OrderForm()
+    context = {'form':form}
+    return render(request, 'basket.html', context)
+
+
+class OrderAPICreate(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+    def perform_create(self, serializer):
+        raw_cookies = self.request.COOKIES.get('basket')
+        decoded_cookies = urllib.parse.unquote(raw_cookies)
+        basket_cookies = json.loads(decoded_cookies)
+        order = serializer.save()
+        get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
+
+
+

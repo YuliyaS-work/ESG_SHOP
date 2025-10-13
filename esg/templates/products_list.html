@@ -12,7 +12,8 @@
             {% endif %}
             <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>
         {% endfor %}
     {% endif %}
 
@@ -23,7 +24,8 @@
             {% endif %}
             <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>
         {% endfor %}
     {% endif %}
 
@@ -34,8 +36,12 @@
             {% endif %}
             <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>
             {{ product.description }}<br>
-            {{ product.price }} BYN<br><br>
+            {{ product.price }} BYN<br>
+            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>
         {% endfor %}
     {% endif %}
 </main>
+
+<script src="{% static 'js/set_basket.js' %}" defer></script>
+
 {% endblock %}

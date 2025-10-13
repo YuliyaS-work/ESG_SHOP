@@ -148,9 +148,16 @@ body {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 30px; /* расстояние между телефонами и корзиной */
+  justify-content: flex-end; /* прижимаем весь блок к правому краю */
+  width: 100%; /* обязательно, чтобы flex-end работал */
 }
-
+/* Обертка для контактов */
+.contact-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0; /* предотвращаем сжатие */
+}
 /* Контакты — вертикально */
 .contact-info {
   display: flex;
@@ -158,19 +165,36 @@ body {
   align-items: flex-end; /* выравнивание текста по правому краю */
   line-height: 1.4;
 }
-
+/* Отдельные контакты */
 .contact-info p {
   margin: 0;
   font-size: 14px;
   color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* расстояние между текстом и иконкой */
 }
 
+/* Телефонные ссылки */
+.phone-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+.phone-link:hover {
+  color: #e53935;
+}
+
+/* Иконки контактов */
 .contact-info i {
-  color: #333;
-  margin-right: 5px;
+  margin-left: 5px; /* иконка справа от текста */
 }
 
 /* Корзина */
+.cart-icon {
+  margin-left: 50px; /* увеличиваем расстояние от контактов */
+}
 .cart-icon i {
   font-size: 22px;
   color: #333;
@@ -378,4 +402,137 @@ font-size: 28px;
 
 .button_link:hover i {
   color: #fff; /* иконка тоже белая при hover */
+}
+/* иконка в контактах */
+.contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* расстояние между строками */
+}
+
+.contact {
+  display: inline-flex; /* иконка + текст в одной линии */
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Иконки */
+.contact-icon {
+  width: 26px;  /* увеличен размер иконки */
+  height: 26px;
+  fill: #555555;
+  transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+/* Анимация при наведении на ссылки */
+a.contact:hover .contact-icon {
+  transform: scale(1.15);
+  fill: #e53935; /* цвет при наведении */
+}
+.map-section {
+  background-color: #f9f9f9; /* светлый фон */
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px; /* мягкие края */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* фото в контактах */
+.photo-section {
+  margin: 40px 0;
+}
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;                 /* расстояние между фото */
+}
+.photo-grid img {
+  width: 100%;
+  height: 200px;             /* одинаковая высота для всех фото */
+  object-fit: cover;         /* обрезка по центру */
+ border-radius: 8px;        /* закругленные углы */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* тень */
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.photo-grid img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+.photo-section {
+  margin: 40px 0;
+}
+.photo-grid-collage {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 15px;
+}
+
+/* Отзывы */
+.reviews-container {
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.carousel {
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  padding: 20px;
+}
+
+#carousel-inner {
+  display: flex;
+  width: max-content;
+  transition: transform 0.2s linear;
+}
+
+.review {
+  flex: 0 0 280px; /* фиксированная ширина карточки */
+  margin-right: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-sizing: border-box;
+  background: #fafafa;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.review strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.review em {
+  font-size: 14px;
+  color: #666;
+}
+
+.review p {
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.review small a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.review small a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+  .review { flex: 0 0 45%; }
+}
+
+@media (max-width: 600px) {
+  .review { flex: 0 0 80%; }
 }
