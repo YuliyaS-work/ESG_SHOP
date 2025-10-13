@@ -1,3 +1,6 @@
+import json
+import urllib
+
 from django.db.migrations import serializer
 from django.shortcuts import render
 from rest_framework import generics
@@ -5,7 +8,7 @@ from rest_framework import generics
 from .forms import OrderForm
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order
 from .serializers import OrderSerializer
-
+from .signals import get_cookies
 
 def get_basic(request):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -134,6 +137,13 @@ def get_basket(request):
 class OrderAPICreate(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def perform_create(self, serializer):
+        raw_cookies = self.request.COOKIES.get('basket')
+        decoded_cookies = urllib.parse.unquote(raw_cookies)
+        basket_cookies = json.loads(decoded_cookies)
+        order = serializer.save()
+        get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
 
 
 
