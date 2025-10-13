@@ -21,11 +21,14 @@ def get_main_page(request):
     santeh = Santeh.objects.first()
     gas = Gas.objects.first()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    # Получаем 6 последних добавленных товаров
+    latest_products = ElectroProduct.objects.order_by('-id')[:5]
     context = {
         'electro': electro,
         'santeh': santeh,
         'gas': gas,
         'rubrics': rubrics,
+        'latest_products': latest_products,
     }
     return render(request, 'main_page.html', context)
 
@@ -33,11 +36,15 @@ def get_main_page(request):
 
 def get_catalog(request):
     '''Выводит разделы каталога и подразделы. '''
-    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    #rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     # electro_subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
     # gas_subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
     # santeh_subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all() #опечатка
-
+    rubrics = Rubric.objects.prefetch_related(
+        'electro_set__electroproduct_set',
+        'gas_set__gasproduct_set',
+        'santeh_set__santehproduct_set'
+    ).all()
     context = {
         'rubrics': rubrics,
     }
@@ -119,7 +126,7 @@ def get_payments(request):
 def get_reviews(request):
     rubrics = Rubric.objects.all()
     context = {'rubrics': rubrics}
-    return render(request, 'reviews.html', context)
+    return render(request, 'contact-form.html', context)
 
 def get_partners(request):
     rubrics = Rubric.objects.all()

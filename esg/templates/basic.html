@@ -15,7 +15,7 @@
         <a href="{% url 'main' %}">Главная</a>
         <a href="{% url 'catalog' %}">Каталог</a>
         <a href="{% url 'payments' %}">Оплата и доставка</a>
-        <a href="{% url 'reviews' %}">Отзывы</a>
+        <a href="{% url 'reviews' %}">Обратная связь</a>
         <a href="{% url 'partners' %}">Наши партнёры</a>
         <a href="{% url 'contacts' %}" >Контакты</a>
         </div>
@@ -43,13 +43,10 @@
                 <li><a href="{% url 'subrubrics' rubric.pk %}">
           <!-- Иконка категории -->
                     <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-house-fire{% else %}fas fa-folder{% endif %}"></i>
-          <span class="text">{{ rubric.rubric_name }}</span>
-        </a>
-<!--                    <button class="toggle-btn">{{ rubric.rubric_name }}</button>-->
-<!--                    <strong>{{ rubric.rubric_name }}</strong>-->
+                <div class="text">{{ rubric.rubric_name }}</div></a>
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all %}
-                            <li> <a href="{% url 'products' sub.rubric.pk sub.pk  %}"> {{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.pk sub.pk  %}"> {{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.gas_set.all %}
                             <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
@@ -64,26 +61,7 @@
     </nav>
 
    <main class="main-content">
-    <div class="button_container">
-  {% for rubric in rubrics %}
-    {% if rubric.rubric_name == "Электрика" %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
-        <i class="fas fa-bolt"></i>
-        <span>{{ rubric.rubric_name }}</span>
-      </a>
-    {% elif rubric.rubric_name == "Сантехника" %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
-        <i class="fas fa-faucet"></i>
-        <span>{{ rubric.rubric_name }}</span>
-      </a>
-    {% elif rubric.rubric_name == "Газовое оборудование" %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="button_link">
-        <i class="fas fa-fire"></i>
-        <span>{{ rubric.rubric_name }}</span>
-      </a>
-    {% endif %}
-  {% endfor %}
-</div>
+
        {% block content %}
 
         {% endblock %}

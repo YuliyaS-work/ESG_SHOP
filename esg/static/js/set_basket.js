@@ -27,10 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Устанавливаем начальное состояние кнопки
     if (basket[productTitle]) {
       button.textContent = 'Удалить из корзины';
-//      button.classList.add('in-basket');
+      button.classList.add('in-basket');
     } else {
       button.textContent = 'Купить';
-//      button.classList.remove('in-basket');
+      button.classList.remove('in-basket');
     }
 
     button.addEventListener('click', () => {
@@ -39,13 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
         delete basket[productTitle];
         saveBasketToCookies(basket);
         button.textContent = 'Купить';
-//        button.classList.remove('in-basket');
+        button.classList.remove('in-basket');
       } else {
         // Добавление в корзину
         basket[productTitle] = 1;
         saveBasketToCookies(basket);
         button.textContent = 'Удалить из корзины';
-//        button.classList.add('in-basket');
+        button.classList.add('in-basket');
       }
     });
   });

@@ -4,16 +4,98 @@
 {% block title %}Каталог{% endblock %}
 {% block content %}
 
-<div>
-    {% for rubric in rubrics %}
-        {% if rubric.rubric_name == "Электрика" %}
-            <a href="{% url 'subrubrics' rubric.pk %}"><b>{{ rubric.rubric_name }}</b></a>
-        {% elif rubric.rubric_name == "Газовое оборудование" %}
-            <a href="{% url 'subrubrics' rubric.pk %}"><b>{{ rubric.rubric_name }}</b></a>
-        {% elif rubric.rubric_name == "Сантехника" %}
-             <a href="{% url 'subrubrics' rubric.pk %}"><b>{{ rubric.rubric_name }}</b></a>
-        {% endif %}
-    {% endfor %}
-</div>
+<main class="main-content">
 
+  <!-- === Верхние кнопки разделов === -->
+  <div class="catalog-top-buttons">
+    {% for rubric in rubrics %}
+      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+        {% if rubric.rubric_name == "Электрика" %}
+          <i class="fas fa-bolt"></i>
+        {% elif rubric.rubric_name == "Сантехника" %}
+          <i class="fas fa-faucet"></i>
+        {% elif rubric.rubric_name == "Газовое оборудование" %}
+          <i class="fas fa-fire"></i>
+        {% else %}
+          <i class="fas fa-folder"></i>
+        {% endif %}
+        <span>{{ rubric.rubric_name }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <!-- === Подкатегории === -->
+  <section class="subcategories-section">
+    <ul class="subcategories-list">
+      {% for rubric in rubrics %}
+        {% for subrubric in rubric.electro_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+        {% for subrubric in rubric.santeh_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+        {% for subrubric in rubric.gas_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </section>
+
+
+  <!-- === Все товары === -->
+  <section class="products-section">
+    <div class="products-grid">
+      {% for rubric in rubrics %}
+        {% for subrubric in rubric.electro_set.all %}
+          {% for product in subrubric.electroproduct_set.all %}
+            <div class="product-card">
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+                {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+              {% endif %}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.description|truncatewords:15 }}</p>
+              <p>{{ product.price }} BYN</p>
+              <button class="basket" data-title="{{ product.title }}">Купить</button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+        {% for subrubric in rubric.santeh_set.all %}
+          {% for product in subrubric.santehproduct_set.all %}
+            <div class="product-card">
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+               {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+                {% endif %}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.description|truncatewords:15 }}</p>
+              <p class="price">{{ product.price }} BYN</p>
+              <button class="basket" data-title="{{ product.title }}">Купить</button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+        {% for subrubric in rubric.gas_set.all %}
+          {% for product in subrubric.gasproduct_set.all %}
+            <div class="product-card">
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+              {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+                {% endif %}
+              <h3>{{ product.title }}</h3>
+              <p>{{ product.description|truncatewords:15 }}</p>
+              <p class="price">{{ product.price }} BYN</p>
+              <button class="basket" data-title="{{ product.title }}">Купить</button>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </section>
+
+</main>
+
+<script src="{% static 'js/set_basket.js' %}" defer></script>
 {% endblock %}
