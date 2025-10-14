@@ -12,7 +12,7 @@ class Rubric(models.Model):
     class Meta:
         verbose_name_plural = 'Разделы'
         verbose_name = 'Раздел'
-        ordering= ['rubric_name']
+        ordering= ['-rubric_name']
 
     def __str__(self):
         return self.rubric_name
