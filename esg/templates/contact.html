@@ -5,7 +5,8 @@
 
 {% block content %}
 <main class="main-content">
-<div>
+  <div class="about-section">
+     <div class="about-text">
 <h1> О нас </h1>
     <h3> Частное предприятие «СпецЭлектроБелТорг» — магазин «Электротовары»</h3>
     <div class="contacts">
@@ -45,11 +46,11 @@
   </a>
 
 <!-- Email -->
-  <a href="mailto:email@mail.ru" class="contact">
+  <a href="mailto:Spelbtorg@mail.ru" class="contact">
     <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#555555">
       <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18v-9.99l8 6.99 8-6.99V18H4z"/>
     </svg>
-    <span>email@mail.ru</span>
+    <span>Spelbtorg@mail.ru</span>
   </a>
 
   <!-- График работы Пн-Пт -->
@@ -67,8 +68,13 @@
     </svg>
     <span>Сб-Вс с 9.00 до 15.00</span>
   </div>
-
+ </div>
 </div>
+         <!-- Фото свидетельства -->
+    <div class="certificate">
+      <img id="certificate-photo" src="{% static 'image/svidetelstvo.jpg' %}" alt="Свидетельство о регистрации" />
+    </div>
+
     <!-- Блок с фото -->
 <div class="photo-section">
   <div class="photo-grid">
@@ -78,6 +84,7 @@
   <img src="{% static 'image/foto4.jpg' %}" alt="Фото магазина4" />
   </div>
 </div>
+    </div>
 <!--карта-->
     <h2 style="margin-top: 50px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Где мы находимся</h2>
     <div class="map-section">
@@ -85,5 +92,24 @@
         <a href="https://yandex.by/maps/26002/logoysk/category/electronic_goods_store/184108095/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Магазин электротоваров в Логойске</a>
         <iframe src="https://yandex.by/map-widget/v1/org/spetselektrobeltorg/64618297849/?ll=27.835430%2C54.199529&z=15.72" width="560px" height="400px" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
     </div>
-</div></main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="" alt="Увеличенное фото" />
+  </div>
+</main>
+<script>
+  const certPhoto = document.getElementById('certificate-photo');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  certPhoto.addEventListener('click', () => {
+    lightboxImg.src = certPhoto.src;
+    lightbox.style.display = 'flex';
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+</script>
 {% endblock %}

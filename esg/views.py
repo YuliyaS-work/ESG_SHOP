@@ -21,14 +21,22 @@ def get_main_page(request):
     santeh = Santeh.objects.first()
     gas = Gas.objects.first()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    # Получаем 6 последних добавленных товаров
-    latest_products = ElectroProduct.objects.order_by('-id')[:5]
+    # Собираем все товары из всех категорий
+    all_products = list(ElectroProduct.objects.all()) + \
+                   list(GasProduct.objects.all()) + \
+                   list(SantehProduct.objects.all())
+    # Сортируем по дате добавления (по id, т.к. id растет с добавлением)
+    all_products_sorted = sorted(all_products, key=lambda x: x.id, reverse=True)
+    # Берем 5 последних
+    latest_products = all_products_sorted[:5]
+    popular_products = ElectroProduct.objects.all().order_by('id')[:5]
     context = {
         'electro': electro,
         'santeh': santeh,
         'gas': gas,
         'rubrics': rubrics,
         'latest_products': latest_products,
+        'popular_products': popular_products,
     }
     return render(request, 'main_page.html', context)
 

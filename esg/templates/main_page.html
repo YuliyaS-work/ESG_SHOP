@@ -18,27 +18,33 @@
             <h3>{{ product.title }}</h3>
             <p>{{ product.description|truncatewords:15 }}</p>
             <p>{{ product.price }} BYN</p>
+            <button class="basket" data-title="{{ product.title }}">Купить</button>
         </div>
         {% empty %}
         <p>Товары отсутствуют.</p>
         {% endfor %}
     </div>
 </section>
-<!-- Лента популярных товаров -->
-<!--    <section class="popular-products">-->
-<!--        <h2>Популярные товары</h2>-->
-<!--        <div class="product-carousel">-->
-<!--&lt;!&ndash;            {% for product in popular_products %}&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="product-card">&ndash;&gt;-->
-<!--&lt;!&ndash;                <img src="{{ product.image.url }}" alt="{{ product.title }}">&ndash;&gt;-->
-<!--&lt;!&ndash;                <h3>{{ product.title }}</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p>{{ product.description }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;                <p>{{ product.price }} BYN</p>&ndash;&gt;-->
-<!--            </div>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-<!--    </section>-->
-<!-- Секция каталога -->
+
+    <section class="popular-products">
+        <h2>Популярные товары</h2>
+        <div class="product-carousel">
+            {% for product in popular_products %}
+            <div class="product-card">
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+              {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+              {% endif %}
+                <h3>{{ product.title }}</h3>
+                <p>{{ product.description }}</p>
+                <p>{{ product.price }} BYN</p>
+                <button class="basket" data-title="{{ product.title }}">Купить</button>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
 <section class="catalog-section">
   <h2 style="text-align:center; margin-bottom:30px;">
     <a href="{% url 'catalog' %}" class="catalog-link">Посмотреть весь каталог</a>
@@ -152,4 +158,5 @@
 </main>
     </div>
 </main>
+<script src="{% static 'js/set_basket.js' %}" defer></script>
 {% endblock %}

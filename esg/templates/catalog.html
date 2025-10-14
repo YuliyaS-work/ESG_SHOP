@@ -48,7 +48,7 @@
       {% for rubric in rubrics %}
         {% for subrubric in rubric.electro_set.all %}
           {% for product in subrubric.electroproduct_set.all %}
-            <div class="product-card">
+            <div class="product-card-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
                 {% else %}
@@ -63,7 +63,7 @@
         {% endfor %}
         {% for subrubric in rubric.santeh_set.all %}
           {% for product in subrubric.santehproduct_set.all %}
-            <div class="product-card">
+            <div class="product-card-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
                {% else %}
@@ -78,7 +78,7 @@
         {% endfor %}
         {% for subrubric in rubric.gas_set.all %}
           {% for product in subrubric.gasproduct_set.all %}
-            <div class="product-card">
+            <div class="product-card-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
               {% else %}
