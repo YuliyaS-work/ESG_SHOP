@@ -15,7 +15,7 @@ urlpatterns = [
     path('partners/', get_partners, name='partners'),
 
     path('basket/', get_basket, name='basket'),
-
+    path('search/', search_view, name='search'),
 
     path('basket/api/order/', OrderAPICreate.as_view(), name='order_api_create'),
 

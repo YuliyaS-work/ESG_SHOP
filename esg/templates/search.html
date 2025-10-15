@@ -1,0 +1,14 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title %}Товары{% endblock %}
+{% block content %}
+<h2>Результаты по запросу</h2>
+<ul>
+  {% for item in results %}
+<li><a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}">{{ item.title }}</a><br>{{ item.description }}<br></li>
+  {% empty %}
+    <li>Введите поисковый запрос</li>
+  {% endfor %}
+</ul>
+{% endblock %}

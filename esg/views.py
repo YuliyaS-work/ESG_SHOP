@@ -3,8 +3,10 @@ import urllib
 
 from django.db.migrations import serializer
 from django.shortcuts import render
+from django.template.defaultfilters import title
 from rest_framework import generics
 
+from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .forms import OrderForm
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order
 from .serializers import OrderSerializer
@@ -160,5 +162,52 @@ class OrderAPICreate(generics.CreateAPIView):
         order = serializer.save()
         get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
 
+
+def search_model_products(document_class, model_class, query):
+    '''Используется для search_view, для вызова внутри'''
+    results = []
+    search = document_class.search().query(
+        "multi_match",
+        query=query,
+        fields=['title', 'description'],
+        fuzziness="AUTO"
+    )
+
+    try:
+        response = search.execute()
+        for hit in response:
+            item = {
+                'title': hit.title,
+                'description': hit.description
+            }
+
+            product = model_class.objects.filter(title=hit.title).first()
+            if product:
+                item['product_id'] = product.pk
+                item['subrubric_id'] = product.rubric.pk
+                item['rubric_id'] = product.rubric.rubric.pk
+
+            results.append(item)
+    except Exception as e:
+        print(f"Ошибка при поиске {model_class.__name__}: {e}")
+
+    return results
+
+
+def search_view(request):
+    '''Посуществляет поиск товаров по сайту. '''
+    query = request.GET.get('q', '')
+    if not query:
+        return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос'})
+
+    results = []
+    results += search_model_products(ElectroProductDocument, ElectroProduct, query)
+    results += search_model_products(GasProductDocument, GasProduct, query)
+    results += search_model_products(SantehProductDocument, SantehProduct, query)
+
+    if not results:
+        return render(request, 'search.html', {'results': [], 'message': 'Ничего не найдено'})
+
+    return render(request, 'search.html', {'results': results})
 
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'esg',
     'rest_framework',
+    'django_elasticsearch_dsl'
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'https://localhost:9200',
+        'http_auth': ('elastic', '154615'),
+        'verify_certs': False,  # если самоподписанный сертификат
+    }
+}
