@@ -11,7 +11,6 @@ urlpatterns = [
     path('catalog/<int:rubric_id>/<int:subrubric_id>/<int:product_id>', get_product, name='product'),
     path('contacts/', get_contact, name='contacts'),
     path('payments/', get_payments, name='payments'),
-    path('reviews/', get_reviews, name='reviews'),
     path('partners/', get_partners, name='partners'),
 
     path('basket/', get_basket, name='basket'),

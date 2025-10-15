@@ -10,22 +10,32 @@
   <h2>Ваша корзина</h2>
 <!--нужен для js, в basket.js на 17-26 строчке-->
 <div id="basket"></div>
- </section>
+  <hr>
+  <p>Выберите нужный Вам товар из нашего каталога и нажмите кнопку "Купить"</p>
+    <p>либо воспользуйтесь поиском, чтобы найти всё что нужно.</p>
+ <a href="{% url 'catalog' %}" class="catalog-link">Добавить товары в корзину</a>
+</section>
 
   <!-- === Оформление заказа === -->
 <!--это связано с order_form.js-->
 <div id="overlay"></div>
 <form id="order-form" data-url="{% url 'order_api_create' %}">
   {% csrf_token %}
+  <button type="button" id="close-order-form" class="close-btn">&times;</button>
   <h2>Оформление заказа</h2>
   {{ form.as_p }}
   <div id="response-message-error"></div>
-  <button type="submit">Подтвердить заказ</button>
+  <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
 <div id="response-message"></div>
 </main>
 
-<script src="{% static 'js/utils.js' %}" defer></script>
-<script src="{% static 'js/basket.js' %}" defer></script>
-<script src="{% static 'js/order_form.js' %}" defer></script>
+<script src="{% static 'js/menu.js' %}"></script>
+<script src="{% static 'js/reviews.js' %}"></script>
+<script src="{% static 'js/utils.js' %}"></script>
+<script src="{% static 'js/cart_count.js' %}"></script>
+<script src="{% static 'js/set_basket.js' %}"></script>
+<script src="{% static 'js/basket.js' %}"></script>
+<script src="{% static 'js/order_modal.js' %}"></script>
+<script src="{% static 'js/order_form.js' %}"></script>
 {% endblock %}

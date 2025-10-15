@@ -133,11 +133,6 @@ def get_payments(request):
     context = {'rubrics': rubrics}
     return render(request, 'payments.html', context)
 
-def get_reviews(request):
-    rubrics = Rubric.objects.all()
-    context = {'rubrics': rubrics}
-    return render(request, 'contact-form.html', context)
-
 def get_partners(request):
     rubrics = Rubric.objects.all()
     context = {'rubrics': rubrics}

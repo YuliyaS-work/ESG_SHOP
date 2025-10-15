@@ -15,13 +15,21 @@
         <a href="{% url 'main' %}">Главная</a>
         <a href="{% url 'catalog' %}">Каталог</a>
         <a href="{% url 'payments' %}">Оплата и доставка</a>
-        <a href="{% url 'reviews' %}">Обратная связь</a>
+        <a href="#" id="open-feedback">Обратная связь</a>
         <a href="{% url 'partners' %}">Наши партнёры</a>
         <a href="{% url 'contacts' %}" >Контакты</a>
         </div>
 
         <div class="main-header">
         <a href="{% url 'main' %}"><img src="{% static 'image/electro.png' %}" alt="СпецЭлектроБелТорг"></a>
+
+            <div>
+            <form action="{% url 'search' %}" method="get">
+            <input type="text" name="q" placeholder="Поиск ">
+            <button type="submit">Найти</button>
+            </form>
+            </div>
+
             <div class="header-right">
                 <div class="contact-info-wrapper">
                 <div class="contact-info">
@@ -33,14 +41,9 @@
                 </div>
             </div>
 
-            <a href="{% url 'basket' %}"><div class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></div></a>
-        <div>
-            <form action="{% url 'search' %}" method="get">
-            <input type="text" name="q" placeholder="Поиск ">
-            <button type="submit">Найти</button>
-            </form>
+            <a href="{% url 'basket' %}"><div class="cart-icon"><i class="fa-solid fa-cart-shopping"></i>
+                <span id="cart-count" class="cart-count">0</span> <!-- счётчик --></div></a>
             </div>
-        </div>
     </header>
 
     <nav class="sidebar">
@@ -67,7 +70,21 @@
     </nav>
 
    <main class="main-content">
+<!-- === ВСПЛЫВАЮЩАЯ ФОРМА ОБРАТНОЙ СВЯЗИ === -->
 
+<div id="overlay_fb"></div>
+
+<div id="feedback-modal">
+  <button id="close-feedback" class="close-btn">&times;</button>
+  <h2>Обратная связь</h2>
+  <form id="feedback-form" action="/send-message" method="post">
+    <input type="text" name="name" placeholder="Ваше имя" required>
+    <input type="email" name="email" placeholder="Ваш Email" required>
+    <input type="text" name="subject" placeholder="Тема сообщения" required>
+    <textarea name="message" placeholder="Ваше сообщение" rows="5" required></textarea>
+    <button type="submit" class="send-btn">Отправить</button>
+  </form>
+</div>
        {% block content %}
 
         {% endblock %}
@@ -85,5 +102,11 @@
 </div>
 <script src="{% static 'js/menu.js' %}"></script>
 <script src="{% static 'js/reviews.js' %}"></script>
+<script src="{% static 'js/utils.js' %}"></script>
+<script src="{% static 'js/cart_count.js' %}"></script>
+<script src="{% static 'js/set_basket.js' %}"></script>
+<script src="{% static 'js/basket.js' %}"></script>
+<script src="{% static 'js/order_form.js' %}"></script>
+<script src="{% static 'js/feedback.js' %}"></script>
 </body>
 </html>

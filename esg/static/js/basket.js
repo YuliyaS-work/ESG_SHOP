@@ -51,13 +51,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const orderButton = document.createElement('button');
     orderButton.textContent = 'Оформить заказ';
-    orderButton.onclick = () => {
-      form.style.display = 'block';
-      overlay.style.display = 'block';
-    };
+    orderButton.classList.add('order-btn'); // добавляем класс
+    orderButton.classList.add('open-order-form');
+//    orderButton.onclick = () => {
+//      form.style.display = 'block';
+//      overlay.style.display = 'block';
+//    };
     basketContainer.appendChild(orderButton);
   }
-
   renderBasket();
-});
+  // === Делегирование для открытия модалки ===
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('open-order-form')) {
+      e.preventDefault();
+      form.classList.add('active');
+      overlay.classList.add('active');
+    }
+  });
 
+  // === Закрытие модалки ===
+  overlay.addEventListener('click', () => {
+    form.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+  const closeBtn = document.getElementById('close-order-form');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      form.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+  }
+});
