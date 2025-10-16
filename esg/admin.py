@@ -74,6 +74,11 @@ class OrderAdmin(admin.ModelAdmin):
     get_santehproducts.short_description = 'Сантехника'
 
 
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = ('date', 'name', 'phone', 'subject', 'message', 'status')
+    ordering = ('-date',)
+    search_fields = ('phone', 'date', 'name')
+
 
 admin.site.register(Electro, ElectroAdmin)
 admin.site.register(Gas, GasAdmin)
@@ -82,4 +87,5 @@ admin.site.register(GasProduct, GasProductAdmin)
 admin.site.register(ElectroProduct, GasProductAdmin)
 admin.site.register(SantehProduct, SantehProductAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Feedback, FeedbackAdmin)
 

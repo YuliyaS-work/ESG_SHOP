@@ -140,3 +140,20 @@ class SantehOrder(models.Model):
     santehproduct = models.ForeignKey(SantehProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
 
+
+class Feedback(models.Model):
+    name = models.CharField(max_length=50, verbose_name='Имя', validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
+    phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
+    subject = models.CharField(max_length=50, verbose_name='Тема')
+    message = models.TextField(verbose_name='Ваше сообщение')
+    date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
+    status = models.BooleanField(default=False, verbose_name='Статус сообщения')
+
+    class Meta:
+        verbose_name_plural = 'Обратная связь'
+        verbose_name = 'Обратная связь'
+        ordering= ['date']
+
+    def __str__(self):
+        return f'{self.name}, {self.phone}, {self.date}'
+

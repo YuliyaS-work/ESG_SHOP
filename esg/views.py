@@ -8,8 +8,8 @@ from rest_framework import generics
 
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .forms import OrderForm
-from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order
-from .serializers import OrderSerializer
+from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
+from .serializers import OrderSerializer, FeedbackSerializer
 from .signals import get_cookies
 
 def get_basic(request):
@@ -206,3 +206,6 @@ def search_view(request):
     return render(request, 'search.html', {'results': results})
 
 
+class FeedbackAPICreate(generics.CreateAPIView):
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer

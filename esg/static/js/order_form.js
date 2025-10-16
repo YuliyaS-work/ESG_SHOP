@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('order-form');
   const url = form.dataset.url;
   const overlay = document.getElementById('overlay');
-  const responseMessage = document.getElementById('response-message');
+//  const responseMessage = document.getElementById('response-message');
   const responseMessageError = document.getElementById('response-message-error');
 
   // обработчик submit только один раз
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return res.json();
       })
       .then(data => {
-        responseMessage.innerText = '✅ Заказ успешно создан!';
+        alert('✅ Заказ успешно создан!');
         form.reset();
         overlay.classList.remove('active');
         form.classList.remove('active');

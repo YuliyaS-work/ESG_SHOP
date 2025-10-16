@@ -2,6 +2,7 @@
 {% load static %}
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta charset="UTF-8">
     <title>{% block title %}Главная{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -77,11 +78,16 @@
 <div id="feedback-modal">
   <button id="close-feedback" class="close-btn">&times;</button>
   <h2>Обратная связь</h2>
-  <form id="feedback-form" action="/send-message" method="post">
+  <form id="feedback-form" data-url="{% url 'feedback' %}" method="post">
+      <label for="name">Имя и фамилия</label>
     <input type="text" name="name" placeholder="Введите имя и фамилию" required>
+      <label for="phone">Телефон (+375 ХХ ХХХХХХХ)</label>
     <input type="tel" name="phone" id="phone" placeholder="Номер Вашего телефона" required>
+      <label for="subject">Тема</label>
     <input type="text" name="subject" placeholder="Тема сообщения">
+      <label for="message">Сообщение</label>
     <textarea name="message" placeholder="Ваше сообщение" rows="6" required></textarea>
+      <div id="response-message-error_feedback" style="color:red;"></div>
     <button type="submit" class="send-btn">Отправить</button>
   </form>
 </div>
