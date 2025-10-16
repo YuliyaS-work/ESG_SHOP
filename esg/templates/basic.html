@@ -78,10 +78,10 @@
   <button id="close-feedback" class="close-btn">&times;</button>
   <h2>Обратная связь</h2>
   <form id="feedback-form" action="/send-message" method="post">
-    <input type="text" name="name" placeholder="Ваше имя" required>
-    <input type="email" name="email" placeholder="Ваш Email" required>
-    <input type="text" name="subject" placeholder="Тема сообщения" required>
-    <textarea name="message" placeholder="Ваше сообщение" rows="5" required></textarea>
+    <input type="text" name="name" placeholder="Введите имя и фамилию" required>
+    <input type="tel" name="phone" id="phone" placeholder="Номер Вашего телефона" required>
+    <input type="text" name="subject" placeholder="Тема сообщения">
+    <textarea name="message" placeholder="Ваше сообщение" rows="6" required></textarea>
     <button type="submit" class="send-btn">Отправить</button>
   </form>
 </div>

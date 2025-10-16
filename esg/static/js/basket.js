@@ -1,20 +1,21 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const basketContainer = document.getElementById('basket');
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('overlay');
-  let basket = getBasketFromCookies();
+
+  // глобальная корзина
+  window.basket = getBasketFromCookies();
 
   function renderBasket() {
     basketContainer.innerHTML = '';
+    const titles = Object.keys(window.basket);
 
-    const titles = Object.keys(basket);
     if (titles.length === 0) {
       basketContainer.innerHTML = '<p>Корзина пуста.</p>';
       return;
     }
-//
-    Object.entries(basket).forEach(([title, quantity]) => {
+
+    Object.entries(window.basket).forEach(([title, quantity]) => {
       const div = document.createElement('div');
       div.className = 'basket-item';
       div.innerHTML = `
@@ -24,61 +25,51 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="increase">+</button>
         <button class="remove">🗑️</button>
       `;
-
       div.querySelector('.increase').onclick = () => {
-        basket[title]++;
-        saveBasketToCookies(basket);
+        window.basket[title]++;
+        saveBasketToCookies(window.basket);
         renderBasket();
       };
-
       div.querySelector('.decrease').onclick = () => {
-        basket[title]--;
-        if (basket[title] <= 0) {
-          delete basket[title];
-        }
-        saveBasketToCookies(basket);
+        window.basket[title]--;
+        if (window.basket[title] <= 0) delete window.basket[title];
+        saveBasketToCookies(window.basket);
         renderBasket();
       };
-
       div.querySelector('.remove').onclick = () => {
-        delete basket[title];
-        saveBasketToCookies(basket);
+        delete window.basket[title];
+        saveBasketToCookies(window.basket);
         renderBasket();
       };
 
       basketContainer.appendChild(div);
     });
 
-    const orderButton = document.createElement('button');
-    orderButton.textContent = 'Оформить заказ';
-    orderButton.classList.add('order-btn'); // добавляем класс
-    orderButton.classList.add('open-order-form');
-//    orderButton.onclick = () => {
-//      form.style.display = 'block';
-//      overlay.style.display = 'block';
-//    };
-    basketContainer.appendChild(orderButton);
+    // кнопка оформления заказа создается только один раз
+    if (!document.querySelector('.open-order-form')) {
+      const orderButton = document.createElement('button');
+      orderButton.textContent = 'Оформить заказ';
+      orderButton.classList.add('order-btn', 'open-order-form');
+      basketContainer.appendChild(orderButton);
+    }
   }
+
   renderBasket();
-  // === Делегирование для открытия модалки ===
+
+  // открытие модалки корзины
   document.addEventListener('click', (e) => {
-    if (e.target && e.target.classList.contains('open-order-form')) {
-      e.preventDefault();
-      form.classList.add('active');
+    if (e.target.classList.contains('open-order-form')) {
       overlay.classList.add('active');
+      form.classList.add('active');
     }
   });
 
-  // === Закрытие модалки ===
-  overlay.addEventListener('click', () => {
-    form.classList.remove('active');
-    overlay.classList.remove('active');
-  });
+  // закрытие модалки
   const closeBtn = document.getElementById('close-order-form');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-      form.classList.remove('active');
-      overlay.classList.remove('active');
-    });
-  }
+  const closeModal = () => {
+    overlay.classList.remove('active');
+    form.classList.remove('active');
+  };
+  overlay.addEventListener('click', closeModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
 });
