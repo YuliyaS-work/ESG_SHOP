@@ -1,21 +1,25 @@
 import json
 import urllib
+from itertools import chain
 
 from django.db.migrations import serializer
 from django.shortcuts import render
 from django.template.defaultfilters import title
 from rest_framework import generics
+from rest_framework.response import Response
+
 
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .forms import OrderForm
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
-from .serializers import OrderSerializer, FeedbackSerializer
+from .serializers import OrderSerializer, FeedbackSerializer, ElectroSerializer, GasSerializer, \
+    SantehSerializer
 from .signals import get_cookies
 
-def get_basic(request):
-    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    context = { 'rubrics': rubrics }
-    return render(request, 'basic.html', context)
+# def get_basic(request):
+#     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+#     context = { 'rubrics': rubrics }
+#     return render(request, 'basic.html', context)
 
 def get_main_page(request):
     ''' Отдает данные на главную страницу. '''
@@ -41,7 +45,6 @@ def get_main_page(request):
         'popular_products': popular_products,
     }
     return render(request, 'main_page.html', context)
-
 
 
 def get_catalog(request):
@@ -73,10 +76,20 @@ def get_subrubrics(request, rubric_id):
         subrubrics = Santeh.objects.all()
 
     # Получаем все рубрики для сайдбара
-    rubrics = Rubric.objects.all()
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     context = {'subrubrics': subrubrics, 'rubric': rubric, 'rubrics': rubrics}
     return render(request, 'subrubrics_list.html', context)
+
+
+class SubrubricListAPIView(generics.ListAPIView):
+    def get(self, request, **kwargs):
+        data = {}
+        data['subrubrics_electro'] =ElectroSerializer(Electro.objects.all(), many=True).data
+        data['subrubrics_gas'] =GasSerializer(Gas.objects.all(), many=True).data
+        data['subrubrics_santeh'] =SantehSerializer(Santeh.objects.all(), many=True).data
+        return Response(data)
+
 
 
 def get_products(request, rubric_id, subrubric_id):
@@ -95,7 +108,7 @@ def get_products(request, rubric_id, subrubric_id):
         current_subrubric = Santeh.objects.get(pk=subrubric_id)
 
     # Получаем все рубрики для сайдбара
-    rubrics = Rubric.objects.all()
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     context = {
         'products':products,
@@ -107,6 +120,7 @@ def get_products(request, rubric_id, subrubric_id):
 
 
 def get_product(request, rubric_id, subrubric_id, product_id):
+    '''Рендерит страницу одного продукта.'''
     rubric = Rubric.objects.get(pk=rubric_id)
 
     if rubric.rubric_name == 'Газовое оборудование':
@@ -117,36 +131,41 @@ def get_product(request, rubric_id, subrubric_id, product_id):
         product = ElectroProduct.objects.get(pk=product_id)
 
     # Получаем все рубрики для сайдбара
-    rubrics = Rubric.objects.all()
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     context = {'product':product, 'rubrics': rubrics}
     return render(request, 'product.html', context)
 
 
 def get_contact(request):
-    rubrics = Rubric.objects.all()
+    '''Рендерит страницу контактов.'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'rubrics': rubrics}
     return render(request, 'contact.html', context)
 
 def get_payments(request):
-    rubrics = Rubric.objects.all()
+    '''Рендерит страницу оплаты и доставки'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'rubrics': rubrics}
     return render(request, 'payments.html', context)
 
 def get_partners(request):
-    rubrics = Rubric.objects.all()
+    '''Рендерит страницу деловых партнеров'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
 
 
 def get_basket(request):
+    '''Рендерит страницу покупательской корзины.'''
     form = OrderForm()
-    rubrics = Rubric.objects.all()
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'form':form, 'rubrics': rubrics }
     return render(request, 'basket.html', context)
 
 
 class OrderAPICreate(generics.CreateAPIView):
+    '''Создает заказ.'''
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -207,5 +226,6 @@ def search_view(request):
 
 
 class FeedbackAPICreate(generics.CreateAPIView):
+    '''Создает запись обратной связи.'''
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer

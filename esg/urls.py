@@ -18,5 +18,6 @@ urlpatterns = [
 
     path('basket/api/order/', OrderAPICreate.as_view(), name='order_api_create'),
     path('api/feedback/', FeedbackAPICreate.as_view(), name='feedback'),
+    path('catalog/api/subrubrics/', SubrubricListAPIView.as_view(), name='subrubrics'),
 
 ]
