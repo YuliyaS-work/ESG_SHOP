@@ -3,6 +3,7 @@
 
 {% block title %}Список подразделов{% endblock %}
 {% block content %}
+<main class="main-content">
 <div>
     <b>{{ rubric}}</b><br>
     {% for subrubric in subrubrics %}
@@ -17,4 +18,5 @@
         {% endif %}
     {% endfor %}
 </div>
+</main>
 {% endblock %}

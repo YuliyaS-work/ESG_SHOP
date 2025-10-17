@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from esg.forms import OrderForm
-from esg.models import Order, Feedback
+from .forms import OrderForm
+from .models import Order, Feedback, Electro, Gas, Santeh
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -16,3 +16,25 @@ class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
         fields = ("name", "phone", "subject", "message")
+
+
+class ElectroSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Electro
+        fields = ("title", "id", "rubric")
+
+
+class GasSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Gas
+        fields = ("title", "id", "rubric")
+
+
+class SantehSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Santeh
+        fields = ("title", "id", "rubric")
+
