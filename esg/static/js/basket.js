@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const div = document.createElement('div');
       div.className = 'basket-item';
       div.innerHTML = `
-        <span>${title}</span>
+        <span class="title">${title}</span>
         <button class="decrease">−</button>
         <span class="quantity">${quantity}</span>
         <button class="increase">+</button>

@@ -1,0 +1,80 @@
+/* === Всплывающее окно обратной связи === */
+#overlay_fb,
+#feedback-modal {
+  transition: opacity 0.3s ease, top 0.3s ease;
+  opacity: 0;
+  display: none;
+}
+#overlay_fb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* затемнение */
+  z-index: 999;                    /* чуть ниже модалки */
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+#overlay_fb.active,
+#feedback-modal.active {
+  display: block;
+  opacity: 1;
+}
+#feedback-modal {
+  position: fixed;
+  top: 160px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #333;
+  padding: 25px;
+  border-radius: 12px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+.close-btn:hover {
+  color: #e53935;
+}
+/* кнопка отправки */
+.send-btn {
+  background: linear-gradient(145deg, #d4af37, #b8860b);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  width: 100%;
+  font-size: 16px;
+}
+.send-btn:hover {
+  background: linear-gradient(145deg, #e0c04f, #c8a717);
+}
+/* поля формы */
+#feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#feedback-form input,
+#feedback-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}

@@ -2,9 +2,12 @@
 {% load static %}
 
 {% block title %}Корзина{% endblock %}
-
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'css/basket.css' %}">
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+{% endblock %}
 {% block content %}
-<main class="main-content basket-page">
+<main class="main-content">
   <!-- === Корзина === -->
 <section id="basket-container">
   <h2>Ваша корзина</h2>
@@ -27,15 +30,10 @@
   <div id="response-message-error" style="color:red;"></div>
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
-
+<div id="response-message"></div>
 </main>
-
-<script src="{% static 'js/menu.js' %}"></script>
-<script src="{% static 'js/reviews.js' %}"></script>
-<script src="{% static 'js/utils.js' %}"></script>
-<script src="{% static 'js/cart_count.js' %}"></script>
-<script src="{% static 'js/set_basket.js' %}"></script>
-<script src="{% static 'js/basket.js' %}"></script>
-<script src="{% static 'js/order_modal.js' %}"></script>
-<script src="{% static 'js/order_form.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/basket.js' %}" defer></script>
+<script src="{% static 'js/order_form.js' %}" defer></script>
 {% endblock %}

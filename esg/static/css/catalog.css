@@ -1,0 +1,158 @@
+
+/* === КАТАЛОГ === */
+.catalog-top-buttons {
+  display: flex;
+  justify-content: space-between; /* равномерное распределение по всей ширине */
+  gap: 20px;
+  margin: 5px 0;
+  flex-wrap: wrap;
+}
+.catalog-btn {
+  flex: 1 1 0; /* растягиваются равномерно */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* иконка и текст по центру */
+  gap: 8px;
+  background: linear-gradient(145deg, #8a9096, #6d7378);
+  color: #fff;
+  text-decoration: none;
+  padding: 12px 0; /* убрал фиксированные 25px слева/справа */
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.catalog-btn i {
+  color: #FFD700;
+  font-size: 20px;
+}
+.catalog-btn:hover {
+  background: linear-gradient(145deg, #9b9fa4, #767b80);
+  transform: translateY(-2px);
+}
+
+/* Товары */
+.products-section {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+  text-align: center;
+}
+/* Сетка товаров */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 колонок */
+  gap: 20px;
+}
+
+/* Карточка товара */
+.product-card-catalog {
+  width: 100%;          /* занимает всю ширину ячейки */
+  max-width: 220px;     /* ограничиваем, чтобы не растягивалась */
+  box-sizing: border-box;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+/* Ховер эффект */
+.product-card-catalog:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Фото товара */
+.product-card-catalog img {
+  width: 100%;
+  height: 150px;        /* фиксированная высота для всех карточек */
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+/* Название товара */
+.product-card-catalog h3 {
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+/* Цена */
+.product-card-catalog p {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 5px 0;
+}
+/* === Подкатегории списком === */
+/* Общий блок подкатегорий */
+.subcategories-section {
+  text-align: center;
+  margin: 0 auto 10px auto;
+  padding: 10px 10px;
+  max-width: 1200px;
+  border-radius: 12px;
+  /* фон под металл, как сайдбар */
+  background: linear-gradient(145deg, #9ca2a6, #7d8286);
+  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
+              inset -2px -2px 5px rgba(0,0,0,0.2);
+}
+
+/* Заголовок подкатегорий */
+.subcategories-section h2 {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Сетка — 4 колонки */
+.subcategories-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ровно 4 колонки */
+  gap: 12px 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+/* Элементы списка */
+.subcategories-list li {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ссылки — только текст, без подложки */
+.subcategories-list a {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 1em;
+  text-decoration: none;
+  text-align: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Эффект наведения — подсветка и лёгкий подъем */
+.subcategories-list a:hover {
+  color: #FFD700;
+  transform: translateY(-2px);
+}
+@media (max-width: 1000px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .subcategories-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid,
+  .subcategories-list {
+    grid-template-columns: 1fr;
+  }
+}

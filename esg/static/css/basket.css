@@ -1,0 +1,99 @@
+
+/* Кнопка оформить заказ */
+#basket-container > button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(145deg, #8a9096, #6d7378);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+#basket-container > button:hover {
+  background: linear-gradient(145deg, #a0a5aa, #7b8085);
+  transform: translateY(-2px);
+}
+/* Пустая корзина */
+#basket-container p {
+  color: #ddd;
+  font-style: italic;
+  margin-top: 20px;
+}
+/* Кнопки управления */
+.basket-item button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  color: #FFD700;
+  border-radius: 6px;
+  padding: 4px 8px;
+  transition: all 0.2s ease;
+}
+.basket-item button:hover {
+  color: #fff;
+  transform: scale(1.2);
+}
+.basket-item .remove {
+  color: #ff6666;
+}
+.basket-item .remove:hover {
+  color: #fff;
+}
+/* Количество */
+.basket-item .quantity {
+  min-width: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+/* Элементы корзины */
+.basket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+.basket-item:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+/* Название товара */
+.basket-item .title {
+  flex: 1;           /* занимает всё доступное пространство */
+  text-align: left;  /* текст слева */
+  font-weight: 500;
+  color: #fff;
+}
+/* === КОРЗИНА === */
+#basket-container {
+  position: static;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #9ca2a6, #7d8286);
+  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
+              inset -2px -2px 5px rgba(0,0,0,0.2),
+              0 4px 15px rgba(0,0,0,0.15);
+  color: #fff;
+  text-align: center;
+}
+#basket-container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 10px;
+}

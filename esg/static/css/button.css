@@ -1,0 +1,18 @@
+/* ==========================
+   Кнопки корзины - универсально
+   ========================== */
+.basket {
+  padding: 8px 16px;
+  background: linear-gradient(145deg, #e0e0e0, #b0b0b0);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #222;
+  transition: all 0.3s ease;
+}
+
+.basket.in-basket {
+  background: linear-gradient(145deg, #FFD700, #e6c200); /* золотой */
+  color: #000;
+}
