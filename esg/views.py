@@ -2,6 +2,7 @@ import json
 import urllib
 from itertools import chain
 
+from django.core.paginator import Paginator
 from django.db.migrations import serializer
 from django.shortcuts import render
 from django.template.defaultfilters import title
@@ -15,6 +16,7 @@ from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, Sa
 from .serializers import OrderSerializer, FeedbackSerializer, ElectroSerializer, GasSerializer, \
     SantehSerializer
 from .signals import get_cookies
+
 
 # def get_basic(request):
 #     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -47,21 +49,34 @@ def get_main_page(request):
     return render(request, 'main_page.html', context)
 
 
+# def get_catalog(request):
+#     '''Выводит разделы каталога и подразделы. '''
+#     rubrics = Rubric.objects.prefetch_related(
+#         'electro_set__electroproduct_set',
+#         'gas_set__gasproduct_set',
+#         'santeh_set__santehproduct_set'
+#     ).all()
+#     context = {'rubrics': rubrics}
+#     return render(request, 'catalog.html', context)
+
+
 def get_catalog(request):
-    '''Выводит разделы каталога и подразделы. '''
-    #rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    # electro_subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
-    # gas_subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
-    # santeh_subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all() #опечатка
-    rubrics = Rubric.objects.prefetch_related(
-        'electro_set__electroproduct_set',
-        'gas_set__gasproduct_set',
-        'santeh_set__santehproduct_set'
-    ).all()
-    context = {
-        'rubrics': rubrics,
-    }
+    '''Выводит разделы каталога и подразделы (+js), выводит все товары, пагинация страницы по товарам.'''
+
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    electro_qs = ElectroProduct.objects.select_related('rubric').all()
+    gas_qs = GasProduct.objects.select_related('rubric').all()
+    santeh_qs = SantehProduct.objects.select_related('rubric').all()
+
+    all_products = list(chain(electro_qs, gas_qs, santeh_qs))
+
+    paginator = Paginator(all_products, 30)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj, 'rubrics':rubrics}
     return render(request, 'catalog.html', context)
+
 
 
 def get_subrubrics(request, rubric_id):
