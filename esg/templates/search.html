@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block title %}Товары{% endblock %}
+{% block styles %}
+
+{% endblock %}
 {% block content %}
+<main class="main-content">
 <h2>Результаты по запросу</h2>
 <ul>
   {% for item in results %}
@@ -11,4 +15,5 @@
     <li>Введите поисковый запрос</li>
   {% endfor %}
 </ul>
+  </main>
 {% endblock %}

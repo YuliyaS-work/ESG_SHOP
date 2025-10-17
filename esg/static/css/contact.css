@@ -1,8 +1,10 @@
 /* Страница с контактами */
 .about-section {
-  display: flex;
+  /*display: flex;
+  flex-wrap: wrap;*/
   gap: 15px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 
 .about-text {flex: 1 1 500px;    /* текст занимает всё свободное место слева */
@@ -38,20 +40,17 @@ a.contact:hover .contact-icon {
   fill: #007BFF; /* цвет при наведении */
 }
 .certificate {
-  flex: 0 0 300px;
   position: relative;
   display: inline-block;
-  /*display: flex;
-  /*justify-content: flex-end; /* справа от текста */
   cursor: pointer;
+  margin-right: 40px;
 }
 .certificate img {
+  display: block;
   max-width: 270px;
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  /*margin-top: 80px;*/
-  margin-right: 40px;
   transition: transform 0.2s ease;
 
 }
@@ -67,7 +66,7 @@ a.contact:hover .contact-icon {
   color: white;
   font-size: 0.9rem;
   font-weight: 600;
-  background: rgba(0, 0, 0, 0.5); /* затемняем подложку */
+  background: rgba(0, 0, 0, 0.3); /* затемняем подложку */
   padding: 6px 6px;
   border-radius: 6px;
   opacity: 0;                  /* изначально скрыто */
@@ -79,7 +78,10 @@ a.contact:hover .contact-icon {
 }
 /* фото в контактах */
 .photo-section {
+  /*flex-basis: 100%; /* занимает всю ширину */
+  /*order: 3;          /* гарантирует, что будет третьим элементом */
   margin-top: 20px;
+  grid-column: 1 / -1;
 }
 
 .photo-grid {
@@ -137,8 +139,8 @@ a.contact:hover .contact-icon {
 /* Для телефонов — картинка под текстом */
 @media (max-width: 768px) {
   .about-section {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: 1fr; /* одна колонка на мобильных */
+    text-align: center;
   }
   .certificate {
     flex: 1 1 100%;

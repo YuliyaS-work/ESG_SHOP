@@ -75,9 +75,9 @@
          <!-- Фото свидетельства -->
     <div class="certificate">
       <img id="certificate-photo" src="{% static 'image/svidetelstvo.jpg' %}" alt="Свидетельство о регистрации" />
-        <span class="certificate-caption">Увеличить фото</span>
+        <span class="certificate-caption">Увеличить</span>
     </div>
-
+ </div>
     <!-- Блок с фото -->
 <div class="photo-section">
   <div class="photo-grid">
@@ -87,7 +87,7 @@
   <img src="{% static 'image/foto4.jpg' %}" alt="Фото магазина4" />
   </div>
 </div>
-    </div>
+
 <!--карта-->
     <h2 style="margin-top: 50px; margin-bottom: 20px; border-bottom: 2px solid #e0e0e0; padding-bottom: 10px;">Где мы находимся</h2>
     <div class="map-section">
@@ -104,5 +104,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/lightbox.js' defer%}"></script>
+<script src="{% static 'js/lightbox.js' %}" defer></script>
 {% endblock %}

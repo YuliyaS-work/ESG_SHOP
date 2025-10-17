@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
 
-
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
@@ -35,8 +34,8 @@
 
   <!-- === Подкатегории === -->
   <section class="subcategories-section" id="subrubric-list">
-      <ul class="subcategories-list"> </ul> </section>
-
+<ul class="subcategories-list"></ul>
+  </section>
 
   <!-- === Все товары === -->
   <section class="products-section">
@@ -106,6 +105,8 @@
     </nav>
   {% endif %}
 </div>
-
+{% endblock %}
 </main>
+{% block scripts %}
+<script src="{% static 'js/subrubrics_list.js' %}" defer></script>
 {% endblock %}
