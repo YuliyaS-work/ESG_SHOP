@@ -3,21 +3,21 @@
 
 {% block title %}Каталог{% endblock %}
 
-    {% block styles %}
+{% block styles %}
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
-{% endblock %}
-
-{% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
 <main class="main-content">
 
-  <!-- === Верхние кнопки разделов === -->
+  <!--  ===кнопка Каталог===-->
+  <a href="{% url 'catalog' %}" class="catalog-btn">Каталог</a>
+
+ <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
-      <button type="button" class="catalog-btn" data-rubric="{{ rubric.rubric_name }}">
+      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
         {% if rubric.rubric_name == "Электрика" %}
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
@@ -28,13 +28,26 @@
           <i class="fas fa-folder"></i>
         {% endif %}
         <span>{{ rubric.rubric_name }}</span>
-      </button>
+      </a>
     {% endfor %}
   </div>
 
+
   <!-- === Подкатегории === -->
   <section class="subcategories-section" id="subrubric-list">
-<ul class="subcategories-list"></ul>
+    <ul class="subcategories-list">
+      {% for rubric in rubrics %}
+        {% for subrubric in rubric.electro_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+        {% for subrubric in rubric.santeh_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+        {% for subrubric in rubric.gas_set.all %}
+          <li><a href="{% url 'products' rubric.pk subrubric.pk %}">{{ subrubric.title }}</a></li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
   </section>
 
   <!-- === Все товары === -->
@@ -47,7 +60,7 @@
         {% else %}
           <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
-        <h3>{{ product.title }}</h3>
+        <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
         <p>{{ product.description|truncatewords:15 }}</p>
         <p class="price">{{ product.price }} BYN</p>
         <button class="basket" data-title="{{ product.title }}">Купить</button>
@@ -56,50 +69,40 @@
   </div>
   </section>
 
- <!-- ===Пагинация===-->
+     <!-- ===Пагинация===-->
   <div class="pagination">
     {% if page_obj.has_other_pages %}
       <nav class="list-pages">
         <ul>
           {# Первая и предыдущая страницы #}
           {% if page_obj.has_previous %}
-            <li class="page-num">
-              <a href="?page=1"> <<</a>
-            </li>
-            <li class="page-num">
-              <a href="?page={{ page_obj.previous_page_number }}"> <</a>
-            </li>
+            <li class="page-num"><a href="?page=1"> <<</a></li>
+            <li class="page-num"><a href="?page={{ page_obj.previous_page_number }}"> <</a></li>
           {% endif %}
 
           {# Номера страниц: текущая, соседние #}
           {% for p in page_obj.paginator.page_range %}
             {% if p == page_obj.number %}
               <li class="page-num page-num-selected">
-                 <form method="get" action="">
-        <input type="number"
-               name="page"
-               value="{{ p }}"
-               min="1"
-               max="{{ page_obj.paginator.num_pages }}"
-               onchange="this.form.submit()"
-               class="page-input">
-      </form>
+                  <form method="get" action="">
+                  <input type="number"
+                  name="page"
+                  value="{{ p }}"
+                  min="1"
+                  max="{{ page_obj.paginator.num_pages }}"
+                  onchange="this.form.submit()"
+                  class="page-input">
+                  </form>
               </li>
             {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
-              <li class="page-num">
-                <a href="?page={{ p }}">{{ p }}</a>
-              </li>
+              <li class="page-num"><a href="?page={{ p }}">{{ p }}</a></li>
             {% endif %}
           {% endfor %}
 
           {# Следующая и последняя страницы #}
           {% if page_obj.has_next %}
-            <li class="page-num">
-              <a href="?page={{ page_obj.next_page_number }}"> ></a>
-            </li>
-            <li class="page-num">
-              <a href="?page={{ page_obj.paginator.num_pages }}"> >></a>
-            </li>
+            <li class="page-num"><a href="?page={{ page_obj.next_page_number }}"> ></a></li>
+            <li class="page-num"><a href="?page={{ page_obj.paginator.num_pages }}"> >></a></li>
           {% endif %}
       </ul>
     </nav>
@@ -108,5 +111,5 @@
 {% endblock %}
 </main>
 {% block scripts %}
-<script src="{% static 'js/subrubrics_list.js' %}" defer></script>
+
 {% endblock %}

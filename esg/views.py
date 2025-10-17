@@ -63,7 +63,11 @@ def get_main_page(request):
 def get_catalog(request):
     '''Выводит разделы каталога и подразделы (+js), выводит все товары, пагинация страницы по товарам.'''
 
-    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    rubrics = Rubric.objects.prefetch_related(
+            'electro_set__electroproduct_set',
+            'gas_set__gasproduct_set',
+            'santeh_set__santehproduct_set'
+    ).all()
     electro_qs = ElectroProduct.objects.select_related('rubric').all()
     gas_qs = GasProduct.objects.select_related('rubric').all()
     santeh_qs = SantehProduct.objects.select_related('rubric').all()
@@ -84,16 +88,28 @@ def get_subrubrics(request, rubric_id):
     rubric = Rubric.objects.get(pk=rubric_id)
 
     if rubric.rubric_name == 'Газовое оборудование':
-        subrubrics = Gas.objects.all()
+        subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
+        products = GasProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Электрика':
-        subrubrics = Electro.objects.all()
+        subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
+        products = ElectroProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Сантехника':
-        subrubrics = Santeh.objects.all()
+        subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all()
+        products = SantehProduct.objects.select_related('rubric').all()
+
+    paginator = Paginator(products, 30)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
-    context = {'subrubrics': subrubrics, 'rubric': rubric, 'rubrics': rubrics}
+    context = {
+        'subrubrics': subrubrics,
+        'rubric': rubric,
+        'rubrics': rubrics,
+        'page_obj': page_obj,
+    }
     return render(request, 'subrubrics_list.html', context)
 
 
@@ -122,13 +138,18 @@ def get_products(request, rubric_id, subrubric_id):
         products = SantehProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Santeh.objects.get(pk=subrubric_id)
 
+    paginator = Paginator(products, 30)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     context = {
         'products':products,
         'current_subrubric':current_subrubric,
-        'rubrics': rubrics
+        'rubrics': rubrics,
+        'page_obj': page_obj
     }
     return render(request, 'products_list.html', context)
 
