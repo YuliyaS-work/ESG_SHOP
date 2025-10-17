@@ -48,18 +48,6 @@ def get_main_page(request):
     }
     return render(request, 'main_page.html', context)
 
-
-# def get_catalog(request):
-#     '''Выводит разделы каталога и подразделы. '''
-#     rubrics = Rubric.objects.prefetch_related(
-#         'electro_set__electroproduct_set',
-#         'gas_set__gasproduct_set',
-#         'santeh_set__santehproduct_set'
-#     ).all()
-#     context = {'rubrics': rubrics}
-#     return render(request, 'catalog.html', context)
-
-
 def get_catalog(request):
     '''Выводит разделы каталога и подразделы (+js), выводит все товары, пагинация страницы по товарам.'''
 
@@ -106,7 +94,6 @@ def get_subrubrics(request, rubric_id):
 
     context = {
         'subrubrics': subrubrics,
-        'rubric': rubric,
         'rubrics': rubrics,
         'page_obj': page_obj,
     }
@@ -146,10 +133,9 @@ def get_products(request, rubric_id, subrubric_id):
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     context = {
-        'products':products,
-        'current_subrubric':current_subrubric,
         'rubrics': rubrics,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'current_subrubric': current_subrubric
     }
     return render(request, 'products_list.html', context)
 
