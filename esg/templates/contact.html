@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block title %}Контакты{% endblock %}
-
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
 {% block content %}
 <main class="main-content">
   <div class="about-section">
@@ -73,6 +75,7 @@
          <!-- Фото свидетельства -->
     <div class="certificate">
       <img id="certificate-photo" src="{% static 'image/svidetelstvo.jpg' %}" alt="Свидетельство о регистрации" />
+        <span class="certificate-caption">Увеличить фото</span>
     </div>
 
     <!-- Блок с фото -->
@@ -98,25 +101,8 @@
     <img id="lightbox-img" src="" alt="Увеличенное фото" />
   </div>
 </main>
-<script>
-  const certPhoto = document.getElementById('certificate-photo');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
+{% endblock %}
 
-  certPhoto.addEventListener('click', () => {
-    lightboxImg.src = certPhoto.src;
-    lightbox.style.display = 'flex';
-  });
-
-  lightbox.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
-</script>
-<script src="{% static 'js/menu.js' %}"></script>
-<script src="{% static 'js/reviews.js' %}"></script>
-<script src="{% static 'js/utils.js' %}"></script>
-<script src="{% static 'js/cart_count.js' %}"></script>
-<script src="{% static 'js/set_basket.js' %}"></script>
-<script src="{% static 'js/basket.js' %}"></script>
-<script src="{% static 'js/order_form.js' %}"></script>
+{% block scripts %}
+<script src="{% static 'js/lightbox.js' defer%}"></script>
 {% endblock %}

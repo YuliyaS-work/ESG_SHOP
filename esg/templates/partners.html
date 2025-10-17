@@ -1,8 +1,9 @@
 {% extends "basic.html" %}
 {% load static %}
-
 {% block title %}Наши партнеры{% endblock %}
-
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/partners.css' %}">
+{% endblock %}
 {% block content %}
 <main class="main-content">
 <div>
@@ -12,5 +13,4 @@
 
     </div>
 </main>
-<script src="{% static 'js/cart_count.js' %}"></script>
 {% endblock %}

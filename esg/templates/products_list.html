@@ -1,6 +1,5 @@
 {% extends 'basic.html' %}
 {% load static %}
-
 {% block title %}Список товаров{% endblock %}
 {% block content %}
 <main class="main-content">
@@ -41,7 +40,4 @@
         {% endfor %}
     {% endif %}
 </main>
-
-<script src="{% static 'js/set_basket.js' %}" defer></script>
-<script src="{% static 'js/cart_count.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,169 @@
+
+/* === Header и контент === */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  padding: 0px 30px;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  background: linear-gradient(145deg,
+              #9e9e9e 0%,   /* темный металл */
+              #d0d0d0 20%,  /* светлый блик */
+              #ffffff 50%,  /* центральный блик */
+              #c0c0c0 80%,  /* средний оттенок */
+              #8c8c8c 100%  /* темный край */
+  );
+  border-bottom: 1px solid #999;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.2); /* легкий блеск */
+}
+.top-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  padding: 5px 30px;
+  font-size: 14px;
+}
+.top-links a {
+  text-decoration: none;
+  color: #333;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 15px;
+  gap: 10px; /* расстояние между элементами */
+}
+
+.main-header > a:first-child {
+  flex-shrink: 0; /* логотип не сжимается */
+}
+
+.main-header form {
+  flex: 1; /* форма занимает всё доступное место между логотипом и правым блоком */
+  display: flex;
+  justify-content: center; /* центрируем форму */
+}
+
+.main-header input[type="text"] {
+  padding: 4px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 300px;
+  font-size: 0.9rem;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.main-header input[type="text"]:focus {
+  border-color: #999;
+  box-shadow: 0 0 4px rgba(0,0,0,0.2);
+  outline: none;
+}
+
+.main-header button {
+  padding: 5px 10px;
+  border: none;
+  background-color: gold;
+  color: black;
+  border-radius: 6px;          /* чуть более мягкие углы */
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;           /* компактный текст */
+  transition: background 0.2s, transform 0.2s;
+}
+
+.main-header button:hover {
+  background-color: #007BFF;
+  transform: translateY(-1px); /* легкий эффект поднятия */
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Обертка для контактов */
+.contact-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0; /* предотвращаем сжатие */
+}
+/* Контакты — вертикально */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* выравнивание текста по правому краю */
+  line-height: 1.4;
+}
+/* Отдельные контакты */
+.contact-info p {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* расстояние между текстом и иконкой */
+}
+
+/* Телефонные ссылки */
+.phone-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+.phone-link:hover {
+  color: #007BFF ;
+}
+/* Иконки контактов */
+.contact-info i {
+  margin-left: 5px; /* иконка справа от текста */
+}
+
+/* счетчик для корзины */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+}
+.cart-count {
+  position: absolute;
+  top: -13px;
+  right: -8px;
+  background-color: gold;
+  color: black;
+  font-size: 14px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-weight: bold;
+}
+/* Корзина */
+.cart-icon i {
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.cart-icon i:hover {
+  color: #007BFF;
+}
+@media (max-width: 768px) {
+  .main-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .main-header input[type="text"] {
+    width: 100%;
+    max-width: none;
+  }
+  .contact-info {
+    align-items: flex-start;
+  }
+}

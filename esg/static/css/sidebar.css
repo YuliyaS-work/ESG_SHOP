@@ -1,0 +1,113 @@
+/* Узкий сайдбар */
+.sidebar {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  width: 70px;             /* узкая версия */
+  height: calc(100% - 110px);
+  padding: 20px 0;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  z-index: 1100;
+  background: linear-gradient(#8a9096, #6d7378);
+}
+/* Расширяем при hover */
+.sidebar:hover {
+  width: 280px;
+}
+/* Список категорий */
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* Ссылки категорий */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  flex-direction: column; /* иконка сверху */
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 5px;
+  transition: background 0.3s, color 0.3s;
+}
+/* Иконки категорий */
+.sidebar i {
+  font-size: 28px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+/* Текст категорий */
+.sidebar ul li a .text {
+  display: block;
+  opacity: 0;
+  margin-top: 5px;
+  font-size: 14px;
+  white-space: normal; /* разрешаем перенос текста */
+  text-align: center;  /* центрируем текст под иконкой */
+  max-width: 200px;    /* ограничиваем ширину для переноса */
+  line-height: 1.2;    /* чуть плотнее строки */
+  transition: opacity 0.3s;
+  padding: 10px 0;
+}
+/* Появление текста при hover на сайдбар */
+.sidebar:hover ul li a .text {
+  opacity: 1;
+}
+/* Hover на ссылку */
+.sidebar ul li a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #FFD700;
+}
+/* Подкатегории */
+.subcategory {
+  max-height: 0;
+  overflow: hidden;
+  padding-left: 20px;
+  list-style: none;
+  margin-top: 5px;
+}
+/* Ссылки подкатегорий */
+.subcategory li a {
+  display: flex;
+  justify-content: center; /* горизонтально по центру */
+  align-items: center;     /* вертикально по центру */
+  text-align: center;
+  padding: 6px 12px;
+  color: white;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transform: translateX(-20px);
+  opacity: 0;
+  border-radius: 5px; /* скругление */
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+/* Фон подкатегории при hover */
+.subcategory li a:hover {
+  background: rgba(0, 206, 209, 0.25); /* более насыщенный фон при hover */
+  color: #FFD700; /* цвет текста при наведении */
+}
+/* Появление подкатегорий при hover на родительский li */
+.sidebar ul li:hover .subcategory {
+  max-height: 500px;
+}
+.sidebar ul li:hover .subcategory li a {
+  transform: translateX(0);
+  opacity: 1;
+}
+/* Задержка для плавного выезда подкатегорий */
+.sidebar ul li:hover .subcategory li:nth-child(1) a { transition-delay: 0.05s; }
+.sidebar ul li:hover .subcategory li:nth-child(2) a { transition-delay: 0.1s; }
+.sidebar ul li:hover .subcategory li:nth-child(3) a { transition-delay: 0.15s; }
+
+/* При hover на сайдбар сдвигаем контент */
+.sidebar:hover ~ .main-content {
+  margin-left: 250px;
+}

@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block title %}Вы на главной странице{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+{% endblock %}
 {% block content %}
 <main class="main-content">
 <div>
@@ -158,6 +161,7 @@
 </main>
     </div>
 </main>
-<script src="{% static 'js/set_basket.js' %}" defer></script>
-<script src="{% static 'js/cart_count.js' %}"></script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/reviews.js' %}" defer></script>
 {% endblock %}

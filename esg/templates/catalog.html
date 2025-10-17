@@ -2,8 +2,12 @@
 {% load static %}
 
 {% block title %}Каталог{% endblock %}
-{% block content %}
 
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+{% endblock %}
+
+{% block content %}
 <main class="main-content">
 
   <!-- === Верхние кнопки разделов === -->
@@ -96,11 +100,4 @@
   </section>
 
 </main>
-<script src="{% static 'js/menu.js' %}"></script>
-<script src="{% static 'js/reviews.js' %}"></script>
-<script src="{% static 'js/utils.js' %}"></script>
-<script src="{% static 'js/cart_count.js' %}"></script>
-<script src="{% static 'js/set_basket.js' defer%}"></script>
-<script src="{% static 'js/basket.js' %}"></script>
-<script src="{% static 'js/order_form.js' %}"></script>
 {% endblock %}
