@@ -94,41 +94,5 @@
   {% endif %}
 </div>
 
-<!--    {% if current_subrubric.rubric.rubric_name == "Газовое оборудование" %}-->
-<!--        {% for product in products %}-->
-<!--            {% if product.photo %}-->
-<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">-->
-<!--            {% endif %}-->
-<!--            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>-->
-<!--            {{ product.description }}<br>-->
-<!--            {{ product.price }} BYN<br>-->
-<!--            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>-->
-<!--        {% endfor %}-->
-<!--    {% endif %}-->
-
-<!--    {% if current_subrubric.rubric.rubric_name == "Электрика" %}-->
-<!--        {% for product in products %}-->
-<!--            {% if product.photo %}-->
-<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">-->
-<!--            {% endif %}-->
-<!--            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>-->
-<!--            {{ product.description }}<br>-->
-<!--            {{ product.price }} BYN<br>-->
-<!--            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>-->
-<!--        {% endfor %}-->
-<!--    {% endif %}-->
-
-<!--    {% if current_subrubric.rubric.rubric_name == "Сантехника" %}-->
-<!--        {% for product in products %}-->
-<!--            {% if product.photo %}-->
-<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}" style="max-width:150px; margin-bottom:10px;">-->
-<!--            {% endif %}-->
-<!--            <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}">{{ product.title }}</a><br>-->
-<!--            {{ product.description }}<br>-->
-<!--            {{ product.price }} BYN<br>-->
-<!--            <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button><br><br>-->
-<!--        {% endfor %}-->
-<!--    {% endif %}-->
-
 </main>
 {% endblock %}
