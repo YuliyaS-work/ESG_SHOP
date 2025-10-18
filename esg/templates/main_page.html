@@ -2,11 +2,38 @@
 {% load static %}
 
 {% block title %}Вы на главной странице{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+<link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
+
+
 {% block content %}
 <main class="main-content">
+
+  <!--  ===кнопка Каталог===-->
+  <a href="{% url 'catalog' %}" class="catalog-btn">Каталог</a>
+
+ <!-- === Верхние кнопки разделов === -->
+  <div class="catalog-top-buttons">
+    {% for rubric in rubrics %}
+      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+        {% if rubric.rubric_name == "Электрика" %}
+          <i class="fas fa-bolt"></i>
+        {% elif rubric.rubric_name == "Сантехника" %}
+          <i class="fas fa-faucet"></i>
+        {% elif rubric.rubric_name == "Газовое оборудование" %}
+          <i class="fas fa-fire"></i>
+        {% else %}
+          <i class="fas fa-folder"></i>
+        {% endif %}
+        <span>{{ rubric.rubric_name }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+
 <div>
     <section class="latest-products">
     <h2>Новинки</h2>
