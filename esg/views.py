@@ -76,13 +76,13 @@ def get_subrubrics(request, rubric_id):
     rubric = Rubric.objects.get(pk=rubric_id)
 
     if rubric.rubric_name == 'Газовое оборудование':
-        subrubrics = Gas.objects.prefetch_related('gasproduct_set').all()
+        subrubrics = Gas.objects.select_related('rubric').all()
         products = GasProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Электрика':
-        subrubrics = Electro.objects.prefetch_related('electroproduct_set').all()
+        subrubrics = Electro.objects.select_related('rubric').all()
         products = ElectroProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Сантехника':
-        subrubrics = Santeh.objects.prefetch_related('santehproduct_set').all()
+        subrubrics = Santeh.objects.select_related('rubric').all()
         products = SantehProduct.objects.select_related('rubric').all()
 
     paginator = Paginator(products, 30)
