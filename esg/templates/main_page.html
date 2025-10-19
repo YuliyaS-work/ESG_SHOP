@@ -13,8 +13,7 @@
 <main class="main-content">
 
   <!--  ===кнопка Каталог===-->
-  <a href="{% url 'catalog' %}" class="catalog-btn">Каталог</a>
-
+<a href="{% url 'catalog' %}" class="catalog-btn">Посмотреть весь каталог</a>
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
@@ -76,9 +75,6 @@
     </section>
 
 <section class="catalog-section">
-  <h2 style="text-align:center; margin-bottom:30px;">
-    <a href="{% url 'catalog' %}" class="catalog-link">Посмотреть весь каталог</a>
-  </h2>
 
   {% for rubric in rubrics %}
     <div class="category-block">

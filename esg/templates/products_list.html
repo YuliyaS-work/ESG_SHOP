@@ -11,7 +11,7 @@
 <main class="main-content">
 
      <!--  ===кнопка Каталог===-->
-  <a href="{% url 'catalog' %}" class="catalog-btn">Каталог</a>
+  <a href="{% url 'catalog' %}" class="catalog-btn">Посмотреть весь каталог</a>
 
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
@@ -31,7 +31,7 @@
     {% endfor %}
   </div>
 
-    <h2> <a href="{% url 'subrubrics' current_subrubric.rubric.pk %}">{{ current_subrubric }}</a></h2>
+    <h2 style="font-size: 1rem;"><a href="{% url 'subrubrics' current_subrubric.rubric.pk %}" style="text-decoration: none; color: #0056b3;"> &larr; Вернуться назад</a></h2>
 
 
 

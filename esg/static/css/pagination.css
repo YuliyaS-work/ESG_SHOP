@@ -1,4 +1,4 @@
-.list-pages {
+/*.list-pages {
 	text-align: center;
 	margin: 0 0 20px 0;
 }
@@ -47,10 +47,74 @@
   border: 1px solid #ccc;
   font-size: 24px;
   appearance: none; /* для Firefox */
-  -moz-appearance: textfield; /* для Firefox */
-  -webkit-appearance: none; /* для Chrome */
+  /*-moz-appearance: textfield; /* для Firefox */
+ /* -webkit-appearance: none; /* для Chrome */
+/*}
+
+.page-input::-webkit-inner-spin-button,
+.page-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}*/
+/* === Пагинация — контейнер === */
+/* Контейнер пагинации */
+.list-pages {
+  text-align: center;
+  margin: 20px 0;
 }
 
+/* Список номеров */
+.list-pages ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  gap: 12px; /* расстояние между номерами */
+}
+
+/* Элементы списка */
+.list-pages ul li {
+  display: inline-block;
+}
+
+/* Ссылки-номера */
+.list-pages a,
+.list-pages input.page-input {
+  display: inline-block;
+  min-width: 30px;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #007BFF;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+/* Подсветка при наведении */
+.list-pages a:hover,
+.list-pages input.page-input:hover {
+  color: #0056b3;
+  transform: translateY(-1px);
+}
+
+/* Текущая страница */
+.list-pages .page-num-selected a,
+.list-pages .page-num-selected input.page-input {
+  color: #fff;
+  background: #007BFF;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: default;
+}
+
+/* Убираем стрелки у input */
 .page-input::-webkit-inner-spin-button,
 .page-input::-webkit-outer-spin-button {
   -webkit-appearance: none;

@@ -1,169 +1,199 @@
 
-/* === Header и контент === */
-.header {
+/* === Общая сетка хедера === */
+.header-grid,
+.header-grid * {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400; /* основной текст */
+  }
+.header-grid {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "logo top-links"
+    "logo bottom-right";
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(145deg,
+              #9e9e9e 0%,
+              #d0d0d0 20%,
+              #ffffff 50%,
+              #c0c0c0 80%,
+              #8c8c8c 100%);
+  border-bottom: 1px solid #999;
+  box-shadow: inset 0 2px 6px rgba(255,255,255,0.2);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: auto;
-  padding: 0px 30px;
   z-index: 1200;
-  display: flex;
-  flex-direction: column;
   box-sizing: border-box;
-  justify-content: center;
-  background: linear-gradient(145deg,
-              #9e9e9e 0%,   /* темный металл */
-              #d0d0d0 20%,  /* светлый блик */
-              #ffffff 50%,  /* центральный блик */
-              #c0c0c0 80%,  /* средний оттенок */
-              #8c8c8c 100%  /* темный край */
-  );
-  border-bottom: 1px solid #999;
-  box-shadow: inset 0 2px 6px rgba(255,255,255,0.2); /* легкий блеск */
 }
-.top-links {
+
+/* === Левая часть — логотип === */
+.header-logo {
+  grid-area: logo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header-logo img {
+  width: 100%;
+  max-width: 370px;
+  height: auto;
+  max-height: 160px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.header-logo img:hover {
+  transform: scale(1.05);
+}
+
+/* === Верхние ссылки (top-links) === */
+.header-top-links {
+  grid-area: top-links;
   display: flex;
   justify-content: flex-end;
-  gap: 40px;
-  padding: 5px 30px;
-  font-size: 14px;
+  gap: 30px;
+  font-weight: 700;
+  flex-wrap: wrap;
+  font-size: 22px;
 }
-.top-links a {
+.header-top-links a {
   text-decoration: none;
   color: #333;
-}
-
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 15px;
-  gap: 10px; /* расстояние между элементами */
-}
-
-.main-header > a:first-child {
-  flex-shrink: 0; /* логотип не сжимается */
-}
-
-.main-header form {
-  flex: 1; /* форма занимает всё доступное место между логотипом и правым блоком */
-  display: flex;
-  justify-content: center; /* центрируем форму */
-}
-
-.main-header input[type="text"] {
-  padding: 4px 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  width: 300px;
-  font-size: 0.9rem;
-  transition: border 0.2s, box-shadow 0.2s;
-}
-
-.main-header input[type="text"]:focus {
-  border-color: #999;
-  box-shadow: 0 0 4px rgba(0,0,0,0.2);
-  outline: none;
-}
-
-.main-header button {
-  padding: 5px 10px;
-  border: none;
-  background-color: gold;
-  color: black;
-  border-radius: 6px;          /* чуть более мягкие углы */
-  margin-left: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;           /* компактный текст */
-  transition: background 0.2s, transform 0.2s;
-}
-
-.main-header button:hover {
-  background-color: #007BFF;
-  transform: translateY(-1px); /* легкий эффект поднятия */
-}
-
-.header-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-/* Обертка для контактов */
-.contact-info-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-shrink: 0; /* предотвращаем сжатие */
-}
-/* Контакты — вертикально */
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; /* выравнивание текста по правому краю */
-  line-height: 1.4;
-}
-/* Отдельные контакты */
-.contact-info p {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 6px; /* расстояние между текстом и иконкой */
-}
-
-/* Телефонные ссылки */
-.phone-link {
-  text-decoration: none;
-  color: inherit;
   transition: color 0.2s;
+  font-weight: 500;       /* чуть жирнее, чтобы выделялись */
+  font-size: 14px;
 }
-.phone-link:hover {
-  color: #007BFF ;
-}
-/* Иконки контактов */
-.contact-info i {
-  margin-left: 5px; /* иконка справа от текста */
+.header-top-links a:hover {
+  color: #007BFF;
 }
 
-/* счетчик для корзины */
-.cart-icon {
-  position: relative;
-  display: inline-block;
+/* === Нижняя правая часть — отдельная грид-сетка === */
+.header-search,
+.header-contacts,
+.header-cart {
+  margin: 0;
 }
-.cart-count {
-  position: absolute;
-  top: -13px;
-  right: -8px;
-  background-color: gold;
-  color: black;
+
+.header-grid::after {
+  content: "";
+  display: block;
+  grid-area: bottom-right;
+}
+
+/* Создаем подгрид для нижнего ряда */
+.header-grid > .header-search,
+.header-grid > .header-contacts,
+.header-grid > .header-cart {
+  grid-area: bottom-right;
+}
+
+.bottom-right {
+  grid-area: bottom-right;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  justify-items: end;
+  gap: 100px;
+}
+
+/* === Поиск === */
+.header-search form {
+  display: flex;
+  gap: 14px;
+}
+.header-search input[type="text"] {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 300px;
+  font-weight: 400;       /* обычный текст */
   font-size: 14px;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-weight: bold;
 }
-/* Корзина */
-.cart-icon i {
-  font-size: 30px;
-  color: #333;
+.header-search button {
+  padding: 6px 20px;
+  background: gold;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: background 0.2s;
+  font-weight: 500;       /* немного жирнее для кнопки */
+  font-size: 14px;
+}
+.header-search button:hover {
+  background: #007BFF;
+  color: white;
+}
+
+/* === Контакты === */
+.header-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.header-contacts p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 18px;
+  font-weight: 400;       /* обычный текст */
+}
+.header-contacts a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+.header-contacts a:hover {
+  color: #007BFF;
+}
+
+/* === Корзина === */
+.header-cart {
+  position: relative;
+}
+.cart-icon i {
+  font-size: 34px;
+  color: #333;
+  transition: color 0.2s;
 }
 .cart-icon i:hover {
   color: #007BFF;
 }
-@media (max-width: 768px) {
-  .main-header {
-    flex-direction: column;
-    align-items: stretch;
+.header-cart i {
+  font-weight: 400;       /* иконка чуть выраженнее */
+}
+.cart-count {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  background: gold;
+  color: black;
+  font-size: 14px;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+/* === Адаптив === */
+@media (max-width: 900px) {
+  .header-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "top-links"
+      "bottom-right";
   }
-  .main-header input[type="text"] {
-    width: 100%;
-    max-width: none;
+  .header-top-links {
+    justify-content: center;
+    gap: 10px;
   }
-  .contact-info {
-    align-items: flex-start;
+  .bottom-right {
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
 }

@@ -27,18 +27,16 @@
   color: #FFD700;
   font-size: 20px;
 }
+/* Подсветка при наведении */
 .catalog-btn:hover {
-  background: linear-gradient(145deg, #9b9fa4, #767b80);
-  transform: translateY(-2px);
+  /*background: #007BFF; /* синий фон при ховере */
+    background: #FFD700; /* золотой фон при ховере */
+  color: #007BFF; /* текст белый */
+}
+.catalog-btn:hover i {
+  color: #007BFF; /* иконка тоже белая */
 }
 
-/* Товары */
-.products-section {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 20px;
-  text-align: center;
-}
 /* Сетка товаров */
 .products-grid {
   display: grid;
@@ -49,7 +47,7 @@
 /* Карточка товара */
 .product-card-catalog {
   width: 100%;          /* занимает всю ширину ячейки */
-  max-width: 220px;     /* ограничиваем, чтобы не растягивалась */
+  max-width: 240px;     /* ограничиваем, чтобы не растягивалась */
   box-sizing: border-box;
   padding: 15px;
   background: #f8f8f8;
@@ -72,88 +70,72 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
-/* Название товара */
-.product-card-catalog h3 {
-  margin: 5px 0;
-  font-size: 1.1rem;
-}
 /* Цена */
 .product-card-catalog p {
   font-size: 0.9rem;
   color: #333;
   margin: 5px 0;
 }
+/* Название товара — ссылка */
+.products-grid .product-card-catalog a {
+  text-decoration: none; /* убираем подчеркивание */
+  color: #007BFF;        /* фирменный синий цвет */
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  display: block;
+  margin: 5px 0;
+}
+/* Если внутри a есть h3, уменьшаем его отступы */
+.products-grid .product-card-catalog a h3 {
+  margin: 2px 0;         /* минимальный отступ сверху/снизу */
+  font-size: 0.95rem;    /* уменьшенный шрифт */
+}
+
+/* Ховер на название товара */
+.products-grid .product-card-catalog a:hover h3 {
+  color: #0056b3;        /* чуть темнее при наведении */
+}
 /* === Подкатегории списком === */
-/* Общий блок подкатегорий */
+/* Секция подкатегорий */
 .subcategories-section {
   text-align: center;
   margin: 0 auto 10px auto;
-  padding: 10px 10px;
+  padding: 5px 10px; /* чуть меньше паддингов для компактности */
   max-width: 1200px;
   border-radius: 12px;
-  /* фон под металл, как сайдбар */
   background: linear-gradient(145deg, #9ca2a6, #7d8286);
   box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
               inset -2px -2px 5px rgba(0,0,0,0.2);
 }
 
-/* Заголовок подкатегорий */
-.subcategories-section h2 {
-  color: #fff;
-  font-size: 1.5em;
-  font-weight: 600;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-}
-
-/* Сетка — 4 колонки */
+/* Сетка подкатегорий ровно под кнопки */
 .subcategories-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ровно 4 колонки */
-  gap: 12px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* ровно под кнопки */
+  gap: 6px 10px;
   list-style: none;
   padding: 0;
   margin: 0 auto;
   justify-items: center;
+  text-align: center;
 }
 
-/* Элементы списка */
-.subcategories-list li {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* Ссылки — только текст, без подложки */
+/* Ссылки подкатегорий */
 .subcategories-list a {
   display: block;
   width: 100%;
-  padding: 6px;
-  color: #fff;
+  padding: 4px 6px;
+  font-size: 0.85em;      /* компактный шрифт */
   font-weight: 500;
-  font-size: 1em;
+  color: #fff;
   text-decoration: none;
-  text-align: center;
+  word-break: break-word;  /* перенос длинных слов */
+  line-height: 1.2em;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* Эффект наведения — подсветка и лёгкий подъем */
+/* Ховер */
 .subcategories-list a:hover {
   color: #FFD700;
   transform: translateY(-2px);
-}
-
-@media (max-width: 1000px) {
-  .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .subcategories-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .products-grid,
-  .subcategories-list {
-    grid-template-columns: 1fr;
-  }
 }

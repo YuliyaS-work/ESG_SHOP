@@ -4,6 +4,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
+<link rel="stylesheet" href="{% static 'css/basket.css' %}">
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
 
@@ -33,8 +34,7 @@
 
 
 <div class="product-card-single">
-
-    <h2>{{ product.title }}</h2>
+    <h3>{{ product.title }}</h3>
     <div class="product-image-container">
     {% if product.photo %}
         <img src="{{ product.photo.url }}" alt="{{ product.title }}">
@@ -57,9 +57,10 @@
 
     <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button>
 
-    <a href="{% url 'subrubrics' product.rubric.rubric.pk %}" style="display: inline-block; margin-top: 15px; padding: 8px 12px; background: #007bff; color: white; text-decoration: none; border-radius: 4px;">
-        Вернуться: <br>{{ product.rubric.title }}
-    </a>
 </div>
+    <div style="text-align: center;">
+    <a href="{% url 'subrubrics' product.rubric.rubric.pk %}" class="product_exit">
+        Вернуться в раздел: <br>{{ product.rubric.title }}
+    </a></div>
 </main>
 {% endblock %}
