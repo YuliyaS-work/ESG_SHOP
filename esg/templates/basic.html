@@ -16,17 +16,14 @@
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- или другой шрифт Робото -->
-<!--<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">-->
 <!--    Метатеги для адаптивности -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<div>
 <header class="header-grid">
         <div class="header-logo">
            <a href="{% url 'main' %}">
-              <img src="{% static 'image/1-2.png' %}" alt="СпецЭлектроБелТорг">
+              <img src="{% static 'image/logo-4.png' %}" alt="СпецЭлектроБелТорг">
            </a>
         </div>
 
@@ -41,8 +38,13 @@
     <div class="bottom-right">
         <div class="header-search">
             <form action="{% url 'search' %}" method="get">
+                <div class="search-wrapper">
             <input type="text" name="q" placeholder="Поиск ">
-            <button type="submit">Найти</button>
+            <button type="submit">
+<!--                Найти-->
+                <i class="fas fa-search"></i>
+                </button>
+                </div>
             </form>
         </div>
 
@@ -81,15 +83,13 @@
             {% endfor %}
         </ul>
     </nav>
-
-   <main class="main-content">
 <!-- === ВСПЛЫВАЮЩАЯ ФОРМА ОБРАТНОЙ СВЯЗИ === -->
 
 <div id="overlay_fb"></div>
 
 <div id="feedback-modal">
   <button id="close-feedback" class="close-btn">&times;</button>
-  <h2>Обратная связь</h2>
+  <h2 style="text-align: center;">Обратная связь</h2>
   <form id="feedback-form" data-url="{% url 'feedback' %}" method="post">
       <label for="name">Имя и фамилия</label>
     <input id="name" type="text" name="name" placeholder="Введите имя и фамилию" required>
@@ -113,7 +113,7 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
-
+   <main class="main-content">
        {% block content %}{% endblock %}
    </main>
     <footer class="footer">
@@ -138,7 +138,6 @@
     </div>
   </div>
 </footer>
-</div>
 <!--Общие скрипты, используемые на всех страницах -->
 <script src="{% static 'js/menu.js' %}" defer></script>
 <script src="{% static 'js/set_basket.js' %}" defer></script>

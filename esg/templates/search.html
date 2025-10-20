@@ -1,19 +1,38 @@
 {% extends 'basic.html' %}
 {% load static %}
 
-{% block title %}Товары{% endblock %}
+{% block title %}Поиск{% endblock %}
 {% block styles %}
-
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
 {% endblock %}
 {% block content %}
 <main class="main-content">
-<h2>Результаты по запросу</h2>
-<ul>
-  {% for item in results %}
-<li><a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}">{{ item.title }}</a><br>{{ item.description }}<br></li>
-  {% empty %}
-    <li>Введите поисковый запрос</li>
-  {% endfor %}
-</ul>
-  </main>
+<!--<h2>Результаты по запросу</h2>-->
+<!--<ul>-->
+<!--  {% for item in results %}-->
+<!--<li><a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}">{{ item.title }}</a><br>{{ item.description }}<br></li>-->
+<!--  {% empty %}-->
+<!--    <li>Введите поисковый запрос</li>-->
+<!--  {% endfor %}-->
+<!--</ul>-->
+
+  <section class="search-results">
+    <h2>Результаты по запросу</h2>
+
+    {% if results %}
+      <ul class="results-list">
+        {% for item in results %}
+          <li class="result-item">
+            <a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}" class="result-link">
+              {{ item.title }}
+            </a>
+            <p class="result-desc">{{ item.description }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="no-results">Введите поисковый запрос</p>
+    {% endif %}
+  </section>
+</main>
 {% endblock %}

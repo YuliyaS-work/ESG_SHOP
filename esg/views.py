@@ -233,6 +233,10 @@ def search_model_products(document_class, model_class, query):
 def search_view(request):
     '''Посуществляет поиск товаров по сайту. '''
     query = request.GET.get('q', '')
+
+    # Получаем рубрики для sidebar
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    context = {'rubrics': rubrics}
     if not query:
         return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос'})
 
@@ -242,9 +246,10 @@ def search_view(request):
     results += search_model_products(SantehProductDocument, SantehProduct, query)
 
     if not results:
-        return render(request, 'search.html', {'results': [], 'message': 'Ничего не найдено'})
-
-    return render(request, 'search.html', {'results': results})
+        context.update({'results': [], 'message': 'Ничего не найдено'})
+        return render(request, 'search.html', context)
+    context.update({'results': results})
+    return render(request, 'search.html', context)
 
 
 class FeedbackAPICreate(generics.CreateAPIView):

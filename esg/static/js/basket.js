@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const titles = Object.keys(window.basket);
 
     if (titles.length === 0) {
-      basketContainer.innerHTML = '<p>Корзина пуста.</p>';
+      basketContainer.innerHTML = '<p>Корзина пуста</p>';
       return;
     }
 

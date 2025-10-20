@@ -29,12 +29,11 @@
 }
 /* Подсветка при наведении */
 .catalog-btn:hover {
-  /*background: #007BFF; /* синий фон при ховере */
-    background: #FFD700; /* золотой фон при ховере */
-  color: #007BFF; /* текст белый */
+  background: linear-gradient(145deg, #e0c04f, #c8a717); /* золотой фон при ховере */
+  color: white; /* текст белый */
 }
 .catalog-btn:hover i {
-  color: #007BFF; /* иконка тоже белая */
+  color: black; /* иконка тоже белая */
 }
 
 /* Сетка товаров */
@@ -79,7 +78,7 @@
 /* Название товара — ссылка */
 .products-grid .product-card-catalog a {
   text-decoration: none; /* убираем подчеркивание */
-  color: #007BFF;        /* фирменный синий цвет */
+  color: #6d7378;        /* фирменный серый как сайдбар цвет */
   transition: color 0.2s ease;
   font-size: 0.95rem;
   display: block;
@@ -93,7 +92,7 @@
 
 /* Ховер на название товара */
 .products-grid .product-card-catalog a:hover h3 {
-  color: #0056b3;        /* чуть темнее при наведении */
+  color: #e6c200;        /* золото при наведении */
 }
 /* === Подкатегории списком === */
 /* Секция подкатегорий */

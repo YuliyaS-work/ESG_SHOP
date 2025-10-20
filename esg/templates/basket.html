@@ -14,7 +14,7 @@
 <!--нужен для js, в basket.js на 17-26 строчке-->
 <div id="basket"></div>
   <hr>
-  <p>Выберите нужный Вам товар из нашего каталога и нажмите кнопку "Купить"</p>
+  <p>Выберите нужный Вам товар из нашего каталога и нажмите кнопку "Оформить заказ"</p>
     <p>либо воспользуйтесь поиском, чтобы найти всё что нужно.</p>
  <a href="{% url 'catalog' %}" class="catalog-link">Добавить товары в корзину</a>
 </section>
@@ -25,7 +25,7 @@
 <form id="order-form" data-url="{% url 'order_api_create' %}">
   {% csrf_token %}
   <button type="button" id="close-order-form" class="close-btn">&times;</button>
-  <h2>Оформление заказа</h2>
+  <h2 style="text-align: center;">Оформление заказа</h2>
   {{ form.as_p }}
   <div id="response-message-error" style="color:red;"></div>
   <button class="send-btn" type="submit">Подтвердить заказ</button>

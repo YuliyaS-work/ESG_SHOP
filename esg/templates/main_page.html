@@ -34,11 +34,12 @@
 
 
 <div>
-    <section class="latest-products">
-    <h2>Новинки</h2>
-    <div class="product-carousel">
+    <div style="text-align: center; margin-bottom: 10px;">
+    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Новинки</h2>
+  </div>
+        <div class="product-carousel">
         {% for product in latest_products %}
-        <div class="product-card-new">
+            <div class="product-card-catalog">
             {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
             {% else %}
@@ -53,13 +54,13 @@
         <p>Товары отсутствуют.</p>
         {% endfor %}
     </div>
-</section>
 
-    <section class="popular-products">
-        <h2>Популярные товары</h2>
-        <div class="product-carousel">
+            <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
+        </div>
+              <div class="product-carousel">
             {% for product in popular_products %}
-            <div class="product-card">
+            <div class="product-card-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
               {% else %}
@@ -72,7 +73,6 @@
             </div>
             {% endfor %}
         </div>
-    </section>
 
 <section class="catalog-section">
 
@@ -122,7 +122,8 @@
 </section>
   <!-- Горизонтальная карусель с индикаторами -->
  <main class="reviews-container">
-     <h2 style="text-align: center; padding: 20px;">О нас пишут</h2>
+         <div style="text-align: center; margin-bottom: 10px;">
+           <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">О нас пишут</h2></div>
   <div class="carousel">
     <div id="carousel-inner">
       <div class="review">

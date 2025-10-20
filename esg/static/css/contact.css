@@ -37,7 +37,7 @@
 /* Анимация при наведении на ссылки */
 a.contact:hover .contact-icon {
   transform: scale(1.15);
-  fill: #007BFF; /* цвет при наведении */
+  fill: #c8a717; /* цвет при наведении */
 }
 .certificate {
   position: relative;
