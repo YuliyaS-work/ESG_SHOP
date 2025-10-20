@@ -10,8 +10,8 @@ html {
   margin-bottom: 20px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   position: sticky;
-  top: 0;
-  z-index: 5;
+  top: 140px;
+  z-index: 1000;
 }
 
 .anchor-nav ul {
@@ -33,16 +33,34 @@ html {
   transition: all 0.2s ease;
 }
 
-.anchor-nav a:hover {
+/* Подсветка при наведении и активная ссылка */
+.anchor-nav a:hover,
+.anchor-nav a.active {
   background-color: #e6c200;
   color: #fff;
 }
 
 /* Заголовки и разделы */
-.pay_section{
+.pay_section {
   margin-bottom: 40px;
   padding-bottom: 25px;
-  border-bottom: 1px solid #888;
+  position: relative;
+}
+
+/* Добавляем мягкую градиентную линию */
+.pay_section::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(136, 136, 136, 0.4),
+    transparent
+  );
 }
 
 .payments {
@@ -70,7 +88,13 @@ html {
   white-space: pre-wrap; /* перенос строк */
   border-left: 4px solid #e6c200;
 }
+.pay_section p {
+  line-height: 1.8;
+}
 /* Учитываем высоту фиксированного header */
 :target {
-  scroll-margin-top: 140px;
+  scroll-margin-top: 185px;
+}
+.pay_section:last-of-type {
+  margin-bottom: 200px; /* чтобы позволить доскроллить */
 }

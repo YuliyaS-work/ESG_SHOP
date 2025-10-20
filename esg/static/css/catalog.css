@@ -100,7 +100,7 @@
   text-align: center;
   margin: 0 auto 10px auto;
   padding: 5px 10px; /* чуть меньше паддингов для компактности */
-  max-width: 1200px;
+  max-width: 1300px;
   border-radius: 12px;
   background: linear-gradient(145deg, #9ca2a6, #7d8286);
   box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
@@ -110,7 +110,7 @@
 /* Сетка подкатегорий ровно под кнопки */
 .subcategories-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* ровно под кнопки */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* ровно под кнопки */
   gap: 6px 10px;
   list-style: none;
   padding: 0;

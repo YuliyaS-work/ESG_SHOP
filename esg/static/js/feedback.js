@@ -52,7 +52,7 @@ form.addEventListener('submit', function(e) {
     return response.json();
   })
   .then(data => {
-    alert('✅ Спасибо! Ваше сообщение отправлено.');
+    alert('☑️ Спасибо! Ваше сообщение отправлено.');
     responseMessageError.innerText = '';
     form.reset();
     closeModal();
