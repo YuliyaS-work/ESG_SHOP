@@ -197,6 +197,7 @@ class OrderAPICreate(generics.CreateAPIView):
         basket_cookies = json.loads(decoded_cookies)
         order = serializer.save()
         get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
+        # order_mail_handler.send(sender=Order, instance=order)
 
 
 def search_model_products(document_class, model_class, query):

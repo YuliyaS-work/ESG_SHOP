@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,3 +145,23 @@ ELASTICSEARCH_DSL = {
         'verify_certs': False,  # если самоподписанный сертификат
     }
 }
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # адрес брокера (Redis)
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # куда сохраняются результаты задач
+CELERY_ACCEPT_CONTENT = ['json']  # какие форматы сообщений принимает Celery
+CELERY_TASK_SERIALIZER = 'json'  # в каком формате сериализуются задачи
+CELERY_RESULT_SERIALIZER = 'json'  # в каком формате сериализуются результаты
+CELERY_TIMEZONE = 'Europe/Minsk'  # твой часовой пояс
+CELERY_ENABLE_UTC = False
+# CELERYD_POOL = 'solo'
+CELERYD_POOL = 'threads'
+
+
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
