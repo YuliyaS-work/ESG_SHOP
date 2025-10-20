@@ -1,0 +1,70 @@
+/* === Блок поиска === */
+.search-results {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  border-radius: 16px;
+  background: linear-gradient(145deg, #9ca2a6, #7d8286);
+  box-shadow:
+    inset 2px 2px 6px rgba(255, 255, 255, 0.25),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.15),
+    0 4px 12px rgba(255, 255, 255, 0.2);
+  color: #fff;
+  text-align: left;
+}
+
+.search-results h2 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  border-bottom: none;
+  padding-bottom: 12px;
+}
+
+/* Список результатов */
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2),
+              0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.result-item:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25),
+              0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.result-link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffd700; /* золотой акцент */
+  text-decoration: none;
+}
+
+.result-link:hover {
+  text-decoration: underline;
+  color: #e0c04f;
+}
+
+.result-desc {
+  font-size: 0.95rem;
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.no-results {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+}

@@ -14,9 +14,9 @@
 <!--нужен для js, в basket.js на 17-26 строчке-->
 <div id="basket"></div>
   <hr>
-  <p>Выберите нужный Вам товар из нашего каталога и нажмите кнопку "Купить"</p>
+  <p>Выберите нужный Вам товар из нашего каталога и нажмите кнопку "Оформить заказ"</p>
     <p>либо воспользуйтесь поиском, чтобы найти всё что нужно.</p>
- <a href="{% url 'catalog' %}" class="catalog-link">Добавить товары в корзину</a>
+ <a href="{% url 'catalog' %}" class="catalog-link">Добавить товар</a>
 </section>
 
   <!-- === Оформление заказа === -->
@@ -25,15 +25,43 @@
 <form id="order-form" data-url="{% url 'order_api_create' %}">
   {% csrf_token %}
   <button type="button" id="close-order-form" class="close-btn">&times;</button>
-  <h2>Оформление заказа</h2>
+  <h2 style="text-align: center;">Оформление заказа</h2>
   {{ form.as_p }}
   <div id="response-message-error" style="color:red;"></div>
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
 <div id="response-message"></div>
+    <div id="custom-alert">
+  <div class="custom-alert-content">
+    <p id="custom-alert-message"></p>
+    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
+  </div>
+</div>
 </main>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/basket.js' %}" defer></script>
 <script src="{% static 'js/order_form.js' %}" defer></script>
+<script>
+(function() {
+  const alertBox = document.getElementById('custom-alert');
+  const alertMessage = document.getElementById('custom-alert-message');
+  const alertBtn = document.getElementById('custom-alert-btn');
+
+  window.alert = function(message) {
+    alertMessage.textContent = message;
+    alertBox.classList.add('active');
+
+    // скрыть автоматически через 3 сек
+    setTimeout(() => {
+      alertBox.classList.remove('active');
+    }, 3000);
+  };
+
+  // кнопка "OK"
+  alertBtn.addEventListener('click', () => {
+    alertBox.classList.remove('active');
+  });
+})();
+</script>
 {% endblock %}

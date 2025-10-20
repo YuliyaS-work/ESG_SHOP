@@ -1,8 +1,6 @@
 /* === Страница basic === */
 body {
     margin: 0;
-    /*font-family: Arial, Helvetica, sans-serif;
-    /*font-family: 'Roboto', sans-serif;*/
     font-family: 'Montserrat', sans-serif;
     background: white;
 }
@@ -68,7 +66,7 @@ body {
 }
 
 .footer-nav a:hover {
-  background-color: #007BFF;
+  background-color: #e6c200;
   color: #fff;
   transform: translateY(-1px);
 }

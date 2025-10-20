@@ -1,66 +1,9 @@
-/*.list-pages {
-	text-align: center;
-	margin: 0 0 20px 0;
-}
-.list-pages ul {
-	margin: 20px 0 0 0;
-	padding: 0;
-	list-style: none;
-}
-.list-pages ul li {
-	display: inline-block;
-	margin: 0 20px 0 0;
-}
-.list-pages a {
-	color: #000;
-	font-size: 24px;
-	text-decoration: none;
-}
-.list-pages .page-num, .page-num-selected {
-	display: inline-block;
-	width: 60px;
-	height: 44px;
-	padding: 16px 0 0 0;
-	border: 1px solid #d0d0d0;
-	border-radius: 30px;
-}
-.list-pages .page-num:hover {
-	box-shadow: 3px 3px 1px #d0d0d0;
-}
-.list-pages .page-num-selected {
-	border: none;
-	color: #000;
-	font-size: 20px;
-}
-.list-pages .page-num-selected:hover {
-	box-shadow: none;
-}
 
-
-.page-input {
-  background: #C0C0C0;
-  border-color: #C0C0C0;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  text-align: center;
-  border: 1px solid #ccc;
-  font-size: 24px;
-  appearance: none; /* для Firefox */
-  /*-moz-appearance: textfield; /* для Firefox */
- /* -webkit-appearance: none; /* для Chrome */
-/*}
-
-.page-input::-webkit-inner-spin-button,
-.page-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}*/
 /* === Пагинация — контейнер === */
 /* Контейнер пагинации */
 .list-pages {
   text-align: center;
-  margin: 20px 0;
+  margin: 40px 20px 20px 20px;
 }
 
 /* Список номеров */
@@ -86,7 +29,7 @@
   text-align: center;
   font-size: 1rem;
   font-weight: 500;
-  color: #007BFF;
+  color: #bfa500;
   text-decoration: none;
   background: none;
   border: none;
@@ -108,7 +51,7 @@
 .list-pages .page-num-selected a,
 .list-pages .page-num-selected input.page-input {
   color: #fff;
-  background: #007BFF;
+  background: #bfa500;
   border-radius: 4px;
   padding: 6px 10px;
   cursor: default;

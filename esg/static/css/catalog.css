@@ -29,12 +29,11 @@
 }
 /* Подсветка при наведении */
 .catalog-btn:hover {
-  /*background: #007BFF; /* синий фон при ховере */
-    background: #FFD700; /* золотой фон при ховере */
-  color: #007BFF; /* текст белый */
+  background: linear-gradient(145deg, #e0c04f, #c8a717); /* золотой фон при ховере */
+  color: white; /* текст белый */
 }
 .catalog-btn:hover i {
-  color: #007BFF; /* иконка тоже белая */
+  color: black; /* иконка тоже белая */
 }
 
 /* Сетка товаров */
@@ -79,7 +78,7 @@
 /* Название товара — ссылка */
 .products-grid .product-card-catalog a {
   text-decoration: none; /* убираем подчеркивание */
-  color: #007BFF;        /* фирменный синий цвет */
+  color: #6d7378;        /* фирменный серый как сайдбар цвет */
   transition: color 0.2s ease;
   font-size: 0.95rem;
   display: block;
@@ -93,7 +92,7 @@
 
 /* Ховер на название товара */
 .products-grid .product-card-catalog a:hover h3 {
-  color: #0056b3;        /* чуть темнее при наведении */
+  color: #e6c200;        /* золото при наведении */
 }
 /* === Подкатегории списком === */
 /* Секция подкатегорий */
@@ -101,7 +100,7 @@
   text-align: center;
   margin: 0 auto 10px auto;
   padding: 5px 10px; /* чуть меньше паддингов для компактности */
-  max-width: 1200px;
+  max-width: 1300px;
   border-radius: 12px;
   background: linear-gradient(145deg, #9ca2a6, #7d8286);
   box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
@@ -111,7 +110,7 @@
 /* Сетка подкатегорий ровно под кнопки */
 .subcategories-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* ровно под кнопки */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* ровно под кнопки */
   gap: 6px 10px;
   list-style: none;
   padding: 0;

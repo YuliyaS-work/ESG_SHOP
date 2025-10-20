@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return res.json();
       })
       .then(data => {
-        alert('✅ Заказ успешно создан!');
+        alert('☑️ Заказ успешно создан!');
         form.reset();
         overlay.classList.remove('active');
         form.classList.remove('active');
