@@ -35,6 +35,7 @@
 
   <!-- === Подкатегории === -->
   <section class="subcategories-section" id="subrubric-list">
+    <button class="carousel-btn left">&#10094;</button>
     <ul class="subcategories-list">
       {% for rubric in rubrics %}
         {% for subrubric in rubric.electro_set.all %}
@@ -48,7 +49,9 @@
         {% endfor %}
       {% endfor %}
     </ul>
+     <button class="carousel-btn right">&#10095;</button>
   </section>
+
 
   <!-- === Все товары === -->
   <section class="products-section">
@@ -111,5 +114,5 @@
 {% endblock %}
 </main>
 {% block scripts %}
-
+<script src="{% static 'js/catalog.js' %}" defer></script>
 {% endblock %}

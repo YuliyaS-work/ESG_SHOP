@@ -33,6 +33,7 @@
   </div>
 
      <section class="subcategories-section" id="subrubric-list">
+          <button class="carousel-btn left">&#10094;</button>
     <ul class="subcategories-list">
     {% for subrubric in subrubrics %}
         {% if subrubric.rubric.rubric_name == 'Газовое оборудование' %}
@@ -46,7 +47,8 @@
         {% endif %}
     {% endfor %}
     </ul>
-     </section>
+        <button class="carousel-btn right">&#10095;</button>
+</section>
 
  <section class="products-section">
   <div class="products-grid">
@@ -108,4 +110,7 @@
 </div>
 
 </main>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/catalog.js' %}" defer></script>
 {% endblock %}

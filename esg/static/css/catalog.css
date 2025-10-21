@@ -94,47 +94,76 @@
 .products-grid .product-card-catalog a:hover h3 {
   color: #e6c200;        /* золото при наведении */
 }
-/* === Подкатегории списком === */
-/* Секция подкатегорий */
+/* подкатегории карусель */
 .subcategories-section {
-  text-align: center;
-  margin: 0 auto 10px auto;
-  padding: 5px 10px; /* чуть меньше паддингов для компактности */
-  max-width: 1300px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #9ca2a6, #7d8286);
-  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1),
-              inset -2px -2px 5px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* скрываем лишнее при скролле */
+  padding: 0 40px; /* чтобы кнопки не перекрывали элементы */
+  margin-top: 5px;
+  margin-bottom: 20px;
 }
 
-/* Сетка подкатегорий ровно под кнопки */
 .subcategories-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* ровно под кнопки */
-  gap: 6px 10px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 8px 0;
   list-style: none;
-  padding: 0;
-  margin: 0 auto;
-  justify-items: center;
-  text-align: center;
+  margin: 0;
 }
 
-/* Ссылки подкатегорий */
-.subcategories-list a {
-  display: block;
-  width: 100%;
-  padding: 4px 6px;
-  font-size: 0.85em;      /* компактный шрифт */
-  font-weight: 500;
-  color: #fff;
+.subcategories-list li a {
+  display: inline-block;
+  padding: 6px 12px; /* компактнее */
+  background: #f0f0f0; /* светло-серая рамка */
+  color: #333; /* текст темно-серый */
+  border-radius: 20px; /* полукруглая форма */
+  border: 1px solid #ccc; /* тонкая серая рамка */
   text-decoration: none;
-  word-break: break-word;  /* перенос длинных слов */
-  line-height: 1.2em;
-  transition: color 0.2s ease, transform 0.2s ease;
+  font-weight: 500;
+  font-size: 12px; /* уменьшенный шрифт */
+  white-space: nowrap; /* предотвращаем перенос слов */
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Ховер */
-.subcategories-list a:hover {
-  color: #FFD700;
-  transform: translateY(-2px);
+.subcategories-list li a:hover {
+  background: #e0c04f; /* золотой при наведении */
+  color: black;
+  border-color: #c8a717;
 }
+
+/* Стрелки */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.carousel-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.carousel-btn.left {
+  left: 0;
+}
+
+.carousel-btn.right {
+  right: 0;
+}
+

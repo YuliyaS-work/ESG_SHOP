@@ -49,7 +49,7 @@
   transform: scale(1.05);
 }
 
-/* === Верхние ссылки (top-links) === */
+/* === Верхние ссылки (top-links) ===*/
 .header-top-links {
   grid-area: top-links;
   display: flex;
@@ -60,14 +60,15 @@
   font-size: 22px;
 }
 .header-top-links a {
-  text-decoration: none;
-  color: #333;
-  transition: color 0.2s;
-  font-weight: 500;       /* чуть жирнее, чтобы выделялись */
+  color: #555; /* средний серый, менее контрастный, мягкий вид */
+  font-weight: 600;
   font-size: 14px;
+  text-decoration: none;
+  transition: color 0.25s;
 }
+
 .header-top-links a:hover {
-  color: #6d7378;
+  color: black; /* чёткий контраст на ховере */
 }
 
 /* === Нижняя правая часть — отдельная грид-сетка === */
@@ -99,34 +100,7 @@
   gap: 100px;
 }
 
-/* === Поиск ===
-.header-search form {
-  display: flex;
-  gap: 14px;
-}
-.header-search input[type="text"] {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 300px;
-  font-weight: 400;
-  font-size: 14px;
-}
-.header-search button {
-  padding: 6px 20px;
-  background: linear-gradient(145deg, #e0c04f, #c8a717);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
-  font-weight: 500;
-  font-size: 14px;
-}
-.header-search button:hover {
-  background: #007BFF;
-  color: white;
-}
-*/
+/* === Поиск ===*/
 .header-search form {
   display: flex;
 }
