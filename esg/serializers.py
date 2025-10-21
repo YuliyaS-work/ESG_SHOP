@@ -17,24 +17,24 @@ class FeedbackSerializer(serializers.ModelSerializer):
         model = Feedback
         fields = ("name", "phone", "subject", "message")
 
-
-class ElectroSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Electro
-        fields = ("title", "id", "rubric")
-
-
-class GasSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Gas
-        fields = ("title", "id", "rubric")
-
-
-class SantehSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Santeh
-        fields = ("title", "id", "rubric")
+# =нужны бфли для js для вывода списка подрубрик
+# class ElectroSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Electro
+#         fields = ("title", "id", "rubric")
+#
+#
+# class GasSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Gas
+#         fields = ("title", "id", "rubric")
+#
+#
+# class SantehSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Santeh
+#         fields = ("title", "id", "rubric")
 
