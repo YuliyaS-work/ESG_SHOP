@@ -8,7 +8,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("first_name", "last_name", "phone")
+        fields = ("first_name", "last_name", "phone", "mail")
 
 
 class FeedbackSerializer(serializers.ModelSerializer):

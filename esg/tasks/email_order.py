@@ -23,17 +23,32 @@ def process_order_task(order_id, basket_cookies):
             product = SantehProduct.objects.get(title=title)
             SantehOrder.objects.create(order=order, santehproduct=product, quantity=quantity)
             list_order.append(f'{product.title} - {quantity}шт./м')
-
+    # for a seller
     subject = f'Новый заказ № {order.pk}'
     message = (f'Заказ № {order.pk} на имя {order.first_name} {order.last_name} ({order.phone}).\n' +
                f'Товары: \n' + '\n'.join(list_order))
     to_email = ['yuliyasorokinawork@gmail.com', 'tanyakuharskaya@gmail.com']
+
+    # for a client
+    subject1 = f'Магазин "Электротовары"'
+    message1 = (f'{order.first_name}, номер Вашего заказа {order.pk}.')
+    to_email1 = [f'{order.mail}']
+
     try:
+        # email to a seller
         send_mail(
             subject=subject,
             message=message,
             from_email=esg_shop.settings.DEFAULT_FROM_EMAIL,
             recipient_list=to_email,
+            fail_silently=False,
+        )
+        # email to a client
+        send_mail(
+            subject=subject1,
+            message=message1,
+            from_email=esg_shop.settings.DEFAULT_FROM_EMAIL,
+            recipient_list=to_email1,
             fail_silently=False,
         )
     except Exception as e:

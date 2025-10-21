@@ -113,6 +113,7 @@ class Order(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     last_name = models.CharField(max_length=255, verbose_name='Фамилия',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
+    mail = models.EmailField(verbose_name='Электронная почта', null=True, blank=True, default='')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     status = models.BooleanField(default=False, verbose_name='Статус заказа')
 
