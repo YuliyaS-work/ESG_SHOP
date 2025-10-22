@@ -1,28 +1,11 @@
-// Для Тани 31, 34, 43, 49 указаны классы для css чтобы кнопка меняла цвет
-
-function getBasketFromCookies() {
-  try {
-    const cookie = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('basket='));
-    const parsed = cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : {};
-    return typeof parsed === 'object' && parsed !== null ? parsed : {};
-  } catch (e) {
-    console.warn('Ошибка чтения куки basket:', e);
-    return {};
-  }
-}
-
-function saveBasketToCookies(basket) {
-  document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=2592000';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.basket');
   let basket = getBasketFromCookies();
 
   buttons.forEach(button => {
     const productTitle = button.dataset.title;
+    const productPrice = parseFloat(button.dataset.price.replace(',', '.')).toFixed(2);
+
 
     // Устанавливаем начальное состояние кнопки
     if (basket[productTitle]) {
@@ -42,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.classList.remove('in-basket');
       } else {
         // Добавление в корзину
-        basket[productTitle] = 1;
+        basket[productTitle] = [1, productPrice];
         saveBasketToCookies(basket);
         button.textContent = 'Удалить из корзины';
         button.classList.add('in-basket');

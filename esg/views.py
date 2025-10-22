@@ -229,9 +229,11 @@ class OrderAPICreate(generics.CreateAPIView):
     serializer_class = OrderSerializer
 
     def perform_create(self, serializer):
-        raw_cookies = self.request.COOKIES.get('basket')
-        decoded_cookies = urllib.parse.unquote(raw_cookies)
-        basket_cookies = json.loads(decoded_cookies)
+        raw_basket = self.request.COOKIES.get('basket')
+        decoded_basket_cookies = urllib.parse.unquote(raw_basket)
+        basket_cookies = json.loads(decoded_basket_cookies)
+        print(basket_cookies)
+
         order = serializer.save()
         # get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
         process_order_task.delay(order_id=order.pk, basket_cookies=basket_cookies)

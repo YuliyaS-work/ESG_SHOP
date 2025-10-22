@@ -9,24 +9,32 @@ import esg_shop
 def process_order_task(order_id, basket_cookies):
     order = Order.objects.get(pk=order_id)
     list_order = []
+    cost = 0.00
 
-    for title, quantity in basket_cookies.items():
-        if GasProduct.objects.filter(title=title).exists():
+    for title, value in basket_cookies.items():
+        if title == "generalCost":
+            order.general_cost = float(value)
+            cost = float(value)
+            order.save()
+        elif GasProduct.objects.filter(title=title).exists():
             product = GasProduct.objects.get(title=title)
-            GasOrder.objects.create(order=order, gasproduct=product, quantity=quantity)
-            list_order.append(f'{product.title} - {quantity}шт./м')
+            GasOrder.objects.create(order=order, gasproduct=product, quantity=value[0], total_cost=float(value[1]))
+            list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
         elif ElectroProduct.objects.filter(title=title).exists():
             product = ElectroProduct.objects.get(title=title)
-            ElectroOrder.objects.create(order=order, electroproduct=product, quantity=quantity)
-            list_order.append(f'{product.title} - {quantity}шт./м')
+            ElectroOrder.objects.create(order=order, electroproduct=product, quantity=value[0], total_cost=float(value[1]))
+            list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
         elif SantehProduct.objects.filter(title=title).exists():
             product = SantehProduct.objects.get(title=title)
-            SantehOrder.objects.create(order=order, santehproduct=product, quantity=quantity)
-            list_order.append(f'{product.title} - {quantity}шт./м')
+            SantehOrder.objects.create(order=order, santehproduct=product, quantity=value[0], total_cost=float(value[1]))
+            list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
     # for a seller
     subject = f'Новый заказ № {order.pk}'
-    message = (f'Заказ № {order.pk} на имя {order.first_name} {order.last_name} ({order.phone}).\n' +
-               f'Товары: \n' + '\n'.join(list_order))
+    message = (
+            f'Заказ № {order.pk} на имя {order.first_name} {order.last_name} ({order.phone}).\n' +
+            f'Товары: \n' + '\n'.join(list_order)+ '\n' +
+            f'Общая стоимость: {cost} BYN'
+    )
     to_email = ['yuliyasorokinawork@gmail.com', 'tanyakuharskaya@gmail.com']
 
     # for a client
@@ -53,19 +61,3 @@ def process_order_task(order_id, basket_cookies):
         )
     except Exception as e:
         print(f'❌ Письмо не отправлено: {e}')
-
-
-# @shared_task
-# def send_order_email_task(to_email, subject, message):
-#     print(f'📤 Отправка письма: {subject} → {to_email}')
-#     print(f'📦 Содержимое:\n{message}')
-#     try:
-#         send_mail(
-#             subject=subject,
-#             message=message,
-#             from_email=esg_shop.settings.DEFAULT_FROM_EMAIL,
-#             recipient_list=to_email,
-#             fail_silently=False,
-#         )
-#     except Exception as e:
-#         print(f'❌ Письмо не отправлено: {e}')

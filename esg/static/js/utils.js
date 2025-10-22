@@ -12,8 +12,24 @@ function getBasketFromCookies() {
 }
 
 function saveBasketToCookies(basket) {
+  // пересчитываем общую стоимость
+  let totalSum = 0;
+  Object.entries(basket).forEach(([key, value]) => {
+    if (key !== 'generalCost') {
+      const [quantity, price] = value;
+      totalSum += parseFloat(price);
+    }
+  });
+  basket.generalCost = totalSum.toFixed(2);
+  // сохраняем всё в одной куке
   document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=2592000';
 }
+
+
+function clearBasketCookies() {
+  document.cookie = 'basket=; path=/; max-age=0';
+}
+
 
 function getCSRFToken() {
   const name = 'csrftoken';

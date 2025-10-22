@@ -3,39 +3,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('overlay');
 
-  // глобальная корзина
   window.basket = getBasketFromCookies();
 
   function renderBasket() {
     basketContainer.innerHTML = '';
-    const titles = Object.keys(window.basket);
+    const titles = Object.keys(window.basket).filter(key => key !== 'generalCost');
 
     if (titles.length === 0) {
       basketContainer.innerHTML = '<p>Корзина пуста</p>';
       return;
     }
 
-    Object.entries(window.basket).forEach(([title, quantity]) => {
+    titles.forEach(title => {
+     const [quantity, price] = window.basket[title];
+      const unitPrice = price / quantity;
+      const totalPrice = (quantity * unitPrice).toFixed(2);
+
       const div = document.createElement('div');
       div.className = 'basket-item';
       div.innerHTML = `
         <span class="title">${title}</span>
+        <span class="price">${totalPrice} BYN</span>
         <button class="decrease">−</button>
         <span class="quantity">${quantity}</span>
         <button class="increase">+</button>
         <button class="remove">🗑️</button>
       `;
+
       div.querySelector('.increase').onclick = () => {
-        window.basket[title]++;
+        window.basket[title][0]++;
+        const newQuantity = window.basket[title][0];
+        const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
+        window.basket[title][1] = newTotalPrice;
         saveBasketToCookies(window.basket);
         renderBasket();
       };
+
       div.querySelector('.decrease').onclick = () => {
-        window.basket[title]--;
-        if (window.basket[title] <= 0) delete window.basket[title];
+        window.basket[title][0]--;
+        const newQuantity = window.basket[title][0];
+        if (newQuantity <= 0) {
+          delete window.basket[title];
+        } else {
+          const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
+          window.basket[title][1] = newTotalPrice;
+        }
         saveBasketToCookies(window.basket);
         renderBasket();
       };
+
       div.querySelector('.remove').onclick = () => {
         delete window.basket[title];
         saveBasketToCookies(window.basket);
@@ -45,7 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
       basketContainer.appendChild(div);
     });
 
-    // кнопка оформления заказа создается только один раз
+    const totalDiv = document.createElement('div');
+    totalDiv.className = 'basket-total';
+    totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
+    basketContainer.appendChild(totalDiv);
+
     if (!document.querySelector('.open-order-form')) {
       const orderButton = document.createElement('button');
       orderButton.textContent = 'Оформить заказ';
@@ -56,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderBasket();
 
-  // открытие модалки корзины
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('open-order-form')) {
       overlay.classList.add('active');
@@ -64,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // закрытие модалки
   const closeBtn = document.getElementById('close-order-form');
   const closeModal = () => {
     overlay.classList.remove('active');
