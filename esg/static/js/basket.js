@@ -1,9 +1,26 @@
+function updateBasketButton(button, basket) {
+  const productTitle = button.dataset.title;
+  if (basket[productTitle]) {
+    button.textContent = 'Удалить из корзины';
+    button.classList.add('in-basket');
+  } else {
+    button.textContent = 'Купить';
+    button.classList.remove('in-basket');
+  }
+}
+
+function refreshAllBasketButtons(basket) {
+  document.querySelectorAll('.basket').forEach(btn => {
+    updateBasketButton(btn, basket);
+  });
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
   const basketContainer = document.getElementById('basket');
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('overlay');
 
-  // глобальная корзина
   window.basket = getBasketFromCookies();
 
   function renderBasket() {
@@ -15,10 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    let totalCost = 0;
+
     titles.forEach(title => {
-     const [quantity, price] = window.basket[title];
+      const [quantity, price] = window.basket[title];
       const unitPrice = price / quantity;
       const totalPrice = (quantity * unitPrice).toFixed(2);
+      totalCost += parseFloat(totalPrice);
 
       const div = document.createElement('div');
       div.className = 'basket-item';
@@ -38,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.basket[title][1] = newTotalPrice;
         saveBasketToCookies(window.basket);
         renderBasket();
+        refreshAllBasketButtons(window.basket);
       };
 
       div.querySelector('.decrease').onclick = () => {
@@ -51,17 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         saveBasketToCookies(window.basket);
         renderBasket();
+        refreshAllBasketButtons(window.basket);
       };
 
       div.querySelector('.remove').onclick = () => {
         delete window.basket[title];
         saveBasketToCookies(window.basket);
         renderBasket();
+        refreshAllBasketButtons(window.basket);
       };
 
       basketContainer.appendChild(div);
     });
 
+    window.basket.generalCost = totalCost.toFixed(2);
     const totalDiv = document.createElement('div');
     totalDiv.className = 'basket-total';
     totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
@@ -75,6 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Инициализация кнопок «Купить» / «Удалить»
+  document.querySelectorAll('.basket').forEach(button => {
+    const productTitle = button.dataset.title;
+    const productPrice = parseFloat(button.dataset.price.replace(',', '.')).toFixed(2);
+
+    updateBasketButton(button, window.basket);
+
+    button.addEventListener('click', () => {
+      if (window.basket[productTitle]) {
+        delete window.basket[productTitle];
+      } else {
+        window.basket[productTitle] = [1, productPrice];
+      }
+
+      saveBasketToCookies(window.basket);
+      renderBasket();
+      refreshAllBasketButtons(window.basket);
+    });
+  });
+
   renderBasket();
 
   document.addEventListener('click', (e) => {
@@ -84,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // закрытие модалки
   const closeBtn = document.getElementById('close-order-form');
   const closeModal = () => {
     overlay.classList.remove('active');
@@ -92,22 +135,4 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   overlay.addEventListener('click', closeModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  // чтобы кнопки купить автоматически обновлялись в корзине
-  document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('basket')) {
-      const title = e.target.dataset.title;
-      if (!title) return;
-
-      // если товара нет — добавляем, иначе увеличиваем количество
-      if (window.basket[title]) {
-        window.basket[title]++;
-      } else {
-        window.basket[title] = 1;
-      }
-
-      saveBasketToCookies(window.basket);
-      renderBasket();
-    }
-  });
 });

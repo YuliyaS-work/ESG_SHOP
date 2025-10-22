@@ -3,8 +3,10 @@ function getBasketFromCookies() {
     const cookie = document.cookie
       .split('; ')
       .find(row => row.startsWith('basket='));
-    const parsed = cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : {};
-    return typeof parsed === 'object' && parsed !== null ? parsed : {};
+    if (!cookie) return {};
+    const value = decodeURIComponent(cookie.split('=')[1]);
+    const parsed = JSON.parse(value);
+    return parsed && typeof parsed === 'object' ? parsed : {};
   } catch (e) {
     console.warn('Ошибка чтения куки basket:', e);
     return {};
