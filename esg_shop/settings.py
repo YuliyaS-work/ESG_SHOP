@@ -140,10 +140,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'http://localhost:9200',
-        # 'hosts': 'https://localhost:9200',
-        # 'http_auth': ('elastic', 'f3hRbYAUlIGJs*SDMrgn'),
-        # 'verify_certs': False,  # если самоподписанный сертификат
+        # 'hosts': 'http://localhost:9200',
+        'hosts': 'https://localhost:9200',
+        'http_auth': ('elastic', 'f3hRbYAUlIGJs*SDMrgn'),
+        'verify_certs': False,  # если самоподписанный сертификат
     }
 }
 

@@ -38,7 +38,7 @@
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Новинки</h2>
   </div>
         <div class="product-carousel">
-        {% for product in latest_products %}
+        {% for product in new_products %}
             <div class="product-card-catalog">
             {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
@@ -71,6 +71,8 @@
                 <p>{{ product.price }} BYN</p>
                 <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
             </div>
+            {% empty %}
+            <p>Товары отсутствуют.</p>
             {% endfor %}
         </div>
 
