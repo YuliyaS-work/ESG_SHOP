@@ -18,27 +18,41 @@ from .serializers import OrderSerializer, FeedbackSerializer
 from .tasks.email_order import process_order_task
 from .tasks.email_feedback import process_feedback_task
 
+def get_popular_products():
+    '''Выводит популярные товары по усмотрению продавца. '''
+    electro_products = ElectroProduct.objects.filter(status_popular=True)
+    gas_products = GasProduct.objects.filter(status_popular=True)
+    santeh_products = SantehProduct.objects.filter(status_popular=True)
+    popular_products = list(chain(electro_products, gas_products, santeh_products))
+    return popular_products
+
+
+def get_new_products():
+    '''Выводит новикнки товары по усмотрению продавца. '''
+    # Выводит популярные товары по усмотрению продавца.
+    electro_products = ElectroProduct.objects.filter(status_new=True)
+    gas_products = GasProduct.objects.filter(status_new=True)
+    santeh_products = SantehProduct.objects.filter(status_new=True)
+    new_products = list(chain(electro_products, gas_products, santeh_products))
+    return new_products
+
+
 def get_main_page(request):
     ''' Отдает данные на главную страницу. '''
     electro = Electro.objects.first()
     santeh = Santeh.objects.first()
     gas = Gas.objects.first()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    # Собираем все товары из всех категорий
-    all_products = list(ElectroProduct.objects.all()) + \
-                   list(GasProduct.objects.all()) + \
-                   list(SantehProduct.objects.all())
-    # Сортируем по дате добавления (по id, т.к. id растет с добавлением)
-    all_products_sorted = sorted(all_products, key=lambda x: x.id, reverse=True)
-    # Берем 5 последних
-    latest_products = all_products_sorted[:7]
-    popular_products = ElectroProduct.objects.all().order_by('id')[:7]
+
+    popular_products = get_popular_products()
+    new_products = get_new_products()
+
     context = {
         'electro': electro,
         'santeh': santeh,
         'gas': gas,
         'rubrics': rubrics,
-        'latest_products': latest_products,
+        'new_products': new_products,
         'popular_products': popular_products,
     }
     return render(request, 'main_page.html', context)
@@ -168,7 +182,7 @@ def get_basket(request):
     form = OrderForm()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     recently_products = ElectroProduct.objects.all()[:7] #переделать
-    popular_products = ElectroProduct.objects.all().order_by('id')[:7] #переделать
+    popular_products = get_popular_products()
     context = {'form':form, 'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
     return render(request, 'basket.html', context)
 

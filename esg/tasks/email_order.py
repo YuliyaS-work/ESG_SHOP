@@ -60,4 +60,4 @@ def process_order_task(order_id, basket_cookies):
             fail_silently=False,
         )
     except Exception as e:
-        print(f'❌ Письмо не отправлено: {e}')
+        print(f' Письмо не отправлено: {e}')

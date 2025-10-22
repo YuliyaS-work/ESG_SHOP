@@ -21,18 +21,18 @@ class SantehAdmin(admin.ModelAdmin):
     search_fields = ('title',)
 
 class ElectroProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price')
+    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('title','rubric__title')
 
 class GasProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price')
+    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('title','rubric__title')
 
 class SantehProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price')
-    ordering = ('title',)
+    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
+    ordering = ('title', )
     search_fields = ('title','rubric__title')
 
 class OrderAdmin(admin.ModelAdmin):

@@ -1,3 +1,4 @@
+from PIL.ImageOps import deform
 from django.core.validators import RegexValidator
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
@@ -68,6 +69,8 @@ class ElectroProduct(models.Model):
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Electro, on_delete = models.CASCADE, verbose_name='Электрика')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
+    status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
+    status_new = models.BooleanField(default=False, verbose_name='Новинка')
 
     class Meta:
         verbose_name_plural = 'Товары раздела электрики'
@@ -85,6 +88,8 @@ class GasProduct(models.Model):
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газовое оборудование')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
+    status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
+    status_new = models.BooleanField(default=False, verbose_name='Новинка')
 
     class Meta:
         verbose_name_plural = 'Товары раздела газового оборудования'
@@ -102,11 +107,14 @@ class SantehProduct(models.Model):
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Santeh, on_delete = models.CASCADE, verbose_name='Сантехника')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
+    status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
+    status_new = models.BooleanField(default=False, verbose_name='Новинка')
 
     class Meta:
         verbose_name_plural = 'Товары раздела сантехники'
         verbose_name = 'Товар раздела сантехники'
         ordering= ['title']
+
 
 
 class Order(models.Model):

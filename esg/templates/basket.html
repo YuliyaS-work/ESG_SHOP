@@ -68,6 +68,8 @@
                 <p>{{ product.price }} BYN</p>
                 <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
             </div>
+            {% empty %}
+            <p>Товары отсутствуют.</p>
             {% endfor %}
         </div>
 
