@@ -31,8 +31,8 @@ def get_main_page(request):
     # Сортируем по дате добавления (по id, т.к. id растет с добавлением)
     all_products_sorted = sorted(all_products, key=lambda x: x.id, reverse=True)
     # Берем 5 последних
-    latest_products = all_products_sorted[:6]
-    popular_products = ElectroProduct.objects.all().order_by('id')[:6]
+    latest_products = all_products_sorted[:7]
+    popular_products = ElectroProduct.objects.all().order_by('id')[:7]
     context = {
         'electro': electro,
         'santeh': santeh,
@@ -167,7 +167,9 @@ def get_basket(request):
     '''Рендерит страницу покупательской корзины.'''
     form = OrderForm()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-    context = {'form':form, 'rubrics': rubrics }
+    recently_products = ElectroProduct.objects.all()[:7] #переделать
+    popular_products = ElectroProduct.objects.all().order_by('id')[:7] #переделать
+    context = {'form':form, 'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
     return render(request, 'basket.html', context)
 
 

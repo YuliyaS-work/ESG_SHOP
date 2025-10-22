@@ -1,16 +1,20 @@
 /* === Страница main_page === */
-/* Сетка подкатегорий */
 .catalog-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 18px;                     /* как в .product-carousel */
+  max-width: 1200px;
+  margin: 0 auto;                /* центрируем по странице */
+  padding: 0 10px;               /* небольшие боковые отступы */
 }
 /*иконки подкатегорий */
 .catalog-card i.fas {
-    font-size: 35px;
+    font-size: 28px;
     color: #7b8287;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;
+    font-size: 35px;*/
+    margin-bottom: 8px;
 }
 
 .product-carousel {
@@ -62,7 +66,7 @@
 }
 /* Отзывы */
 .reviews-container {
-  max-width: 1200px;
+  max-width: 100%;
   margin: auto;
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
@@ -103,7 +107,7 @@
   margin: 8px 0;
 }
 .review small a {
-  color: #0077cc;
+  color: #6d7378;
   text-decoration: none;
 }
 .review small a:hover {
@@ -149,29 +153,34 @@ margin-top: 40px;
   font-size: 28px;
   color: #FFD700;
 }
-
-
+/* Карточка подкатегории */
 .catalog-card {
+  flex: 0 0 130px;                /* фиксированная ширина (между 120–150px) */
+  height: 100px;                  /* фиксированная высота для равномерности */
   background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  width: 160px;
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+ justify-content: flex-start;
+  align-items: center;            /* горизонтальное выравнивание */
   text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
   text-decoration: none;
   color: #222;
+  padding: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .catalog-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-3px);
   box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
 }
-
+/* Название подкатегории */
 .catalog-card span {
-  display: block;
+  font-size: 0.9rem;
+  line-height: 1.2;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  white-space: normal;   /* перенос строк разрешен */
+  white-space: normal;
 }
 
 @media (max-width: 768px) {

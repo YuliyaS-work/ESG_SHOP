@@ -72,4 +72,22 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   overlay.addEventListener('click', closeModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  // чтобы кнопки купить автоматически обновлялись в корзине
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('basket')) {
+      const title = e.target.dataset.title;
+      if (!title) return;
+
+      // если товара нет — добавляем, иначе увеличиваем количество
+      if (window.basket[title]) {
+        window.basket[title]++;
+      } else {
+        window.basket[title] = 1;
+      }
+
+      saveBasketToCookies(window.basket);
+      renderBasket();
+    }
+  });
 });

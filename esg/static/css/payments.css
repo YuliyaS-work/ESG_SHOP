@@ -59,8 +59,7 @@ html {
     to right,
     transparent,
     rgba(136, 136, 136, 0.4),
-    transparent
-  );
+    transparent);
 }
 
 .payments {
@@ -97,4 +96,11 @@ html {
 }
 .pay_section:last-of-type {
   margin-bottom: 200px; /* чтобы позволить доскроллить */
+}
+.anchor-nav a {
+  transition: color 0.3s, border-bottom-color 0.3s;
+}
+.anchor-nav a.active {
+  color: #e6c200;
+  border-bottom: 2px solid #e6c200;
 }

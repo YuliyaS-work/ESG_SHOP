@@ -166,4 +166,47 @@
 .carousel-btn.right {
   right: 0;
 }
+/* Очень маленькие телефоны (старые iPhone, 320px) */
+@media (max-width: 360px) {
+  /* Пример: уменьшение текста, кнопок и отступов */
+  body { font-size: 14px; }
+  .catalog-card { flex: 0 0 90%; }
+  .catalog-top-buttons { flex-direction: column; gap: 10px; }
+}
 
+/* Стандартные современные телефоны (360-600px) */
+@media (max-width: 600px) {
+  .catalog-card { flex: 0 0 80%; }
+  .catalog-top-buttons { flex-direction: column; gap: 12px; }
+  .product-carousel { gap: 12px; }
+}
+
+/* Планшеты маленькие (600-768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+  .catalog-card { flex: 0 0 45%; }
+  .catalog-top-buttons { gap: 15px; }
+  .product-card-catalog { flex: 0 0 180px; }
+}
+
+/* Планшеты большие (769-992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .catalog-card { flex: 0 0 40%; }
+  .product-card-catalog { flex: 0 0 200px; }
+}
+/* Десктопы стандарт (993-1366px) */
+@media (min-width: 993px) and (max-width: 1366px) {
+  .catalog-card { flex: 0 0 30%; }
+  .product-card-catalog { flex: 0 0 220px; }
+}
+
+/* Десктопы широкие (1367-1920px) */
+@media (min-width: 1367px) and (max-width: 1920px) {
+  .catalog-card { flex: 0 0 25%; }
+  .product-card-catalog { flex: 0 0 240px; }
+}
+/* Широкие мониторы и 4K */
+@media (min-width: 1921px) {
+  .catalog-card { flex: 0 0 20%; }
+  .product-card-catalog { flex: 0 0 260px; }
+  .catalog-top-buttons { gap: 25px; }
+}

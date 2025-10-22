@@ -30,6 +30,47 @@
   <div id="response-message-error" style="color:red;"></div>
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
+
+    <div style="text-align: center; margin-bottom: 10px;">
+    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>
+  </div>
+        <div class="product-carousel">
+        {% for product in recently_products %}
+            <div class="product-card-catalog">
+            {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+            {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+            {% endif %}
+            <h3>{{ product.title }}</h3>
+            <p>{{ product.description|truncatewords:15 }}</p>
+            <p>{{ product.price }} BYN</p>
+            <button class="basket" data-title="{{ product.title }}">Купить</button>
+        </div>
+        {% empty %}
+        <p>Товары отсутствуют.</p>
+        {% endfor %}
+    </div>
+
+            <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
+        </div>
+              <div class="product-carousel">
+            {% for product in popular_products %}
+            <div class="product-card-catalog">
+              {% if product.photo %}
+                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+              {% else %}
+                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+              {% endif %}
+                <h3>{{ product.title }}</h3>
+                <p>{{ product.description }}</p>
+                <p>{{ product.price }} BYN</p>
+                <button class="basket" data-title="{{ product.title }}">Купить</button>
+            </div>
+            {% endfor %}
+        </div>
+
 <div id="response-message"></div>
     <div id="custom-alert">
   <div class="custom-alert-content">

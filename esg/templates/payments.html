@@ -93,29 +93,56 @@
     </pre>
   </section>
 </main>
-{% block scripts %}
+
 {% endblock %}
+{% block scripts %}
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+<!--document.addEventListener("DOMContentLoaded", function() {-->
+<!--  const sections = document.querySelectorAll("section[id]");-->
+<!--  const navLinks = document.querySelectorAll(".anchor-nav a");-->
+
+<!--  window.addEventListener("scroll", () => {-->
+<!--    let current = "";-->
+
+<!--    sections.forEach(section => {-->
+<!--      const sectionTop = section.offsetTop - 150;-->
+<!--      if (pageYOffset >= sectionTop) {-->
+<!--        current = section.getAttribute("id");-->
+<!--      }-->
+<!--    });-->
+
+<!--    navLinks.forEach(link => {-->
+<!--      link.classList.remove("active");-->
+<!--      if (link.getAttribute("href") === `#${current}`) {-->
+<!--        link.classList.add("active");-->
+<!--      }-->
+<!--    });-->
+<!--  });-->
+<!--});-->
+  document.addEventListener("DOMContentLoaded", function() {
   const sections = document.querySelectorAll("section[id]");
   const navLinks = document.querySelectorAll(".anchor-nav a");
 
+  let scrollTimeout; // чтобы ограничить частоту обновлений
+
   window.addEventListener("scroll", () => {
-    let current = "";
+    // предотвращаем частое срабатывание (раз в 100мс)
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      let current = "";
 
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 150;
-      if (pageYOffset >= sectionTop) {
-        current = section.getAttribute("id");
-      }
-    });
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 180; // чуть больше отступ
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight - 50) {
+          current = section.getAttribute("id");
+        }
+      });
 
-    navLinks.forEach(link => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
-    });
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
+      });
+    }, 100);
   });
 });
 </script>

@@ -55,7 +55,7 @@
                 <a href="tel:+375298677295" class="phone-link">+375 29 867-72-95</a></p>
         </div>
         <div class="header-cart">
-            <a href="{% url 'basket' %}"><div class="cart-icon"><i class="fas fa-cart-shopping"></i>
+            <a href="{% url 'basket' %}"><div class="cart-icon"><i class="fa-solid fa-shopping-cart"></i>
                 <span id="cart-count" class="cart-count">0</span> <!-- счётчик --></div></a>
         </div>
     </div>
@@ -138,6 +138,13 @@
     </div>
   </div>
 </footer>
+<!-- === КАСТОМНЫЙ ALERT === -->
+<div id="custom-alert">
+  <div class="custom-alert-content">
+    <p id="custom-alert-message"></p>
+    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
+  </div>
+</div>
 <!--Общие скрипты, используемые на всех страницах -->
 <script src="{% static 'js/menu.js' %}" defer></script>
 <script src="{% static 'js/set_basket.js' %}" defer></script>
