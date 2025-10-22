@@ -39,14 +39,19 @@
 /* Сетка товаров */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 колонок */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Карточка товара */
 .product-card-catalog {
+  display: flex;               /* превращаем карточку в flex-контейнер */
+  flex-direction: column;      /* элементы располагаются сверху вниз */
+  justify-content: flex-start; /* верхнее выравнивание остальных элементов */
   width: 100%;          /* занимает всю ширину ячейки */
-  max-width: 240px;     /* ограничиваем, чтобы не растягивалась */
+  max-width: 260px;     /* ограничиваем, чтобы не растягивалась */
   box-sizing: border-box;
   padding: 15px;
   background: #f8f8f8;
@@ -166,47 +171,89 @@
 .carousel-btn.right {
   right: 0;
 }
-/* Очень маленькие телефоны (старые iPhone, 320px) */
+/* Очень маленькие телефоны*/
 @media (max-width: 360px) {
   /* Пример: уменьшение текста, кнопок и отступов */
   body { font-size: 14px; }
   .catalog-card { flex: 0 0 90%; }
   .catalog-top-buttons { flex-direction: column; gap: 10px; }
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .product-card-catalog { max-width: 100%; }
 }
 
-/* Стандартные современные телефоны (360-600px) */
+/* Стандартные современные телефоны*/
 @media (max-width: 600px) {
   .catalog-card { flex: 0 0 80%; }
   .catalog-top-buttons { flex-direction: column; gap: 12px; }
   .product-carousel { gap: 12px; }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .product-card-catalog { max-width: 100%; }
 }
 
-/* Планшеты маленькие (600-768px) */
+/* Планшеты маленькие (601-768px) */
 @media (min-width: 601px) and (max-width: 768px) {
   .catalog-card { flex: 0 0 45%; }
   .catalog-top-buttons { gap: 15px; }
   .product-card-catalog { flex: 0 0 180px; }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+     gap: 15px;
+  }
+  .product-card-catalog { max-width: 100%; }
 }
 
-/* Планшеты большие (769-992px) */
+/* Планшеты большие (769-991px) */
 @media (min-width: 769px) and (max-width: 992px) {
   .catalog-card { flex: 0 0 40%; }
   .product-card-catalog { flex: 0 0 200px; }
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .product-card-catalog { max-width: 220px; }
 }
-/* Десктопы стандарт (993-1366px) */
-@media (min-width: 993px) and (max-width: 1366px) {
+/* Десктопы стандарт (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
   .catalog-card { flex: 0 0 30%; }
   .product-card-catalog { flex: 0 0 220px; }
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+     gap: 20px;
+  }
+  .product-card-catalog { max-width: 240px; }
 }
-
-/* Десктопы широкие (1367-1920px) */
-@media (min-width: 1367px) and (max-width: 1920px) {
+/* Десктоп широкие (1200-1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .product-card-catalog { max-width: 260px; }
+}
+/* Десктопы широкие (1440-1919px) */
+@media (min-width: 1440px) and (max-width: 1920px) {
   .catalog-card { flex: 0 0 25%; }
   .product-card-catalog { flex: 0 0 240px; }
+  .products-grid {
+    grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  }
+  .product-card-catalog { max-width: 260px; }
 }
 /* Широкие мониторы и 4K */
 @media (min-width: 1921px) {
   .catalog-card { flex: 0 0 20%; }
   .product-card-catalog { flex: 0 0 260px; }
   .catalog-top-buttons { gap: 25px; }
+  .products-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* будет автоматически больше 6 */
+    gap: 25px;
+  }
+  .product-card-catalog { max-width: 280px; }
 }

@@ -4,7 +4,8 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 18px;                     /* как в .product-carousel */
-  max-width: 1200px;
+  width: 100%; /* растягиваем на всю ширину */
+  max-width: none; /* убираем ограничение */
   margin: 0 auto;                /* центрируем по странице */
   padding: 0 10px;               /* небольшие боковые отступы */
 }
@@ -12,11 +13,8 @@
 .catalog-card i.fas {
     font-size: 28px;
     color: #7b8287;
-    /*margin-bottom: 10px;
-    font-size: 35px;*/
     margin-bottom: 8px;
 }
-
 .product-carousel {
     display: flex;
     flex-wrap: nowrap; /* не переносим карточки */
@@ -113,14 +111,6 @@
 .review small a:hover {
   text-decoration: underline;
 }
-
-@media (max-width: 992px) {
-  .review { flex: 0 0 45%; }
-}
-@media (max-width: 600px) {
-  .review { flex: 0 0 80%; }
-}
-
 /* на главной каталог */
 .catalog-section{
 padding: 20px;
@@ -129,6 +119,10 @@ margin-top: 40px;
 .category-block {
   margin-bottom: 40px;
   text-align: center;
+  justify-content: flex-start;  /* карточки занимают всю ширину */
+  max-width: none;              /* убираем ограничение 1200px */
+  width: 100%;
+  padding: 0 10px;
 }
 
 .category-header {
@@ -155,7 +149,8 @@ margin-top: 40px;
 }
 /* Карточка подкатегории */
 .catalog-card {
-  flex: 0 0 130px;                /* фиксированная ширина (между 120–150px) */
+  flex: 1 1 160px;
+  max-width: 160px;
   height: 100px;                  /* фиксированная высота для равномерности */
   background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
   border-radius: 10px;
@@ -192,4 +187,23 @@ margin-top: 40px;
   .product-card-catalog {
     flex: 0 0 90%;
   }
+}
+/* Планшеты */
+@media (max-width: 992px) {
+  .catalog-card {
+    flex: 0 1 150px; /* чуть шире карточки */
+  }
+}
+
+/* Телефоны */
+@media (max-width: 600px) {
+  .catalog-card {
+    flex: 0 1 80%;   /* одна карточка на ряд */
+  }
+}
+@media (max-width: 992px) {
+  .review { flex: 0 0 45%; }
+}
+@media (max-width: 600px) {
+  .review { flex: 0 0 80%; }
 }

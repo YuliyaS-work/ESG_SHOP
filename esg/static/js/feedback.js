@@ -66,9 +66,9 @@ function getCSRFToken() {
   return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 }
 (function() {
-  const alertBox = document.getElementById('custom-alert');
-  const alertMessage = document.getElementById('custom-alert-message');
-  const alertBtn = document.getElementById('custom-alert-btn');
+  const alertBox = document.getElementById('feedback-alert');
+  const alertMessage = document.getElementById('feedback-alert-message');
+  const alertBtn = document.getElementById('feedback-alert-btn');
 
   window.alert = function(message) {
     alertMessage.textContent = message;

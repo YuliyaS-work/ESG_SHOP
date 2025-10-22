@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/media_footer.css' %}">
 <!--    Подключаем остальные стили по страницам-->
     {% block styles %}{% endblock %}
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
@@ -35,13 +36,18 @@
         <a href="{% url 'partners' %}">Наши партнёры</a>
         <a href="{% url 'contacts' %}" >Контакты</a>
     </nav>
+<!--    <button id="menu-toggle" class="menu-toggle">-->
+<!--    <i class="fas fa-bars"></i>-->
+<!--  </button>-->
+
+<!--  <div id="overlay" class="overlay"></div>-->
+
     <div class="bottom-right">
         <div class="header-search">
             <form action="{% url 'search' %}" method="get">
                 <div class="search-wrapper">
             <input type="text" name="q" placeholder="Поиск товаров">
             <button type="submit">
-<!--                Найти-->
                 <i class="fas fa-search"></i>
                 </button>
                 </div>
@@ -83,10 +89,35 @@
             {% endfor %}
         </ul>
     </nav>
+
+   <main class="main-content">
+       {% block content %}{% endblock %}
+   </main>
+    <footer class="footer">
+  <div class="footer-inner">
+      <nav class="footer-nav">
+      <a href="{% url 'main' %}">Главная</a>
+      <a href="{% url 'catalog' %}">Каталог</a>
+      <a href="{% url 'payments' %}">Оплата и доставка</a>
+      <a href="{% url 'partners' %}">Наши партнёры</a>
+      <a href="{% url 'contacts' %}">Контакты</a>
+    </nav>
+    <div class="footer-info">
+      <h4>Частное предприятие «СпецЭлектроБелТорг»</h4>
+      <p>Магазин «Электротовары»</p>
+      <p>УНП 690846458</p>
+        <p class="footer-copy">© 2025 СпецЭлектроБелТорг</p>
+    </div>
+    <div class="footer-contacts">
+      <p>📞 +375 17 742-71-27</p>
+      <p>📱 +375 29 867-72-95</p>
+      <p>✉️ Spelbtorg@mail.ru</p>
+    </div>
+  </div>
+</footer>
 <!-- === ВСПЛЫВАЮЩАЯ ФОРМА ОБРАТНОЙ СВЯЗИ === -->
 
 <div id="overlay_fb"></div>
-
 <div id="feedback-modal">
   <button id="close-feedback" class="close-btn">&times;</button>
   <h2 style="text-align: center;">Обратная связь</h2>
@@ -113,36 +144,11 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
-   <main class="main-content">
-       {% block content %}{% endblock %}
-   </main>
-    <footer class="footer">
-  <div class="footer-inner">
-      <nav class="footer-nav">
-      <a href="{% url 'main' %}">Главная</a>
-      <a href="{% url 'catalog' %}">Каталог</a>
-      <a href="{% url 'payments' %}">Оплата и доставка</a>
-      <a href="{% url 'partners' %}">Наши партнёры</a>
-      <a href="{% url 'contacts' %}">Контакты</a>
-    </nav>
-    <div class="footer-info">
-      <h4>Частное предприятие «СпецЭлектроБелТорг»</h4>
-      <p>Магазин «Электротовары»</p>
-      <p>УНП 690846458</p>
-        <p class="footer-copy">© 2025 СпецЭлектроБелТорг</p>
-    </div>
-    <div class="footer-contacts">
-      <p>📞 +375 17 742-71-27</p>
-      <p>📱 +375 29 867-72-95</p>
-      <p>✉️ Spelbtorg@mail.ru</p>
-    </div>
-  </div>
-</footer>
 <!-- === КАСТОМНЫЙ ALERT === -->
-<div id="custom-alert">
+<div id="feedback-alert">
   <div class="custom-alert-content">
-    <p id="custom-alert-message"></p>
-    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
+    <p id="feedback-alert-message"></p>
+    <button id="feedback-alert-btn" class="feedback-alert-btn">OK</button>
   </div>
 </div>
 <!--Общие скрипты, используемые на всех страницах -->
@@ -151,7 +157,6 @@
 <script src="{% static 'js/utils.js' %}" defer></script>
 <script src="{% static 'js/cart_count.js' %}" defer></script>
 <script src="{% static 'js/feedback.js' %}" defer></script>
-<!--<script src="{% static 'js/product.js' %}" defer></script>-->
 <!--Блок для подключений JS на конкретных страницах-->
 {% block scripts %}{% endblock %}
 </body>

@@ -2,6 +2,7 @@
    Кнопки корзины - универсально
    ========================== */
 .basket {
+  margin-top: auto;          /* вот ключевой момент: толкает кнопку вниз */
   padding: 8px 16px;
   background: linear-gradient(145deg, #FFD700, #e6c200); /* золотой */
   border: none;

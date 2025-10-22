@@ -55,3 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
     form.classList.remove('active');
   });
 });
+(function() {
+  const alertBox = document.getElementById('order-alert');
+  const alertMessage = document.getElementById('order-alert-message');
+  const alertBtn = document.getElementById('order-alert-btn');
+
+  window.alert = function(message) {
+    alertMessage.textContent = message;
+    alertBox.classList.add('active');
+
+    // скрыть автоматически через 3 сек
+    setTimeout(() => {
+      alertBox.classList.remove('active');
+    }, 3000);
+  };
+
+  // кнопка "OK"
+  alertBtn.addEventListener('click', () => {
+    alertBox.classList.remove('active');
+  });
+})();

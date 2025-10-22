@@ -25,7 +25,7 @@
 #feedback-modal {
   position: fixed;
   top: 160px;
-  left: 50%;
+  left: calc(50% + 35px);
   transform: translateX(-50%);
   background: #fff;
   color: #333;
@@ -79,7 +79,7 @@
   font-size: 0.95rem;
 }
 /* === КАСТОМНЫЙ ALERT === */
-#custom-alert {
+#feedback-alert {
   position: fixed;
   left: calc(50% + 35px);
   top: 30%;
@@ -102,21 +102,21 @@
   max-width: 90%;
 }
 
-#custom-alert.active {
+#feedback-alert.active {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
 
 /* Текст */
-#custom-alert-message {
+#feedback-alert-message {
   font-weight: 500;
   font-size: 1rem;
   color: #333;
 }
 
 /* Кнопка */
-.custom-alert-btn {
+.feedback-alert-btn {
   background: linear-gradient(145deg, #ccc, #999);
   color: #fff;
   border: none;
@@ -128,11 +128,31 @@
   transition: background 0.3s ease, transform 0.1s ease;
 }
 
-.custom-alert-btn:hover {
+.feedback-alert-btn:hover {
   background: linear-gradient(145deg, #bbb, #888);
 }
 
-.custom-alert-btn:active {
+.feedback-alert-btn:active {
   transform: scale(0.97);
   background: linear-gradient(145deg, #aaa, #777);
+}
+
+/* Адаптив для планшета */
+@media (max-width: 992px) {
+  #feedback-modal {
+    width: 500px;
+    left: 50%;            /* убираем сдвиг для удобства */
+    transform: translateX(-50%);
+  }
+}
+
+/* Адаптив для телефона */
+@media (max-width: 600px) {
+  #feedback-modal {
+    width: 90%;
+    top: 20%;             /* чуть выше для маленького экрана */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+  }
 }

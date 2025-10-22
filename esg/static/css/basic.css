@@ -93,20 +93,3 @@ body {
 .icon-mail {
   color: #0066cc;       /* делаем синим, чтобы выделялось */
 }
-/* Адаптив */
-@media (max-width: 900px) {
-  .footer-inner {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .footer-nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .footer-info, .footer-contacts {
-    text-align: center;
-  }
-}

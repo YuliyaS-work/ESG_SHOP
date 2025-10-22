@@ -198,21 +198,42 @@
   box-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
-/* === Адаптив === */
-@media (max-width: 900px) {
-  .header-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "logo"
-      "top-links"
-      "bottom-right";
-  }
-  .header-top-links {
-    justify-content: center;
-    gap: 10px;
-  }
-  .bottom-right {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
+/* === Кнопка-гамбургер === */
+.menu-toggle {
+  display: none; /* по умолчанию скрыта */
+  position: relative;
+  width: 32px;
+  height: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  z-index: 1100; /* выше сайдбара */
 }
+
+.menu-toggle span {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background: #333;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  left: 0;
+}
+
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 10px; }
+.menu-toggle span:nth-child(3) { top: 20px; }
+
+/* === АНИМАЦИЯ при открытии меню === */
+body.sidebar-open .menu-toggle span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 10px;
+}
+body.sidebar-open .menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+body.sidebar-open .menu-toggle span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 10px;
+}
+/* === АДАПТИВНЫЙ ХЕДЕР ДЛЯ МОБИЛКИ === */

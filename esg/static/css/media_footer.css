@@ -1,0 +1,115 @@
+/* Адаптив */
+/* Планшеты и крупные телефоны (768–990px) */
+@media (max-width: 990px) {
+  .footer {
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .footer-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .footer-nav a {
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+
+  .footer-contacts p {
+    font-size: 15px;
+  }
+
+  .footer-info .footer-copy {
+    font-size: 0.9em;
+  }
+}
+
+/* Маленькие телефоны (до 767px) */
+@media (max-width: 767px) {
+  .footer {
+    height: auto;
+    padding: 25px 10px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-nav {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-nav a {
+    font-size: 14px;
+    padding: 5px 8px;
+  }
+
+  .footer-contacts {
+    text-align: center;
+  }
+
+  .footer-contacts p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .footer-info .footer-copy {
+    margin-top: 10px;
+    font-size: 13px;
+  }
+}
+/* === Очень маленькие экраны (до 420px) — две колонки === */
+@media (max-width: 420px) {
+  .footer-inner {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    width: 100%;
+    align-items: start;
+    text-align: center;
+  }
+
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .footer-nav a {
+    font-size: 4px;
+    padding: 2px 4px;
+  }
+
+  .footer-contacts {
+    font-size: 4px;
+    line-height: 1.2;
+  }
+
+  .footer-info {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .footer-info .footer-copy {
+    font-size: 4px;
+    margin-top: 3px;
+  }
+}
