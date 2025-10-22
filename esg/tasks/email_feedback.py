@@ -9,8 +9,9 @@ import esg_shop
 def process_feedback_task(feedback_id):
     feedback = Feedback.objects.get(pk=feedback_id)
     subject = f'Обратная связь № {feedback.pk}'
-    message = (f'Обратная связь № {feedback.pk} для {feedback.name} ({feedback.phone}).\n' +
-               f'Тема: \n' + f'{feedback.subject} \n' +
+    message_subject_from_client = f'\nТема: \n' + f'{feedback.subject}' if feedback.subject else ''
+    message = (f'Обратная связь № {feedback.pk} для {feedback.name} ({feedback.phone}).' +
+               f'{message_subject_from_client}\n' +
                f'Сообщение: \n' + f'{feedback.message}'
     )
     to_email = ['yuliyasorokinawork@gmail.com', 'tanyakuharskaya@gmail.com']

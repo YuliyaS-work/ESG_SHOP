@@ -66,7 +66,7 @@
         <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
         <p>{{ product.description|truncatewords:15 }}</p>
         <p class="price">{{ product.price }} BYN</p>
-        <button class="basket" data-title="{{ product.title }}">Купить</button>
+        <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
       </div>
     {% endfor %}
   </div>

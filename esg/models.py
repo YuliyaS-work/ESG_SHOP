@@ -113,8 +113,10 @@ class Order(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     last_name = models.CharField(max_length=255, verbose_name='Фамилия',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
+    mail = models.EmailField(verbose_name='Электронная почта', null=True, blank=True, default='')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     status = models.BooleanField(default=False, verbose_name='Статус заказа')
+    general_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
     class Meta:
         verbose_name_plural = 'Заказы'
@@ -129,22 +131,25 @@ class GasOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     gasproduct = models.ForeignKey(GasProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
+    total_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
 class ElectroOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     electroproduct = models.ForeignKey(ElectroProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
+    total_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
 class SantehOrder(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     santehproduct = models.ForeignKey(SantehProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
+    total_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
 
 class Feedback(models.Model):
     name = models.CharField(max_length=50, verbose_name='Имя', validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
-    subject = models.CharField(max_length=50, verbose_name='Тема')
+    subject = models.CharField(max_length=50, verbose_name='Тема', null=True, blank=True, default='')
     message = models.TextField(verbose_name='Ваше сообщение')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     status = models.BooleanField(default=False, verbose_name='Статус сообщения')

@@ -44,7 +44,8 @@ class OrderAdmin(admin.ModelAdmin):
         'date',
         'get_gasproducts',
         'get_electroproducts',
-        'get_santehproducts'
+        'get_santehproducts',
+        'general_cost'
     )
     ordering = ('-date',)
     search_fields = ('last_name', 'date', 'phone', 'status')
@@ -53,7 +54,7 @@ class OrderAdmin(admin.ModelAdmin):
         dict_order = {}
         for product in obj.gasproduct_set.all():
             gasorder = obj.gasorder_set.filter(gasproduct_id=product.pk).first()
-            dict_order[product.title] = f'{gasorder.quantity} (шт./м)'
+            dict_order[product.title] = f'{gasorder.quantity} (шт./м), {gasorder.total_cost} BYN'
         return dict_order
     get_gasproducts.short_description = 'Газовое оборудование'
 
@@ -61,7 +62,7 @@ class OrderAdmin(admin.ModelAdmin):
         dict_order = {}
         for product in obj.electroproduct_set.all():
             electroorder = obj.electroorder_set.filter(electroproduct_id=product.pk).first()
-            dict_order[product.title] = f'{electroorder.quantity} (шт./м)'
+            dict_order[product.title] = f'{electroorder.quantity} (шт./м), {electroorder.total_cost} BYN'
         return dict_order
     get_electroproducts.short_description = 'Электрика'
 
@@ -69,7 +70,7 @@ class OrderAdmin(admin.ModelAdmin):
         dict_order = {}
         for product in obj.santehproduct_set.all():
             santehorder = obj.santehorder_set.filter(santehproduct_id=product.pk).first()
-            dict_order[product.title] = f'{santehorder.quantity} (шт./м)'
+            dict_order[product.title] = f'{santehorder.quantity} (шт./м), {santehorder.total_cost} BYN'
         return dict_order
     get_santehproducts.short_description = 'Сантехника'
 

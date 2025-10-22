@@ -55,7 +55,7 @@
         <p><b>Код товара:</b> {{product.code}}</p>
     {% endif %}
 
-    <button type="submit" data-title="{{ product.title }}" class="basket">Купить</button>
+    <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
 
 </div>
     <div style="text-align: center;">
