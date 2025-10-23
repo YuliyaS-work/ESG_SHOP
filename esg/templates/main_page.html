@@ -22,7 +22,7 @@
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
           <i class="fas fa-faucet"></i>
-        {% elif rubric.rubric_name == "Газовое оборудование" %}
+        {% elif rubric.rubric_name == "Газификация" %}
           <i class="fas fa-fire"></i>
         {% else %}
           <i class="fas fa-folder"></i>
@@ -86,7 +86,7 @@
           <i class="fas fa-bolt category-icon"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
           <i class="fas fa-faucet category-icon"></i>
-        {% elif rubric.rubric_name == "Газовое оборудование" %}
+        {% elif rubric.rubric_name == "Газификация" %}
           <i class="fas fa-fire category-icon"></i>
         {% else %}
           <i class="fas fa-folder category-icon"></i>
@@ -110,7 +110,7 @@
               <span>{{ subrubric.title }}</span>
             </a>
           {% endfor %}
-        {% elif rubric.rubric_name == "Газовое оборудование" %}
+        {% elif rubric.rubric_name == "Газификация" %}
           {% for subrubric in rubric.gas_set.all %}
             <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
               <i class="fas fa-fire"></i>

@@ -174,4 +174,5 @@ celerybeat-schedule.db
 
 # настройки почты
 .env
-
+products/
+scripts_esg/

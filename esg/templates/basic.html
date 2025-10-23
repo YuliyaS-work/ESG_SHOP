@@ -66,7 +66,7 @@
             {% for rubric in rubrics %}
                 <li><a href="{% url 'subrubrics' rubric.pk %}">
           <!-- Иконка категории -->
-                    <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газовое оборудование' %}fas fa-fire{% else %}fas fa-folder{% endif %}"></i>
+                    <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-fire{% else %}fas fa-folder{% endif %}"></i>
                 <div class="text">{{ rubric.rubric_name }}</div></a>
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all|dictsort:"title" %}

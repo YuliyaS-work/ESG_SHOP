@@ -71,6 +71,20 @@ def get_catalog(request):
 
     all_products = list(chain(electro_qs, gas_qs, santeh_qs))
 
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        all_products = sorted(all_products, key=lambda obj: obj.price)
+    elif sort == 'price_desc':
+        all_products = sorted(all_products, key=lambda obj: obj.price, reverse=True)
+    elif sort == 'title_asc':
+        all_products = sorted(all_products, key=lambda obj: obj.title)
+    elif sort == 'title_desc':
+        all_products = sorted(all_products, key=lambda obj: obj.title, reverse=True)
+    # elif sort == 'popular':
+    #     all_products = all_products.order_by('-counter')
+
+
     paginator = Paginator(all_products, 30)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -84,7 +98,7 @@ def get_subrubrics(request, rubric_id):
     '''Список подразделов раздела '''
     rubric = Rubric.objects.get(pk=rubric_id)
 
-    if rubric.rubric_name == 'Газовое оборудование':
+    if rubric.rubric_name == 'Газификация':
         subrubrics = Gas.objects.select_related('rubric').all()
         products = GasProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Электрика':
@@ -93,6 +107,19 @@ def get_subrubrics(request, rubric_id):
     elif rubric.rubric_name == 'Сантехника':
         subrubrics = Santeh.objects.select_related('rubric').all()
         products = SantehProduct.objects.select_related('rubric').all()
+
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+    elif sort == 'title_asc':
+        products = products.order_by('title')
+    elif sort == 'title_desc':
+        products = products.order_by('-title')
+    # elif sort == 'popular':
+    #     products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -112,7 +139,8 @@ def get_subrubrics(request, rubric_id):
 def get_products(request, rubric_id, subrubric_id):
     '''Выводит страницу оттдельного подраздела товары'''
     rubric = Rubric.objects.get(pk=rubric_id)
-    if rubric.rubric_name == 'Газовое оборудование':
+
+    if rubric.rubric_name == 'Газификация':
         products = GasProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Gas.objects.get(pk=subrubric_id)
 
@@ -123,6 +151,19 @@ def get_products(request, rubric_id, subrubric_id):
     elif rubric.rubric_name == 'Сантехника':
         products = SantehProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Santeh.objects.get(pk=subrubric_id)
+
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+    elif sort == 'title_asc':
+        products = products.order_by('title')
+    elif sort == 'title_desc':
+        products = products.order_by('-title')
+    # elif sort == 'popular':
+    #     products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -144,7 +185,7 @@ def get_product(request, rubric_id, subrubric_id, product_id):
     '''Рендерит страницу одного продукта.'''
     rubric = Rubric.objects.get(pk=rubric_id)
 
-    if rubric.rubric_name == 'Газовое оборудование':
+    if rubric.rubric_name == 'Газификация':
         product = GasProduct.objects.get(pk=product_id)
     elif rubric.rubric_name == 'Сантехника':
         product = SantehProduct.objects.get(pk=product_id)

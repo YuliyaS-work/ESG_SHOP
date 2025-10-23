@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'esg',
     'rest_framework',
-    'django_elasticsearch_dsl'
+    'django_elasticsearch_dsl',
+    'esg.templatetags',
+
 ]
 
 MIDDLEWARE = [
