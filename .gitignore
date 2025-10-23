@@ -162,11 +162,16 @@ cython_debug/
 .idea
 idea/
 
+
+
 json/
 media/foto
 
 celerybeat-schedule.db
 
+# для проекта
 .DS_Store
 
+# настройки почты
 .env
+
