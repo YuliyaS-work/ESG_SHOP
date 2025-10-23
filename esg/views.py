@@ -4,6 +4,7 @@ from itertools import chain
 
 from django.core.paginator import Paginator
 from django.db.migrations import serializer
+from django.db.models.functions import Lower
 from django.shortcuts import render
 from django.template.defaultfilters import title
 from rest_framework import generics
@@ -78,9 +79,9 @@ def get_catalog(request):
     elif sort == 'price_desc':
         all_products = sorted(all_products, key=lambda obj: obj.price, reverse=True)
     elif sort == 'title_asc':
-        all_products = sorted(all_products, key=lambda obj: obj.title)
+        all_products = sorted(all_products, key=lambda obj: obj.title.lower())
     elif sort == 'title_desc':
-        all_products = sorted(all_products, key=lambda obj: obj.title, reverse=True)
+        all_products = sorted(all_products, key=lambda obj: obj.title.lower(), reverse=True)
     # elif sort == 'popular':
     #     all_products = all_products.order_by('-counter')
 
@@ -115,9 +116,9 @@ def get_subrubrics(request, rubric_id):
     elif sort == 'price_desc':
         products = products.order_by('-price')
     elif sort == 'title_asc':
-        products = products.order_by('title')
+        products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
-        products = products.order_by('-title')
+        products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
     # elif sort == 'popular':
     #     products = products.order_by('-counter')
 
@@ -159,9 +160,9 @@ def get_products(request, rubric_id, subrubric_id):
     elif sort == 'price_desc':
         products = products.order_by('-price')
     elif sort == 'title_asc':
-        products = products.order_by('title')
+        products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
-        products = products.order_by('-title')
+        products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
     # elif sort == 'popular':
     #     products = products.order_by('-counter')
 
