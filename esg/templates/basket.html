@@ -5,6 +5,7 @@
     {% block styles %}
     <link rel="stylesheet" href="{% static 'css/basket.css' %}">
     <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewed.css' %}">
 {% endblock %}
 {% block content %}
 <main class="main-content">
@@ -31,26 +32,31 @@
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
 
-    <div style="text-align: center; margin-bottom: 10px;">
-    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>
-  </div>
-        <div class="product-carousel">
-        {% for product in recently_products %}
-            <div class="product-card-catalog">
-            {% if product.photo %}
-                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
-            {% else %}
-                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
-            {% endif %}
-            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
-            <p>{{ product.description|truncatewords:15 }}</p>
-            <p>{{ product.price }} BYN</p>
-            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-        </div>
-        {% empty %}
-        <p>Товары отсутствуют.</p>
-        {% endfor %}
-    </div>
+<!--    <div style="text-align: center; margin-bottom: 10px;">-->
+<!--    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>-->
+<!--  </div>-->
+<!--        <div class="product-carousel">-->
+<!--        {% for product in recently_products %}-->
+<!--            <div class="product-card-catalog">-->
+<!--            {% if product.photo %}-->
+<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}">-->
+<!--            {% else %}-->
+<!--                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">-->
+<!--            {% endif %}-->
+<!--            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>-->
+<!--            <p>{{ product.description|truncatewords:15 }}</p>-->
+<!--            <p>{{ product.price }} BYN</p>-->
+<!--            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>-->
+<!--        </div>-->
+<!--        {% empty %}-->
+<!--        <p>Товары отсутствуют.</p>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+
+
+    <div id="viewed-products-container"></div>
+
+
 
             <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
@@ -85,6 +91,7 @@
 {% block scripts %}
 <script src="{% static 'js/basket.js' %}" defer></script>
 <script src="{% static 'js/order_form.js' %}" defer></script>
+<script src="{% static 'js/viewed.js' %}" defer></script>
 <script>
 (function() {
   const alertBox = document.getElementById('custom-alert');

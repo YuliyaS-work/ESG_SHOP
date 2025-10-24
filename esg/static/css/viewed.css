@@ -1,0 +1,22 @@
+.viewed-carousel {
+    display: flex;
+    flex-wrap: nowrap; /* не переносим карточки */
+    justify-content: center;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+}
+.viewed-carousel::-webkit-scrollbar {
+    height: 6px;
+    background: #f0f0f0;
+}
+.viewed-carousel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+.view-products {
+    text-align: center;
+    margin-bottom: 10px;
+     margin-top: 10px;
+}

@@ -58,7 +58,31 @@
         {% else %}
           <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
-          <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
+
+        <!--  === название товара адаптированное для вывода в "Вы смотрели" -->
+         {% if product.photo %}
+         {% static 'image/default-product.png' as default_photo %}
+           <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}"
+             <!-- для viewed.js -->
+             class="product-title"
+             data-id="{{ product.pk }}"
+             data-title="{{ product.title }}"
+             data-photo="{{ product.photo.url }}"
+             data-price="{{ product.price|floatformat:2 }}"
+             data-description="{{ product.description|truncatewords:15 }}">
+             <h3>{{ product.title }}</h3></a>
+         {% else %}
+         {% static 'image/default-product.png' as default_photo %}
+           <a href="{% url 'product' current_subrubric.rubric.pk current_subrubric.pk product.pk %}"
+             class="product-title"
+             data-id="{{ product.pk }}"
+             data-title="{{ product.title }}"
+             data-photo="{{ default_photo }}"
+             data-price="{{ product.price|floatformat:2 }}"
+             data-description="{{ product.description|truncatewords:15 }}">
+             <h3>{{ product.title }}</h3></a>
+         {% endif %}
+
         <p>{{ product.description|truncatewords:15 }}</p>
         <p class="price">{{ product.price }} BYN</p>
         <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
@@ -110,4 +134,8 @@
 </div>
 
 </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/viewed.js' %}" defer></script>
 {% endblock %}
