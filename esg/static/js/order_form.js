@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.basket = {};
         clearBasketCookies();
-        document.getElementById('basket').innerHTML = '<p>Корзина пуста.</p>';
+        document.getElementById('basket').innerHTML = '<p>Корзина пуста</p>';
+
+        refreshAllBasketButtons(window.basket);
       })
       .catch(err => {
         responseMessageError.innerText = err.message;

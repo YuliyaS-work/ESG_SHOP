@@ -71,6 +71,7 @@ class ElectroProduct(models.Model):
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Электрика"'
@@ -90,6 +91,7 @@ class GasProduct(models.Model):
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Газификация"'
@@ -109,6 +111,7 @@ class SantehProduct(models.Model):
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Сантехника"'

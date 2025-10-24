@@ -18,16 +18,23 @@ def process_order_task(order_id, basket_cookies):
             order.save()
         elif GasProduct.objects.filter(title=title).exists():
             product = GasProduct.objects.get(title=title)
+            product.counter += 1
+            product.save(update_fields=['counter'])
             GasOrder.objects.create(order=order, gasproduct=product, quantity=value[0], total_cost=float(value[1]))
             list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
         elif ElectroProduct.objects.filter(title=title).exists():
             product = ElectroProduct.objects.get(title=title)
+            product.counter += 1
+            product.save(update_fields=['counter'])
             ElectroOrder.objects.create(order=order, electroproduct=product, quantity=value[0], total_cost=float(value[1]))
             list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
         elif SantehProduct.objects.filter(title=title).exists():
             product = SantehProduct.objects.get(title=title)
+            product.counter += 1
+            product.save(update_fields=['counter'])
             SantehOrder.objects.create(order=order, santehproduct=product, quantity=value[0], total_cost=float(value[1]))
             list_order.append(f'{product.title} - {value[0]}шт./м, стоимость {value[1]} BYN')
+
     # for a seller
     subject = f'Новый заказ № {order.pk}'
     message = (

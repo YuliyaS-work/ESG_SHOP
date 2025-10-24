@@ -82,8 +82,8 @@ def get_catalog(request):
         all_products = sorted(all_products, key=lambda obj: obj.title.lower())
     elif sort == 'title_desc':
         all_products = sorted(all_products, key=lambda obj: obj.title.lower(), reverse=True)
-    # elif sort == 'popular':
-    #     all_products = all_products.order_by('-counter')
+    elif sort == 'popular':
+        all_products = sorted(all_products, key=lambda obj: obj.counter, reverse=True)
 
 
     paginator = Paginator(all_products, 30)
@@ -119,8 +119,8 @@ def get_subrubrics(request, rubric_id):
         products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
         products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
-    # elif sort == 'popular':
-    #     products = products.order_by('-counter')
+    elif sort == 'popular':
+        products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -163,8 +163,8 @@ def get_products(request, rubric_id, subrubric_id):
         products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
         products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
-    # elif sort == 'popular':
-    #     products = products.order_by('-counter')
+    elif sort == 'popular':
+        products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -305,17 +305,3 @@ class FeedbackAPICreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         feedback = serializer.save()
         process_feedback_task.delay(feedback_id=feedback.pk)
-
-# уже не нужно, было нужно для js вывода списка подрубрик
-# class SubrubricListAPIView(generics.ListAPIView):
-#     def get(self, request, **kwargs):
-#         data = {}
-#         data['subrubrics_electro'] =ElectroSerializer(Electro.objects.all(), many=True).data
-#         data['subrubrics_gas'] =GasSerializer(Gas.objects.all(), many=True).data
-#         data['subrubrics_santeh'] =SantehSerializer(Santeh.objects.all(), many=True).data
-#         return Response(data)
-
-# def get_basic(request):
-#     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-#     context = { 'rubrics': rubrics }
-#     return render(request, 'basic.html', context)
