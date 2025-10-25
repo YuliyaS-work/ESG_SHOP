@@ -4,6 +4,7 @@ from itertools import chain
 
 from django.core.paginator import Paginator
 from django.db.migrations import serializer
+from django.db.models.functions import Lower
 from django.shortcuts import render
 from django.template.defaultfilters import title
 from rest_framework import generics
@@ -65,11 +66,25 @@ def get_catalog(request):
             'gas_set__gasproduct_set',
             'santeh_set__santehproduct_set'
     ).all()
-    electro_qs = ElectroProduct.objects.select_related('rubric').all()
-    gas_qs = GasProduct.objects.select_related('rubric').all()
-    santeh_qs = SantehProduct.objects.select_related('rubric').all()
+    electro_qs = ElectroProduct.objects.select_related('rubric', 'rubric__rubric').all()
+    gas_qs = GasProduct.objects.select_related('rubric', 'rubric__rubric').all()
+    santeh_qs = SantehProduct.objects.select_related('rubric', 'rubric__rubric').all()
 
     all_products = list(chain(electro_qs, gas_qs, santeh_qs))
+
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        all_products = sorted(all_products, key=lambda obj: obj.price)
+    elif sort == 'price_desc':
+        all_products = sorted(all_products, key=lambda obj: obj.price, reverse=True)
+    elif sort == 'title_asc':
+        all_products = sorted(all_products, key=lambda obj: obj.title.lower())
+    elif sort == 'title_desc':
+        all_products = sorted(all_products, key=lambda obj: obj.title.lower(), reverse=True)
+    elif sort == 'popular':
+        all_products = sorted(all_products, key=lambda obj: obj.counter, reverse=True)
+
 
     paginator = Paginator(all_products, 30)
     page_number = request.GET.get('page')
@@ -84,7 +99,7 @@ def get_subrubrics(request, rubric_id):
     '''Список подразделов раздела '''
     rubric = Rubric.objects.get(pk=rubric_id)
 
-    if rubric.rubric_name == 'Газовое оборудование':
+    if rubric.rubric_name == 'Газификация':
         subrubrics = Gas.objects.select_related('rubric').all()
         products = GasProduct.objects.select_related('rubric').all()
     elif rubric.rubric_name == 'Электрика':
@@ -93,6 +108,19 @@ def get_subrubrics(request, rubric_id):
     elif rubric.rubric_name == 'Сантехника':
         subrubrics = Santeh.objects.select_related('rubric').all()
         products = SantehProduct.objects.select_related('rubric').all()
+
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+    elif sort == 'title_asc':
+        products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
+    elif sort == 'title_desc':
+        products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
+    elif sort == 'popular':
+        products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -112,7 +140,8 @@ def get_subrubrics(request, rubric_id):
 def get_products(request, rubric_id, subrubric_id):
     '''Выводит страницу оттдельного подраздела товары'''
     rubric = Rubric.objects.get(pk=rubric_id)
-    if rubric.rubric_name == 'Газовое оборудование':
+
+    if rubric.rubric_name == 'Газификация':
         products = GasProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Gas.objects.get(pk=subrubric_id)
 
@@ -123,6 +152,19 @@ def get_products(request, rubric_id, subrubric_id):
     elif rubric.rubric_name == 'Сантехника':
         products = SantehProduct.objects.filter(rubric=subrubric_id)
         current_subrubric = Santeh.objects.get(pk=subrubric_id)
+
+    # фильтр
+    sort = request.GET.get('sort', '')
+    if sort == 'price_asc':
+        products = products.order_by('price')
+    elif sort == 'price_desc':
+        products = products.order_by('-price')
+    elif sort == 'title_asc':
+        products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
+    elif sort == 'title_desc':
+        products = products.annotate(lower_title=Lower('title')).order_by('-lower_title')
+    elif sort == 'popular':
+        products = products.order_by('-counter')
 
     paginator = Paginator(products, 30)
     page_number = request.GET.get('page')
@@ -144,7 +186,7 @@ def get_product(request, rubric_id, subrubric_id, product_id):
     '''Рендерит страницу одного продукта.'''
     rubric = Rubric.objects.get(pk=rubric_id)
 
-    if rubric.rubric_name == 'Газовое оборудование':
+    if rubric.rubric_name == 'Газификация':
         product = GasProduct.objects.get(pk=product_id)
     elif rubric.rubric_name == 'Сантехника':
         product = SantehProduct.objects.get(pk=product_id)
@@ -263,17 +305,3 @@ class FeedbackAPICreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         feedback = serializer.save()
         process_feedback_task.delay(feedback_id=feedback.pk)
-
-# уже не нужно, было нужно для js вывода списка подрубрик
-# class SubrubricListAPIView(generics.ListAPIView):
-#     def get(self, request, **kwargs):
-#         data = {}
-#         data['subrubrics_electro'] =ElectroSerializer(Electro.objects.all(), many=True).data
-#         data['subrubrics_gas'] =GasSerializer(Gas.objects.all(), many=True).data
-#         data['subrubrics_santeh'] =SantehSerializer(Santeh.objects.all(), many=True).data
-#         return Response(data)
-
-# def get_basic(request):
-#     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
-#     context = { 'rubrics': rubrics }
-#     return render(request, 'basic.html', context)

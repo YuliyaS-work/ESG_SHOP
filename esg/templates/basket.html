@@ -5,6 +5,7 @@
     {% block styles %}
     <link rel="stylesheet" href="{% static 'css/basket.css' %}">
     <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewed.css' %}">
 {% endblock %}
 {% block content %}
 <main class="main-content">
@@ -19,26 +20,43 @@
  <a href="{% url 'catalog' %}" class="catalog-link">Добавить товар</a>
 </section>
 
-    <div style="text-align: center; margin-bottom: 10px;">
-    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>
-  </div>
-        <div class="product-carousel">
-        {% for product in recently_products %}
-            <div class="product-card-catalog">
-            {% if product.photo %}
-                <img src="{{ product.photo.url }}" alt="{{ product.title }}">
-            {% else %}
-                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
-            {% endif %}
-            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
-            <p>{{ product.description|truncatewords:15 }}</p>
-            <p>{{ product.price }} BYN</p>
-            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-        </div>
-        {% empty %}
-        <p>Товары отсутствуют.</p>
-        {% endfor %}
-    </div>
+  <!-- === Оформление заказа === -->
+<!--это связано с order_form.js-->
+<div id="overlay"></div>
+<form id="order-form" data-url="{% url 'order_api_create' %}">
+  {% csrf_token %}
+  <button type="button" id="close-order-form" class="close-btn">&times;</button>
+  <h2 style="text-align: center;">Оформление заказа</h2>
+  {{ form.as_p }}
+  <div id="response-message-error" style="color:red;"></div>
+  <button class="send-btn" type="submit">Подтвердить заказ</button>
+</form>
+
+<!--    <div style="text-align: center; margin-bottom: 10px;">-->
+<!--    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>-->
+<!--  </div>-->
+<!--        <div class="product-carousel">-->
+<!--        {% for product in recently_products %}-->
+<!--            <div class="product-card-catalog">-->
+<!--            {% if product.photo %}-->
+<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}">-->
+<!--            {% else %}-->
+<!--                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">-->
+<!--            {% endif %}-->
+<!--            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>-->
+<!--            <p>{{ product.description|truncatewords:15 }}</p>-->
+<!--            <p>{{ product.price }} BYN</p>-->
+<!--            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>-->
+<!--        </div>-->
+<!--        {% empty %}-->
+<!--        <p>Товары отсутствуют.</p>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+
+
+    <div id="viewed-products-container"></div>
+
+
 
             <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
@@ -51,7 +69,33 @@
               {% else %}
                 <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
               {% endif %}
-                <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
+                 <!--  === название товара адаптированное для вывода в "Вы смотрели" -->
+         {% if product.photo %}
+         {% static 'image/default-product.png' as default_photo %}
+           <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"
+             class="product-title"
+             data-id="{{ product.pk }}"
+             data-title="{{ product.title }}"
+             data-photo="{{ product.photo.url }}"
+             data-price="{{ product.price|floatformat:2 }}"
+             data-description="{{ product.description|truncatewords:15 }}"
+             data-rubric_id="{{ product.rubric.rubric.pk }}"
+             data-subrubric_id="{{ product.rubric.pk }}">
+             <h3>{{ product.title }}</h3></a>
+         {% else %}
+         {% static 'image/default-product.png' as default_photo %}
+           <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"
+             class="product-title"
+             data-id="{{ product.pk }}"
+             data-title="{{ product.title }}"
+             data-photo="{{ default_photo }}"
+             data-price="{{ product.price|floatformat:2 }}"
+             data-description="{{ product.description|truncatewords:15 }}"
+             data-rubric_id="{{ product.rubric.rubric.pk }}"
+             data-subrubric_id="{{ product.rubric.pk }}">
+             <h3>{{ product.title }}</h3></a>
+         {% endif %}
+
                 <p>{{ product.description }}</p>
                 <p>{{ product.price }} BYN</p>
                 <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
@@ -60,29 +104,40 @@
             <p>Товары отсутствуют.</p>
             {% endfor %}
         </div>
+
 <div id="response-message"></div>
-</main>
- <!-- === Оформление заказа === -->
-<!--это связано с order_form.js-->
-<div id="overlay"></div>
-<form id="order-form" data-url="{% url 'order_api_create' %}">
-  {% csrf_token %}
-  <button type="button" id="close-order-form" class="close-btn">&times;</button>
-  <h2 style="text-align: center;">Оформление заказа</h2>
-  {{ form.as_p }}
-  <div id="response-message-error" style="color:red;"></div>
-  <button class="send-btn" type="submit">Подтвердить заказ</button>
-</form>
-    <!-- ALERT ДЛЯ ФОРМЫ ЗАКАЗА -->
-<div id="order-alert">
+    <div id="custom-alert">
   <div class="custom-alert-content">
-    <p id="order-alert-message"></p>
-    <button id="order-alert-btn" class="order-alert-btn">OK</button>
+    <p id="custom-alert-message"></p>
+    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
   </div>
 </div>
+</main>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/basket.js' %}" defer></script>
 <script src="{% static 'js/order_form.js' %}" defer></script>
+<script src="{% static 'js/viewed.js' %}" defer></script>
+<script>
+(function() {
+  const alertBox = document.getElementById('custom-alert');
+  const alertMessage = document.getElementById('custom-alert-message');
+  const alertBtn = document.getElementById('custom-alert-btn');
 
+  window.alert = function(message) {
+    alertMessage.textContent = message;
+    alertBox.classList.add('active');
+
+    // скрыть автоматически через 3 сек
+    setTimeout(() => {
+      alertBox.classList.remove('active');
+    }, 3000);
+  };
+
+  // кнопка "OK"
+  alertBtn.addEventListener('click', () => {
+    alertBox.classList.remove('active');
+  });
+})();
+</script>
 {% endblock %}

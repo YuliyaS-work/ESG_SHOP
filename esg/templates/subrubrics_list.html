@@ -22,7 +22,7 @@
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
           <i class="fas fa-faucet"></i>
-        {% elif rubric.rubric_name == "Газовое оборудование" %}
+        {% elif rubric.rubric_name == "Газификация" %}
           <i class="fas fa-fire"></i>
         {% else %}
           <i class="fas fa-folder"></i>
@@ -36,7 +36,7 @@
           <button class="carousel-btn left">&#10094;</button>
     <ul class="subcategories-list">
     {% for subrubric in subrubrics %}
-        {% if subrubric.rubric.rubric_name == 'Газовое оборудование' %}
+        {% if subrubric.rubric.rubric_name == 'Газификация' %}
             <li><a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a></li>
         {% endif %}
         {% if subrubric.rubric.rubric_name == 'Электрика' %}
@@ -50,7 +50,23 @@
         <button class="carousel-btn right">&#10095;</button>
 </section>
 
- <section class="products-section">
+<!--    ===сортировка===    -->
+  <form method="get" id="sortForm">
+  <input type="hidden" name="page" value="{{ request.GET.page }}">
+  <label for="sort">Сортировать по:</label>
+  <select name="sort" onchange="this.form.submit()">
+    <option value="">-- Выберите --</option>
+    <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>По возрастанию цены</option>
+    <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>По убыванию цены</option>
+    <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>По алфавиту (А-Я)</option>
+    <option value="title_desc" {% if request.GET.sort == 'title_desc' %}selected{% endif %}>По алфавиту (Я-А)</option>
+    <option value="popular" {% if request.GET.sort == 'popular' %}selected{% endif %}>Популярные</option>
+  </select>
+</form>
+
+
+   <!-- === Все товары === -->
+    <section class="products-section">
   <div class="products-grid">
     {% for product in page_obj %}
       <div class="product-card-catalog">
@@ -59,7 +75,10 @@
         {% else %}
           <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
-          <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
+
+        <!-- ==название товара  для генерации карусели просмотренных товаров=== -->
+        {% include 'includes/product_card_for_viewed.html' %}
+
         <p>{{ product.description|truncatewords:15 }}</p>
         <p class="price">{{ product.price }} BYN</p>
         <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
@@ -76,8 +95,8 @@
         <ul>
           {# Первая и предыдущая страницы #}
           {% if page_obj.has_previous %}
-            <li class="page-num"><a href="?page=1"> <<</a></li>
-            <li class="page-num"><a href="?page={{ page_obj.previous_page_number }}"> <</a></li>
+            <li class="page-num"><a href="?{% querystring page=1 %}"> <<</a></li>
+            <li class="page-num"><a href="?{% querystring page=page_obj.previous_page_number %}"> <</a></li>
           {% endif %}
 
           {# Номера страниц: текущая, соседние #}
@@ -85,6 +104,7 @@
             {% if p == page_obj.number %}
               <li class="page-num page-num-selected">
                   <form method="get" action="">
+                     <input type="hidden" name="sort" value="{{ request.GET.sort }}">
                   <input type="number"
                   name="page"
                   value="{{ p }}"
@@ -95,14 +115,14 @@
                   </form>
               </li>
             {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
-              <li class="page-num"><a href="?page={{ p }}">{{ p }}</a></li>
+              <li class="page-num"><a href="?{% querystring page=p %}">{{ p }}</a></li>
             {% endif %}
           {% endfor %}
 
           {# Следующая и последняя страницы #}
           {% if page_obj.has_next %}
-            <li class="page-num"><a href="?page={{ page_obj.next_page_number }}"> ></a></li>
-            <li class="page-num"><a href="?page={{ page_obj.paginator.num_pages }}"> >></a></li>
+            <li class="page-num"><a href="?{% querystring page=page_obj.next_page_number %}"> ></a></li>
+            <li class="page-num"><a href="?{% querystring page=page_obj.paginator.num_pages %}"> >></a></li>
           {% endif %}
       </ul>
     </nav>
@@ -113,4 +133,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/catalog.js' %}" defer></script>
+<script src="{% static 'js/viewed.js' %}" defer></script>
 {% endblock %}

@@ -56,7 +56,7 @@ class OrderAdmin(admin.ModelAdmin):
             gasorder = obj.gasorder_set.filter(gasproduct_id=product.pk).first()
             dict_order[product.title] = f'{gasorder.quantity} (шт./м), {gasorder.total_cost} BYN'
         return dict_order
-    get_gasproducts.short_description = 'Газовое оборудование'
+    get_gasproducts.short_description = 'Газификация'
 
     def get_electroproducts(self, obj):
         dict_order = {}

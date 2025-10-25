@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Rubric(models.Model):
     '''
     Название основных разделов.
-    Газовое оборудование, сантехника, электрика.
+    Газификация, сантехника, электрика.
     '''
     rubric_name = models.CharField(max_length=50, verbose_name='Название раздела')
 
@@ -34,13 +34,13 @@ class Electro(models.Model):
 
 
 class Gas(models.Model):
-    '''Подразделы газового оборудования.'''
-    title = models.CharField(max_length=255, verbose_name='Подраздел газового оборудования')
+    '''Подразделы газификации.'''
+    title = models.CharField(max_length=255, verbose_name='Подраздел газификации')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
-        verbose_name_plural = 'Раздел "Газовое оборудование"'
-        verbose_name = 'Раздел "Газовое оборудование"'
+        verbose_name_plural = 'Раздел "Газификация"'
+        verbose_name = 'Раздел "Газификация"'
         ordering= ['title']
 
     def __str__(self):
@@ -71,29 +71,31 @@ class ElectroProduct(models.Model):
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
-        verbose_name_plural = 'Товары раздела электрики'
-        verbose_name = 'Товар раздела электрики'
+        verbose_name_plural = 'Товары раздела "Электрика"'
+        verbose_name = 'Товар раздела"Электрика"'
         ordering= ['title']
 
 
 
-# Товары подразделов газового оборудования
+# Товары подразделов газификации
 class GasProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
     photo = models.ImageField(upload_to='gas/', null=True, blank=True, verbose_name='Фото товара')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
-    rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газовое оборудование')
+    rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газификация')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
-        verbose_name_plural = 'Товары раздела газового оборудования'
-        verbose_name = 'Товар раздела газового оборудования'
+        verbose_name_plural = 'Товары раздела "Газификация"'
+        verbose_name = 'Товар раздела "Газификация"'
         ordering= ['title']
 
 
@@ -109,10 +111,11 @@ class SantehProduct(models.Model):
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
+    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
-        verbose_name_plural = 'Товары раздела сантехники'
-        verbose_name = 'Товар раздела сантехники'
+        verbose_name_plural = 'Товары раздела "Сантехника"'
+        verbose_name = 'Товар раздела "Сантехника"'
         ordering= ['title']
 
 

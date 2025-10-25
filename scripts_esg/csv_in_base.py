@@ -2,7 +2,7 @@ import pandas as pd
 import sqlite3
 
 
-csv_path = r'D:\Yulya\PYTHON\PYTHON\projects\ESG_SHOP\esg_shop\electro.csv'
+csv_path = r'/electro.csv'
 
 # Название таблицы в базе данных
 table_name = 'esg_electroproduct'
@@ -17,7 +17,7 @@ target_columns = ['code', 'title', 'rubric_id']
 df = pd.read_csv(csv_path, usecols=columns_in_csv)
 
 # Подключение к базе
-conn = sqlite3.connect('db.sqlite3')
+conn = sqlite3.connect('../db.sqlite3')
 cursor = conn.cursor()
 
 # Загрузка данных в таблицу (если таблица уже существует)
