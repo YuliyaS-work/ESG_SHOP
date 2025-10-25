@@ -66,9 +66,9 @@ def get_catalog(request):
             'gas_set__gasproduct_set',
             'santeh_set__santehproduct_set'
     ).all()
-    electro_qs = ElectroProduct.objects.select_related('rubric').all()
-    gas_qs = GasProduct.objects.select_related('rubric').all()
-    santeh_qs = SantehProduct.objects.select_related('rubric').all()
+    electro_qs = ElectroProduct.objects.select_related('rubric', 'rubric__rubric').all()
+    gas_qs = GasProduct.objects.select_related('rubric', 'rubric__rubric').all()
+    santeh_qs = SantehProduct.objects.select_related('rubric', 'rubric__rubric').all()
 
     all_products = list(chain(electro_qs, gas_qs, santeh_qs))
 

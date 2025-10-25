@@ -45,18 +45,23 @@
             {% else %}
                 <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
             {% endif %}
-            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
+
+            <!-- ==название товара для генерации карусели просмотренных товаров=== -->
+            {% include 'includes/product_card_for_viewed.html' %}
+
             <p>{{ product.description|truncatewords:15 }}</p>
             <p>{{ product.price }} BYN</p>
             <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-        </div>
-        {% empty %}
-        <p>Товары отсутствуют.</p>
+           </div>
+         {% empty %}
+            <p>Товары отсутствуют.</p>
+
+
         {% endfor %}
     </div>
 
-            <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
-    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
+      <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
+         <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
         </div>
               <div class="product-carousel">
             {% for product in popular_products %}
@@ -66,7 +71,10 @@
               {% else %}
                 <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
               {% endif %}
-                <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>
+
+              <!-- ==название товара для генерации карусели просмотренных товаров=== -->
+              {% include 'includes/product_card_for_viewed.html' %}
+
                 <p>{{ product.description }}</p>
                 <p>{{ product.price }} BYN</p>
                 <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
@@ -190,4 +198,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/reviews.js' %}" defer></script>
+<script src="{% static 'js/viewed.js' %}" defer></script>
 {% endblock %}

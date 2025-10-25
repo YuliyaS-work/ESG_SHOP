@@ -1,22 +1,34 @@
 function getViewedProducts() {
-  const cookie = document.cookie.split('; ').find(row => row.startsWith('viewedProducts='));
-  return cookie ? JSON.parse(decodeURIComponent(cookie.split('=')[1])) : [];
+  const stored = localStorage.getItem('viewedProducts');
+  return stored ? JSON.parse(stored) : [];
 }
 
 function saveViewedProduct(product) {
+  const viewedProduct = {
+    id: product.id,
+    title: product.title,
+    price: product.price,
+    description: product.description,
+    photo: product.photo,
+    rubric_id: product.rubric_id,
+    subrubric_id: product.subrubric_id
+  };
+
   let products = getViewedProducts();
-  products = products.filter(p => p.id !== product.id);
-  products.unshift(product);
-  if (products.length > 7) {
-    products = products.slice(0, 7);
-  }
-  document.cookie = `viewedProducts=${encodeURIComponent(JSON.stringify(products))}; path=/; max-age=604800`;
+  products = products.filter(p => p.id !== viewedProduct.id);
+  products.unshift(viewedProduct);
+  if (products.length > 10) {
+    products = products.slice(0, 10);
   }
 
+  localStorage.setItem('viewedProducts', JSON.stringify(products));
+}
+
 function renderViewedProducts() {
-  console.log('Куки:', document.cookie);
+  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
   const products = getViewedProducts();
   console.log('Просмотренные товары:', products);
+
   if (products.length === 0) return;
 
   const container = document.createElement('div');
@@ -30,21 +42,29 @@ function renderViewedProducts() {
   const carousel = document.createElement('div');
   carousel.className = 'viewed-carousel';
 
+ const basket = getBasketFromCookies();
+
   products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'product-card-catalog';
 
     const photoUrl = product.photo && product.photo.trim() !== ''
-  ? product.photo
-  : '/static/image/default-product.png';
+      ? product.photo
+      : '/static/image/default-product.png';
+
+    const baseUrl = window.location.origin;
+    const href = `${baseUrl}/esg.by/catalog/${product.rubric_id}/${product.subrubric_id}/${product.id}`;
 
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
-      <a href="/product/${product.id}" class="product-title"
+      <a href="${href}" class="product-title"
          data-id="${product.id}"
          data-title="${product.title}"
+         data-photo="${product.photo}"
          data-price="${product.price}"
-         data-description="${product.description}">
+         data-description="${product.description}"
+         data-rubric_id="${product.rubric_id}"
+         data-subrubric_id="${product.subrubric_id}">
         <h3>${product.title}</h3>
       </a>
       <p>${product.description}</p>
@@ -58,31 +78,63 @@ function renderViewedProducts() {
 
   const target = document.querySelector('#viewed-products-container');
   if (target) {
+    target.innerHTML = '';
     target.appendChild(container);
 
-    // Обработчики кнопок "Купить"
-    container.querySelectorAll('.basket').forEach(button => {
-      button.addEventListener('click', () => {
-        const title = button.dataset.title;
-        const price = button.dataset.price;
-        console.log(`Добавлено в корзину: ${title} — ${price} BYN`);
-        // Здесь можно вызвать функцию addToBasket(title, price)
-      });
-    });
+container.querySelectorAll('.basket').forEach(button => {
+  const title = button.dataset.title;
+  const rawPrice = button.dataset.price;
+  const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
 
-    // Обработчики заголовков для сохранения в куки
+  // Установим начальное состояние кнопки
+  const currentBasket = getBasketFromCookies();
+  if (currentBasket[title]) {
+    button.textContent = 'Удалить из корзины';
+    button.classList.add('in-basket');
+  } else {
+    button.textContent = 'Купить';
+    button.classList.remove('in-basket');
+  }
+
+  button.addEventListener('click', () => {
+    const updatedBasket = getBasketFromCookies();
+
+    if (updatedBasket[title]) {
+      delete updatedBasket[title];
+      button.textContent = 'Купить';
+      button.classList.remove('in-basket');
+    } else {
+      updatedBasket[title] = [1, price];
+      button.textContent = 'Удалить из корзины';
+      button.classList.add('in-basket');
+    }
+
+    saveBasketToCookies(updatedBasket);
+    window.basket = updatedBasket;
+
+    if (typeof renderBasket === 'function') {
+      renderBasket();
+      refreshAllBasketButtons(window.basket);
+    }
+  });
+});
+
+
     container.querySelectorAll('.product-title').forEach(link => {
       link.addEventListener('click', () => {
         const product = {
           id: link.dataset.id,
+          photo: link.dataset.photo,
           title: link.dataset.title,
           price: link.dataset.price,
-          description: link.dataset.description
+          description: link.dataset.description,
+          rubric_id: link.dataset.rubric_id,
+          subrubric_id: link.dataset.subrubric_id
         };
+        console.log('Сохраняем просмотренный товар:', product);
         saveViewedProduct(product);
       });
     });
-
   } else {
     console.warn('viewed-products-container не найден');
   }
@@ -91,17 +143,25 @@ function renderViewedProducts() {
 document.addEventListener('DOMContentLoaded', () => {
   renderViewedProducts();
 
-  // Обработчики заголовков в каталоге
   document.querySelectorAll('.product-title').forEach(link => {
     link.addEventListener('click', () => {
+
+      const hrefParts = link.getAttribute('href').split('/');
+      const rubric_id = hrefParts[hrefParts.length - 3];
+      const subrubric_id = hrefParts[hrefParts.length - 2];
+
       const product = {
         id: link.dataset.id,
         photo: link.dataset.photo,
         title: link.dataset.title,
         price: link.dataset.price,
-        description: link.dataset.description
+        description: link.dataset.description,
+        rubric_id: rubric_id,
+        subrubric_id: subrubric_id
       };
+      console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);
     });
   });
 });
+

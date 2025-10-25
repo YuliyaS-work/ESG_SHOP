@@ -16,90 +16,94 @@ function refreshAllBasketButtons(basket) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
+function renderBasket() {
   const basketContainer = document.getElementById('basket');
+  if (!basketContainer) return;
+
+  basketContainer.innerHTML = '';
+  const titles = Object.keys(window.basket).filter(key => key !== 'generalCost');
+
+  if (titles.length === 0) {
+    basketContainer.innerHTML = '<p>Корзина пуста</p>';
+    return;
+  }
+
+  let totalCost = 0;
+
+  titles.forEach(title => {
+    const [quantity, price] = window.basket[title];
+    const unitPrice = price / quantity;
+    const totalPrice = (quantity * unitPrice).toFixed(2);
+    totalCost += parseFloat(totalPrice);
+
+    const div = document.createElement('div');
+    div.className = 'basket-item';
+    div.innerHTML = `
+      <span class="title">${title}</span>
+      <span class="price">${totalPrice} BYN</span>
+      <button class="decrease">−</button>
+      <span class="quantity">${quantity}</span>
+      <button class="increase">+</button>
+      <button class="remove">🗑️</button>
+    `;
+
+    div.querySelector('.increase').onclick = () => {
+      window.basket[title][0]++;
+      const newQuantity = window.basket[title][0];
+      const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
+      window.basket[title][1] = newTotalPrice;
+      saveBasketToCookies(window.basket);
+      renderBasket();
+      refreshAllBasketButtons(window.basket);
+    };
+
+    div.querySelector('.decrease').onclick = () => {
+      window.basket[title][0]--;
+      const newQuantity = window.basket[title][0];
+      if (newQuantity <= 0) {
+        delete window.basket[title];
+      } else {
+        const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
+        window.basket[title][1] = newTotalPrice;
+      }
+      saveBasketToCookies(window.basket);
+      renderBasket();
+      refreshAllBasketButtons(window.basket);
+    };
+
+    div.querySelector('.remove').onclick = () => {
+      delete window.basket[title];
+      saveBasketToCookies(window.basket);
+      renderBasket();
+      refreshAllBasketButtons(window.basket);
+    };
+
+    basketContainer.appendChild(div);
+  });
+
+  window.basket.generalCost = totalCost.toFixed(2);
+  const totalDiv = document.createElement('div');
+  totalDiv.className = 'basket-total';
+  totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
+  basketContainer.appendChild(totalDiv);
+
+  if (!document.querySelector('.open-order-form')) {
+    const orderButton = document.createElement('button');
+    orderButton.textContent = 'Оформить заказ';
+    orderButton.classList.add('order-btn', 'open-order-form');
+    basketContainer.appendChild(orderButton);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+window.basket = getBasketFromCookies();
+renderBasket();
+
   const form = document.getElementById('order-form');
   const overlay = document.getElementById('overlay');
 
-  window.basket = getBasketFromCookies();
 
-  function renderBasket() {
-    basketContainer.innerHTML = '';
-    const titles = Object.keys(window.basket).filter(key => key !== 'generalCost');
 
-    if (titles.length === 0) {
-      basketContainer.innerHTML = '<p>Корзина пуста</p>';
-      return;
-    }
-
-    let totalCost = 0;
-
-    titles.forEach(title => {
-      const [quantity, price] = window.basket[title];
-      const unitPrice = price / quantity;
-      const totalPrice = (quantity * unitPrice).toFixed(2);
-      totalCost += parseFloat(totalPrice);
-
-      const div = document.createElement('div');
-      div.className = 'basket-item';
-      div.innerHTML = `
-        <span class="title">${title}</span>
-        <span class="price">${totalPrice} BYN</span>
-        <button class="decrease">−</button>
-        <span class="quantity">${quantity}</span>
-        <button class="increase">+</button>
-        <button class="remove">🗑️</button>
-      `;
-
-      div.querySelector('.increase').onclick = () => {
-        window.basket[title][0]++;
-        const newQuantity = window.basket[title][0];
-        const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
-        window.basket[title][1] = newTotalPrice;
-        saveBasketToCookies(window.basket);
-        renderBasket();
-        refreshAllBasketButtons(window.basket);
-      };
-
-      div.querySelector('.decrease').onclick = () => {
-        window.basket[title][0]--;
-        const newQuantity = window.basket[title][0];
-        if (newQuantity <= 0) {
-          delete window.basket[title];
-        } else {
-          const newTotalPrice = (newQuantity * unitPrice).toFixed(2);
-          window.basket[title][1] = newTotalPrice;
-        }
-        saveBasketToCookies(window.basket);
-        renderBasket();
-        refreshAllBasketButtons(window.basket);
-      };
-
-      div.querySelector('.remove').onclick = () => {
-        delete window.basket[title];
-        saveBasketToCookies(window.basket);
-        renderBasket();
-        refreshAllBasketButtons(window.basket);
-      };
-
-      basketContainer.appendChild(div);
-    });
-
-    window.basket.generalCost = totalCost.toFixed(2);
-    const totalDiv = document.createElement('div');
-    totalDiv.className = 'basket-total';
-    totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
-    basketContainer.appendChild(totalDiv);
-
-    if (!document.querySelector('.open-order-form')) {
-      const orderButton = document.createElement('button');
-      orderButton.textContent = 'Оформить заказ';
-      orderButton.classList.add('order-btn', 'open-order-form');
-      basketContainer.appendChild(orderButton);
-    }
-  }
-
-  // Инициализация кнопок «Купить» / «Удалить»
   document.querySelectorAll('.basket').forEach(button => {
     const productTitle = button.dataset.title;
     const productPrice = parseFloat(button.dataset.price.replace(',', '.')).toFixed(2);
@@ -136,3 +140,4 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.addEventListener('click', closeModal);
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
 });
+
