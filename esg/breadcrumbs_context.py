@@ -48,7 +48,7 @@ def breadcrumbs_context(request):
                 subrubric = SubrubricModel.objects.filter(pk=subrubric_id).first()
                 if subrubric:
                     crumbs.append({
-                        'label': getattr(subrubric, 'name', str(subrubric)),
+                        'label': subrubric.title,
                         'url': reverse('products', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id})
                     })
 
@@ -59,7 +59,7 @@ def breadcrumbs_context(request):
                 product = ProductModel.objects.filter(pk=product_id).first()
                 if product:
                     crumbs.append({
-                        'label': getattr(product, 'name', str(product.title)),
+                        'label': product.title,
                         'url': reverse('product', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id, 'product_id': product_id})
                     })
 
