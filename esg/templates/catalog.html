@@ -52,6 +52,8 @@
      <button class="carousel-btn right">&#10095;</button>
   </section>
 
+  {% include 'includes/breadcrumbs.html' %}
+
 <!--   ===сортировка===    -->
   <form method="get" id="sortForm">
   <input type="hidden" name="page" value="{{ request.GET.page }}">

@@ -32,6 +32,13 @@
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
 
+<div id="response-message"></div>
+    <div id="custom-alert">
+  <div class="custom-alert-content">
+    <p id="custom-alert-message"></p>
+    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
+  </div>
+</div>
 <!--    <div style="text-align: center; margin-bottom: 10px;">-->
 <!--    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>-->
 <!--  </div>-->
@@ -105,13 +112,7 @@
             {% endfor %}
         </div>
 
-<div id="response-message"></div>
-    <div id="custom-alert">
-  <div class="custom-alert-content">
-    <p id="custom-alert-message"></p>
-    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
-  </div>
-</div>
+
 </main>
 {% endblock %}
 {% block scripts %}
