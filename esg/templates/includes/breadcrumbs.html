@@ -1,0 +1,11 @@
+{% if breadcrumbs %}
+  <nav>
+    {% for crumb in breadcrumbs %}
+      {% if forloop.last %}
+        <span>{{ crumb.label }}</span>
+      {% else %}
+        <a href="{{ crumb.url }}">{{ crumb.label }}</a> /
+      {% endif %}
+    {% endfor %}
+  </nav>
+{% endif %}

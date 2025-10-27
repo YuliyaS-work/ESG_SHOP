@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'django_elasticsearch_dsl',
-    'django_referer_breadcrumbs',
 
     'esg',
     'esg.templatetags',
@@ -55,8 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'django_referer_breadcrumbs.middleware.BreadcrumbsMiddleware',
 ]
 
 ROOT_URLCONF = 'esg_shop.urls'
@@ -71,6 +68,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'esg.breadcrumbs_context.breadcrumbs_context',
             ],
         },
     },
