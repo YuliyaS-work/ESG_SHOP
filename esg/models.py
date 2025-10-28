@@ -128,6 +128,7 @@ class Order(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     status = models.BooleanField(default=False, verbose_name='Статус заказа')
     general_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
+    agreement = models.BooleanField(verbose_name='Я даю согласие на обработку персональных данных')
 
     class Meta:
         verbose_name_plural = 'Заказы'
@@ -164,6 +165,7 @@ class Feedback(models.Model):
     message = models.TextField(verbose_name='Ваше сообщение')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
     status = models.BooleanField(default=False, verbose_name='Статус сообщения')
+    agreement = models.BooleanField(verbose_name='Согласие на обработку персональных данных', default=False)
 
     class Meta:
         verbose_name_plural = 'Обратная связь'

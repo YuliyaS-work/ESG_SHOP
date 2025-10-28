@@ -27,38 +27,30 @@
   {% csrf_token %}
   <button type="button" id="close-order-form" class="close-btn">&times;</button>
   <h2 style="text-align: center;">Оформление заказа</h2>
-  {{ form.as_p }}
+    <label for="first_name">Имя:</label>
+      <input id="first_name" type="text" name="first_name" required>
+    <label for="last_name">Фамилия:</label>
+      <input id="last_name" type="text" name="last_name" required>
+    <label for="phone">Телефон (+375 ХХ ХХХХХХХ):</label>
+      <input type="tel" name="phone" id="phone" required>
+    <label for="mail">Электронная почта:</label>
+      <input type="email" name="mail" id="mail">
+    <label for="agreement">Я даю согласие на <a href="{% url 'privacy' %}" target="_blank">обработку персональных данных</a></label>
+      <input type="checkbox" id="agreement" name="agreement" required>
   <div id="response-message-error" style="color:red;"></div>
   <button class="send-btn" type="submit">Подтвердить заказ</button>
 </form>
 
 <div id="response-message"></div>
-    <div id="custom-alert">
-  <div class="custom-alert-content">
-    <p id="custom-alert-message"></p>
-    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>
-  </div>
-</div>
-<!--    <div style="text-align: center; margin-bottom: 10px;">-->
-<!--    <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>-->
+
+
+    <!-- ТАНЯ , без него работает-->
+<!--    <div id="custom-alert">-->
+<!--  <div class="custom-alert-content">-->
+<!--    <p id="custom-alert-message"></p>-->
+<!--    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>-->
 <!--  </div>-->
-<!--        <div class="product-carousel">-->
-<!--        {% for product in recently_products %}-->
-<!--            <div class="product-card-catalog">-->
-<!--            {% if product.photo %}-->
-<!--                <img src="{{ product.photo.url }}" alt="{{ product.title }}">-->
-<!--            {% else %}-->
-<!--                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">-->
-<!--            {% endif %}-->
-<!--            <a href="{% url 'product' product.rubric.rubric.pk product.rubric.pk product.pk %}"><h3>{{ product.title }}</h3></a>-->
-<!--            <p>{{ product.description|truncatewords:15 }}</p>-->
-<!--            <p>{{ product.price }} BYN</p>-->
-<!--            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>-->
-<!--        </div>-->
-<!--        {% empty %}-->
-<!--        <p>Товары отсутствуют.</p>-->
-<!--        {% endfor %}-->
-<!--    </div>-->
+<!--</div>-->
 
 
     <div id="viewed-products-container"></div>

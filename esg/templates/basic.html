@@ -141,9 +141,11 @@
       <label for="phone">Телефон (+375 ХХ ХХХХХХХ)</label>
     <input type="tel" name="phone" id="phone" placeholder="Номер Вашего телефона" required>
       <label for="subject">Тема</label>
-    <input type="text" id="subject" name="subject" placeholder="Тема сообщения">
+    <input type="text" id="subject" name="subject" placeholder="Тема сообщения(необязательно)">
       <label for="message">Сообщение</label>
     <textarea name="message" id="message" placeholder="Ваше сообщение" rows="6" required></textarea>
+    <label for="agreement">Я даю согласие на <a href="{% url 'privacy' %}" target="_blank" >обработку персональных данных</a></label>
+      <input type="checkbox" id="agreement" name="agreement" required>
       <div id="response-message-error_feedback" style="color:red;"></div>
     <button type="submit" class="send-btn">Отправить</button>
   </form>

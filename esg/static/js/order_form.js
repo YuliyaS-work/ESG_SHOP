@@ -72,8 +72,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   };
 
-  // кнопка "OK"
-  alertBtn.addEventListener('click', () => {
-    alertBox.classList.remove('active');
-  });
-})();
+});

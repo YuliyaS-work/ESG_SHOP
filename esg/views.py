@@ -12,12 +12,12 @@ from rest_framework.response import Response
 
 
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
-from .forms import OrderForm
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
 from .serializers import OrderSerializer, FeedbackSerializer
 # from .signals import get_cookies
 from .tasks.email_order import process_order_task
 from .tasks.email_feedback import process_feedback_task
+
 
 def get_popular_products():
     '''Выводит популярные товары по усмотрению продавца. '''
@@ -218,14 +218,19 @@ def get_partners(request):
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
 
+def  get_privacy(request):
+    '''Рендерит страницу обработки персональных данных.'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    context = {'rubrics': rubrics}
+    return render(request, 'personal_data.html', context)
+
 
 def get_basket(request):
     '''Рендерит страницу покупательской корзины.'''
-    form = OrderForm()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     recently_products = ElectroProduct.objects.all()[:7] #переделать
     popular_products = get_popular_products()
-    context = {'form':form, 'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
+    context = {'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
     return render(request, 'basket.html', context)
 
 
