@@ -1,6 +1,18 @@
 function saveCookieConsent(consent) {
-  const maxAge = consent ? 2592000 : 0; // 30 дней или удалить
-  document.cookie = `cookieConsent=${consent}; path=/; max-age=${maxAge}`;
+  if (consent) {
+    const maxAge = 2592000;
+    document.cookie = `cookieConsent=true; path=/; max-age=${maxAge}; SameSite=Lax; Secure`;
+  } else {
+    localStorage.setItem('cookieConsentDenied', 'true');
+  }
+}
+
+function shouldShowCookieBanner() {
+  const cookieConsent = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('cookieConsent='));
+  const denied = localStorage.getItem('cookieConsentDenied');
+  return !cookieConsent && !denied;
 }
 
 function getBasketFromCookies() {
