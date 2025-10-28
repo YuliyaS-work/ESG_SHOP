@@ -190,9 +190,19 @@
     </div>
     </div>
 </section>
+
+  <!-- ===Cookies=== --->
+<div id="cookie-consent-popup" style="position: fixed; bottom: 20px; right: 20px; background: #fff; border: 1px solid #ccc; padding: 15px; z-index: 1000;">
+  <p>Для удобства пользователей на сайте мы используем cookies</p>
+  <button id="cookie-accept">Принять</button>
+  <button id="cookie-decline">Отклонить</button>
+</div>
+
+
 </main>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/reviews.js' %}" defer></script>
 <script src="{% static 'js/viewed.js' %}" defer></script>
+<script src="{% static 'js/cookies.js' %}" defer></script>
 {% endblock %}
