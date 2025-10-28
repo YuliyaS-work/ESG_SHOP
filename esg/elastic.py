@@ -2,7 +2,7 @@ from elasticsearch import Elasticsearch
 
 es = Elasticsearch(
     "https://localhost:9200",
-    basic_auth=("elastic", "f3hRbYAUlIGJs*SDMrgn"),
+    basic_auth=("elastic", "sopjxz3Qvo1KfpjnB0Yi"),
     verify_certs=False  # если сертификат самоподписанный
 )
 

@@ -13,7 +13,7 @@
 <main class="main-content">
 
   <!--  ===кнопка Каталог===-->
-<a href="{% url 'catalog' %}" class="catalog-btn">Посмотреть весь каталог</a>
+<a href="{% url 'catalog' %}" class="catalog-btn" style="margin: 0 auto 10px;">Посмотреть весь каталог</a>
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
@@ -33,7 +33,6 @@
   </div>
 
 
-<div>
     <div style="text-align: center; margin-bottom: 10px;">
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Новинки</h2>
   </div>
@@ -123,9 +122,9 @@
   {% endfor %}
 </section>
   <!-- Горизонтальная карусель с индикаторами -->
- <main class="reviews-container">
-         <div style="text-align: center; margin-bottom: 10px;">
-           <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">О нас пишут</h2></div>
+ <section class="reviews-container">
+         <div class="reviews-header">
+           <h2>О нас пишут</h2></div>
   <div class="carousel">
     <div id="carousel-inner">
       <div class="review">
@@ -183,9 +182,8 @@
         <small>Источник: <a href="https://yandex.by/maps/-/CLFhI0MN" target="_blank">Яндекс.Карты</a></small>
       </div>
     </div>
-  </div>
-</main>
     </div>
+</section>
 </main>
 {% endblock %}
 {% block scripts %}

@@ -13,7 +13,7 @@
       <li><a href="#order">Как сделать заказ</a></li>
       <li><a href="#delivery">Доставка</a></li>
       <li><a href="#payment">Как оплатить</a></li>
-      <li><a href="#requisites">Наши реквизиты</a></li>
+      <li><a href="#requisites">Реквизиты</a></li>
     </ul>
   </nav>
 
@@ -97,53 +97,42 @@
 {% endblock %}
 {% block scripts %}
 <script>
-<!--document.addEventListener("DOMContentLoaded", function() {-->
-<!--  const sections = document.querySelectorAll("section[id]");-->
-<!--  const navLinks = document.querySelectorAll(".anchor-nav a");-->
-
-<!--  window.addEventListener("scroll", () => {-->
-<!--    let current = "";-->
-
-<!--    sections.forEach(section => {-->
-<!--      const sectionTop = section.offsetTop - 150;-->
-<!--      if (pageYOffset >= sectionTop) {-->
-<!--        current = section.getAttribute("id");-->
-<!--      }-->
-<!--    });-->
-
-<!--    navLinks.forEach(link => {-->
-<!--      link.classList.remove("active");-->
-<!--      if (link.getAttribute("href") === `#${current}`) {-->
-<!--        link.classList.add("active");-->
-<!--      }-->
-<!--    });-->
-<!--  });-->
-<!--});-->
-  document.addEventListener("DOMContentLoaded", function() {
-  const sections = document.querySelectorAll("section[id]");
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll(".pay_section[id]");
   const navLinks = document.querySelectorAll(".anchor-nav a");
 
-  let scrollTimeout; // чтобы ограничить частоту обновлений
+  function onScroll() {
+    let scrollPos = window.scrollY + 200; // Смещение для корректного попадания
 
-  window.addEventListener("scroll", () => {
-    // предотвращаем частое срабатывание (раз в 100мс)
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      let current = "";
+    sections.forEach((section) => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute("id");
 
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 180; // чуть больше отступ
-        const sectionHeight = section.offsetHeight;
-        if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight - 50) {
-          current = section.getAttribute("id");
-        }
-      });
+      if (scrollPos >= top && scrollPos < top + height) {
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
 
-      navLinks.forEach(link => {
-        link.classList.toggle("active", link.getAttribute("href") === `#${current}`);
-      });
-    }, 100);
+  // Привязываем обработчик
+  window.addEventListener("scroll", onScroll);
+
+  // При клике по якорю — плавное выделение
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      navLinks.forEach((l) => l.classList.remove("active"));
+      e.target.classList.add("active");
+    });
   });
+
+  // Вызываем один раз при загрузке
+  onScroll();
 });
 </script>
 {% endblock %}

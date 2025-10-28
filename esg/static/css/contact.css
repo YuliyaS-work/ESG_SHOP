@@ -31,6 +31,7 @@
   width: 26px;  /* увеличен размер иконки */
   height: 26px;
   fill: #555555;
+  flex-shrink: 0;
   transition: transform 0.2s ease, fill 0.2s ease;
 }
 
@@ -78,8 +79,6 @@ a.contact:hover .contact-icon {
 }
 /* фото в контактах */
 .photo-section {
-  /*flex-basis: 100%; /* занимает всю ширину */
-  /*order: 3;          /* гарантирует, что будет третьим элементом */
   margin-top: 60px;
   margin-bottom: 50px;
   grid-column: 1 / -1;
@@ -135,24 +134,5 @@ a.contact:hover .contact-icon {
 }
 #lightbox img:hover {
   transform: scale(1.02);
-}
-
-/* Для телефонов — картинка под текстом */
-@media (max-width: 768px) {
-  .about-section {
-    grid-template-columns: 1fr; /* одна колонка на мобильных */
-    text-align: center;
-  }
-  .certificate {
-    flex: 1 1 100%;
-    justify-content: center;  /* центрируем сертификат */
-    margin-top: 20px;
-  }
-  .certificate img {
-    max-width: 90%;           /* уменьшаем изображение */
-  }
-  .photo-grid {
-    grid-template-columns: 1fr; /* фото в колонку на мобилке */
-  }
 }
 

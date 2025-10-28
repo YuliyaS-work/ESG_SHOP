@@ -13,9 +13,6 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.55); /* затемнение */
   z-index: 999;                    /* чуть ниже модалки */
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 #overlay_fb.active,
 #feedback-modal.active {
@@ -35,6 +32,7 @@
   max-width: 90%;
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 .close-btn {
   position: absolute;
@@ -60,6 +58,7 @@
   font-weight: 600;
   width: 100%;
   font-size: 16px;
+  transition: background 0.3s ease;
 }
 .send-btn:hover {
   background: linear-gradient(145deg, #e0c04f, #c8a717);
@@ -89,7 +88,7 @@
   padding: 30px 45px;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  z-index: 2000;
+  z-index: 1100;
   opacity: 0;
   transition: all 0.4s ease;
   text-align: center;
@@ -101,11 +100,16 @@
   width: 400px;
   max-width: 90%;
 }
-
+#feedback-alert {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
 #feedback-alert.active {
+  display: flex;
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Текст */
@@ -137,22 +141,74 @@
   background: linear-gradient(145deg, #aaa, #777);
 }
 
-/* Адаптив для планшета */
-@media (max-width: 992px) {
+/* === Модалка обратной связи для экранов до 901px === */
+@media (max-width: 901px) {
   #feedback-modal {
-    width: 500px;
-    left: 50%;            /* убираем сдвиг для удобства */
+    top: 120px;              /* уменьшенный верхний отступ */
+    left: 50%;               /* убран сдвиг на 35px */
     transform: translateX(-50%);
+    width: 90%;              /* занимает почти всю ширину экрана */
+    max-width: 400px;        /* ограничение максимальной ширины */
+    padding: 20px;           /* уменьшенные отступы внутри */
+  }
+
+  .send-btn {
+    font-size: clamp(14px, 4vw, 16px);
+    padding: 10px 20px;
+  }
+
+  #feedback-form input,
+  #feedback-form textarea {
+    font-size: clamp(13px, 3vw, 15px);
+    width: 100%;
+    padding: 8px 12px; /* сверху/снизу 10px, слева/справа 12px */
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  #feedback-alert {
+    left: 50%;                /* по центру экрана */
+    transform: translateX(-50%) translateY(0); /* центрируем */
+    width: 90%;               /* адаптивная ширина */
+    max-width: 350px;         /* ограничение максимальной ширины */
+    padding: 20px 25px;       /* внутренние отступы */
+    top: 30%;                  /* позиция сверху */
+  }
+
+  #feedback-alert.active {
+    transform: translateX(-50%) translateY(0); /* при активации остаётся по центру */
   }
 }
-
-/* Адаптив для телефона */
-@media (max-width: 600px) {
+@media (max-width: 601px) {
+  /* Модалка */
   #feedback-modal {
-    width: 90%;
-    top: 20%;             /* чуть выше для маленького экрана */
-    left: 50%;
+    top: 80px;               /* чуть выше, чтобы не упиралась в верх */
+    left: 50%;               /* центрируем по горизонтали */
     transform: translateX(-50%);
-    padding: 20px;
+    width: 95%;              /* почти вся ширина экрана */
+    max-width: 300px;        /* ограничение, чтобы не растягивалась */
+    padding: 20px;           /* достаточные внутренние отступы */
+  }
+
+  /* Кнопка отправки */
+  .send-btn {
+    font-size: clamp(14px, 2.5vw, 16px);
+    padding: 12px 20px;      /* чуть больше вертикального отступа */
+  }
+
+  /* Поля формы */
+  #feedback-form input,
+  #feedback-form textarea {
+    font-size: clamp(13px, 2.5vw, 15px);
+    padding: 10px;           /* увеличенный отступ для удобного тапа */
+  }
+
+  /* Кастомный alert */
+  #feedback-alert {
+    width: 90%;              /* почти вся ширина */
+    max-width: 300px;        /* ограничение */
+    padding: 20px 25px;      /* внутренние отступы */
+    left: 50%;               /* центр по горизонтали */
+    transform: translateX(-50%) translateY(0);
   }
 }
