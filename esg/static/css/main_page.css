@@ -1,13 +1,13 @@
 /* === Страница main_page === */
 .catalog-grid {
-  display: flex;
+   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px;                     /* как в .product-carousel */
-  width: 100%; /* растягиваем на всю ширину */
-  max-width: none; /* убираем ограничение */
-  margin: 0 auto;                /* центрируем по странице */
-  padding: 0 10px;               /* небольшие боковые отступы */
+  gap: 18px;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding: 0;
 }
 /*иконки подкатегорий */
 .catalog-card i.fas {
@@ -65,48 +65,65 @@
 /* Отзывы */
 .reviews-container {
   max-width: 100%;
-  margin: auto;
-  overflow: hidden;
+  margin: 0 auto;
+  padding: 30px 15px;
+  box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
+/* Заголовок блока */
+.reviews-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.reviews-header h2 {
+  color: #000;
+  border-bottom: 2px solid #e6c200;
+  display: inline-block;
+  padding-bottom: 5px;
+  font-size: 1.8rem;
+}
 .carousel {
-  overflow: hidden;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 20px;
+  overflow-x: auto;
+  display: flex;
+  scroll-snap-type: x mandatory; /* плавная фиксация карточек при скролле */
+  gap: 16px;
+  padding: 10px 0 20px;
 }
 #carousel-inner {
   display: flex;
-  width: max-content;
-  transition: transform 0.2s linear;
+  gap: 16px;
 }
 .review {
-  flex: 0 0 280px; /* фиксированная ширина карточки */
-  margin-right: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  box-sizing: border-box;
+  flex: 0 0 280px;
   background: #fafafa;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.review:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .review strong {
-  font-size: 16px;
+  font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
   display: block;
   margin-bottom: 5px;
 }
 .review em {
-  font-size: 14px;
+  font-size: clamp(0.85rem, 0.9vw + 0.3rem, 0.95rem);
   color: #666;
 }
 .review p {
-  font-size: 14px;
+  font-size: clamp(0.85rem, 1vw + 0.3rem, 0.95rem);
   margin: 8px 0;
+  line-height: 1.4;
 }
 .review small a {
   color: #6d7378;
   text-decoration: none;
+  font-size: clamp(0.75rem, 0.8vw + 0.3rem, 0.85rem);
 }
 .review small a:hover {
   text-decoration: underline;
@@ -120,9 +137,9 @@ margin-top: 40px;
   margin-bottom: 40px;
   text-align: center;
   justify-content: flex-start;  /* карточки занимают всю ширину */
-  max-width: none;              /* убираем ограничение 1200px */
+   /*max-width: none;              /* убираем ограничение 1200px */
   width: 100%;
-  padding: 0 10px;
+
 }
 
 .category-header {
@@ -177,33 +194,44 @@ margin-top: 40px;
   overflow-wrap: break-word;
   white-space: normal;
 }
+/* === Адаптивность === */
 
-@media (max-width: 768px) {
-  .product-card-catalog {
-    flex: 0 0 45%;
-  }
-}
-@media (max-width: 480px) {
-  .product-card-catalog {
-    flex: 0 0 90%;
-  }
-}
 /* Планшеты */
 @media (max-width: 992px) {
-  .catalog-card {
-    flex: 0 1 150px; /* чуть шире карточки */
+  .review {
+    flex: 0 0 220px;
+    font-size: 0.9rem;
   }
 }
+//* Мобильные телефоны */
+@media (max-width: 600px) {
+  .reviews-header h2 {
+    font-size: clamp(1.1rem, 3vw + 0.4rem, 1.4rem);
+  }
+  .carousel {
+    gap: 10px;
+    padding-bottom: 16px;
+  }
 
-/* Телефоны */
-@media (max-width: 600px) {
-  .catalog-card {
-    flex: 0 1 80%;   /* одна карточка на ряд */
+  .review {
+    flex: 0 0 240px; /* фиксированная ширина карточки, выглядит аккуратно */
+    padding: 12px;
+    font-size: clamp(0.85rem, 1vw + 0.3rem, 0.95rem);
   }
-}
-@media (max-width: 992px) {
-  .review { flex: 0 0 45%; }
-}
-@media (max-width: 600px) {
-  .review { flex: 0 0 80%; }
+
+  .review p {
+    font-size: clamp(0.8rem, 1vw + 0.25rem, 0.9rem);
+  }
+
+  .review strong {
+    font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
+  }
+
+  .review em {
+    font-size: clamp(0.8rem, 0.8vw + 0.3rem, 0.9rem);
+  }
+
+  .review small a {
+    font-size: clamp(0.75rem, 0.8vw + 0.25rem, 0.85rem);
+  }
 }

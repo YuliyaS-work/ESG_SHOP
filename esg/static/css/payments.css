@@ -1,7 +1,6 @@
 html {
   scroll-behavior: smooth;
 }
-
 /* Навигация по якорям */
 .anchor-nav {
   background: #f0f0f0;
@@ -11,9 +10,8 @@ html {
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   position: sticky;
   top: 140px;
-  z-index: 1000;
+  z-index: 900;
 }
-
 .anchor-nav ul {
   display: flex;
   flex-wrap: wrap;
@@ -23,7 +21,6 @@ html {
   margin: 0;
   padding: 0;
 }
-
 .anchor-nav a {
   color: #6d7378;
   text-decoration: none;
@@ -32,21 +29,19 @@ html {
   border-radius: 6px;
   transition: all 0.2s ease;
 }
-
-/* Подсветка при наведении и активная ссылка */
 .anchor-nav a:hover,
 .anchor-nav a.active {
-  background-color: #e6c200;
-  color: #fff;
+  color: black;
+  border-bottom: 2px solid #ffd700;
+  background-color: rgba(255, 215, 0, 0.15);
+  transition: all 0.25s ease;
 }
-
 /* Заголовки и разделы */
 .pay_section {
   margin-bottom: 40px;
   padding-bottom: 25px;
   position: relative;
 }
-
 /* Добавляем мягкую градиентную линию */
 .pay_section::after {
   content: "";
@@ -61,26 +56,24 @@ html {
     rgba(136, 136, 136, 0.4),
     transparent);
 }
-
 .payments {
   color: black;
-  font-size: 1.6em;
+  font-size: clamp(1.3rem, 1vw + 1rem, 2rem);
   margin: 10px 0;
   border-left: 4px solid #e6c200;
   padding-left: 10px;
 }
-
 .payments_h3 {
   color: #888;
+  font-size: clamp(1rem, 0.8vw + 0.7rem, 1.4rem);
   margin-bottom: 15px;
 }
-
 .pay_pre{
    background: #f0f0f0;
   padding: 20px;
   border-radius: 10px;
   font-family: "Courier New", monospace;
-  font-size: 1.05em; /* ← увеличен размер */
+  font-size: clamp(0.9rem, 0.6vw + 0.6rem, 1.1rem);
   line-height: 1.8;
   color: #888;
   overflow-x: auto;
@@ -89,6 +82,7 @@ html {
 }
 .pay_section p {
   line-height: 1.8;
+  font-size: clamp(0.9rem, 0.7vw + 0.6rem, 1.1rem);
 }
 /* Учитываем высоту фиксированного header */
 :target {
@@ -97,10 +91,45 @@ html {
 .pay_section:last-of-type {
   margin-bottom: 200px; /* чтобы позволить доскроллить */
 }
-.anchor-nav a {
-  transition: color 0.3s, border-bottom-color 0.3s;
+
+/* === Адаптация под разные ширины экрана === */
+
+/* 💻 1350px → 900px */
+@media (max-width: 1350px) and (min-width: 900px) {
+  .anchor-nav {
+    top: 120px;
+    padding: 8px 15px;
+    gap: 20px;
+  }
+  .anchor-nav ul {
+    gap: 20px;
+  }
+  .pay_section:last-of-type {
+  margin-bottom: 350px; /* чтобы якорь не перекрывал контент */
 }
-.anchor-nav a.active {
-  color: #e6c200;
-  border-bottom: 2px solid #e6c200;
+}
+
+/* 📱 900px → 600px */
+@media (max-width: 901px) and (min-width: 600px) {
+.anchor-nav {
+    top: var(--header-height, 110px); /* подбираем под фактический header */
+    padding: 8px 10px;
+  }
+  .anchor-nav ul {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .anchor-nav a {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+  .pay_section:last-of-type {
+  margin-bottom: 350px; /* чтобы якорь не перекрывал контент */
+}
+}
+
+@media (max-width: 601px) {
+  .anchor-nav {
+    display: none;
+  }
 }

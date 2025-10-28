@@ -1,20 +1,19 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const btn = document.getElementById('menu-toggle');
-  const overlay = document.getElementById('overlay');
+  const buttons = document.querySelectorAll('.menu-toggle'); // все кнопки-бургеры
+  const overlays = document.querySelectorAll('.overlay_menu'); // все overlay
 
-  if (btn) {
+  buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       document.body.classList.toggle('sidebar-open');
     });
-  }
+  });
 
-  if (overlay) {
+  overlays.forEach(overlay => {
     overlay.addEventListener('click', () => {
       document.body.classList.remove('sidebar-open');
     });
-  }
+  });
 
-  // закрываем по Esc
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') document.body.classList.remove('sidebar-open');
   });
