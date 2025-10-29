@@ -1,6 +1,6 @@
 function saveCookieConsent(consent) {
   const maxAge = consent ? 2592000 : 0; // 30 дней или удалить
-  document.cookie = `cookieConsent=${consent}; path=/; max-age=${maxAge}`;
+  document.cookie = `cookieConsent=${consent}; path=/; max-age=${maxAge}, SameSite=Lax; Secure`;
 }
 
 function getBasketFromCookies() {
@@ -35,7 +35,8 @@ function saveBasketToCookies(basket) {
   basket.generalCost = totalSum.toFixed(2);
   // сохраняем всё в одной куке
    const maxAge = consent ? 2592000 : 0;
-  document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=${maxAge}';
+  document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
+
 }
 
 
