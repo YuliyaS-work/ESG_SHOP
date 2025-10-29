@@ -1,20 +1,3 @@
-function saveCookieConsent(consent) {
-  if (consent) {
-    const maxAge = 2592000;
-    document.cookie = `cookieConsent=true; path=/; max-age=${maxAge}; SameSite=Lax; Secure`;
-  } else {
-    localStorage.setItem('cookieConsentDenied', 'true');
-  }
-}
-
-function shouldShowCookieBanner() {
-  const cookieConsent = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('cookieConsent='));
-  const denied = localStorage.getItem('cookieConsentDenied');
-  return !cookieConsent && !denied;
-}
-
 function getBasketFromCookies() {
   try {
     const cookie = document.cookie
@@ -31,11 +14,6 @@ function getBasketFromCookies() {
 }
 
 function saveBasketToCookies(basket) {
-    const consentCookie = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('cookieConsent='));
-  const consent = consentCookie ? consentCookie.split('=')[1] === 'true' : false;
-
   // пересчитываем общую стоимость
   let totalSum = 0;
   Object.entries(basket).forEach(([key, value]) => {
@@ -45,9 +23,7 @@ function saveBasketToCookies(basket) {
     }
   });
   basket.generalCost = totalSum.toFixed(2);
-  // сохраняем всё в одной куке
-   const maxAge = consent ? 2592000 : 0;
-  document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=${maxAge}';
+  document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
 }
 
 

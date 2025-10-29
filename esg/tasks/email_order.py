@@ -47,7 +47,6 @@ def process_order_task(order_id, basket_cookies):
     # for a client
     subject1 = f'Магазин "Электротовары"'
     message1 = (f'{order.first_name}, номер Вашего заказа {order.pk}.')
-    to_email1 = [f'{order.mail}']
 
     try:
         # email to a seller
@@ -59,12 +58,14 @@ def process_order_task(order_id, basket_cookies):
             fail_silently=False,
         )
         # email to a client
-        send_mail(
-            subject=subject1,
-            message=message1,
-            from_email=esg_shop.settings.DEFAULT_FROM_EMAIL,
-            recipient_list=to_email1,
-            fail_silently=False,
-        )
+        if order.mail and order.mail.strip():
+            clean_email = order.mail.strip()
+            send_mail(
+                subject=subject1,
+                message=message1,
+                from_email=esg_shop.settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[clean_email],
+                fail_silently=False,
+            )
     except Exception as e:
         print(f' Письмо не отправлено: {e}')
