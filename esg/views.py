@@ -95,9 +95,9 @@ def get_catalog(request):
 
 
 
-def get_subrubrics(request, rubric_id):
+def get_subrubrics(request, rubric_name_translit):
     '''Список подразделов раздела '''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
         subrubrics = Gas.objects.select_related('rubric').all()
@@ -137,9 +137,9 @@ def get_subrubrics(request, rubric_id):
     return render(request, 'subrubrics_list.html', context)
 
 
-def get_products(request, rubric_id, subrubric_id):
+def get_products(request, rubric_name_translit, subrubric_id):
     '''Выводит страницу оттдельного подраздела товары'''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
         products = GasProduct.objects.filter(rubric=subrubric_id)
@@ -182,9 +182,9 @@ def get_products(request, rubric_id, subrubric_id):
 
 
 
-def get_product(request, rubric_id, subrubric_id, product_id):
+def get_product(request, rubric_name_translit, subrubric_id, product_id):
     '''Рендерит страницу одного продукта.'''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
         product = GasProduct.objects.get(pk=product_id)
@@ -255,7 +255,7 @@ def search_model_products(document_class, model_class, query):
             if product:
                 item['product_id'] = product.pk
                 item['subrubric_id'] = product.rubric.pk
-                item['rubric_id'] = product.rubric.rubric.pk
+                item['rubric_name_translit'] = product.rubric.rubric.name_translit
 
             results.append(item)
     except Exception as e:

@@ -10,7 +10,7 @@ function saveViewedProduct(product) {
     price: product.price,
     description: product.description,
     photo: product.photo,
-    rubric_id: product.rubric_id,
+    rubric_name_translit: product.rubric_name_translit,
     subrubric_id: product.subrubric_id
   };
 
@@ -53,7 +53,7 @@ function renderViewedProducts() {
       : '/static/image/default-product.png';
 
     const baseUrl = window.location.origin;
-    const href = `${baseUrl}/esg.by/catalog/${product.rubric_id}/${product.subrubric_id}/${product.id}`;
+    const href = `${baseUrl}/esg.by/catalog/${product.rubric_name_translit}/${product.subrubric_id}/${product.id}`;
 
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
@@ -63,7 +63,7 @@ function renderViewedProducts() {
          data-photo="${product.photo}"
          data-price="${product.price}"
          data-description="${product.description}"
-         data-rubric_id="${product.rubric_id}"
+         data-rubric_name_translit="${product.rubric_name_translit}"
          data-subrubric_id="${product.subrubric_id}">
         <h3>${product.title}</h3>
       </a>
@@ -128,7 +128,7 @@ container.querySelectorAll('.basket').forEach(button => {
           title: link.dataset.title,
           price: link.dataset.price,
           description: link.dataset.description,
-          rubric_id: link.dataset.rubric_id,
+          rubric_name_translit: link.dataset.rubric_name_translit,
           subrubric_id: link.dataset.subrubric_id
         };
         console.log('Сохраняем просмотренный товар:', product);
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', () => {
 
       const hrefParts = link.getAttribute('href').split('/');
-      const rubric_id = hrefParts[hrefParts.length - 3];
+      const rubric_name_translit = hrefParts[hrefParts.length - 3];
       const subrubric_id = hrefParts[hrefParts.length - 2];
 
       const product = {
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
         title: link.dataset.title,
         price: link.dataset.price,
         description: link.dataset.description,
-        rubric_id: rubric_id,
+        rubric_name_translit: rubric_name_translit,
         subrubric_id: subrubric_id
       };
       console.log('Сохраняем из каталога:', product);

@@ -18,7 +18,7 @@
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+      <a href="{% url 'subrubrics' rubric.name_translit %}" class="catalog-btn">
         {% if rubric.rubric_name == "Электрика" %}
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
@@ -63,7 +63,7 @@
 
 </div>
     <div style="text-align: center;">
-    <a href="{% url 'products'  product.rubric.rubric.pk product.rubric.pk %}" class="product_exit">
+    <a href="{% url 'products'  product.rubric.rubric.name_translit product.rubric.pk %}" class="product_exit">
         ВЕРНУТЬСЯ В РАЗДЕЛ: <br>{{ product.rubric.title }}
     </a></div>
 </main>

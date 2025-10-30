@@ -73,19 +73,19 @@
     <nav class="sidebar">
         <ul>
             {% for rubric in rubrics %}
-                <li><a href="{% url 'subrubrics' rubric.pk %}">
+                <li><a href="{% url 'subrubrics' rubric.name_translit %}">
           <!-- Иконка категории -->
                     <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-fire{% else %}fas fa-folder{% endif %}"></i>
                 <div class="text">{{ rubric.rubric_name }}</div></a>
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.pk sub.pk  %}"> {{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk  %}"> {{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.gas_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk %}">{{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.santeh_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.pk sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk %}">{{ sub.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
@@ -162,6 +162,7 @@
 
 <!--Общие скрипты, используемые на всех страницах -->
 <script src="{% static 'js/menu.js' %}" defer></script>
+<script src="{% static 'js/cookies.js' %}" defer></script>
 <script src="{% static 'js/set_basket.js' %}" defer></script>
 <script src="{% static 'js/utils.js' %}" defer></script>
 <script src="{% static 'js/cart_count.js' %}" defer></script>

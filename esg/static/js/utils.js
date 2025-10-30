@@ -1,8 +1,3 @@
-function saveCookieConsent(consent) {
-  const maxAge = consent ? 2592000 : 0; // 30 дней или удалить
-  document.cookie = `cookieConsent=${consent}; path=/; max-age=${maxAge}, SameSite=Lax; Secure`;
-}
-
 function getBasketFromCookies() {
   try {
     const cookie = document.cookie
@@ -19,11 +14,6 @@ function getBasketFromCookies() {
 }
 
 function saveBasketToCookies(basket) {
-    const consentCookie = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('cookieConsent='));
-  const consent = consentCookie ? consentCookie.split('=')[1] === 'true' : false;
-
   // пересчитываем общую стоимость
   let totalSum = 0;
   Object.entries(basket).forEach(([key, value]) => {
@@ -33,10 +23,7 @@ function saveBasketToCookies(basket) {
     }
   });
   basket.generalCost = totalSum.toFixed(2);
-  // сохраняем всё в одной куке
-   const maxAge = consent ? 2592000 : 0;
   document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
-
 }
 
 

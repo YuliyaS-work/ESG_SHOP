@@ -26,17 +26,17 @@ def breadcrumbs_context(request):
         view_name = match.view_name
 
         # Каталог
-        if view_name.startswith('catalog') or 'rubric_id' in kwargs:
+        if view_name.startswith('catalog') or 'rubric_name_translit' in kwargs:
             crumbs.append({'label': 'Каталог', 'url': reverse('catalog')})
 
         # Раздел
-        rubric_id = kwargs.get('rubric_id')
-        rubric = Rubric.objects.filter(pk=rubric_id).first() if rubric_id else None
+        rubric_name_translit = kwargs.get('rubric_name_translit')
+        rubric = Rubric.objects.filter(name_translit=rubric_name_translit).first() if rubric_name_translit else None
 
         if rubric:
             crumbs.append({
                 'label': rubric.rubric_name,
-                'url': reverse('subrubrics', kwargs={'rubric_id': rubric_id})
+                'url': reverse('subrubrics', kwargs={'rubric_name_translit': rubric_name_translit})
             })
 
             model_map = RUBRIC_MODELS.get(rubric.rubric_name)
@@ -49,7 +49,7 @@ def breadcrumbs_context(request):
                 if subrubric:
                     crumbs.append({
                         'label': subrubric.title,
-                        'url': reverse('products', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id})
+                        'url': reverse('products', kwargs={'rubric_name_translit': rubric_name_translit, 'subrubric_id': subrubric_id})
                     })
 
             # Товар
@@ -60,7 +60,7 @@ def breadcrumbs_context(request):
                 if product:
                     crumbs.append({
                         'label': product.title,
-                        'url': reverse('product', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id, 'product_id': product_id})
+                        'url': reverse('product', kwargs={'rubric_name_translit': rubric_name_translit, 'subrubric_id': subrubric_id, 'product_id': product_id})
                     })
 
     except Exception as e:

@@ -8,7 +8,8 @@ class Rubric(models.Model):
     Название основных разделов.
     Газификация, сантехника, электрика.
     '''
-    rubric_name = models.CharField(max_length=50, verbose_name='Название раздела')
+    rubric_name = models.CharField(max_length=50, unique=True, verbose_name='Название раздела')
+    name_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
 
     class Meta:
         verbose_name_plural = 'Разделы'
@@ -22,6 +23,7 @@ class Rubric(models.Model):
 class Electro(models.Model):
     '''Подразделы электрики.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел электрики')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete = models.CASCADE, verbose_name='Раздел')
 
     class Meta:
@@ -36,6 +38,7 @@ class Electro(models.Model):
 class Gas(models.Model):
     '''Подразделы газификации.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел газификации')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
@@ -50,6 +53,7 @@ class Gas(models.Model):
 class Santeh(models.Model):
     '''Подразделы сантехники.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел сантехники')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
@@ -63,6 +67,7 @@ class Santeh(models.Model):
 # Товары подразделов электрики
 class ElectroProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     photo = models.ImageField( upload_to='electro/', null=True, blank=True, verbose_name='Фото товара')
@@ -83,6 +88,7 @@ class ElectroProduct(models.Model):
 # Товары подразделов газификации
 class GasProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
     photo = models.ImageField(upload_to='gas/', null=True, blank=True, verbose_name='Фото товара')
@@ -103,6 +109,7 @@ class GasProduct(models.Model):
 # Товары подразделов сантехники
 class SantehProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
+    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     photo = models.ImageField(upload_to='santeh/', null=True, blank=True, verbose_name='Фото товара')
