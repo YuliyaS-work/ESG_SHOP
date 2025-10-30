@@ -17,8 +17,8 @@ urlpatterns = [
     path('basket/api/order/', OrderAPICreate.as_view(), name='order_api_create'),
     path('api/feedback/', FeedbackAPICreate.as_view(), name='feedback'),
 
-    path('<str:rubric_name_translit>/<int:subrubric_id>/<int:product_id>/', get_product, name='product'),
-    path('<str:rubric_name_translit>/<int:subrubric_id>/', get_products, name='products'),
+    path('<slug:rubric_name_translit>/<slug:subrubric_title_translit>/<slug:product_title_translit>/', get_product, name='product'),
+    path('<slug:rubric_name_translit>/<slug:subrubric_title_translit>/', get_products, name='products'),
     path('<slug:rubric_name_translit>/', get_subrubrics, name='subrubrics'),
 
 

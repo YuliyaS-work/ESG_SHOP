@@ -7,11 +7,13 @@ function saveViewedProduct(product) {
   const viewedProduct = {
     id: product.id,
     title: product.title,
+    product_title_translit: product.product_title_translit,
     price: product.price,
     description: product.description,
     photo: product.photo,
-    rubric_name_translit: product.rubric_name_translit,
-    subrubric_id: product.subrubric_id
+    subrubric_title_translit: product.subrubric_title_translit,
+    rubric_name_translit: product.rubric_name_translit
+
   };
 
   let products = getViewedProducts();
@@ -53,18 +55,20 @@ function renderViewedProducts() {
       : '/static/image/default-product.png';
 
     const baseUrl = window.location.origin;
-    const href = `${baseUrl}/esg.by/catalog/${product.rubric_name_translit}/${product.subrubric_id}/${product.id}`;
+    const href = `${baseUrl}/esg.by/${product.rubric_name_translit}/${product.subrubric_title_translit}/${product.product_title_translit}/`;
 
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
       <a href="${href}" class="product-title"
          data-id="${product.id}"
          data-title="${product.title}"
+         data-product_title_translit = "${product.product_title_translit}"
          data-photo="${product.photo}"
          data-price="${product.price}"
          data-description="${product.description}"
+         data-subrubric_title_translit="${product.subrubric_title_translit}"
          data-rubric_name_translit="${product.rubric_name_translit}"
-         data-subrubric_id="${product.subrubric_id}">
+         >
         <h3>${product.title}</h3>
       </a>
       <p>${product.description}</p>
@@ -126,10 +130,12 @@ container.querySelectorAll('.basket').forEach(button => {
           id: link.dataset.id,
           photo: link.dataset.photo,
           title: link.dataset.title,
+          product_title_translit: link.dataset.product_title_translit,
           price: link.dataset.price,
           description: link.dataset.description,
-          rubric_name_translit: link.dataset.rubric_name_translit,
-          subrubric_id: link.dataset.subrubric_id
+          subrubric_title_translit: link.dataset.subrubric_title_translit,
+          rubric_name_translit: link.dataset.rubric_name_translit
+
         };
         console.log('Сохраняем просмотренный товар:', product);
         saveViewedProduct(product);
@@ -147,17 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', () => {
 
       const hrefParts = link.getAttribute('href').split('/');
-      const rubric_name_translit = hrefParts[hrefParts.length - 3];
-      const subrubric_id = hrefParts[hrefParts.length - 2];
+      const rubric_name_translit = hrefParts[hrefParts.length - 4];
+      const subrubric_title_translit = hrefParts[hrefParts.length - 3];
+      const product_title_translit = hrefParts[hrefParts.length - 2];
+
 
       const product = {
         id: link.dataset.id,
         photo: link.dataset.photo,
         title: link.dataset.title,
+        product_title_translit: product_title_translit,
         price: link.dataset.price,
         description: link.dataset.description,
-        rubric_name_translit: rubric_name_translit,
-        subrubric_id: subrubric_id
+        subrubric_title_translit: subrubric_title_translit,
+        rubric_name_translit: rubric_name_translit
+
       };
       console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);

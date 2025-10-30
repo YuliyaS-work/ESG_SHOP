@@ -23,7 +23,7 @@ class Rubric(models.Model):
 class Electro(models.Model):
     '''Подразделы электрики.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел электрики')
-    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=50,  unique=True, verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete = models.CASCADE, verbose_name='Раздел')
 
     class Meta:
@@ -38,7 +38,7 @@ class Electro(models.Model):
 class Gas(models.Model):
     '''Подразделы газификации.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел газификации')
-    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=50,  unique=True, verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
@@ -53,7 +53,7 @@ class Gas(models.Model):
 class Santeh(models.Model):
     '''Подразделы сантехники.'''
     title = models.CharField(max_length=255, verbose_name='Подраздел сантехники')
-    title_translit = models.CharField(max_length=50, default='', verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=50,  unique=True, verbose_name='Название латиницей')
     rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:

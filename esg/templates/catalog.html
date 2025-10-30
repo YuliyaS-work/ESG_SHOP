@@ -39,13 +39,13 @@
     <ul class="subcategories-list">
       {% for rubric in rubrics %}
         {% for subrubric in rubric.electro_set.all %}
-          <li><a href="{% url 'products' rubric.name_translit subrubric.pk %}">{{ subrubric.title }}</a></li>
+          <li><a href="{% url 'products' rubric.name_translit subrubric.title_translit %}">{{ subrubric.title }}</a></li>
         {% endfor %}
         {% for subrubric in rubric.santeh_set.all %}
-          <li><a href="{% url 'products' rubric.name_translit subrubric.pk %}">{{ subrubric.title }}</a></li>
+          <li><a href="{% url 'products' rubric.name_translit subrubric.title_translit %}">{{ subrubric.title }}</a></li>
         {% endfor %}
         {% for subrubric in rubric.gas_set.all %}
-          <li><a href="{% url 'products' rubric.name_translit subrubric.pk %}">{{ subrubric.title }}</a></li>
+          <li><a href="{% url 'products' rubric.name_translit subrubric.title_translit %}">{{ subrubric.title }}</a></li>
         {% endfor %}
       {% endfor %}
     </ul>

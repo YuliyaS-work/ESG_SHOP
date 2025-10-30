@@ -137,21 +137,22 @@ def get_subrubrics(request, rubric_name_translit):
     return render(request, 'subrubrics_list.html', context)
 
 
-def get_products(request, rubric_name_translit, subrubric_id):
+def get_products(request, rubric_name_translit, subrubric_title_translit):
     '''Выводит страницу оттдельного подраздела товары'''
     rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
-        products = GasProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Gas.objects.get(pk=subrubric_id)
+        current_subrubric = Gas.objects.get(title_translit=subrubric_title_translit)
+        products = GasProduct.objects.filter(rubric=current_subrubric.pk)
+
 
     elif rubric.rubric_name == 'Электрика':
-        products = ElectroProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Electro.objects.get(pk=subrubric_id)
+        current_subrubric = Electro.objects.get(title_translit=subrubric_title_translit)
+        products = ElectroProduct.objects.filter(rubric=current_subrubric.pk)
 
     elif rubric.rubric_name == 'Сантехника':
-        products = SantehProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Santeh.objects.get(pk=subrubric_id)
+        current_subrubric = Santeh.objects.get(title_translit=subrubric_title_translit)
+        products = SantehProduct.objects.filter(rubric=current_subrubric.pk)
 
     # фильтр
     sort = request.GET.get('sort', '')
@@ -182,16 +183,16 @@ def get_products(request, rubric_name_translit, subrubric_id):
 
 
 
-def get_product(request, rubric_name_translit, subrubric_id, product_id):
+def get_product(request, rubric_name_translit, subrubric_title_translit, product_title_translit):
     '''Рендерит страницу одного продукта.'''
     rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
-        product = GasProduct.objects.get(pk=product_id)
+        product = GasProduct.objects.get(title_translit=product_title_translit)
     elif rubric.rubric_name == 'Сантехника':
-        product = SantehProduct.objects.get(pk=product_id)
+        product = SantehProduct.objects.get(title_translit=product_title_translit)
     elif rubric.rubric_name == 'Электрика':
-        product = ElectroProduct.objects.get(pk=product_id)
+        product = ElectroProduct.objects.get(title_translit=product_title_translit)
 
     # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -253,8 +254,8 @@ def search_model_products(document_class, model_class, query):
 
             product = model_class.objects.filter(title=hit.title).first()
             if product:
-                item['product_id'] = product.pk
-                item['subrubric_id'] = product.rubric.pk
+                item['product_title_translit'] = product.title_translit
+                item['subrubric_title_translit'] = product.rubric.title_translit
                 item['rubric_name_translit'] = product.rubric.rubric.name_translit
 
             results.append(item)

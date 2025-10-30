@@ -79,13 +79,13 @@
                 <div class="text">{{ rubric.rubric_name }}</div></a>
                     <ul class="subcategory">
                         {% for sub in rubric.electro_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk  %}"> {{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.title_translit  %}"> {{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.gas_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.title_translit %}">{{ sub.title }}</a></li>
                         {% endfor %}
                         {% for sub in rubric.santeh_set.all|dictsort:"title" %}
-                            <li><a href="{% url 'products' sub.rubric.name_translit sub.pk %}">{{ sub.title }}</a></li>
+                            <li><a href="{% url 'products' sub.rubric.name_translit sub.title_translit %}">{{ sub.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </li>
