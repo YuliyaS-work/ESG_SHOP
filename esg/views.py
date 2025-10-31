@@ -12,12 +12,12 @@ from rest_framework.response import Response
 
 
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
-from .forms import OrderForm
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
 from .serializers import OrderSerializer, FeedbackSerializer
 # from .signals import get_cookies
 from .tasks.email_order import process_order_task
 from .tasks.email_feedback import process_feedback_task
+
 
 def get_popular_products():
     '''Выводит популярные товары по усмотрению продавца. '''
@@ -95,9 +95,9 @@ def get_catalog(request):
 
 
 
-def get_subrubrics(request, rubric_id):
+def get_subrubrics(request, rubric_name_translit):
     '''Список подразделов раздела '''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
         subrubrics = Gas.objects.select_related('rubric').all()
@@ -137,21 +137,22 @@ def get_subrubrics(request, rubric_id):
     return render(request, 'subrubrics_list.html', context)
 
 
-def get_products(request, rubric_id, subrubric_id):
+def get_products(request, rubric_name_translit, subrubric_title_translit):
     '''Выводит страницу оттдельного подраздела товары'''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
-        products = GasProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Gas.objects.get(pk=subrubric_id)
+        current_subrubric = Gas.objects.get(title_translit=subrubric_title_translit)
+        products = GasProduct.objects.filter(rubric=current_subrubric.pk)
+
 
     elif rubric.rubric_name == 'Электрика':
-        products = ElectroProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Electro.objects.get(pk=subrubric_id)
+        current_subrubric = Electro.objects.get(title_translit=subrubric_title_translit)
+        products = ElectroProduct.objects.filter(rubric=current_subrubric.pk)
 
     elif rubric.rubric_name == 'Сантехника':
-        products = SantehProduct.objects.filter(rubric=subrubric_id)
-        current_subrubric = Santeh.objects.get(pk=subrubric_id)
+        current_subrubric = Santeh.objects.get(title_translit=subrubric_title_translit)
+        products = SantehProduct.objects.filter(rubric=current_subrubric.pk)
 
     # фильтр
     sort = request.GET.get('sort', '')
@@ -182,16 +183,16 @@ def get_products(request, rubric_id, subrubric_id):
 
 
 
-def get_product(request, rubric_id, subrubric_id, product_id):
+def get_product(request, rubric_name_translit, subrubric_title_translit, product_title_translit):
     '''Рендерит страницу одного продукта.'''
-    rubric = Rubric.objects.get(pk=rubric_id)
+    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
-        product = GasProduct.objects.get(pk=product_id)
+        product = GasProduct.objects.get(title_translit=product_title_translit)
     elif rubric.rubric_name == 'Сантехника':
-        product = SantehProduct.objects.get(pk=product_id)
+        product = SantehProduct.objects.get(title_translit=product_title_translit)
     elif rubric.rubric_name == 'Электрика':
-        product = ElectroProduct.objects.get(pk=product_id)
+        product = ElectroProduct.objects.get(title_translit=product_title_translit)
 
     # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -218,14 +219,19 @@ def get_partners(request):
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
 
+def  get_privacy(request):
+    '''Рендерит страницу обработки персональных данных.'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    context = {'rubrics': rubrics}
+    return render(request, 'personal_data.html', context)
+
 
 def get_basket(request):
     '''Рендерит страницу покупательской корзины.'''
-    form = OrderForm()
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     recently_products = ElectroProduct.objects.all()[:7] #переделать
     popular_products = get_popular_products()
-    context = {'form':form, 'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
+    context = {'rubrics': rubrics, 'popular_products': popular_products, 'recently_products': recently_products}
     return render(request, 'basket.html', context)
 
 
@@ -248,9 +254,9 @@ def search_model_products(document_class, model_class, query):
 
             product = model_class.objects.filter(title=hit.title).first()
             if product:
-                item['product_id'] = product.pk
-                item['subrubric_id'] = product.rubric.pk
-                item['rubric_id'] = product.rubric.rubric.pk
+                item['product_title_translit'] = product.title_translit
+                item['subrubric_title_translit'] = product.rubric.title_translit
+                item['rubric_name_translit'] = product.rubric.rubric.name_translit
 
             results.append(item)
     except Exception as e:

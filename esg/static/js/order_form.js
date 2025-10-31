@@ -11,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const generalCost = basket.generalCost || '0.00';
 
   if (!form.dataset.handlerAttached) {
+
+//    // убирает ошибку при изменении какого-либо поля
+//    form.querySelectorAll('input, textarea, select').forEach(field => {
+//    field.addEventListener('input', () => {
+//      responseMessageError.innerText = '';
+//      });
+//    });
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -19,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       data.basket = basket;
       data.generalCost = generalCost;
 
-      fetch(url, {
+        fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .catch(err => {
         responseMessageError.innerText = err.message;
       });
+
     });
 
     form.dataset.handlerAttached = 'true';
@@ -72,8 +81,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   };
 
-  // кнопка "OK"
-  alertBtn.addEventListener('click', () => {
-    alertBox.classList.remove('active');
-  });
-})();
+});

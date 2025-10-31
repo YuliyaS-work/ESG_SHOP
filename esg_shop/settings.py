@@ -123,7 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -147,8 +147,8 @@ ELASTICSEARCH_DSL = {
     'default': {
         # 'hosts': 'http://localhost:9200',
         'hosts': 'https://localhost:9200',
-        # 'http_auth': ('elastic', 'f3hRbYAUlIGJs*SDMrgn'),
-        'http_auth': ('elastic', 'sopjxz3Qvo1KfpjnB0Yi'),
+        'http_auth': ('elastic', 'f3hRbYAUlIGJs*SDMrgn'),
+        # 'http_auth': ('elastic', 'sopjxz3Qvo1KfpjnB0Yi'),
         'verify_certs': False,  # если самоподписанный сертификат
     }
 }

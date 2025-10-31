@@ -23,8 +23,7 @@ function saveBasketToCookies(basket) {
     }
   });
   basket.generalCost = totalSum.toFixed(2);
-  // сохраняем всё в одной куке
-  document.cookie = 'basket=' + encodeURIComponent(JSON.stringify(basket)) + '; path=/; max-age=2592000';
+  document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
 }
 
 

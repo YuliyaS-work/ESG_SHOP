@@ -26,41 +26,41 @@ def breadcrumbs_context(request):
         view_name = match.view_name
 
         # Каталог
-        if view_name.startswith('catalog') or 'rubric_id' in kwargs:
+        if view_name.startswith('catalog') or 'rubric_name_translit' in kwargs:
             crumbs.append({'label': 'Каталог', 'url': reverse('catalog')})
 
         # Раздел
-        rubric_id = kwargs.get('rubric_id')
-        rubric = Rubric.objects.filter(pk=rubric_id).first() if rubric_id else None
+        rubric_name_translit = kwargs.get('rubric_name_translit')
+        rubric = Rubric.objects.filter(name_translit=rubric_name_translit).first() if rubric_name_translit else None
 
         if rubric:
             crumbs.append({
                 'label': rubric.rubric_name,
-                'url': reverse('subrubrics', kwargs={'rubric_id': rubric_id})
+                'url': reverse('subrubrics', kwargs={'rubric_name_translit': rubric_name_translit})
             })
 
             model_map = RUBRIC_MODELS.get(rubric.rubric_name)
 
             # Подраздел
-            subrubric_id = kwargs.get('subrubric_id')
-            if subrubric_id and model_map:
+            subrubric_title_translit = kwargs.get('subrubric_title_translit')
+            if subrubric_title_translit and model_map:
                 SubrubricModel = model_map['subrubric']
-                subrubric = SubrubricModel.objects.filter(pk=subrubric_id).first()
+                subrubric = SubrubricModel.objects.filter(title_translit=subrubric_title_translit).first()
                 if subrubric:
                     crumbs.append({
                         'label': subrubric.title,
-                        'url': reverse('products', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id})
+                        'url': reverse('products', kwargs={'rubric_name_translit': rubric_name_translit, 'subrubric_title_translit': subrubric_title_translit})
                     })
 
             # Товар
-            product_id = kwargs.get('product_id')
-            if product_id and model_map:
+            product_title_translit = kwargs.get('product_title_translit')
+            if product_title_translit and model_map:
                 ProductModel = model_map['product']
-                product = ProductModel.objects.filter(pk=product_id).first()
+                product = ProductModel.objects.filter(title_translit=product_title_translit).first()
                 if product:
                     crumbs.append({
                         'label': product.title,
-                        'url': reverse('product', kwargs={'rubric_id': rubric_id, 'subrubric_id': subrubric_id, 'product_id': product_id})
+                        'url': reverse('product', kwargs={'rubric_name_translit': rubric_name_translit, 'subrubric_title_translit': subrubric_title_translit, 'product_title_translit': product_title_translit})
                     })
 
     except Exception as e:
