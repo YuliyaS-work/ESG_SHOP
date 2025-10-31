@@ -45,33 +45,50 @@ class Command(BaseCommand):
         #     rubric.title_translit = transliterated_title
         #     rubric.save(update_fields=['title_translit'])
 
-        # electroproducts = ElectroProduct.objects.all()
-        # for product in electroproducts:
-        #     transliterated_name = translit(product.title.lower(), 'ru', reversed=True)
-        #     cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
-        #     translist = re.split(r'\s*,\s*|\s+', cleaned_name)
-        #     translit_sp = [word for word in translist if word]
-        #     transliterated_title = ('-').join(translit_sp)
-        #     product.title_translit = transliterated_title
-        #     product.save(update_fields=['title_translit'])
+        electroproducts = ElectroProduct.objects.all()
+        for product in electroproducts:
+            transliterated_name = translit(product.title.lower(), 'ru', reversed=True)
+            cleaned_name = re.sub(r',', "i", transliterated_name)
+            cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
+            translist = re.split(r'\s*,\s*|\s+', cleaned_name)
+            translit_sp = [word for word in translist if word]
+            transliterated_title = ('-').join(translit_sp)
+            if ElectroProduct.objects.filter(title_translit=transliterated_title).exists():
+                transliterated_title_code = transliterated_title + f'{product.code}'
+                product.title_translit = transliterated_title_code
+                product.save(update_fields=['title_translit'])
+            else:
+                product.title_translit = transliterated_title
+                product.save(update_fields=['title_translit'])
 
         # gasproducts = GasProduct.objects.all()
         # for product in gasproducts:
         #     transliterated_name = translit(product.title.lower(), 'ru', reversed=True)
-        #     cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
-        #     translist = re.split(r'\s*,\s*|\s+',cleaned_name)
-        #     translit_sp = [word for word in translist if word]
-        #     transliterated_title = ('-').join(translit_sp)
-        #     product.title_translit = transliterated_title
-        #     product.save(update_fields=['title_translit'])
-        #
-        # santehproducts = SantehProduct.objects.all()
-        # for product in santehproducts:
-        #     transliterated_name = translit(product.title.lower(), 'ru', reversed=True)
-        #     cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
+        #     cleaned_name = re.sub(r',', "i", transliterated_name)
+        #     cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
         #     translist = re.split(r'\s*,\s*|\s+', cleaned_name)
         #     translit_sp = [word for word in translist if word]
         #     transliterated_title = ('-').join(translit_sp)
-        #     product.title_translit = transliterated_title
-        #     product.save(update_fields=['title_translit'])
+        #     if GasProduct.objects.filter(title_translit=transliterated_title).exists():
+        #         transliterated_title_code = transliterated_title + f'{product.code}'
+        #         product.title_translit = transliterated_title_code
+        #         product.save(update_fields=['title_translit'])
+        #     else:
+        #         product.title_translit = transliterated_title
+        #         product.save(update_fields=['title_translit'])
 
+        # santehproducts = SantehProduct.objects.all()
+        # for product in santehproducts:
+        #     transliterated_name = translit(product.title.lower(), 'ru', reversed=True)
+        #     cleaned_name = re.sub(r',', "i", transliterated_name)
+        #     cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
+        #     translist = re.split(r'\s*,\s*|\s+', cleaned_name)
+        #     translit_sp = [word for word in translist if word]
+        #     transliterated_title = ('-').join(translit_sp)
+        #     if SantehProduct.objects.filter(title_translit=transliterated_title).exists():
+        #         transliterated_title_code = transliterated_title + f'{product.code}'
+        #         product.title_translit = transliterated_title_code
+        #         product.save(update_fields=['title_translit'])
+        #     else:
+        #         product.title_translit = transliterated_title
+        #         product.save(update_fields=['title_translit'])
