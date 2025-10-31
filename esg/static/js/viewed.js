@@ -9,7 +9,6 @@ function saveViewedProduct(product) {
     title: product.title,
     product_title_translit: product.product_title_translit,
     price: product.price,
-    description: product.description,
     photo: product.photo,
     subrubric_title_translit: product.subrubric_title_translit,
     rubric_name_translit: product.rubric_name_translit
@@ -65,13 +64,11 @@ function renderViewedProducts() {
          data-product_title_translit = "${product.product_title_translit}"
          data-photo="${product.photo}"
          data-price="${product.price}"
-         data-description="${product.description}"
          data-subrubric_title_translit="${product.subrubric_title_translit}"
          data-rubric_name_translit="${product.rubric_name_translit}"
          >
         <h3>${product.title}</h3>
       </a>
-      <p>${product.description}</p>
       <p class="price">${product.price} BYN</p>
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
     `;
@@ -132,7 +129,6 @@ container.querySelectorAll('.basket').forEach(button => {
           title: link.dataset.title,
           product_title_translit: link.dataset.product_title_translit,
           price: link.dataset.price,
-          description: link.dataset.description,
           subrubric_title_translit: link.dataset.subrubric_title_translit,
           rubric_name_translit: link.dataset.rubric_name_translit
 
@@ -164,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
         title: link.dataset.title,
         product_title_translit: product_title_translit,
         price: link.dataset.price,
-        description: link.dataset.description,
         subrubric_title_translit: subrubric_title_translit,
         rubric_name_translit: rubric_name_translit
 
