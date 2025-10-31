@@ -2,38 +2,48 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(Rubric)
 
+class RubricAdmin(admin.ModelAdmin):
+    list_display = ('rubric_name',)
+    ordering = ('rubric_name',)
+    search_fields = ('rubric_name',)
+    readonly_fields = ('name_translit',)
 
 class ElectroAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title',)
+    readonly_fields = ('title_translit',)
 
 class GasAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title',)
+    readonly_fields = ('title_translit',)
 
 class SantehAdmin(admin.ModelAdmin):
     list_display = ('title',)
     ordering = ('title',)
     search_fields = ('title',)
+    readonly_fields = ('title_translit',)
 
 class ElectroProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('title','rubric__title')
+    readonly_fields = ('title_translit',)
 
 class GasProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('title','rubric__title')
+    readonly_fields = ('title_translit',)
 
 class SantehProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title', )
     search_fields = ('title','rubric__title')
+    readonly_fields = ('title_translit',)
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
@@ -80,7 +90,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     ordering = ('-date',)
     search_fields = ('phone', 'date', 'name')
 
-
+admin.site.register(Rubric, RubricAdmin)
 admin.site.register(Electro, ElectroAdmin)
 admin.site.register(Gas, GasAdmin)
 admin.site.register(Santeh, SantehAdmin)
