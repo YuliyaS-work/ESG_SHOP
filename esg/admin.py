@@ -28,21 +28,21 @@ class SantehAdmin(admin.ModelAdmin):
     readonly_fields = ('title_translit',)
 
 class ElectroProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
+    list_display = ('code', 'title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
-    search_fields = ('title','rubric__title')
+    search_fields = ('code', 'title','rubric__title')
     readonly_fields = ('title_translit',)
 
 class GasProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
+    list_display = ('code', 'title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
-    search_fields = ('title','rubric__title')
+    search_fields = ('code', 'title','rubric__title')
     readonly_fields = ('title_translit',)
 
 class SantehProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
+    list_display = ('code', 'title', 'rubric', 'photo', 'price', 'status_popular', 'status_new')
     ordering = ('title', )
-    search_fields = ('title','rubric__title')
+    search_fields = ('code', 'title','rubric__title')
     readonly_fields = ('title_translit',)
 
 class OrderAdmin(admin.ModelAdmin):
