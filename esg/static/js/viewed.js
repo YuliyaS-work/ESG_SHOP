@@ -11,8 +11,8 @@ function saveViewedProduct(product) {
     price: product.price,
     photo: product.photo,
     subrubric_title_translit: product.subrubric_title_translit,
-    rubric_name_translit: product.rubric_name_translit
-
+    rubric_name_translit: product.rubric_name_translit,
+    url: product.url
   };
 
   let products = getViewedProducts();
@@ -53,8 +53,7 @@ function renderViewedProducts() {
       ? product.photo
       : '/static/image/default-product.png';
 
-    const baseUrl = window.location.origin;
-    const href = `${baseUrl}/esg.by/${product.rubric_name_translit}/${product.subrubric_title_translit}/${product.product_title_translit}/`;
+     const href = product.url || '/';
 
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
@@ -66,7 +65,7 @@ function renderViewedProducts() {
          data-price="${product.price}"
          data-subrubric_title_translit="${product.subrubric_title_translit}"
          data-rubric_name_translit="${product.rubric_name_translit}"
-         >
+         data-url="${href}">
         <h3>${product.title}</h3>
       </a>
       <p class="price">${product.price} BYN</p>
@@ -82,44 +81,43 @@ function renderViewedProducts() {
     target.innerHTML = '';
     target.appendChild(container);
 
-container.querySelectorAll('.basket').forEach(button => {
-  const title = button.dataset.title;
-  const rawPrice = button.dataset.price;
-  const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
+    container.querySelectorAll('.basket').forEach(button => {
+      const title = button.dataset.title;
+      const rawPrice = button.dataset.price;
+      const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
 
-  // Установим начальное состояние кнопки
-  const currentBasket = getBasketFromCookies();
-  if (currentBasket[title]) {
-    button.textContent = 'Удалить из корзины';
-    button.classList.add('in-basket');
-  } else {
-    button.textContent = 'Купить';
-    button.classList.remove('in-basket');
-  }
+      // Установим начальное состояние кнопки
+      const currentBasket = getBasketFromCookies();
+      if (currentBasket[title]) {
+        button.textContent = 'Удалить из корзины';
+        button.classList.add('in-basket');
+      } else {
+        button.textContent = 'Купить';
+        button.classList.remove('in-basket');
+      }
 
-  button.addEventListener('click', () => {
-    const updatedBasket = getBasketFromCookies();
+      button.addEventListener('click', () => {
+        const updatedBasket = getBasketFromCookies();
 
-    if (updatedBasket[title]) {
-      delete updatedBasket[title];
-      button.textContent = 'Купить';
-      button.classList.remove('in-basket');
-    } else {
-      updatedBasket[title] = [1, price];
-      button.textContent = 'Удалить из корзины';
-      button.classList.add('in-basket');
-    }
+        if (updatedBasket[title]) {
+          delete updatedBasket[title];
+          button.textContent = 'Купить';
+          button.classList.remove('in-basket');
+        } else {
+          updatedBasket[title] = [1, price];
+          button.textContent = 'Удалить из корзины';
+        button.classList.add('in-basket');
+        }
 
-    saveBasketToCookies(updatedBasket);
-    window.basket = updatedBasket;
+        saveBasketToCookies(updatedBasket);
+        window.basket = updatedBasket;
 
-    if (typeof renderBasket === 'function') {
-      renderBasket();
-      refreshAllBasketButtons(window.basket);
-    }
-  });
-});
-
+        if (typeof renderBasket === 'function') {
+          renderBasket();
+          refreshAllBasketButtons(window.basket);
+        }
+      });
+    });
 
     container.querySelectorAll('.product-title').forEach(link => {
       link.addEventListener('click', () => {
@@ -130,10 +128,9 @@ container.querySelectorAll('.basket').forEach(button => {
           product_title_translit: link.dataset.product_title_translit,
           price: link.dataset.price,
           subrubric_title_translit: link.dataset.subrubric_title_translit,
-          rubric_name_translit: link.dataset.rubric_name_translit
-
+          rubric_name_translit: link.dataset.rubric_name_translit,
+          url: link.dataset.url
         };
-        console.log('Сохраняем просмотренный товар:', product);
         saveViewedProduct(product);
       });
     });
@@ -148,21 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.product-title').forEach(link => {
     link.addEventListener('click', () => {
 
-      const hrefParts = link.getAttribute('href').split('/');
-      const rubric_name_translit = hrefParts[hrefParts.length - 4];
-      const subrubric_title_translit = hrefParts[hrefParts.length - 3];
-      const product_title_translit = hrefParts[hrefParts.length - 2];
-
-
       const product = {
         id: link.dataset.id,
         photo: link.dataset.photo,
         title: link.dataset.title,
-        product_title_translit: product_title_translit,
+        product_title_translit: link.dataset.product_title_translit,
         price: link.dataset.price,
-        subrubric_title_translit: subrubric_title_translit,
-        rubric_name_translit: rubric_name_translit
-
+        subrubric_title_translit: link.dataset.subrubric_title_translit,
+        rubric_name_translit: link.dataset.rubric_name_translit,
+        url: link.dataset.url
       };
       console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);
