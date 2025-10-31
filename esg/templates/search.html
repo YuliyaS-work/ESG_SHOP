@@ -17,7 +17,7 @@
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+      <a href="{% url 'subrubrics' rubric.name_translit %}" class="catalog-btn">
         {% if rubric.rubric_name == "Электрика" %}
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
@@ -36,7 +36,7 @@
 <!--<h2>Результаты по запросу</h2>-->
 <!--<ul>-->
 <!--  {% for item in results %}-->
-<!--<li><a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}">{{ item.title }}</a><br>{{ item.description }}<br></li>-->
+<!--<li><a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}">{{ item.title }}</a><br>{{ item.description }}<br></li>-->
 <!--  {% empty %}-->
 <!--    <li>Введите поисковый запрос</li>-->
 <!--  {% endfor %}-->
@@ -49,7 +49,7 @@
       <ul class="results-list">
         {% for item in results %}
           <li class="result-item">
-            <a href="{% url 'product' item.rubric_id item.subrubric_id item.product_id %}" class="result-link">
+            <a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}" class="result-link">
               {{ item.title }}
             </a>
             <p class="result-desc">{{ item.description }}</p>

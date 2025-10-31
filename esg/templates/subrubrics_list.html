@@ -17,7 +17,7 @@
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+      <a href="{% url 'subrubrics' rubric.name_translit %}" class="catalog-btn">
         {% if rubric.rubric_name == "Электрика" %}
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
@@ -37,13 +37,13 @@
     <ul class="subcategories-list">
     {% for subrubric in subrubrics %}
         {% if subrubric.rubric.rubric_name == 'Газификация' %}
-            <li><a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a></li>
+            <li><a href="{% url 'products' subrubric.rubric.name_translit subrubric.title_translit %}">{{subrubric.title}}</a></li>
         {% endif %}
         {% if subrubric.rubric.rubric_name == 'Электрика' %}
-            <li><a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a></li>
+            <li><a href="{% url 'products' subrubric.rubric.name_translit subrubric.title_translit %}">{{subrubric.title}}</a></li>
         {% endif %}
         {% if subrubric.rubric.rubric_name == 'Сантехника' %}
-            <li><a href="{% url 'products' subrubric.rubric.pk subrubric.pk %}">{{subrubric.title}}</a></li>
+            <li><a href="{% url 'products' subrubric.rubric.name_translit subrubric.title_translit %}">{{subrubric.title}}</a></li>
         {% endif %}
     {% endfor %}
     </ul>

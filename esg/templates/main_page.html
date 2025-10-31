@@ -17,7 +17,7 @@
  <!-- === Верхние кнопки разделов === -->
   <div class="catalog-top-buttons">
     {% for rubric in rubrics %}
-      <a href="{% url 'subrubrics' rubric.pk %}" class="catalog-btn">
+      <a href="{% url 'subrubrics' rubric.name_translit %}" class="catalog-btn">
         {% if rubric.rubric_name == "Электрика" %}
           <i class="fas fa-bolt"></i>
         {% elif rubric.rubric_name == "Сантехника" %}
@@ -103,21 +103,21 @@
       <div class="catalog-grid">
         {% if rubric.rubric_name == "Электрика" %}
           {% for subrubric in rubric.electro_set.all %}
-            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products' rubric.name_translit subrubric.title_translit %}" class="catalog-card">
               <i class="fas fa-lightbulb"></i>
               <span>{{ subrubric.title }}</span>
             </a>
           {% endfor %}
         {% elif rubric.rubric_name == "Сантехника" %}
           {% for subrubric in rubric.santeh_set.all %}
-            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products' rubric.name_translit subrubric.title_translit %}" class="catalog-card">
               <i class="fas fa-tint"></i>
               <span>{{ subrubric.title }}</span>
             </a>
           {% endfor %}
         {% elif rubric.rubric_name == "Газификация" %}
           {% for subrubric in rubric.gas_set.all %}
-            <a href="{% url 'products' rubric.pk subrubric.pk %}" class="catalog-card">
+            <a href="{% url 'products' rubric.name_translit subrubric.title_translit %}" class="catalog-card">
               <i class="fas fa-fire"></i>
               <span>{{ subrubric.title }}</span>
             </a>
