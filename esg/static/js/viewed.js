@@ -1,34 +1,7 @@
-function getViewedProducts() {
-  const stored = localStorage.getItem('viewedProducts');
-  return stored ? JSON.parse(stored) : [];
-}
-
-function saveViewedProduct(product) {
-  const viewedProduct = {
-    id: product.id,
-    title: product.title,
-    product_title_translit: product.product_title_translit,
-    price: product.price,
-    photo: product.photo,
-    subrubric_title_translit: product.subrubric_title_translit,
-    rubric_name_translit: product.rubric_name_translit,
-    url: product.url
-  };
-
-  let products = getViewedProducts();
-  products = products.filter(p => p.id !== viewedProduct.id);
-  products.unshift(viewedProduct);
-  if (products.length > 10) {
-    products = products.slice(0, 10);
-  }
-
-  localStorage.setItem('viewedProducts', JSON.stringify(products));
-}
-
 function renderViewedProducts() {
-  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
+//  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
   const products = getViewedProducts();
-  console.log('Просмотренные товары:', products);
+//  console.log('Просмотренные товары:', products);
 
   if (products.length === 0) return;
 
@@ -135,7 +108,7 @@ function renderViewedProducts() {
       });
     });
   } else {
-    console.warn('viewed-products-container не найден');
+//    console.warn('viewed-products-container не найден');
   }
 }
 
@@ -155,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rubric_name_translit: link.dataset.rubric_name_translit,
         url: link.dataset.url
       };
-      console.log('Сохраняем из каталога:', product);
+//      console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);
     });
   });
