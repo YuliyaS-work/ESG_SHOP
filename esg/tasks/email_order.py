@@ -42,7 +42,7 @@ def process_order_task(order_id, basket_cookies):
             f'Товары: \n' + '\n'.join(list_order)+ '\n' +
             f'Общая стоимость: {cost} BYN'
     )
-    to_email = ['yuliyasorokinawork@gmail.com', 'tanyakuharskaya@gmail.com']
+    to_email = ['specelektrobeltorg@gmail.com']
 
     # for a client
     subject1 = f'Магазин "Электротовары"'
