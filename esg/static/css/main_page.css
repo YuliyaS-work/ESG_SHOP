@@ -23,6 +23,7 @@
     overflow-x: auto;
     padding-bottom: 10px;
     scrollbar-width: thin;
+     padding-left: 110px;
 }
 .product-carousel::-webkit-scrollbar {
     height: 6px;
@@ -36,12 +37,16 @@
     flex: 0 0 220px; /* фиксированная ширина */
     box-sizing: border-box;
     background: #f8f8f8;
-    color: #6d7378;
     border-radius: 10px;
     padding: 15px;
     text-align: center;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none; /* убираем подчеркивание */
+  color: #6d7378;        /* фирменный серый как сайдбар цвет */
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  display: block;
+  margin: 5px 0;
 }
 .product-card-catalog:hover {
     transform: translateY(-3px);
@@ -54,13 +59,24 @@
     border-radius: 5px;
     margin-bottom: 10px;
 }
-.product-card-catalog h3 {
-    margin: 10px 0 5px;
-    font-size: 1rem;
-}
 .product-card-catalog p {
     margin: 5px 0;
     font-size: 0.9rem;
+}
+.product-card-catalog a {
+    text-decoration: none; /* убираем подчёркивание */
+    color: #6d7378;        /* фирменный серый */
+    transition: color 0.2s ease;
+    font-size: 0.95rem;
+}
+/* Если внутри a есть h3 */
+.product-card-catalog a h3 {
+    margin: 2px 0;
+    font-size: 0.95rem;
+}
+/* Hover эффект */
+.product-card-catalog a:hover {
+    color: #e6c200; /* подсветка при наведении */
 }
 /* Отзывы */
 .reviews-container {

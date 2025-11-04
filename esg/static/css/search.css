@@ -1,104 +1,116 @@
 /* === Блок поиска === */
 .search-results {
-display: flex;
-  flex-direction: column; /* чтобы заголовок и блоки шли вертикально */
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  width: 100%;                  /* занимает всю ширину main-content */
-  margin: 20px 0;               /* отступ сверху/снизу внутри main-content */
-  padding: 30px 25px;           /* внутренние отступы */
-  background: linear-gradient(145deg, #bfc4c8, #aeb2b6);
-  border-radius: 16px;
-  color: #fff;
+  width: 100%;
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  color: #333;
   text-align: left;
   overflow: hidden;
   box-sizing: border-box;
-             box-shadow:
-    inset 2px 2px 8px rgba(255, 255, 255, 0.5),
-    inset -2px -2px 8px rgba(0, 0, 0, 0.08),
-    0 6px 16px rgba(255, 255, 255, 0.12);
-  transition: all 0.3s ease;/* чтобы карточки не вылезали */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }
 
 /* === Заголовок === */
 .search-results h2 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
+   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   margin-bottom: 25px;
   text-align: center;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  color: #333;
+  border-bottom: 2px solid #e6c200;
+  display: inline-block;
+  padding-bottom: 5px;
 }
-
 /* === Сетка карточек === */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* адаптивные карточки */
-  gap: 25px;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
   width: 100%;
+  margin: 0 auto;
+  justify-items: center;
 }
 
-/* === Карточки товаров === */
+/* === Карточка товара === */
 .product-card-catalog {
-  background: #fff;                 /* белый фон как в каталоге */
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  transition: all 0.3s ease;
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 260px;
   box-sizing: border-box;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/* Hover эффект */
 .product-card-catalog:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* Фото товара */
 .product-card-catalog img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin-bottom: 15px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
-.result-link, .result-link span {
+/* Название товара — ссылка */
+.product-card-catalog a {
   display: block;
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  font-weight: 600;
- color: #333;
   text-decoration: none;
-  margin-bottom: 10px;
+  color: #6d7378;
+  font-size: 0.95rem;
+  margin: 5px 0;
+  transition: color 0.2s ease;
 }
 
-.result-link:hover {
-  text-decoration: underline;
-  color: #0066cc;
+/* Если внутри a есть h3 */
+.product-card-catalog a h3 {
+  margin: 2px 0;
+  font-size: 0.95rem;
 }
 
-.product-desc {
-  font-size: clamp(0.85rem, 2vw, 0.95rem);
-  color: #555;
-  margin-bottom: 10px;
-  min-height: 45px;
+/* Hover для названия */
+.product-card-catalog a:hover h3 {
+  color: #e6c200;
 }
 
-.price {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
+/* Описание товара */
+.product-card-catalog p {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 5px 0;
+}
+
+/* Цена */
+.product-card-catalog .price {
   font-weight: 500;
-   color: #111;
+  color: #111;
   margin-bottom: 12px;
 }
-
 /* === Если результатов нет === */
 .no-results {
-  text-align: center;           /* по центру */
+  text-align: center;
   font-weight: 700;
   font-size: clamp(1rem, 3vw, 1.25rem);
   padding: 20px 25px;
-  display: inline-block;        /* ширина под содержимое */
-  margin: 40px auto;            /* центрирование горизонтально и отступ сверху */
-  max-width: 90%;               /* не выходит за блок поиска */
+  display: inline-block;
+  margin: 40px auto;
+  max-width: 90%;
   box-sizing: border-box;
 }
 

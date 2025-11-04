@@ -33,29 +33,11 @@
   </div>
 
 
-<!--<h2>Результаты по запросу</h2>-->
-<!--<ul>-->
-<!--  {% for item in results %}-->
-<!--<li><a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}">{{ item.title }}</a><br>{{ item.description }}<br></li>-->
-<!--  {% empty %}-->
-<!--    <li>Введите поисковый запрос</li>-->
-<!--  {% endfor %}-->
-<!--</ul>-->
-
   <section class="search-results">
     <h2>Результаты по запросу</h2>
 
     {% if results %}
-<!--      <ul class="results-list">-->
-<!--        {% for item in results %}-->
-<!--          <li class="result-item">-->
-<!--            <a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}" class="result-link">-->
-<!--              {{ item.title }}-->
-<!--            </a>-->
-<!--            <p class="result-desc">{{ item.description }}</p>-->
-<!--          </li>-->
-<!--        {% endfor %}-->
-<!--      </ul>-->
+
      <div class="products-grid">
         {% for product in results %}
           <div class="product-card-catalog">
@@ -67,14 +49,13 @@
 
             <!-- Проверяем translit-поля перед созданием ссылки -->
             {% if product.rubric_name_translit and product.subrubric_title_translit and product.product_title_translit %}
-              <a href="{% url 'product' product.rubric_name_translit product.subrubric_title_translit product.product_title_translit %}" class="result-link">
-                {{ product.title }}
+              <a href="{% url 'product' product.rubric_name_translit product.subrubric_title_translit product.product_title_translit %}">
+                <h3>{{ product.title }}</h3>
               </a>
             {% else %}
-              <span class="result-link">{{ product.title }}</span>
+              <span><h3>{{ product.title }}</h3></span>
             {% endif %}
 
-            <p class="product-desc">{{ product.description|truncatewords:15 }}</p>
             <p class="price">{{ product.price }} BYN</p>
             <button type="button"
                     class="basket"
