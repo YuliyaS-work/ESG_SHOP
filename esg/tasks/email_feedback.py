@@ -14,7 +14,7 @@ def process_feedback_task(feedback_id):
                f'{message_subject_from_client}\n' +
                f'Сообщение: \n' + f'{feedback.message}'
     )
-    to_email = ['yuliyasorokinawork@gmail.com', 'tanyakuharskaya@gmail.com']
+    to_email = ['specelektrobeltorg@gmail.com']
     try:
         send_mail(
             subject=subject,

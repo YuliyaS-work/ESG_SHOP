@@ -9,9 +9,9 @@
              data-title="{{ product.title }}"
              data-photo="{{ product.photo.url }}"
              data-price="{{ product.price|floatformat:2 }}"
-             data-description="{{ product.description|truncatewords:15 }}"
              data-rubric_id="{{ product.rubric.rubric.name_translit }}"
-             data-subrubric_id="{{ product.rubric.title_translit }}">
+             data-subrubric_id="{{ product.rubric.title_translit }}"
+             data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% else %}
          {% static 'image/default-product.png' as default_photo %}
@@ -21,9 +21,9 @@
              data-title="{{ product.title }}"
              data-photo="{{ default_photo }}"
              data-price="{{ product.price|floatformat:2 }}"
-             data-description="{{ product.description|truncatewords:15 }}"
              data-rubric_id="{{ product.rubric.rubric.name_translit }}"
-             data-subrubric_id="{{ product.rubric.title_translit }}">
+             data-subrubric_id="{{ product.rubric.title_translit }}"
+             data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% endif %}
 

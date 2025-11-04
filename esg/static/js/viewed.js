@@ -1,35 +1,7 @@
-function getViewedProducts() {
-  const stored = localStorage.getItem('viewedProducts');
-  return stored ? JSON.parse(stored) : [];
-}
-
-function saveViewedProduct(product) {
-  const viewedProduct = {
-    id: product.id,
-    title: product.title,
-    product_title_translit: product.product_title_translit,
-    price: product.price,
-    description: product.description,
-    photo: product.photo,
-    subrubric_title_translit: product.subrubric_title_translit,
-    rubric_name_translit: product.rubric_name_translit
-
-  };
-
-  let products = getViewedProducts();
-  products = products.filter(p => p.id !== viewedProduct.id);
-  products.unshift(viewedProduct);
-  if (products.length > 10) {
-    products = products.slice(0, 10);
-  }
-
-  localStorage.setItem('viewedProducts', JSON.stringify(products));
-}
-
 function renderViewedProducts() {
-  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
+//  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
   const products = getViewedProducts();
-  console.log('Просмотренные товары:', products);
+//  console.log('Просмотренные товары:', products);
 
   if (products.length === 0) return;
 
@@ -54,8 +26,7 @@ function renderViewedProducts() {
       ? product.photo
       : '/static/image/default-product.png';
 
-    const baseUrl = window.location.origin;
-    const href = `${baseUrl}/esg.by/${product.rubric_name_translit}/${product.subrubric_title_translit}/${product.product_title_translit}/`;
+     const href = product.url || '/';
 
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
@@ -65,13 +36,11 @@ function renderViewedProducts() {
          data-product_title_translit = "${product.product_title_translit}"
          data-photo="${product.photo}"
          data-price="${product.price}"
-         data-description="${product.description}"
          data-subrubric_title_translit="${product.subrubric_title_translit}"
          data-rubric_name_translit="${product.rubric_name_translit}"
-         >
+         data-url="${href}">
         <h3>${product.title}</h3>
       </a>
-      <p>${product.description}</p>
       <p class="price">${product.price} BYN</p>
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
     `;
@@ -85,44 +54,43 @@ function renderViewedProducts() {
     target.innerHTML = '';
     target.appendChild(container);
 
-container.querySelectorAll('.basket').forEach(button => {
-  const title = button.dataset.title;
-  const rawPrice = button.dataset.price;
-  const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
+    container.querySelectorAll('.basket').forEach(button => {
+      const title = button.dataset.title;
+      const rawPrice = button.dataset.price;
+      const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
 
-  // Установим начальное состояние кнопки
-  const currentBasket = getBasketFromCookies();
-  if (currentBasket[title]) {
-    button.textContent = 'Удалить из корзины';
-    button.classList.add('in-basket');
-  } else {
-    button.textContent = 'Купить';
-    button.classList.remove('in-basket');
-  }
+      // Установим начальное состояние кнопки
+      const currentBasket = getBasketFromCookies();
+      if (currentBasket[title]) {
+        button.textContent = 'Удалить из корзины';
+        button.classList.add('in-basket');
+      } else {
+        button.textContent = 'Купить';
+        button.classList.remove('in-basket');
+      }
 
-  button.addEventListener('click', () => {
-    const updatedBasket = getBasketFromCookies();
+      button.addEventListener('click', () => {
+        const updatedBasket = getBasketFromCookies();
 
-    if (updatedBasket[title]) {
-      delete updatedBasket[title];
-      button.textContent = 'Купить';
-      button.classList.remove('in-basket');
-    } else {
-      updatedBasket[title] = [1, price];
-      button.textContent = 'Удалить из корзины';
-      button.classList.add('in-basket');
-    }
+        if (updatedBasket[title]) {
+          delete updatedBasket[title];
+          button.textContent = 'Купить';
+          button.classList.remove('in-basket');
+        } else {
+          updatedBasket[title] = [1, price];
+          button.textContent = 'Удалить из корзины';
+        button.classList.add('in-basket');
+        }
 
-    saveBasketToCookies(updatedBasket);
-    window.basket = updatedBasket;
+        saveBasketToCookies(updatedBasket);
+        window.basket = updatedBasket;
 
-    if (typeof renderBasket === 'function') {
-      renderBasket();
-      refreshAllBasketButtons(window.basket);
-    }
-  });
-});
-
+        if (typeof renderBasket === 'function') {
+          renderBasket();
+          refreshAllBasketButtons(window.basket);
+        }
+      });
+    });
 
     container.querySelectorAll('.product-title').forEach(link => {
       link.addEventListener('click', () => {
@@ -132,17 +100,15 @@ container.querySelectorAll('.basket').forEach(button => {
           title: link.dataset.title,
           product_title_translit: link.dataset.product_title_translit,
           price: link.dataset.price,
-          description: link.dataset.description,
           subrubric_title_translit: link.dataset.subrubric_title_translit,
-          rubric_name_translit: link.dataset.rubric_name_translit
-
+          rubric_name_translit: link.dataset.rubric_name_translit,
+          url: link.dataset.url
         };
-        console.log('Сохраняем просмотренный товар:', product);
         saveViewedProduct(product);
       });
     });
   } else {
-    console.warn('viewed-products-container не найден');
+//    console.warn('viewed-products-container не найден');
   }
 }
 
@@ -152,24 +118,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.product-title').forEach(link => {
     link.addEventListener('click', () => {
 
-      const hrefParts = link.getAttribute('href').split('/');
-      const rubric_name_translit = hrefParts[hrefParts.length - 4];
-      const subrubric_title_translit = hrefParts[hrefParts.length - 3];
-      const product_title_translit = hrefParts[hrefParts.length - 2];
-
-
       const product = {
         id: link.dataset.id,
         photo: link.dataset.photo,
         title: link.dataset.title,
-        product_title_translit: product_title_translit,
+        product_title_translit: link.dataset.product_title_translit,
         price: link.dataset.price,
-        description: link.dataset.description,
-        subrubric_title_translit: subrubric_title_translit,
-        rubric_name_translit: rubric_name_translit
-
+        subrubric_title_translit: link.dataset.subrubric_title_translit,
+        rubric_name_translit: link.dataset.rubric_name_translit,
+        url: link.dataset.url
       };
-      console.log('Сохраняем из каталога:', product);
+//      console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);
     });
   });

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'include'
       })
       .then(res => {
-        if (!res.ok) throw new Error('Введите Ваши данные корректно');
+        if (!res.ok) throw new Error('Что-то пошло не так. Проверьте Ваши данные.');
         return res.json();
       })
       .then(data => {

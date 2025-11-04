@@ -38,7 +38,7 @@
 
 <!--   ===сортировка===    -->
   <form method="get" id="sortForm">
-  <input type="hidden" name="page" value="{{ request.GET.page }}">
+  <input type="hidden" id="sort" name="page" value="{{ request.GET.page }}">
   <label for="sort">Сортировать по:</label>
   <select name="sort" onchange="this.form.submit()">
     <option value="">-- Выберите --</option>
@@ -65,7 +65,6 @@
          <!-- ==название товара для генерации карусели просмотренных товаров=== -->
          {% include 'includes/product_card_for_viewed.html' %}
 
-        <p>{{ product.description|truncatewords:15 }}</p>
         <p class="price">{{ product.price }} BYN</p>
         <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
       </div>
@@ -120,5 +119,4 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'js/viewed.js' %}" defer></script>
 {% endblock %}
