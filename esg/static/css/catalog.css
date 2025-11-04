@@ -17,7 +17,6 @@
   color: #fff;
   text-decoration: none;
   padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
-  /*padding: 12px 0; /* убрал фиксированные 25px слева/справа */
 
   font-size: clamp(0.85rem, 2vw, 1.1rem);
   border-radius: 8px;
@@ -143,28 +142,54 @@
   color: black;
   border-color: #c8a717;
 }
+/* Горизонтальный скролл — WebKit (Chrome, Safari, Edge) */
+.subcategories-list::-webkit-scrollbar {
+  height: 4px; /* толщина полосы прокрутки */
+}
+
+.subcategories-list::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1); /* светлая дорожка */
+  border-radius: 3px;
+}
+
+.subcategories-list::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* золотой */
+  border-radius: 2px;
+}
+
+/* Firefox */
+.subcategories-list {
+  scrollbar-width: thin;       /* тонкий скролл */
+  scrollbar-color: #ccc rgba(0,0,0,0.1); /* thumb и track */
+}
 /* Стрелки */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
+  /*width: 36px;
+  height: 36px;*/
+   width: auto;               /* ширина под содержимое */
+  height: auto;
   border: none;
   border-radius: 50%;
-  background: rgba(0,0,0,0.5);
-  color: white;
+   /*background: rgba(0,0,0,0.5);*/
+  color: #ffd700;
+  background: transparent;
+
   font-size: 24px;
   cursor: pointer;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s;
+  /*transition: background 0.2s;*/
+  transition: color 0.2s;
 }
 
 .carousel-btn:hover {
-  background: rgba(0,0,0,0.8);
+  /*background: rgba(0,0,0,0.8);*/
+ color: #6d7378;
 }
 
 .carousel-btn.left {
@@ -174,6 +199,50 @@
 .carousel-btn.right {
   right: 0;
 }
+
+.breadcrumbs {
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.breadcrumb-item a {
+  color: #707070;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.breadcrumb-item a:hover {
+  color: black;
+}
+
+.breadcrumb-item .separator {
+  margin: 0 10px;
+  color: #ffd700;
+}
+
+.breadcrumb-item.current {
+  font-weight: 500;
+  color: #4a4a4a;
+}
+
 /* Широкие мониторы и 4K */
 @media (min-width: 1921px) {
   .catalog-card { flex: 0 0 20%; }
@@ -215,17 +284,16 @@
 /* Планшеты большие (769-991px) */
 @media (min-width: 769px) and (max-width: 992px) {
   .catalog-card { flex: 0 0 40%; }
-  .product-card-catalog { flex: 0 0 200px; }
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
   }
   .product-card-catalog { max-width: 220px; }
+
 }
 /* Планшеты маленькие (601-768px) */
 @media (min-width: 601px) and (max-width: 768px) {
   .catalog-card { flex: 0 0 45%; }
-  .product-card-catalog { flex: 0 0 180px; }
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
      gap: 15px;
@@ -244,7 +312,6 @@
 }
 /* Очень маленькие телефоны*/
 @media (max-width: 360px) {
-  /* Пример: уменьшение текста, кнопок и отступов */
   .catalog-card { flex: 0 0 90%; }
   .products-grid {
     grid-template-columns: 1fr;
@@ -257,5 +324,114 @@
   .catalog-top-buttons {
     gap: 12px;
     justify-content: center;
+  }
+}
+/* Мобильная адаптация с горизонтальным скроллом */
+@media (max-width: 900px) {
+  .breadcrumbs {
+    overflow-x: auto;        /* включаем горизонтальный скролл */
+    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+    scrollbar-width: none;
+    position: relative;
+    mask-image: linear-gradient(to right, black 95%, transparent 100%);
+
+  }
+
+/* Webkit-браузеры (Chrome, Safari, Edge) */
+.breadcrumbs::-webkit-scrollbar {
+  height: 0px; /* полностью скрываем горизонтальный скролл */
+}
+
+.breadcrumbs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.breadcrumbs::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+  .breadcrumbs ol {
+    display: inline-flex;    /* элементы в ряд */
+    flex-wrap: nowrap;       /* запрет переносов */
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;     /* дополнительная страховка */
+  }
+
+  .breadcrumb-item {
+    flex: 0 0 auto;          /* не сжимать элементы */
+    margin-bottom: 0;
+  }
+
+  .breadcrumb-item a,
+  .breadcrumb-item.current {
+    padding: 3px 8px;
+    font-size: 0.85rem;
+  }
+
+  .breadcrumb-item .separator {
+    margin: 0 5px;
+  }
+}
+
+/* === Секция сортировки === */
+#sortForm {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(8px, 2vw, 14px);
+  margin: 10px 0;
+  flex-wrap: nowrap; /* чтобы не переносилось */
+  overflow-x: auto; /* горизонтальный скролл, если не помещается */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* скрываем скролл */
+}
+#sortForm::-webkit-scrollbar {
+  display: none; /* скрываем скроллбар */
+}
+#sortForm label {
+  font-weight: 500;
+  color: #707070;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+    white-space: nowrap;
+}
+
+#sortForm select {
+   padding: clamp(4px, 0.8vw, 6px) clamp(8px, 1.5vw, 10px);
+  border-radius: 8px;
+  border: 1px solid #bfa46f; /* темно-серый */
+  background-color: #f7f7f7;  /* светлый фон */
+  color: #333;
+  font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  appearance: none; /* убираем стандартную стрелку браузера */
+  white-space: nowrap;
+  width: auto;
+  min-width: 120px;
+  max-width: 200px;
+}
+
+/* Ховер */
+#sortForm select:hover {
+  background-color: #ececec;
+  border-color: #a88e58; /* чуть темнее золото */
+}
+
+/* Фокус */
+#sortForm select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(191, 164, 111, 0.4);
+}
+
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 480px) {
+  #sortForm {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  #sortForm select {
+    width: 100%;
   }
 }
