@@ -1,4 +1,6 @@
 from celery import shared_task
+from decouple import config
+
 from django.core.mail import send_mail
 
 from ..models import Feedback
@@ -14,7 +16,7 @@ def process_feedback_task(feedback_id):
                f'{message_subject_from_client}\n' +
                f'Сообщение: \n' + f'{feedback.message}'
     )
-    to_email = ['specelektrobeltorg@gmail.com']
+    to_email = [config('EMAIL_HOST_USER')]
     try:
         send_mail(
             subject=subject,

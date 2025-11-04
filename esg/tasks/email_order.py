@@ -1,4 +1,8 @@
+import os
+
 from celery import shared_task
+from decouple import config
+
 from django.core.mail import send_mail
 
 from ..models import Order, GasProduct, ElectroProduct, SantehProduct, GasOrder, ElectroOrder, SantehOrder
@@ -42,7 +46,7 @@ def process_order_task(order_id, basket_cookies):
             f'Товары: \n' + '\n'.join(list_order)+ '\n' +
             f'Общая стоимость: {cost} BYN'
     )
-    to_email = ['specelektrobeltorg@gmail.com']
+    to_email = [config('EMAIL_HOST_USER')]
 
     # for a client
     subject1 = f'Магазин "Электротовары"'

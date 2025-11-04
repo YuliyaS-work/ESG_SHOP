@@ -1,3 +1,4 @@
+// обновление корзины
 function updateBasketButton(button, basket) {
   const productTitle = button.dataset.title;
   if (basket[productTitle]) {
@@ -9,13 +10,14 @@ function updateBasketButton(button, basket) {
   }
 }
 
+// перезагрузка кнопок купить и удалить при рабзоте с корзиной
 function refreshAllBasketButtons(basket) {
   document.querySelectorAll('.basket').forEach(btn => {
     updateBasketButton(btn, basket);
   });
 }
 
-
+// функция рендера окошка корзины из куков
 function renderBasket() {
   const basketContainer = document.getElementById('basket');
   if (!basketContainer) return;
@@ -30,6 +32,7 @@ function renderBasket() {
 
   let totalCost = 0;
 
+  // рендер каждого товара в окошке корзины
   titles.forEach(title => {
     const [quantity, price] = window.basket[title];
     const unitPrice = price / quantity;
@@ -46,7 +49,7 @@ function renderBasket() {
       <button class="increase">+</button>
       <button class="remove">🗑️</button>
     `;
-
+//  увеличение количества и цены каждого товара
     div.querySelector('.increase').onclick = () => {
       window.basket[title][0]++;
       const newQuantity = window.basket[title][0];
@@ -57,6 +60,7 @@ function renderBasket() {
       refreshAllBasketButtons(window.basket);
     };
 
+//  уменьшение количества и цены каждого товара
     div.querySelector('.decrease').onclick = () => {
       window.basket[title][0]--;
       const newQuantity = window.basket[title][0];
@@ -70,7 +74,7 @@ function renderBasket() {
       renderBasket();
       refreshAllBasketButtons(window.basket);
     };
-
+//  удаление товара из корзины при нажатии на иконку корзины
     div.querySelector('.remove').onclick = () => {
       delete window.basket[title];
       saveBasketToCookies(window.basket);
@@ -81,12 +85,14 @@ function renderBasket() {
     basketContainer.appendChild(div);
   });
 
+//  рендер общей стоимости
   window.basket.generalCost = totalCost.toFixed(2);
   const totalDiv = document.createElement('div');
   totalDiv.className = 'basket-total';
   totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
   basketContainer.appendChild(totalDiv);
 
+// открытие формы формления заказа
   if (!document.querySelector('.open-order-form')) {
     const orderButton = document.createElement('button');
     orderButton.textContent = 'Оформить заказ';
@@ -103,7 +109,7 @@ renderBasket();
   const overlay = document.getElementById('overlay');
 
 
-
+// добавление из каруселек
   document.querySelectorAll('.basket').forEach(button => {
     const productTitle = button.dataset.title;
     const productPrice = parseFloat(button.dataset.price.replace(',', '.')).toFixed(2);
@@ -125,6 +131,7 @@ renderBasket();
 
   renderBasket();
 
+// кликабельность окошка
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('open-order-form')) {
       overlay.classList.add('active');

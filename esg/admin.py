@@ -61,6 +61,7 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ('last_name', 'date', 'phone', 'status')
 
     def get_gasproducts(self, obj):
+        '''Получение связанных значений товаров соответствующих разделов.'''
         dict_order = {}
         for product in obj.gasproduct_set.all():
             gasorder = obj.gasorder_set.filter(gasproduct_id=product.pk).first()
@@ -69,6 +70,7 @@ class OrderAdmin(admin.ModelAdmin):
     get_gasproducts.short_description = 'Газификация'
 
     def get_electroproducts(self, obj):
+        '''Получение связанных значений товаров соответствующих разделов.'''
         dict_order = {}
         for product in obj.electroproduct_set.all():
             electroorder = obj.electroorder_set.filter(electroproduct_id=product.pk).first()
@@ -77,6 +79,7 @@ class OrderAdmin(admin.ModelAdmin):
     get_electroproducts.short_description = 'Электрика'
 
     def get_santehproducts(self, obj):
+        '''Получение связанных значений товаров соответствующих разделов.'''
         dict_order = {}
         for product in obj.santehproduct_set.all():
             santehorder = obj.santehorder_set.filter(santehproduct_id=product.pk).first()
@@ -89,6 +92,7 @@ class FeedbackAdmin(admin.ModelAdmin):
     list_display = ('date', 'name', 'phone', 'subject', 'message', 'status')
     ordering = ('-date',)
     search_fields = ('phone', 'date', 'name')
+
 
 admin.site.register(Rubric, RubricAdmin)
 admin.site.register(Electro, ElectroAdmin)
