@@ -3,7 +3,7 @@
 
 {% block title %}Поиск{% endblock %}
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<!--    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">-->
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
     <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
@@ -46,18 +46,47 @@
     <h2>Результаты по запросу</h2>
 
     {% if results %}
-      <ul class="results-list">
-        {% for item in results %}
-          <li class="result-item">
-            <a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}" class="result-link">
-              {{ item.title }}
-            </a>
-            <p class="result-desc">{{ item.description }}</p>
-          </li>
+<!--      <ul class="results-list">-->
+<!--        {% for item in results %}-->
+<!--          <li class="result-item">-->
+<!--            <a href="{% url 'product' item.rubric_name_translit item.subrubric_title_translit item.product_title_translit %}" class="result-link">-->
+<!--              {{ item.title }}-->
+<!--            </a>-->
+<!--            <p class="result-desc">{{ item.description }}</p>-->
+<!--          </li>-->
+<!--        {% endfor %}-->
+<!--      </ul>-->
+     <div class="products-grid">
+        {% for product in results %}
+          <div class="product-card-catalog">
+            {% if product.photo %}
+              <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+            {% else %}
+              <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+            {% endif %}
+
+            <!-- Проверяем translit-поля перед созданием ссылки -->
+            {% if product.rubric_name_translit and product.subrubric_title_translit and product.product_title_translit %}
+              <a href="{% url 'product' product.rubric_name_translit product.subrubric_title_translit product.product_title_translit %}" class="result-link">
+                {{ product.title }}
+              </a>
+            {% else %}
+              <span class="result-link">{{ product.title }}</span>
+            {% endif %}
+
+            <p class="product-desc">{{ product.description|truncatewords:15 }}</p>
+            <p class="price">{{ product.price }} BYN</p>
+            <button type="button"
+                    class="basket"
+                    data-title="{{ product.title }}"
+                    data-price="{{ product.price|floatformat:2 }}">
+              Купить
+            </button>
+          </div>
         {% endfor %}
-      </ul>
+      </div>
     {% else %}
-      <p class="no-results">Введите поисковый запрос</p>
+      <p class="no-results">Ничего не найдено 😕 Попробуйте изменить поисковый запрос</p>
     {% endif %}
   </section>
 </main>

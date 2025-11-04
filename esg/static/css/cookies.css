@@ -1,0 +1,102 @@
+/* Карточка cookie-согласия */
+.cookie-card {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 300px;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10000;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  animation: fadeInUp 0.5s ease forwards;
+  text-align: center;
+}
+/* Печенька */
+.cookieEmoji {
+  font-size: 2.8em;
+  margin: 0;
+  line-height: 1;
+}
+/* Анимации появления и исчезновения */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-out {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* SVG */
+#cookieSvg {
+   width: 90px;
+  margin-bottom: 4px;
+}
+#cookieSvg path {
+  fill: #5b4b43;
+}
+
+/* Текст */
+.cookieHeading {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.cookieDescription {
+  font-size: 0.85em;
+  color: #555;
+  font-weight: 500;
+}
+.cookieDescription a {
+  color: #a9a9a9;
+  text-decoration: none;
+}
+.cookieDescription a:hover {
+  text-decoration: underline;
+}
+
+/* Кнопки */
+.buttonContainer {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.acceptButton, .declineButton {
+  border: none;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 34px;
+  width: 90px;
+}
+
+.acceptButton {
+  background-color: #a9a9a9;
+  color: #fff;
+  box-shadow: 0 4px 6px -1px #d3d3d3, 0 2px 4px -1px #d3d3d3;
+}
+.acceptButton:hover {
+  background-color: #8c8c8c;
+  transform: translateY(-1px);
+}
+
+.declineButton {
+  background-color: #eee;
+  color: #333;
+  box-shadow: 0 4px 6px -1px #bbb, 0 2px 4px -1px #bbb;
+}
+.declineButton:hover {
+  background-color: #f7f7f7;
+  transform: translateY(-1px);
+}

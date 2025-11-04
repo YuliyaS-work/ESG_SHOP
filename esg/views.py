@@ -257,6 +257,8 @@ def search_model_products(document_class, model_class, query):
                 item['product_title_translit'] = product.title_translit
                 item['subrubric_title_translit'] = product.rubric.title_translit
                 item['rubric_name_translit'] = product.rubric.rubric.name_translit
+                item['price'] = product.price
+                item['photo'] = product.photo
 
             results.append(item)
     except Exception as e:

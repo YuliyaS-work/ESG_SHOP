@@ -1,70 +1,130 @@
 /* === Блок поиска === */
 .search-results {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px 25px;
+display: flex;
+  flex-direction: column; /* чтобы заголовок и блоки шли вертикально */
+  align-items: center;
+  width: 100%;                  /* занимает всю ширину main-content */
+  margin: 20px 0;               /* отступ сверху/снизу внутри main-content */
+  padding: 30px 25px;           /* внутренние отступы */
+  background: linear-gradient(145deg, #bfc4c8, #aeb2b6);
   border-radius: 16px;
-  background: linear-gradient(145deg, #9ca2a6, #7d8286);
-  box-shadow:
-    inset 2px 2px 6px rgba(255, 255, 255, 0.25),
-    inset -2px -2px 6px rgba(0, 0, 0, 0.15),
-    0 4px 12px rgba(255, 255, 255, 0.2);
   color: #fff;
   text-align: left;
+  overflow: hidden;
+  box-sizing: border-box;
+             box-shadow:
+    inset 2px 2px 8px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 8px rgba(0, 0, 0, 0.08),
+    0 6px 16px rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;/* чтобы карточки не вылезали */
 }
 
+/* === Заголовок === */
 .search-results h2 {
-  font-size: 1.9rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   margin-bottom: 25px;
+  text-align: center;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  border-bottom: none;
-  padding-bottom: 12px;
+  color: #fff;
 }
 
-/* Список результатов */
-.results-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* === Сетка карточек === */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* адаптивные карточки */
+  gap: 25px;
+  justify-items: center;
+  width: 100%;
 }
 
-.result-item {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 15px 20px;
-  margin-bottom: 12px;
+/* === Карточки товаров === */
+.product-card-catalog {
+  background: #fff;                 /* белый фон как в каталоге */
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   transition: all 0.3s ease;
-  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2),
-              0 2px 6px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-.result-item:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
-  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.25),
-              0 4px 8px rgba(0, 0, 0, 0.2);
+.product-card-catalog:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
 }
 
-.result-link {
-  font-size: 1.1rem;
+.product-card-catalog img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.result-link, .result-link span {
+  display: block;
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
   font-weight: 600;
-  color: #ffd700; /* золотой акцент */
+ color: #333;
   text-decoration: none;
+  margin-bottom: 10px;
 }
 
 .result-link:hover {
   text-decoration: underline;
-  color: #e0c04f;
+  color: #0066cc;
 }
 
-.result-desc {
-  font-size: 0.95rem;
-  margin-top: 5px;
-  color: rgba(255, 255, 255, 0.85);
+.product-desc {
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  color: #555;
+  margin-bottom: 10px;
+  min-height: 45px;
 }
 
+.price {
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  font-weight: 500;
+   color: #111;
+  margin-bottom: 12px;
+}
+
+/* === Если результатов нет === */
 .no-results {
-  font-style: italic;
-  color: rgba(255, 255, 255, 0.7);
+  text-align: center;           /* по центру */
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  padding: 20px 25px;
+  display: inline-block;        /* ширина под содержимое */
+  margin: 40px auto;            /* центрирование горизонтально и отступ сверху */
+  max-width: 90%;               /* не выходит за блок поиска */
+  box-sizing: border-box;
+}
+
+/* === Адаптация до 320px — одна карточка === */
+@media (max-width: 450px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .product-card-catalog {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* === Мобильные устройства (до 768px) === */
+@media (min-width: 451px) and (max-width: 768px) {
+  .search-results {
+    padding: 25px 15px; /* уменьшаем внутренние отступы */
+  }
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr); /* всегда 2 колонки */
+    gap: 15px;
+  }
+  .product-card-catalog {
+    width: 100%;
+    padding: 15px;
+  }
 }
