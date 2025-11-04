@@ -44,15 +44,6 @@
 <div id="response-message"></div>
 
 
-    <!-- ТАНЯ , без него работает-->
-<!--    <div id="custom-alert">-->
-<!--  <div class="custom-alert-content">-->
-<!--    <p id="custom-alert-message"></p>-->
-<!--    <button id="custom-alert-btn" class="custom-alert-btn">OK</button>-->
-<!--  </div>-->
-<!--</div>-->
-
-
     <div id="viewed-products-container"></div>
 
 
@@ -110,27 +101,5 @@
 {% block scripts %}
 <script src="{% static 'js/basket.js' %}" defer></script>
 <script src="{% static 'js/order_form.js' %}" defer></script>
-<!--<script src="{% static 'js/viewed.js' %}" defer></script>-->
-<script>
-(function() {
-  const alertBox = document.getElementById('custom-alert');
-  const alertMessage = document.getElementById('custom-alert-message');
-  const alertBtn = document.getElementById('custom-alert-btn');
-
-  window.alert = function(message) {
-    alertMessage.textContent = message;
-    alertBox.classList.add('active');
-
-    // скрыть автоматически через 3 сек
-    setTimeout(() => {
-      alertBox.classList.remove('active');
-    }, 3000);
-  };
-
-  // кнопка "OK"
-  alertBtn.addEventListener('click', () => {
-    alertBox.classList.remove('active');
-  });
-})();
-</script>
+<script src="{% static 'js/viewed.js' %}" defer></script>
 {% endblock %}
