@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SHOW_INTERVAL = 24 * 60 * 60 * 1000; // 24 часа
 
+// Сохранение согласия или отказа от куков
   function saveCookieConsent(consent) {
     const maxAge = 2592000; // 30 дней
     const value = consent ? 'true' : 'false';
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.cookie = `cookieConsent=${value}; path=/; max-age=${maxAge}; SameSite=Lax${secureFlag}`;
   }
 
+// Баннер с куками
   function shouldShowCookieBanner() {
     const cookieConsent = document.cookie
       .split('; ')
@@ -24,17 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const consentPopup = document.createElement('div');
     consentPopup.id = 'cookie-consent-popup';
     consentPopup.classList.add('cookie-card'); // 👈 используем CSS-класс вместо inline-стилей
-
-//    consentPopup.style.cssText = `
-//      position: fixed;
-//      bottom: 20px;
-//      right: 20px;
-//      background: #ccc;
-//      border-radius: 6px;
-//      border: 1px solid #ccc;
-//      padding: 15px;
-//      z-index: 1000;
-//    `;
 
     consentPopup.innerHTML = `
       <p class="cookieEmoji"> 🍪</p>

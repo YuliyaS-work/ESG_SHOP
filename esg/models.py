@@ -1,9 +1,11 @@
 import re
 
-from django.core.validators import RegexValidator
-from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from transliterate import translit
+
+from django.core.validators import RegexValidator
+from django.db import models
+
 
 
 class Rubric(models.Model):
@@ -23,6 +25,7 @@ class Rubric(models.Model):
         return self.rubric_name
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
         translist = re.split(r'\s+', cleaned_name)
@@ -52,6 +55,7 @@ class Electro(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
         translist = re.split(r'\s+', cleaned_name)
@@ -81,6 +85,7 @@ class Gas(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
         translist = re.split(r'\s+', cleaned_name)
@@ -110,6 +115,7 @@ class Santeh(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
         translist = re.split(r'\s+', cleaned_name)
@@ -144,6 +150,7 @@ class ElectroProduct(models.Model):
         ordering= ['title']
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r',', "i", transliterated_name)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
@@ -177,6 +184,7 @@ class GasProduct(models.Model):
         ordering= ['title']
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r',', "i", transliterated_name)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
@@ -210,6 +218,7 @@ class SantehProduct(models.Model):
         ordering= ['title']
 
     def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r',', "i", transliterated_name)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)

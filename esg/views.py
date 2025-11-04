@@ -7,6 +7,7 @@ from django.db.migrations import serializer
 from django.db.models.functions import Lower
 from django.shortcuts import render
 from django.template.defaultfilters import title
+
 from rest_framework import generics
 from rest_framework.response import Response
 
@@ -14,7 +15,6 @@ from rest_framework.response import Response
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
 from .serializers import OrderSerializer, FeedbackSerializer
-# from .signals import get_cookies
 from .tasks.email_order import process_order_task
 from .tasks.email_feedback import process_feedback_task
 
@@ -182,7 +182,6 @@ def get_products(request, rubric_name_translit, subrubric_title_translit):
     return render(request, 'products_list.html', context)
 
 
-
 def get_product(request, rubric_name_translit, subrubric_title_translit, product_title_translit):
     '''Рендерит страницу одного продукта.'''
     rubric = Rubric.objects.get(name_translit=rubric_name_translit)
@@ -207,17 +206,20 @@ def get_contact(request):
     context = {'rubrics': rubrics}
     return render(request, 'contact.html', context)
 
+
 def get_payments(request):
     '''Рендерит страницу оплаты и доставки'''
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'rubrics': rubrics}
     return render(request, 'payments.html', context)
 
+
 def get_partners(request):
     '''Рендерит страницу деловых партнеров'''
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
     context = {'rubrics': rubrics}
     return render(request, 'partners.html', context)
+
 
 def  get_privacy(request):
     '''Рендерит страницу обработки персональных данных.'''
@@ -273,7 +275,9 @@ def search_view(request):
 
     # Получаем рубрики для sidebar
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+
     context = {'rubrics': rubrics}
+
     if not query:
         return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос'})
 
@@ -301,7 +305,6 @@ class OrderAPICreate(generics.CreateAPIView):
         print(basket_cookies)
 
         order = serializer.save()
-        # get_cookies.send(sender=Order, instance=order, basket_cookies=basket_cookies )
         process_order_task.delay(order_id=order.pk, basket_cookies=basket_cookies)
 
 

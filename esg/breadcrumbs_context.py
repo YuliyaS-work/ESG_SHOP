@@ -1,5 +1,7 @@
 from django.urls import resolve, reverse
+
 from .models import Rubric, Gas, Electro, Santeh, GasProduct, ElectroProduct, SantehProduct
+
 
 # Универсальная карта моделей
 RUBRIC_MODELS = {
@@ -18,6 +20,7 @@ RUBRIC_MODELS = {
 }
 
 def breadcrumbs_context(request):
+    '''Генерауия крошек на старницах, содержащих карточки товаров.'''
     crumbs = [{'label': 'Главная', 'url': reverse('main')}]
 
     try:

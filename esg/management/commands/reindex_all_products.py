@@ -1,19 +1,18 @@
-from django.core.management.base import BaseCommand
-from esg.documents import (
-    ElectroProductDocument,
-    GasProductDocument,
-    SantehProductDocument
-)
-from esg.models import ElectroProduct, GasProduct, SantehProduct
 from elasticsearch import Elasticsearch
 
+from django.core.management.base import BaseCommand
+
+from esg.documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
+from esg.models import ElectroProduct, GasProduct, SantehProduct
+
+
 class Command(BaseCommand):
-    help = "Удаляет и пересоздаёт все индексы, затем индексирует данные"
+    '''Удаляет и пересоздаёт все индексы, затем индексирует данные. '''
 
     def handle(self, *args, **options):
         es = Elasticsearch(
-            hosts=["https://localhost:9200"],
-            basic_auth=("elastic", "154615"),
+            hosts=["ELASTICSEARCH_HOST"],
+            basic_auth=("ELASTICSEARCH_USER", "ELASTICSEARCH_PASSWORD"),
             verify_certs=False
         )
 

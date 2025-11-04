@@ -1,10 +1,9 @@
 function renderViewedProducts() {
-//  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
   const products = getViewedProducts();
-//  console.log('Просмотренные товары:', products);
 
   if (products.length === 0) return;
 
+// Создание шапки "Вы смотрели"
   const container = document.createElement('div');
   container.className = 'viewed-products';
   container.innerHTML = `
@@ -13,11 +12,14 @@ function renderViewedProducts() {
     </div>
   `;
 
+// Создание блока для карточек
   const carousel = document.createElement('div');
   carousel.className = 'viewed-carousel';
 
+// Загружает корзину из cookies, чтобы отобразить состояние кнопок "Купить"
  const basket = getBasketFromCookies();
 
+// Создание карточки товара
   products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'product-card-catalog';
@@ -28,6 +30,7 @@ function renderViewedProducts() {
 
      const href = product.url || '/';
 
+// Данные переданные через html
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
       <a href="${href}" class="product-title"
@@ -44,16 +47,19 @@ function renderViewedProducts() {
       <p class="price">${product.price} BYN</p>
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
     `;
+// вставка карточки в контейнер
     carousel.appendChild(card);
   });
-
+// вставка карусели в контейнер
   container.appendChild(carousel);
 
+// вставляет блок в DOM
   const target = document.querySelector('#viewed-products-container');
   if (target) {
     target.innerHTML = '';
     target.appendChild(container);
 
+// При клике на товар сохраняет как просомтренный
     container.querySelectorAll('.basket').forEach(button => {
       const title = button.dataset.title;
       const rawPrice = button.dataset.price;
@@ -91,7 +97,7 @@ function renderViewedProducts() {
         }
       });
     });
-
+ // Обработка кликов по товарам, которые были сгенерированы динамически внутри блока "Вы смотрели".
     container.querySelectorAll('.product-title').forEach(link => {
       link.addEventListener('click', () => {
         const product = {
@@ -108,10 +114,11 @@ function renderViewedProducts() {
       });
     });
   } else {
-//    console.warn('viewed-products-container не найден');
+    console.warn('viewed-products-container не найден');
   }
 }
 
+// Это для основного каталога, где карточки уже есть в HTML при загрузке страницы.
 document.addEventListener('DOMContentLoaded', () => {
   renderViewedProducts();
 

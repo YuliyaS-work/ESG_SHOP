@@ -13,16 +13,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // обновляем каждые 500ms на случай изменений на других вкладках
   setInterval(updateCartCount, 500);
 
-
-
-
-  // находим все кнопки корзины
-  //const buttons = document.querySelectorAll('.basket, .increase, .decrease, .remove');
-
-  //buttons.forEach(button => {
-    //button.addEventListener('click', () => {
-      // небольшой таймаут, чтобы другие обработчики успели обновить куки
-      //setTimeout(updateCartCount, 10);
-    //});
-  //});
 });

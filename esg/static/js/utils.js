@@ -1,3 +1,4 @@
+// получаем куки корзины
 function getBasketFromCookies() {
   try {
     const cookie = document.cookie
@@ -13,6 +14,7 @@ function getBasketFromCookies() {
   }
 }
 
+// Сохраняем куки корзины с добавдением итоговой стоимости
 function saveBasketToCookies(basket) {
   // пересчитываем общую стоимость
   let totalSum = 0;
@@ -29,12 +31,12 @@ function saveBasketToCookies(basket) {
 //  document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
 }
 
-
+// Очищаем куки корзины
 function clearBasketCookies() {
   document.cookie = 'basket=; path=/; max-age=0';
 }
 
-
+// Получение токена
 function getCSRFToken() {
   const name = 'csrftoken';
   const cookies = document.cookie.split(';');
