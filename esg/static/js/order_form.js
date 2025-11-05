@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('overlay');
   const responseMessageError = document.getElementById('response-message-error');
 
+// Достаем куки корзины
   const rawBasket = document.cookie
     .split('; ')
     .find(row => row.startsWith('basket='));
   const basket = rawBasket ? JSON.parse(decodeURIComponent(rawBasket.split('=')[1])) : {};
   const generalCost = basket.generalCost || '0.00';
 
+// Заполнение формы
   if (!form.dataset.handlerAttached) {
 
 //    // убирает ошибку при изменении какого-либо поля
@@ -61,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.dataset.handlerAttached = 'true';
   }
 
+// Работа с окошком формы
   overlay.addEventListener('click', () => {
     overlay.classList.remove('active');
     form.classList.remove('active');

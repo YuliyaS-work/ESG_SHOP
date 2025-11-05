@@ -21,12 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=%rb)6%gs8h$*-xx8ej!@-mb#ho0@zx0r&9-tzeojw))&=+r@x'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = config('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
@@ -90,12 +89,12 @@ DATABASES = {
 
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'esg',
-#         'USER': 'esg_admin',
-#         'PASSWORD': 'password',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
+#         'ENGINE': config('DB_ENGINE'),
+#         'NAME': config('DB_NAME'),
+#         'USER':  config('DB_USER'),
+#         'PASSWORD':  config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT'),
 #     }
 # }
 
@@ -145,24 +144,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ELASTICSEARCH_DSL = {
     'default': {
-        # 'hosts': 'http://localhost:9200',
-        'hosts': 'https://localhost:9200',
-        # 'http_auth': ('elastic', 'f3hRbYAUlIGJs*SDMrgn'),
-        'http_auth': ('elastic', 'sopjxz3Qvo1KfpjnB0Yi'),
-        'verify_certs': False,  # если самоподписанный сертификат
+        'hosts':config('ELASTICSEARCH_HOST'),
+        'http_auth': (
+            config('ELASTICSEARCH_USER'),
+            config('ELASTICSEARCH_PASSWORD')
+        ),
+        'verify_certs': config('ELASTICSEARCH_VERIFY_CERTS') == False,  # если самоподписанный сертификат
     }
 }
 
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # адрес брокера (Redis)
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'  # куда сохраняются результаты задач
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND =config('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ['json']  # какие форматы сообщений принимает Celery
 CELERY_TASK_SERIALIZER = 'json'  # в каком формате сериализуются задачи
 CELERY_RESULT_SERIALIZER = 'json'  # в каком формате сериализуются результаты
-CELERY_TIMEZONE = 'Europe/Minsk'  # твой часовой пояс
-CELERY_ENABLE_UTC = False
-# CELERYD_POOL = 'solo'
-CELERYD_POOL = 'threads'
+CELERY_TIMEZONE = config('CELERY_TIMEZONE', 'Europe/Minsk')
+CELERY_ENABLE_UTC = config('CELERY_ENABLE_UTC', 'False') == 'True'
+CELERYD_POOL = config('CELERYD_POOL', 'threads')
 
 
 EMAIL_BACKEND = config('EMAIL_BACKEND')
