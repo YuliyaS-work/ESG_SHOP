@@ -1,7 +1,7 @@
 function updateBasketButton(button, basket) {
   const productTitle = button.dataset.title;
   if (basket[productTitle]) {
-    button.textContent = 'Удалить из корзины';
+    button.textContent = 'В корзине';
     button.classList.add('in-basket');
   } else {
     button.textContent = 'Купить';

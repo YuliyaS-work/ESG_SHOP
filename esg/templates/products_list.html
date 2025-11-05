@@ -3,13 +3,18 @@
 {% load querystring %}
 
 
-{% block title %}Список товаров{% endblock %}
+{% block title %}Каталог электротоваров — СпецЭлектроБелТорг, Логойск{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
     <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
-
+{% block meta %}
+<meta name="description" content="Каталог электротоваров: кабели, электроустановочные изделия, системы электроснабжения. Продажа в Логойске от СпецЭлектроБелТорг.">
+<meta name="keywords" content="электротовары, кабели, электроустановочные изделия, электроснабжение, монтаж, продажа, Логойск">
+<meta name="robots" content="index, follow">
+<meta name="author" content="СпецЭлектроБелТорг, Логойск">
+{% endblock %}
 {% block content %}
 <main class="main-content">
 

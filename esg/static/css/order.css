@@ -2,7 +2,8 @@
 #overlay {
   position: fixed;
   top:0; left:0;
-  width:100%; height:100%;
+  width:100%;
+  height:100%;
   background: rgba(0,0,0,0.55);
   z-index: 1000;
   opacity: 0;
@@ -51,7 +52,9 @@
   color: #e53935;
 }
 
-#order-form input,
+#order-form input[type="text"],
+#order-form input[type="email"],
+#order-form input[type="tel"],
 #order-form textarea {
   width: 100%;
   padding: 8px;
@@ -131,4 +134,42 @@
 .order-alert-btn:active {
   transform: scale(0.97);
   background: linear-gradient(145deg, #aaa, #777);
+}
+.agreement-wrapper {
+  display: inline-flex;       /* горизонтально */
+  align-items: left;        /* выравнивание по центру по вертикали */
+  gap: 6px;                   /* расстояние между чекбоксом и текстом */
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #222;                /* темный серый */
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+/* чекбокс отдельно */
+#order-form input[type="checkbox"].agreement {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: #e6c200;
+  cursor: pointer;
+}
+
+.agreem {
+  display: inline;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.agree{
+   color: #e6c200;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.agree:hover {
+text-decoration: underline;
+  color: #e6c200;
+  font-weight: 600;
 }

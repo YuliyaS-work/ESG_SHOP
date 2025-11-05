@@ -62,7 +62,7 @@ function renderViewedProducts() {
       // Установим начальное состояние кнопки
       const currentBasket = getBasketFromCookies();
       if (currentBasket[title]) {
-        button.textContent = 'Удалить из корзины';
+        button.textContent = 'В корзине';
         button.classList.add('in-basket');
       } else {
         button.textContent = 'Купить';
@@ -78,7 +78,7 @@ function renderViewedProducts() {
           button.classList.remove('in-basket');
         } else {
           updatedBasket[title] = [1, price];
-          button.textContent = 'Удалить из корзины';
+          button.textContent = 'В корзине';
         button.classList.add('in-basket');
         }
 

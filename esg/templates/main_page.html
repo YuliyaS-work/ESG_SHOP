@@ -1,13 +1,16 @@
 {% extends 'basic.html' %}
 {% load static %}
 
-{% block title %}Вы на главной странице{% endblock %}
+{% block title %}Электротовары Логойск — СпецЭлектроБелТорг: электро-, газо- и водоснабжение{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
-
+{% block meta %}
+<meta name="description" content="Продажа электротехники, монтаж и обслуживание систем электроснабжения, газоснабжения и водоснабжения в Логойске. Надёжные решения для частных и промышленных объектов.">
+<meta name="keywords" content="электротовары, электроснабжение, газоснабжение, водоснабжение, канализация, монтаж, проектирование, Логойск">
+{% endblock %}
 
 {% block content %}
 <main class="main-content">

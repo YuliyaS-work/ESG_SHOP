@@ -1,12 +1,16 @@
 {% extends 'basic.html' %}
 {% load static %}
 
-{% block title %}Поиск{% endblock %}
+{% block title %}}Результаты поиска по запросу — СпецЭлектроБелТорг{% endblock %}
 {% block styles %}
-<!--    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">-->
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
     <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
+{% endblock %}
+{% block meta %}
+<meta name="description" content="Результаты поиска по запросу в каталоге электротоваров: кабели, электроустановочные изделия, системы электроснабжения. Найдите нужный товар быстро и удобно.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="СпецЭлектроБелТорг, Логойск">
 {% endblock %}
 {% block content %}
 <main class="main-content">

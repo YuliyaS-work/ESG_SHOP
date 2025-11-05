@@ -1,14 +1,17 @@
 {% extends 'basic.html' %}
 {% load static %}
 
-{% block title %}Товары{% endblock %}
+{% block title %}Каталог электротоваров — СпецЭлектроБелТорг, Логойск{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/product.css' %}">
 <link rel="stylesheet" href="{% static 'css/basket.css' %}">
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
-
+{% block meta %}
+<meta name="description" content="Каталог электротоваров: кабели, электроустановочные изделия, системы электроснабжения.">
+<meta name="keywords" content="электротовары, кабели, электроустановочные изделия, электроснабжение, монтаж, продажа, Логойск">
+{% endblock %}
 {% block content %}
 <main class="main-content">
 
@@ -38,7 +41,8 @@
 
     <!-- карточка товара -->
 <div class="product-card-single">
-    <h3>{{ product.title }}</h3>
+    <div class="product-card-content">
+
     <div class="product-image-container">
     {% if product.photo %}
         <img src="{{ product.photo.url }}" alt="{{ product.title }}">
@@ -47,8 +51,11 @@
         {% endif %}
         </div>
 
+        <div class="product-info">
+            <h3>{{ product.title }}</h3>
+
     {% if product %}
-        <p><b>Описание:</b> {{ product.description|default:"Нет описания" }}</p>
+
         <p><b>Цена:</b>
             {% if product.price %}
                 {{ product.price|floatformat:2|stringformat:"d"}} руб.
@@ -57,10 +64,13 @@
            {% endif %}
        </p>
         <p><b>Код товара:</b> {{product.code}}</p>
+        <p><b>Описание:</b><br>{{ product.description|default:"Нет описания" }}</p>
     {% endif %}
 
     <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
+</div>
 
+    </div>
 </div>
     <div style="text-align: center;">
     <a href="{% url 'products'  product.rubric.rubric.name_translit product.rubric.title_translit %}" class="product_exit">

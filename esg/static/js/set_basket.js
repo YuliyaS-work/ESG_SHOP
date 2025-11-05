@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Устанавливаем начальное состояние кнопки
     if (basket[productTitle]) {
-      button.textContent = 'Удалить из корзины';
+      button.textContent = 'В корзине';
       button.classList.add('in-basket');
     } else {
       button.textContent = 'Купить';
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Добавление в корзину
         basket[productTitle] = [1, productPrice];
         saveBasketToCookies(basket);
-        button.textContent = 'Удалить из корзины';
+        button.textContent = 'В корзине';
         button.classList.add('in-basket');
       }
     });

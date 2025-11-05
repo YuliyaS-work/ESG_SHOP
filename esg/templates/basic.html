@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<!--<html lang="en">-->
+<html lang="ru">
 <head>
-    <meta name="csrf-token" content="{{ csrf_token }}">
     <meta charset="UTF-8">
-    <title>{% block title %}Главная{% endblock %}</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Электротовары Логойск — СпецЭлектроБелТорг: электро-, газо- и водоснабжение{% endblock %}</title>
+
+    <meta name="description" content="Продажа и монтаж электротехники, услуги электроснабжения, газоснабжения, водоснабжения и канализации в Логойске. Надёжные решения для частных и промышленных объектов">
+    <meta name="keywords" content="электроснабжение, газоснабжение, водоснабжение, канализация, монтаж, проектирование">
+
+    <meta property="og:title" content="{% block og_title %}Электротовары Логойск — СпецЭлектроБелТорг{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Продажа и монтаж электротехники, услуги электроснабжения, газоснабжения, водоснабжения и канализации{% endblock %}">
+    <meta property="og:image" content="{% static 'image/logo.png' %}"> <!-- превью изображения -->
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+
+    <meta name="robots" content="index, follow"> <!-- индексация страницы -->
+    <meta name="author" content="СпецЭлектроБелТорг, Логойск"> <!-- автор сайта -->
+
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="{% static 'css/basic.css' %}">
     <link rel="stylesheet" href="{% static 'css/button.css' %}">
     <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
@@ -16,11 +37,7 @@
     <link rel="stylesheet" href="{% static 'css/cookies.css' %}">
 <!--    Подключаем остальные стили по страницам-->
     {% block styles %}{% endblock %}
-    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-<!--    Метатеги для адаптивности -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 <header class="header-grid">
@@ -29,7 +46,7 @@
      </button>
      <div class="header-logo">
          <a href="{% url 'main' %}">
-              <img src="{% static 'image/logo-4.png' %}" alt="СпецЭлектроБелТорг">
+              <img src="{% static 'image/log.png' %}" alt="СпецЭлектроБелТорг">
          </a>
      </div>
 
@@ -108,13 +125,16 @@
           <span>Каталог</span></a>
       <a href="{% url 'payments' %}">
           <img src="{% static 'image/icons/payments.svg' %}" alt="Оплата и доставка">
-          <span>Оплата и доставка</span></a>
+          <span>Заказать</span></a>
       <a href="{% url 'partners' %}">
           <img src="{% static 'image/icons/partners.svg' %}" alt="Партнёры">
           <span>Партнёры</span></a>
       <a href="{% url 'contacts' %}">
           <img src="{% static 'image/icons/contact.svg' %}" alt="Контакты">
           <span>Контакты</span></a>
+      <a href="{% url 'privacy' %}">
+          <img src="{% static 'image/icons/privacy.svg' %}" alt="политика">
+      <span>Политика</span></a>
     </nav>
 
     <div class="footer-info">
@@ -145,8 +165,12 @@
     <input type="text" id="subject" name="subject" placeholder="Тема сообщения(необязательно)">
       <label for="message">Сообщение</label>
     <textarea name="message" id="message" placeholder="Ваше сообщение" rows="6" required></textarea>
-    <label for="agreement">Я даю согласие на <a href="{% url 'privacy' %}" target="_blank" >обработку персональных данных</a></label>
-      <input type="checkbox" id="agreement" name="agreement" required>
+
+      <label class="agreement-wrapper">
+          <input type="checkbox" id="agreement" name="agreement" class="agreement" required>
+          <span class="agreem">Я даю согласие на обработку <a href="{% url 'privacy' %}" target="_blank" class="agree">персональных данных</a></span></label>
+
+
       <div id="response-message-error_feedback" style="color:red;"></div>
     <button type="submit" class="send-btn">Отправить</button>
   </form>
