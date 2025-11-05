@@ -19,8 +19,4 @@ urlpatterns = [
     path('<slug:rubric_name_translit>/<slug:subrubric_title_translit>/<slug:product_title_translit>/', get_product, name='product'),
     path('<slug:rubric_name_translit>/<slug:subrubric_title_translit>/', get_products, name='products'),
     path('<slug:rubric_name_translit>/', get_subrubrics, name='subrubrics'),
-
-
-
-
 ]

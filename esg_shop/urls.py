@@ -19,6 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+from esg.views import get_custom_404
+
+handler404 = 'esg.views.get_custom_404'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
