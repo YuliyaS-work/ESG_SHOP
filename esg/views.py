@@ -5,12 +5,12 @@ from itertools import chain
 from django.core.paginator import Paginator
 from django.db.migrations import serializer
 from django.db.models.functions import Lower
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import title
 
 from rest_framework import generics
 from rest_framework.response import Response
-
 
 from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
@@ -97,7 +97,7 @@ def get_catalog(request):
 
 def get_subrubrics(request, rubric_name_translit):
     '''Список подразделов раздела '''
-    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
+    rubric = get_object_or_404(Rubric, name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
         subrubrics = Gas.objects.select_related('rubric').all()
@@ -108,6 +108,8 @@ def get_subrubrics(request, rubric_name_translit):
     elif rubric.rubric_name == 'Сантехника':
         subrubrics = Santeh.objects.select_related('rubric').all()
         products = SantehProduct.objects.select_related('rubric').all()
+    else:
+        raise Http404("Раздел не найден")
 
     # фильтр
     sort = request.GET.get('sort', '')
@@ -139,20 +141,19 @@ def get_subrubrics(request, rubric_name_translit):
 
 def get_products(request, rubric_name_translit, subrubric_title_translit):
     '''Выводит страницу оттдельного подраздела товары'''
-    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
+    rubric = get_object_or_404(Rubric,name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
-        current_subrubric = Gas.objects.get(title_translit=subrubric_title_translit)
+        current_subrubric = get_object_or_404(Gas, title_translit=subrubric_title_translit)
         products = GasProduct.objects.filter(rubric=current_subrubric.pk)
-
-
     elif rubric.rubric_name == 'Электрика':
-        current_subrubric = Electro.objects.get(title_translit=subrubric_title_translit)
+        current_subrubric = get_object_or_404(Electro, title_translit=subrubric_title_translit)
         products = ElectroProduct.objects.filter(rubric=current_subrubric.pk)
-
     elif rubric.rubric_name == 'Сантехника':
-        current_subrubric = Santeh.objects.get(title_translit=subrubric_title_translit)
+        current_subrubric = get_object_or_404(Santeh, title_translit=subrubric_title_translit)
         products = SantehProduct.objects.filter(rubric=current_subrubric.pk)
+    else:
+        raise Http404("Раздел не найден")
 
     # фильтр
     sort = request.GET.get('sort', '')
@@ -184,14 +185,20 @@ def get_products(request, rubric_name_translit, subrubric_title_translit):
 
 def get_product(request, rubric_name_translit, subrubric_title_translit, product_title_translit):
     '''Рендерит страницу одного продукта.'''
-    rubric = Rubric.objects.get(name_translit=rubric_name_translit)
+    rubric = get_object_or_404(Rubric, name_translit=rubric_name_translit)
+
 
     if rubric.rubric_name == 'Газификация':
-        product = GasProduct.objects.get(title_translit=product_title_translit)
+        product = get_object_or_404(GasProduct, title_translit=product_title_translit)
+        subrubric = get_object_or_404(Gas, title_translit=subrubric_title_translit, rubric=rubric)
     elif rubric.rubric_name == 'Сантехника':
-        product = SantehProduct.objects.get(title_translit=product_title_translit)
+        product = get_object_or_404(SantehProduct, title_translit=product_title_translit)
+        subrubric = get_object_or_404(Santeh, title_translit=subrubric_title_translit, rubric=rubric)
     elif rubric.rubric_name == 'Электрика':
-        product = ElectroProduct.objects.get(title_translit=product_title_translit)
+        product = get_object_or_404(ElectroProduct, title_translit=product_title_translit)
+        subrubric = get_object_or_404(Electro, title_translit=subrubric_title_translit, rubric=rubric)
+    else:
+        raise Http404("Раздел не найден")
 
     # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
@@ -317,6 +324,8 @@ class FeedbackAPICreate(generics.CreateAPIView):
         feedback = serializer.save()
         process_feedback_task.delay(feedback_id=feedback.pk)
 
-
+def get_custom_404(request, exception):
+    '''Загружает кастомную 404 страницу'''
+    return render(request, '404.html', status=404)
 
 
