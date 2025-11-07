@@ -15,8 +15,10 @@ function createProductImage({ src, alt, fallback = '/static/image/default-produc
 
 async function renderViewedProducts() {
   const products = getViewedProducts();
+
   if (products.length === 0) return;
 
+// Создание шапки "Вы смотрели"
   const container = document.createElement('div');
   container.className = 'viewed-products';
   container.innerHTML = `
@@ -25,6 +27,7 @@ async function renderViewedProducts() {
     </div>
   `;
 
+// Создание блока для карточек
   const carousel = document.createElement('div');
   carousel.className = 'viewed-carousel';
 
