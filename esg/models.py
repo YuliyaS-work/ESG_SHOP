@@ -26,18 +26,18 @@ class Rubric(models.Model):
 
     def save(self, *args, **kwargs):
         '''Переопределяем для автоматической транслитерации.'''
-        transliterated_nam = translit(self.rubric_name.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_nam)
+        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
+        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
         translist = re.split(r'\s+', cleaned_name)
         translit_sp = [word for word in translist if word]
-        transliterated_name = ('-').join(translit_sp)
+        transliterated_title = ('-').join(translit_sp)
         if not self.pk:
             super().save(*args, **kwargs)
-        if Rubric.objects.exclude(pk=self.pk).filter(name_translit=transliterated_name).exists():
-            self.name_translit = transliterated_name + f'{self.pk}'
+        if Rubric.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
+            self.title_translit = transliterated_title + f'{self.pk}'
         else:
-            self.name_translit = transliterated_name
-        super().save(update_fields=['name_translit'])
+            self.title_translit = transliterated_title
+        super().save(update_fields=['title_translit'])
 
 
 class Electro(models.Model):

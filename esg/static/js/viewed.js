@@ -116,7 +116,7 @@ function renderViewedProducts() {
       });
     });
   } else {
-    console.warn('viewed-products-container не найден');
+//    console.warn('viewed-products-container не найден');
   }
 }
 
