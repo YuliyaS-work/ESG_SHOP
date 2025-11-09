@@ -170,6 +170,7 @@
 #basket p {
   color: black;
   text-align: center;
+  padding: 20px;
   font-size: 2em;
 }
 .product-carousel {
@@ -189,6 +190,7 @@
     background: #888;
     border-radius: 3px;
 }
+/* Карточка товара */
 .product-card-catalog {
   display: flex;
   flex-direction: column;
