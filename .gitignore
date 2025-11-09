@@ -177,4 +177,4 @@ celerybeat-schedule.db
 products/
 scripts_esg/
 staticfiles/
-data.sql
+full_dump.sql
