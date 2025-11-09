@@ -28,7 +28,6 @@ function saveBasketToCookies(basket) {
   // Работает и на http, и на https
   const isSecure = location.protocol === 'https:';
   document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax${isSecure ? '; Secure' : ''}`;
-//  document.cookie = `basket=${encodeURIComponent(JSON.stringify(basket))}; path=/; max-age=2592000; SameSite=Lax; Secure`;
 }
 
 // Очищаем куки корзины

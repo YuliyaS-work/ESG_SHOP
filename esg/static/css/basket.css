@@ -193,7 +193,7 @@
 .product-card-catalog {
   display: flex;               /* превращаем карточку в flex-контейнер */
   flex-direction: column;      /* элементы располагаются сверху вниз */
-  justify-content: flex-start; /* верхнее выравнивание остальных элементов */
+  justify-content: space-between;
   width: 100%;          /* занимает всю ширину ячейки */
   max-width: 260px;     /* ограничиваем, чтобы не растягивалась */
   box-sizing: border-box;
@@ -219,9 +219,18 @@
     margin: 10px 0 5px;
     font-size: 1rem;
 }
-.product-card-catalog p {
-    margin: 5px 0;
-    font-size: 0.9rem;
+/* Цена */
+.price {
+  font-size: 0.9rem;
+  margin: 5px 0;     /* прижимаем вниз */
+  color: #333;
+}
+.card-bottom {
+  margin-top: auto;       /* этот блок уходит вниз */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
 }
 button.basket.added {
   background: #4caf50;

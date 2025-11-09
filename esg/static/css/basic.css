@@ -49,13 +49,12 @@ body {
 }
 /* Навигация футера */
 .footer-nav {
-  display: flex;
-  flex-direction: column;      /* теперь ссылки сверху вниз */
-  justify-content: flex-start;  /* выравниваем по верху контейнера */
-  align-items: flex-start;      /* выравнивание по левому краю */
-  gap: 6px;                     /* расстояние между ссылками */
+  display: grid;
+  grid-template-columns: repeat(2, auto); /* 2 колонки */
+  gap: 8px 10px; /* вертикальный и горизонтальный отступы */
   padding-top: 10px;
-  flex: 1 1 auto; /* адаптивная ширина */
+  flex: 1 1 auto;
+  text-align: left;
 }
 .footer-nav a {
   display: block;           /* чтобы padding работал корректно */
@@ -94,10 +93,13 @@ body {
   flex: 1 1 auto;
   text-align: right;
 }
-.footer-contacts p {
-  margin: 2px 0;
+.footer .footer-contacts p {
+  margin-bottom: 6px; /* точно как gap: 6px в навигации */
   font-size: clamp(14px, 1vw, 16px);
-  line-height: 1.3;
+  line-height: 1.2;
+}
+.footer .footer-contacts p:last-child {
+  margin-bottom: 0; /* чтобы последний элемент не отталкивался вниз */
 }
 /* Копирайт */
 .footer-info .footer-copy {

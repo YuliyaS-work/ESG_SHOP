@@ -3,7 +3,10 @@
 /* Контейнер пагинации */
 .list-pages {
   text-align: center;
-  margin: 40px 20px 20px 20px;
+  margin-top: clamp(10px, 6vw, 20px);
+  margin-right: clamp(10px, 5vw, 20px);
+  margin-bottom: 0;
+  margin-left: clamp(10px, 5vw, 20px);
 }
 
 /* Список номеров */
@@ -12,7 +15,7 @@
   padding: 0;
   margin: 0;
   display: inline-flex;
-  gap: 12px; /* расстояние между номерами */
+  gap: clamp(4px, 1.5vw, 12px);
 }
 
 /* Элементы списка */
@@ -24,10 +27,10 @@
 .list-pages a,
 .list-pages input.page-input {
   display: inline-block;
-  min-width: 30px;
-  padding: 6px 10px;
+  min-width: clamp(22px, 5vw, 32px);
+  padding: clamp(3px, 1vw, 6px) clamp(4px, 1.5vw, 10px);
   text-align: center;
-  font-size: 1rem;
+  font-size: clamp(0.75rem, 2vw, 1rem);
   font-weight: 500;
   color: #bfa500;
   text-decoration: none;
@@ -53,7 +56,8 @@
   color: #fff;
   background: #bfa500;
   border-radius: 4px;
-  padding: 6px 10px;
+  min-width: clamp(22px, 5vw, 32px);
+  padding: clamp(3px, 1vw, 6px) clamp(4px, 1.5vw, 10px);
   cursor: default;
 }
 
