@@ -173,7 +173,7 @@ class Santeh(models.Model):
         transliterated_title = ('-').join(translit_sp)
         if not self.pk:
             super().save(*args, **kwargs)
-        if Santeh.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
+        if Rubric.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
             self.title_translit = transliterated_title + f'{self.pk}'
         else:
             self.title_translit = transliterated_title
