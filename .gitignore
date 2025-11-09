@@ -177,3 +177,4 @@ celerybeat-schedule.db
 products/
 scripts_esg/
 staticfiles/
+data.sql
