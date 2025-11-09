@@ -55,18 +55,16 @@
             <h3>{{ product.title }}</h3>
 
     {% if product %}
-
-        <p><b>Цена:</b>
+        <p><b>Код товара:</b> {{product.code}}</p>
+        <p><b>Описание:</b><br>{{ product.description|default:"Нет описания" }}</p>
+    {% endif %}
+        <p class="price"><b>Цена: </b>
             {% if product.price %}
-                {{ product.price|floatformat:2|stringformat:"d"}} руб.
+                {{ product.price }} BYN
             {% else %}
                 по запросу
            {% endif %}
        </p>
-        <p><b>Код товара:</b> {{product.code}}</p>
-        <p><b>Описание:</b><br>{{ product.description|default:"Нет описания" }}</p>
-    {% endif %}
-
     <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
 </div>
 
@@ -74,7 +72,7 @@
 </div>
     <div style="text-align: center;">
     <a href="{% url 'products'  product.rubric.rubric.name_translit product.rubric.title_translit %}" class="product_exit">
-        ВЕРНУТЬСЯ В РАЗДЕЛ: <br>{{ product.rubric.title }}
+        ВЕРНУТЬСЯ В РАЗДЕЛ: {{ product.rubric.title }}
     </a></div>
 </main>
 {% endblock %}

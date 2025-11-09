@@ -94,11 +94,10 @@
              data-subrubric_title_translit="{{ product.rubric.title_translit }}">
              <h3>{{ product.title }}</h3></a>
          {% endif %}
-
-                <p>{{ product.description }}</p>
-                <p>{{ product.price }} BYN</p>
+                <div class="card-bottom">
+                <p class="price">{{ product.price }} BYN</p>
                 <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-            </div>
+            </div></div>
             {% empty %}
             <p>Товары отсутствуют.</p>
             {% endfor %}
