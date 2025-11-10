@@ -26,7 +26,12 @@ function renderBasket() {
   const titles = Object.keys(window.basket).filter(key => key !== 'generalCost');
 
   if (titles.length === 0) {
-    basketContainer.innerHTML = '<p>Корзина пуста</p>';
+    basketContainer.innerHTML = `
+    <div class="empty-basket">
+      <img src="/static/image/basket.png" alt="Корзина пуста" class="empty-basket-img">
+      <p>Корзина пуста</p>
+    </div>
+  `;
     return;
   }
 
@@ -43,11 +48,13 @@ function renderBasket() {
     div.className = 'basket-item';
     div.innerHTML = `
       <span class="title">${title}</span>
-      <span class="price">${totalPrice} BYN</span>
+      <span class="price_b">${totalPrice} BYN</span>
+       <div class="controls">
       <button class="decrease">−</button>
       <span class="quantity">${quantity}</span>
       <button class="increase">+</button>
       <button class="remove">🗑️</button>
+      </div>
     `;
 //  увеличение количества и цены каждого товара
     div.querySelector('.increase').onclick = () => {
@@ -89,7 +96,7 @@ function renderBasket() {
   window.basket.generalCost = totalCost.toFixed(2);
   const totalDiv = document.createElement('div');
   totalDiv.className = 'basket-total';
-  totalDiv.innerHTML = `<strong>Итого: ${window.basket.generalCost} BYN</strong>`;
+  totalDiv.innerHTML = `<strong class="currency">Итого: ${window.basket.generalCost} BYN</strong>`;
   basketContainer.appendChild(totalDiv);
 
 // открытие формы формления заказа

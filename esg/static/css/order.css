@@ -20,7 +20,7 @@
   padding: 25px;
   border-radius: 12px;
   width: 600px;
-  max-width: 90%;
+  max-width: calc(100% - 80px);
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   z-index: 1001;
   display: flex;
@@ -57,6 +57,7 @@
 #order-form input[type="tel"],
 #order-form textarea {
   width: 100%;
+  max-width: calc(100% - 20px);
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -172,4 +173,65 @@
 text-decoration: underline;
   color: #e6c200;
   font-weight: 600;
+}
+/* === Адаптация формы оформления заказа === */
+@media (max-width: 901px) {
+  #order-form {
+    top: 150px;               /* немного выше, под шапку */
+    left: 50%;               /* центрируем по горизонтали */
+    transform: translateX(-50%);
+    width: 70%;              /* почти вся ширина */
+  }
+
+  #order-form h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  #order-form input[type="text"],
+  #order-form input[type="email"],
+  #order-form input[type="tel"],
+  #order-form textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .send-btn {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .close-btn {
+    font-size: 22px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .agreement-wrapper {
+    flex-wrap: wrap;       /* чекбокс + текст могут переноситься */
+    gap: 5px;
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 600px) {
+  .agreement-wrapper {
+    display: flex;           /* горизонтально, но может переноситься */
+    flex-wrap: wrap;         /* перенос текста на новую строку при нехватке места */
+    align-items: center;     /* вертикальное выравнивание */
+    gap: 5px;                /* отступ между чекбоксом и текстом */
+    font-size: 0.85rem;      /* чуть меньше для мобильных */
+    white-space: normal;     /* разрешаем перенос текста */
+  }
+
+  #order-form input[type="checkbox"].agreement {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;          /* чекбокс не сжимается */
+  }
+
+  .agreem {
+    line-height: 1.3;
+  }
 }
