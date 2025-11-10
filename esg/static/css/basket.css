@@ -92,6 +92,7 @@
   padding: 10px 15px;
   margin-bottom: 10px;
   transition: all 0.3s ease;
+  gap: clamp(6px, 3vw, 25px);
   box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.2),
               0 2px 6px rgba(0, 0, 0, 0.15);
 }
@@ -169,7 +170,6 @@
 #basket p {
   color: black;
   text-align: center;
-  padding: 20px;
   font-size: 2em;
 }
 .product-carousel {
@@ -236,4 +236,89 @@ button.basket.added {
   background: #4caf50;
   color: #fff;
   transform: scale(1.05);
+}
+/* === Итоговая сумма в корзине === */
+.basket-total {
+  text-align: center;
+  margin-top: 20px;
+  padding: 12px 20px;
+  display: block;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Подчёркиваем или делаем цветом “Итого:” */
+.basket-total .currency {
+  color: white; /* золотистый оттенок */
+  font-size: 1em;
+  margin-left: 5px;
+}
+.empty-basket {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-basket-img {
+  width: 80px;       /* размер картинки */
+  height: auto;
+  opacity: 0.7;       /* слегка прозрачная */
+}
+/* === АДАПТАЦИЯ КОРЗИНЫ === */
+@media (max-width: 600px) {
+  .basket-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .basket-item .title {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .basket-item .price_b {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* Блок управления количеством и корзиной */
+  .basket-item .controls {
+    display: flex;
+    justify-content: center;  /* выравниваем всё по центру */
+    align-items: center;
+    flex-wrap: wrap;           /* если не помещается — перенос */
+ /* адаптивный отступ между элементами */
+    width: 100%;
+  }
+  /* Делаем кнопки + и − ближе к количеству */
+  .basket-item .decrease + .quantity,
+  .basket-item .quantity + .increase {
+    margin-left: 2px; /* плотнее между ними */
+    margin-right: 2px;
+  }
+  /* Кнопка корзины — чуть дальше от блока управления */
+  .basket-item .increase + .remove {
+    margin-left: 30px; /* отодвигаем корзину вправо */
+  }
+
+  /* Универсальные стили для кнопок */
+  .basket-item .controls button {
+    font-size: 1rem;
+    padding: 6px 10px;
+  }
+
+  .basket-item .quantity {
+    min-width: 35px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .basket-item .remove {
+    margin-left: 0;
+  }
 }
