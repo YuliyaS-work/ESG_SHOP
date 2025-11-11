@@ -45,7 +45,7 @@
 
     <div class="product-image-container">
     {% if product.photo %}
-        <img src="{{ product.photo.url }}" alt="{{ product.title }}">
+        <img src="{{ product.photo_big.url }}" alt="{{ product.title }}">
         {% else %}
         <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
