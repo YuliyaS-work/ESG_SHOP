@@ -16,7 +16,7 @@ def process_feedback_task(feedback_id):
                f'{message_subject_from_client}\n' +
                f'Сообщение: \n' + f'{feedback.message}'
     )
-    to_email = [config('EMAIL_HOST_USER')]
+    to_email = [config('EMAIL_HOST_USER'), 'Spelbtorg@mail.ru']
     try:
         send_mail(
             subject=subject,

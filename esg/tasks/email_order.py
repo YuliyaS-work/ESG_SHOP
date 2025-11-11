@@ -44,7 +44,7 @@ def process_order_task(order_id, basket_cookies):
             f'Товары: \n' + '\n'.join(list_order)+ '\n' +
             f'Общая стоимость: {cost} BYN'
     )
-    to_email = [config('EMAIL_HOST_USER')]
+    to_email = [config('EMAIL_HOST_USER'), 'Spelbtorg@mail.ru']
 
     # for a client
     subject1 = f'Магазин "Электротовары"'
