@@ -1,10 +1,52 @@
+import os
 import re
-
 from phonenumber_field.modelfields import PhoneNumberField
 from transliterate import translit
+from PIL import Image, ImageOps
 
 from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
+
 from django.db import models
+
+from esg_shop import settings
+
+
+VALID_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"]
+
+def validate_image_extension(value):
+    '''Для загрузки файлов определенного типа'''
+    ext = os.path.splitext(value.name)[1].lower()
+    valid_extensions = VALID_EXTENSIONS
+    if ext not in valid_extensions:
+        raise ValidationError(f"Недопустимое расширение файла: {ext}. Разрешены только {', '.join(valid_extensions)}.")
+
+
+def resave_photos(instance):
+    '''Обрабатывает фото при загрузке'''
+    image_field1 = getattr(instance, 'photo_big')
+    if image_field1 and os.path.exists(image_field1.path):
+        ext = os.path.splitext(image_field1.path)[1].lower()  # расширение файла
+        if ext in VALID_EXTENSIONS:
+            try:
+                img = Image.open(image_field1.path)
+                img_square1 = ImageOps.pad(img, (800, 800), color="white")
+                img_square2 = ImageOps.pad(img, (300, 300), color="white")
+
+                base_name = os.path.splitext(os.path.basename(image_field1.path))[0]
+                dir_name = os.path.dirname(image_field1.path)
+
+                image_field1_path = os.path.join(dir_name, "800_" + base_name + ".webp")
+                image_field2_path = os.path.join(dir_name, "300_" + base_name + ".webp")
+
+                img_square1.save(image_field1_path, format="WEBP", quality=95)
+                img_square2.save(image_field2_path, format="WEBP", quality=95)
+
+                instance.photo_big.name = os.path.relpath(image_field1_path, settings.MEDIA_ROOT)
+                instance.photo.name = os.path.relpath(image_field2_path, settings.MEDIA_ROOT)
+
+            except Exception as e:
+                print(f"Ошибка при обработке {image_field1.path}: {e}")
 
 
 
@@ -26,18 +68,18 @@ class Rubric(models.Model):
 
     def save(self, *args, **kwargs):
         '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
+        transliterated_nam = translit(self.rubric_name.lower(), 'ru', reversed=True)
+        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_nam)
         translist = re.split(r'\s+', cleaned_name)
         translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
+        transliterated_name = ('-').join(translit_sp)
         if not self.pk:
             super().save(*args, **kwargs)
-        if Rubric.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.pk}'
+        if Rubric.objects.exclude(pk=self.pk).filter(name_translit=transliterated_name).exists():
+            self.name_translit = transliterated_name + f'{self.pk}'
         else:
-            self.title_translit = transliterated_title
-        super().save(update_fields=['title_translit'])
+            self.name_translit = transliterated_name
+        super().save(update_fields=['name_translit'])
 
 
 class Electro(models.Model):
@@ -133,10 +175,11 @@ class Santeh(models.Model):
 # Товары подразделов электрики
 class ElectroProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    photo = models.ImageField( upload_to='electro/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField( upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Electro, on_delete = models.CASCADE, verbose_name='Электрика')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
@@ -162,15 +205,18 @@ class ElectroProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
+        resave_photos(self)
+        super().save(update_fields=['photo_big', 'photo'])
 
 
 # Товары подразделов газификации
 class GasProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
-    photo = models.ImageField(upload_to='gas/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газификация')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
@@ -196,15 +242,18 @@ class GasProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
+        resave_photos(self)
+        super().save(update_fields=['photo_big', 'photo'])
 
 
 # Товары подразделов сантехники
 class SantehProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    photo = models.ImageField(upload_to='santeh/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Santeh, on_delete = models.CASCADE, verbose_name='Сантехника')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
@@ -230,6 +279,8 @@ class SantehProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
+        resave_photos(self)
+        super().save(update_fields=['photo_big', 'photo'])
 
 
 
@@ -288,4 +339,3 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.phone}, {self.date}'
-
