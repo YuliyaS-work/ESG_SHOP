@@ -12,7 +12,7 @@ def process_feedback_task(feedback_id):
     feedback = Feedback.objects.get(pk=feedback_id)
     subject = f'Обратная связь № {feedback.pk}'
     message_subject_from_client = f'\nТема: \n' + f'{feedback.subject}' if feedback.subject else ''
-    message = (f'Обратная связь № {feedback.pk} для {feedback.name} ({feedback.phone}).' +
+    message = (f'Обратная связь № {feedback.pk} от {feedback.name} ({feedback.phone}).' +
                f'{message_subject_from_client}\n' +
                f'Сообщение: \n' + f'{feedback.message}'
     )
