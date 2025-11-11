@@ -26,14 +26,19 @@ def resave_photos(instance):
     '''Обрабатывает фото при загрузке'''
     image_field1 = getattr(instance, 'photo_big')
     if image_field1 and os.path.exists(image_field1.path):
-        ext = os.path.splitext(image_field1.path)[1].lower()  # расширение файла
+        ext = os.path.splitext(image_field1.name)[1].lower()  # расширение файла
         if ext in VALID_EXTENSIONS:
             try:
                 img = Image.open(image_field1.path)
                 img_square1 = ImageOps.pad(img, (800, 800), color="white")
                 img_square2 = ImageOps.pad(img, (300, 300), color="white")
 
-                base_name = os.path.splitext(os.path.basename(image_field1.path))[0]
+                if instance.rubric.rubric.rubric_name == 'Электрика':
+                    base_name = f'E{instance.code}'
+                elif instance.rubric.rubric.rubric_name == 'Сантехника':
+                    base_name = f'S{instance.code}'
+                elif instance.rubric.rubric.rubric_name == 'Газификация':
+                    base_name = f'G{instance.code}'
                 dir_name = os.path.dirname(image_field1.path)
 
                 image_field1_path = os.path.join(dir_name, "800_" + base_name + ".webp")
@@ -41,6 +46,8 @@ def resave_photos(instance):
 
                 img_square1.save(image_field1_path, format="WEBP", quality=95)
                 img_square2.save(image_field2_path, format="WEBP", quality=95)
+
+                os.remove(image_field1.path)
 
                 instance.photo_big.name = os.path.relpath(image_field1_path, settings.MEDIA_ROOT)
                 instance.photo.name = os.path.relpath(image_field2_path, settings.MEDIA_ROOT)
@@ -205,8 +212,7 @@ class ElectroProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
-        resave_photos(self)
-        super().save(update_fields=['photo_big', 'photo'])
+
 
 
 # Товары подразделов газификации
@@ -242,8 +248,6 @@ class GasProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
-        resave_photos(self)
-        super().save(update_fields=['photo_big', 'photo'])
 
 
 # Товары подразделов сантехники
@@ -279,10 +283,6 @@ class SantehProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
-        resave_photos(self)
-        super().save(update_fields=['photo_big', 'photo'])
-
-
 
 
 class Order(models.Model):
