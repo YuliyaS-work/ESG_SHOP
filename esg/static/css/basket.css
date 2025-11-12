@@ -174,8 +174,8 @@
 }
 .product-carousel {
     display: flex;
-    flex-wrap: nowrap; /* не переносим карточки */
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     gap: 20px;
     overflow-x: auto;
     padding-bottom: 10px;
@@ -189,13 +189,12 @@
     background: #888;
     border-radius: 3px;
 }
-/* Карточка товара */
 .product-card-catalog {
-  display: flex;               /* превращаем карточку в flex-контейнер */
-  flex-direction: column;      /* элементы располагаются сверху вниз */
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: 100%;          /* занимает всю ширину ячейки */
-  max-width: 260px;     /* ограничиваем, чтобы не растягивалась */
+  width: 100%;
+  max-width: 220px;
   box-sizing: border-box;
   padding: 15px;
   background: #f8f8f8;
@@ -216,17 +215,17 @@
     margin-bottom: 10px;
 }
 .product-card-catalog h3 {
-    margin: 10px 0 5px;
-    font-size: 1rem;
+    margin: 2px 0;
+    font-size: 0.95rem;
 }
-/* Цена */
+
 .price {
   font-size: 0.9rem;
-  margin: 5px 0;     /* прижимаем вниз */
+  margin: 5px 0;
   color: #333;
 }
 .card-bottom {
-  margin-top: auto;       /* этот блок уходит вниз */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;

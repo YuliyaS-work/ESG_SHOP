@@ -48,8 +48,10 @@ async function renderViewedProducts() {
          data-url="${href}">
         <h3>${product.title}</h3>
       </a>
+      <div class="card-bottom">
       <p class="price">${product.price} BYN</p>
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
+      </div>
     `;
 
     const hasPhoto = product.photo && product.photo.trim() !== '';
