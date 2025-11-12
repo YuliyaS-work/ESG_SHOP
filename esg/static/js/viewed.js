@@ -44,8 +44,10 @@ function renderViewedProducts() {
          data-url="${href}">
         <h3>${product.title}</h3>
       </a>
+      <div class="card-bottom">
       <p class="price">${product.price} BYN</p>
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
+      </div>
     `;
 // вставка карточки в контейнер
     carousel.appendChild(card);
