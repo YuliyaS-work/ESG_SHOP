@@ -75,7 +75,7 @@ flex: 0 0 220px;
     margin: 2px 0;
     font-size: 0.95rem;
 }
-/* Hover эффект */
+/* Hover эффект*/
 .product-card-catalog a:hover {
     color: #e6c200;
 }

@@ -37,7 +37,7 @@
   color: black;
 }
 
-/* Сетка товаров */
+/* Сетка товаров*/
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -45,7 +45,7 @@
   width: 100%;
   margin: 0 auto;
 }
-/* Карточка товара */
+/* Карточка товара*/
 .product-card-catalog {
   flex: 0 0 220px;
   display: flex;
@@ -61,13 +61,13 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s, box-shadow 0.2s;
 }
-/* Ховер эффект */
+/* Ховер эффект*/
 .product-card-catalog:hover {
   transform: translateY(-3px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Фото товара */
+/* Фото товара*/
 .product-card-catalog img {
   width: 100%;
   height: 150px;
@@ -88,7 +88,7 @@
   gap: 8px;
   align-items: center;
 }
-/* Название товара — ссылка */
+/* Название товара — ссылка*/
 .products-grid .product-card-catalog a {
   text-decoration: none;
   color: #6d7378;
@@ -103,7 +103,7 @@
   font-size: 0.95rem;
 }
 
-/* Ховер на название товара */
+/* Ховер на название товара*/
 .products-grid .product-card-catalog a:hover h3 {
   color: #e6c200;
 }
@@ -264,7 +264,7 @@
   }
   .product-card-catalog { max-width: 260px; }
 }
-/* Десктоп широкие (1200-1439px) */
+/* Десктоп широкие (1200-1439px)*/
 @media (min-width: 1200px) and (max-width: 1439px) {
   .products-grid {
     grid-template-columns: repeat(4, 1fr);
@@ -272,7 +272,7 @@
   }
   .product-card-catalog { max-width: 260px; }
 }
-/* Десктопы стандарт (992-1199px) */
+/* Десктопы стандарт (992-1199px)*/
 @media (min-width: 992px) and (max-width: 1199px) {
   .catalog-card { flex: 0 0 30%; }
   .product-card-catalog { flex: 0 0 220px; }
@@ -282,7 +282,7 @@
   }
   .product-card-catalog { max-width: 240px; }
 }
-/* Планшеты большие (769-991px) */
+/* Планшеты большие (769-991px)*/
 @media (min-width: 769px) and (max-width: 992px) {
   .catalog-card { flex: 0 0 40%; }
   .products-grid {
@@ -292,7 +292,7 @@
   .product-card-catalog { max-width: 220px; }
 
 }
-/* Планшеты маленькие (601-768px) */
+/* Планшеты маленькие (601-768px)*/
 @media (min-width: 601px) and (max-width: 768px) {
   .catalog-card { flex: 0 0 45%; }
   .products-grid {
@@ -433,94 +433,3 @@
     width: 100%;
   }
 }
-/* модалка с карточкой
-#quick-view-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.55);
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s;
-  z-index: 999;
-}
-#quick-view-overlay.active { opacity: 1; pointer-events: auto; }
-
-#quick-view-modal {
-  position: fixed;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -48%);
-  width: 800px;
-  max-width: 95%;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  display: flex;
-  gap: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s;
-  z-index: 1000;
-}
-#quick-view-modal.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translate(-50%, -50%);
-}
-
-.quick-view-content { display: flex; gap: 20px; }
-.quick-image { flex: 1 1 45%; }
-.quick-image img { width: 100%; max-height: 350px; object-fit: contain; border-radius: 8px; }
-
-.quick-info { flex: 1 1 55%; text-align: left; }
-.quick-info h3 { color: #6d7378; margin-bottom: 8px; }
-.quick-info p { margin: 6px 0; color: #333; }
-.quick-info .basket { margin-top: 14px; }
-@media(max-width:600px) { .quick-view-content{flex-direction:column;} }
-
-.product-card-catalog {
-    position: relative;
-    overflow: hidden;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    padding: 10px;
-    text-align: center;
-}
-
-.product-image-wrap {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.product-image-wrap img {
-    width: 100%;
-    display: block;
-}
-
-/* Кнопка на изображении
-.quick-view-btn {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    background: rgba(0, 0, 0, 0.45);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.7);
-    border-radius: 6px;
-    cursor: pointer;
-    opacity: 0;
-    transition: 0.3s ease;
-}
-
-/* Показывать кнопку только при наведении на карточку
-.product-card-catalog:hover .quick-view-btn {
-    opacity: 1;
-}
-
-.quick-view-btn:hover {
-    background: rgba(0, 0, 0, 0.65);
-    border-color: #ffd400;
-}*/

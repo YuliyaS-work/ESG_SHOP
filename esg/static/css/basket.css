@@ -189,7 +189,6 @@
     background: #888;
     border-radius: 3px;
 }
-/* Карточка товара */
 .product-card-catalog {
   display: flex;
   flex-direction: column;
