@@ -182,10 +182,11 @@ class Santeh(models.Model):
 # Товары подразделов электрики
 class ElectroProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    photo = models.ImageField( upload_to='electro/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField( upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Electro, on_delete = models.CASCADE, verbose_name='Электрика')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
@@ -213,13 +214,15 @@ class ElectroProduct(models.Model):
         super().save(*args, **kwargs)
 
 
+
 # Товары подразделов газификации
 class GasProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
-    photo = models.ImageField(upload_to='gas/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газификация')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
@@ -250,10 +253,11 @@ class GasProduct(models.Model):
 # Товары подразделов сантехники
 class SantehProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=50, unique=True, verbose_name='Название латиницей')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    photo = models.ImageField(upload_to='santeh/', null=True, blank=True, verbose_name='Фото товара')
+    photo_big = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Santeh, on_delete = models.CASCADE, verbose_name='Сантехника')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
@@ -279,8 +283,6 @@ class SantehProduct(models.Model):
         else:
             self.title_translit = transliterated_title
         super().save(*args, **kwargs)
-
-
 
 
 class Order(models.Model):
@@ -337,4 +339,3 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.phone}, {self.date}'
-
