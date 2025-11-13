@@ -180,4 +180,4 @@ products/
 staticfiles/
 media/
 data.sql
-full_dump.sql
+full_dump1.sql

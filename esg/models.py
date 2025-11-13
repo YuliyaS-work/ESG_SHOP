@@ -214,7 +214,6 @@ class ElectroProduct(models.Model):
         super().save(*args, **kwargs)
 
 
-
 # Товары подразделов газификации
 class GasProduct(models.Model):
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
