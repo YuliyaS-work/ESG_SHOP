@@ -177,7 +177,6 @@ celerybeat-schedule.db
 media_clear/
 media_origin/
 products/
-scripts_esg/
 staticfiles/
 media/
 data.sql
