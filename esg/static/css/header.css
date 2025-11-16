@@ -22,7 +22,6 @@
   right: 0;
   z-index: 1200;
   box-sizing: border-box;
-  font-family: 'Montserrat', sans-serif;
   font-weight: 400; /* основной текст */
 }
 /* === Левая часть — логотип === */
@@ -181,7 +180,7 @@
 .menu-toggle {
   display: none;
 }
-.overlay_menu {
+/*.overlay_menu {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease;

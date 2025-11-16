@@ -194,5 +194,18 @@
 <script src="{% static 'js/feedback.js' %}" defer></script>
 <!--Блок для подключений JS на конкретных страницах-->
 {% block scripts %}{% endblock %}
+<script>
+    function updateHeaderHeight() {
+    const header = document.querySelector(".header-grid");
+    const height = header.offsetHeight;
+    document.documentElement.style.setProperty("--header-height", height + "px");
+}
+
+// Вызываем при загрузке страницы
+document.addEventListener("DOMContentLoaded", updateHeaderHeight);
+
+// Вызываем при изменении размера окна
+window.addEventListener("resize", updateHeaderHeight);
+</script>
 </body>
 </html>
