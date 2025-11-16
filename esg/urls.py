@@ -12,7 +12,11 @@ urlpatterns = [
 
     path('basket/', get_basket, name='basket'),
     path('search/', search_view, name='search'),
+<<<<<<< HEAD
     # path('404/', get_404, name='404'),
+=======
+    path('404/', get_404, name='404'),
+>>>>>>> 0015d4e (404 and basket)
 
     path('basket/api/order/', OrderAPICreate.as_view(), name='order_api_create'),
     path('api/feedback/', FeedbackAPICreate.as_view(), name='feedback'),

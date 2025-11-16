@@ -338,4 +338,11 @@ def get_custom_404(request, exception):
 #     return render(request, '404.html', context)
 
 
+def get_404(request):
+    '''для отладки временно 404'''
+    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+
+    context = {'rubrics': rubrics}
+    return render(request, '404.html', context)
+
 
