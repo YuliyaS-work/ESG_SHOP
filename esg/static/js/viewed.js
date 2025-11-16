@@ -28,6 +28,27 @@ function renderViewedProducts() {
 
      const href = product.url || '/';
 
+  // формируем блок цены обычным if
+let priceBlock = '';
+const rawPrice = product.price;
+const priceNum = parseFloat(String(rawPrice).replace(',', '.'));
+
+console.log('product.price raw:', product.price, typeof product.price);
+
+if (!isNaN(priceNum) && priceNum > 0) {
+  const formattedPrice = priceNum.toFixed(2).replace('.', ',');
+  priceBlock = `
+    <p class="price">${formattedPrice} BYN</p>
+    <button type="button" class="basket"
+            data-title="${product.title}"
+            data-price="${formattedPrice}">
+      Купить
+    </button>
+  `;
+} else {
+  priceBlock = `<p class="price">Уточняйте цену</p>`;
+}
+
     card.innerHTML = `
       <img src="${photoUrl}" alt="${product.title}">
       <a href="${href}" class="product-title"
@@ -42,8 +63,7 @@ function renderViewedProducts() {
         <h3>${product.title}</h3>
       </a>
       <div class="card-bottom">
-      <p class="price">${product.price} BYN</p>
-      <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
+       ${priceBlock}
       </div>
     `;
     carousel.appendChild(card);
