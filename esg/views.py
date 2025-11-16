@@ -8,6 +8,7 @@ from django.db.models.functions import Lower
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.template.defaultfilters import title
+from django.db.models import F
 
 from rest_framework import generics
 from rest_framework.response import Response
@@ -75,9 +76,15 @@ def get_catalog(request):
     # фильтр
     sort = request.GET.get('sort', '')
     if sort == 'price_asc':
-        all_products = sorted(all_products, key=lambda obj: obj.price)
+        all_products = sorted(
+            all_products,
+            key=lambda obj: (obj.price is None, obj.price if obj.price is not None else float('inf'))
+        )
     elif sort == 'price_desc':
-        all_products = sorted(all_products, key=lambda obj: obj.price, reverse=True)
+        all_products = sorted(
+            all_products,
+            key=lambda obj: (obj.price is None, -(obj.price if obj.price is not None else float('-inf')))
+        )
     elif sort == 'title_asc':
         all_products = sorted(all_products, key=lambda obj: obj.title.lower())
     elif sort == 'title_desc':
@@ -114,9 +121,9 @@ def get_subrubrics(request, rubric_name_translit):
     # фильтр
     sort = request.GET.get('sort', '')
     if sort == 'price_asc':
-        products = products.order_by('price')
+        products = products.order_by(F('price').asc(nulls_last=True))
     elif sort == 'price_desc':
-        products = products.order_by('-price')
+        products = products.order_by(F('price').desc(nulls_last=True))
     elif sort == 'title_asc':
         products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
@@ -158,9 +165,9 @@ def get_products(request, rubric_name_translit, subrubric_title_translit):
     # фильтр
     sort = request.GET.get('sort', '')
     if sort == 'price_asc':
-        products = products.order_by('price')
+        products = products.order_by(F('price').asc(nulls_last=True))
     elif sort == 'price_desc':
-        products = products.order_by('-price')
+        products = products.order_by(F('price').desc(nulls_last=True))
     elif sort == 'title_asc':
         products = products.annotate(lower_title=Lower('title')).order_by('lower_title')
     elif sort == 'title_desc':
