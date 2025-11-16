@@ -231,16 +231,28 @@
   color: #4a4a4a;
 }
 /* === Заголовок в поиске === */
-.search-results {
+.search-section {
+  text-align: center;
+}
+.search-title {
   display: block;
   width: fit-content; /* или auto */
   margin: 20px auto 25px; /* центрирует сам блок */
-  text-align: center;
   font-size: clamp(1.5rem, 4vw, 2rem);
   font-weight: 700;
   color: #333;
   border-bottom: 2px solid #e6c200;
   padding-bottom: 5px;
+}
+/* === Если результатов нет === */
+.no-results {
+  font-weight: 700;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  padding: 20px 25px;
+  display: inline-block;
+  margin: 40px auto;
+  max-width: 90%;
+  box-sizing: border-box;
 }
 /* Широкие мониторы и 4K*/
 @media (min-width: 1921px) {

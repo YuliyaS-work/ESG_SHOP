@@ -1,10 +1,10 @@
 /* Узкий сайдбар */
 .sidebar {
   position: fixed;
-  top: var(--header-height, 110px); /* адаптация под хедер */
+  top: var(--header-height); /* адаптация под хедер */
   left: 0;
   width: 70px; /* узкая версия по умолчанию */
-  height: calc(100% - var(--header-height, 110px));
+  height: calc(100vh - var(--header-height));
   padding: 20px 0;
   overflow-x: hidden;
   transition: width 0.3s ease;
@@ -61,10 +61,10 @@ body.sidebar-open .sidebar {
   transition: opacity 0.3s;
   padding: 10px 0;
 }
-/* Появление текста при hover на сайдбар*/
+/* Появление текста при hover на сайдбар
 .sidebar:hover ul li a .text {
   opacity: 1;
-}
+}*/
 /* === Появление текста при открытии сайдбара === */
 body.sidebar-open .sidebar ul li a .text {
   opacity: 1;

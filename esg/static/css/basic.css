@@ -1,15 +1,27 @@
 /* === Страница basic === */
-body {
+html, body {
+    height: 100%;
     margin: 0;
+    padding: 0;
     font-family: 'Montserrat', sans-serif;
     background: white;
 }
+:root {
+    --header-height: 0px; /* укажи свою высоту хедера */
+    --footer-height: 120px;
+}
 
+/* BODY — главный контейнер */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: var(--header-height);
+}
 /* Основной контент под header */
 .main-content {
+  flex: 1;
   margin-left: 35px;
-  margin-top: var(--header-height, 60px);
-  height: calc(100% - var(--header-height, 60px));
   padding: 10px 20px 20px 20px;
   color: black;
   text-decoration: none;
@@ -21,6 +33,8 @@ body {
 /* === Футер === */
 .footer {
   width: 100vw;
+  min-height: var(--footer-height); /* можно оставить 70px как минимальную */
+  height: auto;
   margin: 0;
   overflow-x: hidden;
   box-sizing: border-box;
@@ -32,7 +46,6 @@ body {
    justify-content: center;
   align-items: center;
   box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
-  font-family: 'Montserrat', sans-serif;
   text-align: center;
 }
 /* Внутренний контейнер */
@@ -114,25 +127,15 @@ body {
 .footer-nav a img {
     display: none;
 }
-@media (max-width: 1350px) and (min-width: 900px) {
-.main-content {
-    margin-top: 55px;
-    margin-left: 30px;
-  }
-}
 
 @media (max-width: 901px) and (min-width: 600px) {
   .main-content {
-    margin-top: var(--header-height, 50px);
     margin-left: 0;
-    height: calc(100% - var(--header-height, 50px));
   }
 }
 
 @media (max-width: 601px){
   .main-content {
-    margin-top: var(--header-height, 30px);
     margin-left: 0;
-    height: calc(100% - var(--header-height, 30px));
   }
 }

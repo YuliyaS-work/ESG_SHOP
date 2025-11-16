@@ -1,7 +1,7 @@
 @media (max-width: 1350px) and (min-width: 901px) {
-  .footer {
+  /*.footer {
     padding: 16px clamp(80px, 2vw, 100px);
-  }
+  }*/
   .footer-inner {
     gap: 14px;
   }
