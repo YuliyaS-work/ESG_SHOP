@@ -56,7 +56,6 @@ def resave_photos(instance):
                 print(f"Ошибка при обработке {image_field1.path}: {e}")
 
 
-
 class Rubric(models.Model):
     '''
     Название основных разделов.
@@ -179,8 +178,8 @@ class Santeh(models.Model):
         super().save(update_fields=['title_translit'])
 
 
-# Товары подразделов электрики
 class ElectroProduct(models.Model):
+    '''Товары подразделов электрики.'''
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
     title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
@@ -214,8 +213,8 @@ class ElectroProduct(models.Model):
         super().save(*args, **kwargs)
 
 
-# Товары подразделов газификации
 class GasProduct(models.Model):
+    '''Товары подразделов газификации.'''
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
     title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
@@ -249,8 +248,8 @@ class GasProduct(models.Model):
         super().save(*args, **kwargs)
 
 
-# Товары подразделов сантехники
 class SantehProduct(models.Model):
+    '''Товары подразделов сантехники.'''
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
     title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
@@ -285,6 +284,7 @@ class SantehProduct(models.Model):
 
 
 class Order(models.Model):
+    '''Заказы. Содержат данные покупателя, общую стоимость и статус заказа.'''
     first_name = models.CharField(max_length=255, verbose_name='Имя',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     last_name = models.CharField(max_length=255, verbose_name='Фамилия',  validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
@@ -304,18 +304,30 @@ class Order(models.Model):
 
 
 class GasOrder(models.Model):
+    '''
+    Промежуточная таблица между заказами и товарами раздела "Газификация".
+    Содержат информацию по количеству едниниц товара и общей стоимости каждого наименования.
+    '''
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     gasproduct = models.ForeignKey(GasProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
     total_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
 class ElectroOrder(models.Model):
+    '''
+    Промежуточная таблица между заказами и товарами раздела "Электрика".
+    Содержат информацию по количеству едниниц товара и общей стоимости каждого наименования.
+    '''
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     electroproduct = models.ForeignKey(ElectroProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
     total_cost = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, default=0)
 
 class SantehOrder(models.Model):
+    '''
+    Промежуточная таблица между заказами и товарами раздела "Сантехника".
+    Содержат информацию по количеству едниниц товара и общей стоимости каждого наименования.
+    '''
     order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name='Номер заказа')
     santehproduct = models.ForeignKey(SantehProduct, on_delete=models.CASCADE, verbose_name='Номер товара')
     quantity = models.PositiveIntegerField(verbose_name='Количество')
@@ -323,6 +335,7 @@ class SantehOrder(models.Model):
 
 
 class Feedback(models.Model):
+    '''Обратная связь от потребителей.'''
     name = models.CharField(max_length=50, verbose_name='Имя', validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
     subject = models.CharField(max_length=50, verbose_name='Тема', null=True, blank=True, default='')

@@ -1,24 +1,10 @@
-function createProductImage({ src, alt, fallback = '/static/image/default-product.png' }) {
-  const img = document.createElement('img');
-  img.alt = alt || '';
-
-  img.onerror = () => {
-    if (img.src !== fallback) {
-      img.src = fallback;
-      img.onerror = null; // защита от цикла для fallback
-    }
-  };
-
-  img.src = src || fallback;
-  return img;
-}
-
-async function renderViewedProducts() {
+function renderViewedProducts() {
+//  console.log('LocalStorage:', localStorage.getItem('viewedProducts'));
   const products = getViewedProducts();
+//  console.log('Просмотренные товары:', products);
 
   if (products.length === 0) return;
 
-// Создание шапки "Вы смотрели"
   const container = document.createElement('div');
   container.className = 'viewed-products';
   container.innerHTML = `
@@ -27,23 +13,27 @@ async function renderViewedProducts() {
     </div>
   `;
 
-// Создание блока для карточек
   const carousel = document.createElement('div');
   carousel.className = 'viewed-carousel';
 
-  const basket = getBasketFromCookies();
+ const basket = getBasketFromCookies();
 
-  for (const product of products) {
+  products.forEach(product => {
     const card = document.createElement('div');
     card.className = 'product-card-catalog';
 
-    const href = product.url || '/';
+    const photoUrl = product.photo && product.photo.trim() !== ''
+      ? product.photo
+      : '/static/image/default-product.png';
+
+     const href = product.url || '/';
 
     card.innerHTML = `
+      <img src="${photoUrl}" alt="${product.title}">
       <a href="${href}" class="product-title"
          data-id="${product.id}"
          data-title="${product.title}"
-         data-product_title_translit="${product.product_title_translit}"
+         data-product_title_translit = "${product.product_title_translit}"
          data-photo="${product.photo}"
          data-price="${product.price}"
          data-subrubric_title_translit="${product.subrubric_title_translit}"
@@ -56,86 +46,72 @@ async function renderViewedProducts() {
       <button type="button" class="basket" data-title="${product.title}" data-price="${product.price}">Купить</button>
       </div>
     `;
-
-    const hasPhoto = product.photo && product.photo.trim() !== '';
-    const cacheBust = () => `?v=${Date.now()}`;
-    const photoUrl = hasPhoto ? `${product.photo}${cacheBust()}` : '/static/image/default-product.png';
-
-    const img = createProductImage({
-      src: photoUrl,
-      alt: product.title,
-      fallback: '/static/image/default-product.png'
-    });
-
-    card.insertBefore(img, card.firstChild);
     carousel.appendChild(card);
-  }
+  });
 
   container.appendChild(carousel);
 
   const target = document.querySelector('#viewed-products-container');
-  if (!target) return;
+  if (target) {
+    target.innerHTML = '';
+    target.appendChild(container);
 
-  target.innerHTML = '';
-  target.appendChild(container);
+    container.querySelectorAll('.basket').forEach(button => {
+      const title = button.dataset.title;
+      const rawPrice = button.dataset.price;
+      const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
 
-  // обработка кнопок корзины
-  container.querySelectorAll('.basket').forEach(button => {
-    const title = button.dataset.title;
-    const rawPrice = button.dataset.price;
-    const price = parseFloat(rawPrice.replace(',', '.')).toFixed(2);
-
-    const currentBasket = getBasketFromCookies();
-    if (currentBasket[title]) {
-      button.textContent = 'В корзине';
-      button.classList.add('in-basket');
-    } else {
-      button.textContent = 'Купить';
-      button.classList.remove('in-basket');
-    }
-
-    button.addEventListener('click', () => {
-      const updatedBasket = getBasketFromCookies();
-
-      if (updatedBasket[title]) {
-        delete updatedBasket[title];
+      // Установим начальное состояние кнопки
+      const currentBasket = getBasketFromCookies();
+      if (currentBasket[title]) {
+        button.textContent = 'Удалить из корзины';
+        button.classList.add('in-basket');
+      } else {
         button.textContent = 'Купить';
         button.classList.remove('in-basket');
-      } else {
-        updatedBasket[title] = [1, price];
-        button.textContent = 'В корзине';
+      }
+
+      button.addEventListener('click', () => {
+        const updatedBasket = getBasketFromCookies();
+
+        if (updatedBasket[title]) {
+          delete updatedBasket[title];
+          button.textContent = 'Купить';
+          button.classList.remove('in-basket');
+        } else {
+          updatedBasket[title] = [1, price];
+          button.textContent = 'Удалить из корзины';
         button.classList.add('in-basket');
-      }
+        }
 
-      saveBasketToCookies(updatedBasket);
-      window.basket = updatedBasket;
+        saveBasketToCookies(updatedBasket);
+        window.basket = updatedBasket;
 
-      if (typeof renderBasket === 'function') {
-        renderBasket();
-        refreshAllBasketButtons(window.basket);
-      }
+        if (typeof renderBasket === 'function') {
+          renderBasket();
+          refreshAllBasketButtons(window.basket);
+        }
+      });
     });
-  });
 
-  // сохранение просмотренных и мгновенное обновление
-  container.querySelectorAll('.product-title').forEach(link => {
-    link.addEventListener('click', () => {
-      const product = {
-        id: link.dataset.id,
-        photo: link.dataset.photo,
-        title: link.dataset.title,
-        product_title_translit: link.dataset.product_title_translit,
-        price: link.dataset.price,
-        subrubric_title_translit: link.dataset.subrubric_title_translit,
-        rubric_name_translit: link.dataset.rubric_name_translit,
-        url: link.dataset.url
-      };
-      saveViewedProduct(product);
-
-      // сразу перерисовываем блок "Вы смотрели"
-      renderViewedProducts();
+    container.querySelectorAll('.product-title').forEach(link => {
+      link.addEventListener('click', () => {
+        const product = {
+          id: link.dataset.id,
+          photo: link.dataset.photo,
+          title: link.dataset.title,
+          product_title_translit: link.dataset.product_title_translit,
+          price: link.dataset.price,
+          subrubric_title_translit: link.dataset.subrubric_title_translit,
+          rubric_name_translit: link.dataset.rubric_name_translit,
+          url: link.dataset.url
+        };
+        saveViewedProduct(product);
+      });
     });
-  });
+  } else {
+//    console.warn('viewed-products-container не найден');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -143,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.product-title').forEach(link => {
     link.addEventListener('click', () => {
+
       const product = {
         id: link.dataset.id,
         photo: link.dataset.photo,
@@ -153,10 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         rubric_name_translit: link.dataset.rubric_name_translit,
         url: link.dataset.url
       };
+//      console.log('Сохраняем из каталога:', product);
       saveViewedProduct(product);
-
-      // здесь тоже обновляем
-      renderViewedProducts();
     });
   });
 });
+
