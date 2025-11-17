@@ -33,8 +33,6 @@ let priceBlock = '';
 const rawPrice = product.price;
 const priceNum = parseFloat(String(rawPrice).replace(',', '.'));
 
-console.log('product.price raw:', product.price, typeof product.price);
-
 if (!isNaN(priceNum) && priceNum > 0) {
   const formattedPrice = priceNum.toFixed(2).replace('.', ',');
   priceBlock = `
@@ -84,7 +82,7 @@ if (!isNaN(priceNum) && priceNum > 0) {
       // Установим начальное состояние кнопки
       const currentBasket = getBasketFromCookies();
       if (currentBasket[title]) {
-        button.textContent = 'Удалить из корзины';
+        button.textContent = 'В корзине';
         button.classList.add('in-basket');
       } else {
         button.textContent = 'Купить';
@@ -100,7 +98,7 @@ if (!isNaN(priceNum) && priceNum > 0) {
           button.classList.remove('in-basket');
         } else {
           updatedBasket[title] = [1, price];
-          button.textContent = 'Удалить из корзины';
+          button.textContent = 'В корзине';
         button.classList.add('in-basket');
         }
 
