@@ -165,7 +165,7 @@ idea/
 
 
 json/
-media/foto
+media_origin/foto
 
 celerybeat-schedule.db
 
@@ -174,8 +174,8 @@ celerybeat-schedule.db
 
 # настройки почты
 .env
-media_clear/
+media/
 media_origin/
 products/
 staticfiles/
-media/
+media_origin/
