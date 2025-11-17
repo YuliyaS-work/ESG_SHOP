@@ -60,12 +60,13 @@
     {% endif %}
         <p class="price"><b>Цена: </b>
             {% if product.price %}
-                {{ product.price }} BYN
+                {{ product.price }} BYN </p>
+            <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
             {% else %}
-                по запросу
+                <p class="price">по запросу</p>
            {% endif %}
-       </p>
-    <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
+
+
 </div>
 
     </div>

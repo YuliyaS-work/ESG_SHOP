@@ -79,7 +79,8 @@
              data-photo="{{ product.photo.url }}"
              data-price="{{ product.price|floatformat:2 }}"
              data-rubric_name_translit="{{ product.rubric.rubric.name_translit }}"
-             data-subrubric_title_translit="{{ product.rubric.title_translit }}">
+             data-subrubric_title_translit="{{ product.rubric.title_translit }}"
+             data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% else %}
          {% static 'image/default-product.png' as default_photo %}
@@ -91,12 +92,17 @@
              data-photo="{{ default_photo }}"
              data-price="{{ product.price|floatformat:2 }}"
              data-rubric_name_translit="{{ product.rubric.rubric.name_translit }}"
-             data-subrubric_title_translit="{{ product.rubric.title_translit }}">
+             data-subrubric_title_translit="{{ product.rubric.title_translit }}"
+             data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% endif %}
-                <div class="card-bottom">
+              <div class="card-bottom">
+                {% if product.price %}
                 <p class="price">{{ product.price }} BYN</p>
-                <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                {% else %}
+                <p class="price">Уточняйте цену</p>
+                {% endif %}
             </div></div>
             {% empty %}
             <p>Товары отсутствуют.</p>

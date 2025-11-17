@@ -51,10 +51,13 @@
             <!-- ==название товара для генерации карусели просмотренных товаров=== -->
             {% include 'includes/product_card_for_viewed.html' %}
             <div class="card-bottom">
-            <p>{{ product.description|truncatewords:15 }}</p>
-            <p class="price">{{ product.price }} BYN</p>
-            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-        </div></div>
+              {% if product.price %}
+              <p class="price">{{ product.price }} BYN</p>
+              <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+              {% else %}
+              <p class="price">Уточняйте цену</p>
+              {% endif %}
+            </div></div>
         {% empty %}
         <p>Товары отсутствуют.</p>
         {% endfor %}
@@ -75,9 +78,12 @@
               <!-- ==название товара для генерации карусели просмотренных товаров=== -->
               {% include 'includes/product_card_for_viewed.html' %}
                 <div class="card-bottom">
-                <p class="price">{{ product.description }}</p>
-                <p>{{ product.price }} BYN</p>
-                <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                {% if product.price %}
+                <p class="price">{{ product.price }} BYN</p>
+                <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                {% else %}
+                <p class="price">Уточняйте цену</p>
+                {% endif %}
             </div></div>
             {% empty %}
             <p>Товары отсутствуют.</p>
