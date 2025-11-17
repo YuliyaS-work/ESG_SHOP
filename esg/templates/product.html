@@ -4,8 +4,6 @@
 {% block title %}Каталог электротоваров — СпецЭлектроБелТорг, Логойск{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/product.css' %}">
-<link rel="stylesheet" href="{% static 'css/basket.css' %}">
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
 {% endblock %}
 {% block meta %}
@@ -63,7 +61,7 @@
                 {{ product.price }} BYN </p>
             <button type="button" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}" class="basket">Купить</button>
             {% else %}
-                <p class="price">по запросу</p>
+                <p class="price_no">по запросу</p>
            {% endif %}
 
 

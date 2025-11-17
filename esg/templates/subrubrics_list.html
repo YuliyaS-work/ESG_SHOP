@@ -5,7 +5,6 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 {% block meta %}
 <meta name="description" content="Список категорий электротоваров: кабели, электроустановочные изделия, системы электроснабжения. Быстрый доступ к каждому подразделу каталога СпецЭлектроБелТорг в Логойске.">
@@ -90,7 +89,7 @@
           <p class="price">{{ product.price }} BYN</p>
           <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
           {% else %}
-          <p class="price">Уточняйте цену</p>
+          <p class="price_no">Уточняйте цену</p>
           {% endif %}
       </div></div>
     {% endfor %}

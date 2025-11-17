@@ -46,7 +46,7 @@ if (!isNaN(priceNum) && priceNum > 0) {
     </button>
   `;
 } else {
-  priceBlock = `<p class="price">Уточняйте цену</p>`;
+  priceBlock = `<p class="price_no">Уточняйте цену</p>`;
 }
 
     card.innerHTML = `
