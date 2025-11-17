@@ -59,13 +59,12 @@
               <h3>{{ product.title }}</h3>
             {% endif %}
             <div class="card-bottom">
-            <p class="price">{{ product.price }} BYN</p>
-            <button type="button"
-                    class="basket"
-                    data-title="{{ product.title }}"
-                    data-price="{{ product.price|floatformat:2 }}">
-              Купить
-            </button>
+              {% if product.price %}
+              <p class="price">{{ product.price }} BYN</p>
+              <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+              {% else %}
+              <p class="price">Уточняйте цену</p>
+              {% endif %}
           </div></div>
         {% endfor %}
       </div>

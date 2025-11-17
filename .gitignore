@@ -179,5 +179,3 @@ media_origin/
 products/
 staticfiles/
 media/
-data.sql
-full_dump1.sql
