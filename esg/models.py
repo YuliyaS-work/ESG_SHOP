@@ -178,6 +178,7 @@ class Santeh(models.Model):
         super().save(update_fields=['title_translit'])
 
 
+# Товары подразделов электрики
 class ElectroProduct(models.Model):
     '''Товары подразделов электрики.'''
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
@@ -213,6 +214,8 @@ class ElectroProduct(models.Model):
         super().save(*args, **kwargs)
 
 
+
+# Товары подразделов газификации
 class GasProduct(models.Model):
     '''Товары подразделов газификации.'''
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
