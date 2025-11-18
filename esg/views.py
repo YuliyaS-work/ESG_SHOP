@@ -293,7 +293,7 @@ def search_view(request):
     context = {'rubrics': rubrics}
 
     if not query:
-        return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос'})
+        return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос', 'rubrics': rubrics})
 
     results = []
     results += search_model_products(ElectroProductDocument, ElectroProduct, query)
