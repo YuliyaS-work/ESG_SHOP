@@ -38,10 +38,10 @@
 
     <div style="text-align: center; margin-bottom: 10px;">
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Новинки</h2>
-  </div>
+  </div> <div class="carousel-wrapper">
         <div class="product-carousel">
         {% for product in new_products %}
-            <div class="product-card-catalog">
+            <div class="product-new-catalog">
             {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
             {% else %}
@@ -61,14 +61,14 @@
         {% empty %}
         <p>Товары отсутствуют.</p>
         {% endfor %}
-    </div>
+    </div> </div>
 
       <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
          <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
-        </div>
+        </div> <div class="carousel-wrapper">
               <div class="product-carousel">
             {% for product in popular_products %}
-            <div class="product-card-catalog">
+            <div class="product-new-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
               {% else %}
@@ -88,7 +88,7 @@
             {% empty %}
             <p>Товары отсутствуют.</p>
             {% endfor %}
-        </div>
+        </div> </div>
 
 <section class="catalog-section">
 

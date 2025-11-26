@@ -12,7 +12,10 @@ function renderViewedProducts() {
       <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Вы смотрели</h2>
     </div>
   `;
-
+  // === вот эта новая оболочка ===
+const wrapper = document.createElement('div');
+wrapper.className = 'carousel-wrapper';
+// =================================
   const carousel = document.createElement('div');
   carousel.className = 'viewed-carousel';
 
@@ -20,7 +23,7 @@ function renderViewedProducts() {
 
   products.forEach(product => {
     const card = document.createElement('div');
-    card.className = 'product-card-catalog';
+    card.className = 'product-new-catalog';
 
     const photoUrl = product.photo && product.photo.trim() !== ''
       ? product.photo
@@ -69,7 +72,8 @@ if (!isNaN(priceNum) && priceNum > 0) {
     carousel.appendChild(card);
   });
 
-  container.appendChild(carousel);
+  wrapper.appendChild(carousel);
+  container.appendChild(wrapper);
 
   const target = document.querySelector('#viewed-products-container');
   if (target) {
@@ -84,7 +88,7 @@ if (!isNaN(priceNum) && priceNum > 0) {
       // Установим начальное состояние кнопки
       const currentBasket = getBasketFromCookies();
       if (currentBasket[title]) {
-        button.textContent = 'Удалить из корзины';
+        button.textContent = 'В корзине';
         button.classList.add('in-basket');
       } else {
         button.textContent = 'Купить';
@@ -100,7 +104,7 @@ if (!isNaN(priceNum) && priceNum > 0) {
           button.classList.remove('in-basket');
         } else {
           updatedBasket[title] = [1, price];
-          button.textContent = 'Удалить из корзины';
+          button.textContent = 'В корзине';
         button.classList.add('in-basket');
         }
 
