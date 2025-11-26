@@ -40,15 +40,18 @@ function renderBasket() {
   // рендер каждого товара в окошке корзины
   titles.forEach(title => {
     const [quantity, price] = window.basket[title];
-    const unitPrice = price / quantity;
+    const unitPrice = parseFloat(price) / quantity;
     const totalPrice = (quantity * unitPrice).toFixed(2);
     totalCost += parseFloat(totalPrice);
+
+// форматируем только для отображения
+    const displayTotalPrice = totalPrice.replace('.', ',');
 
     const div = document.createElement('div');
     div.className = 'basket-item';
     div.innerHTML = `
       <span class="title">${title}</span>
-      <span class="price_b">${totalPrice} BYN</span>
+      <span class="price_b">${displayTotalPrice} BYN</span>
        <div class="controls">
       <button class="decrease">−</button>
       <span class="quantity">${quantity}</span>
@@ -94,9 +97,12 @@ function renderBasket() {
 
 //  рендер общей стоимости
   window.basket.generalCost = totalCost.toFixed(2);
+
+  const displayGeneralCost = window.basket.generalCost.replace('.', ','); // форматируем для вывода
+
   const totalDiv = document.createElement('div');
   totalDiv.className = 'basket-total';
-  totalDiv.innerHTML = `<strong class="currency">Итого: ${window.basket.generalCost} BYN</strong>`;
+  totalDiv.innerHTML = `<strong class="currency">Итого: ${displayGeneralCost} BYN</strong>`;
   basketContainer.appendChild(totalDiv);
 
 // открытие формы формления заказа

@@ -1,8 +1,8 @@
 from PIL import Image, ImageOps
 import os
 
-input_folder = "media_origin/electro"
-output_folder = "media_clear/electro"
+input_folder = "media_origin/santeh"
+output_folder = "media_clear/santeh"
 target_size1 = (800, 800)  # размер для карточек
 target_size2 = (300, 300)  # размер для карточек
 
@@ -20,8 +20,8 @@ for filename in os.listdir(input_folder):
 
             # Новое имя файла с расширением .webp
             base_name = os.path.splitext(filename)[0]
-            output_path1 = os.path.join(output_folder, "800_" + base_name + ".webp")
-            output_path2 = os.path.join(output_folder, "300_" + base_name + ".webp")
+            output_path1 = os.path.join(output_folder, "800_S" + base_name + ".webp")
+            output_path2 = os.path.join(output_folder, "300_S" + base_name + ".webp")
 
             # Сохранение в формате WebP
             img_square1.save(output_path1, format="WEBP", quality=95)
