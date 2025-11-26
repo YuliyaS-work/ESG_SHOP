@@ -54,7 +54,7 @@
 
     {% if product %}
         <p><b>Код товара:</b> {{product.code}}</p>
-        <p><b>Описание:</b><br>{{ product.description|default:"Нет описания" }}</p>
+        <p class="description"><b>Описание:</b><br>{{ product.description|default:"Нет описания" }}</p>
     {% endif %}
         <p class="price"><b>Цена: </b>
             {% if product.price %}

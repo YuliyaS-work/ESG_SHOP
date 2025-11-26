@@ -155,7 +155,7 @@
       <label for="phone">Телефон (+375 ХХ ХХХХХХХ)</label>
     <input type="tel" name="phone" id="phone" placeholder="Номер Вашего телефона" required>
       <label for="subject">Тема</label>
-    <input type="text" id="subject" name="subject" placeholder="Тема сообщения(необязательно)">
+    <input type="text" id="subject" name="subject" placeholder="Тема сообщения (необязательно)">
       <label for="message">Сообщение</label>
     <textarea name="message" id="message" placeholder="Ваше сообщение" rows="6" required></textarea>
 
@@ -188,17 +188,18 @@
 <!--Блок для подключений JS на конкретных страницах-->
 {% block scripts %}{% endblock %}
 <script>
-    function updateHeaderHeight() {
+document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".header-grid");
-    const height = header.offsetHeight;
-    document.documentElement.style.setProperty("--header-height", height + "px");
-}
 
-// Вызываем при загрузке страницы
-document.addEventListener("DOMContentLoaded", updateHeaderHeight);
+    if (!header) return;
 
-// Вызываем при изменении размера окна
-window.addEventListener("resize", updateHeaderHeight);
+    const ro = new ResizeObserver(() => {
+        const height = header.offsetHeight;
+        document.documentElement.style.setProperty("--header-height", height + "px");
+    });
+
+    ro.observe(header);
+});
 </script>
 </body>
 </html>

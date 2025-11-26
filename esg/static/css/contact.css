@@ -65,9 +65,7 @@ a.contact:hover .contact-icon {
   text-align: center;
   pointer-events: none;
 }
-.certificate:hover .certificate-caption {
-  opacity: 1;
-}
+.certificate:hover .certificate-caption { opacity: 1; }
 .photo-section {
   margin-top: 60px;
   margin-bottom: 50px;
@@ -126,12 +124,8 @@ a.contact:hover .contact-icon {
   box-shadow: 0 4px 20px rgba(255,255,255,0.3);
   transition: transform 0.3s;
 }
-#lightbox img:hover {
-  transform: scale(1.02);
-}
-html {
-  scroll-behavior: smooth;
-}
+#lightbox img:hover { transform: scale(1.02); }
+html { scroll-behavior: smooth; }
 .anchor-nav {
   background: #f0f0f0;
   border-radius: 10px;
@@ -212,9 +206,7 @@ html {
   line-height: 1.8;
   font-size: clamp(0.9rem, 0.7vw + 0.6rem, 1.1rem);
 }
-:target {
-  scroll-margin-top: 185px;
-}
+:target { scroll-margin-top: 185px; }
 .product_exit {
   display: inline-block;
   padding: 12px 28px;
@@ -238,24 +230,18 @@ a[href^="tel:"] {
   color: inherit;
   font-weight: 500;
 }
-a[href^="tel:"]:hover {
-  color: #e6c200;
-}
+a[href^="tel:"]:hover { color: #e6c200; }
 
-@media (max-width: 1350px) and (min-width: 600px) {
-  .anchor-nav {
-    top: 120px;
-    padding: 8px 15px;
-    gap: 20px;
-  }
-  .anchor-nav ul {
-    gap: 20px;
+@media (max-width: 600px) {
+  .anchor-nav,
+  .certificate,
+  .certificate-caption {
+    display: none;
   }
 }
-@media (max-width: 901px) and (min-width: 600px) {
-.anchor-nav {
-    padding: 8px 10px;
-  }
+@media (min-width: 601px) and (max-width: 900px) {
+  :target { scroll-margin-top: 160px; }
+  .anchor-nav { padding: 8px 10px; top: 120px;}
   .anchor-nav ul {
     flex-wrap: wrap;
     gap: 6px;
@@ -265,14 +251,12 @@ a[href^="tel:"]:hover {
     padding: 5px 8px;
   }
 }
-@media (max-width: 601px) {
+@media (min-width: 901px) and (max-width: 1350px) {
+  :target { scroll-margin-top: 170px; }
   .anchor-nav {
-    display: none;
+    top: 130px;
+    padding: 8px 15px;
+    gap: 20px;
   }
-}
-@media (max-width: 600px) {
-  .certificate,
-  .certificate-caption {
-    display: none;
-  }
+  .anchor-nav ul { gap: 20px; }
 }
