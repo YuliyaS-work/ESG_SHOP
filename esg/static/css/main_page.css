@@ -75,6 +75,8 @@
 .product-new-catalog a h3 {
     margin: 2px 0;
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 .product-new-catalog a:hover { color: #e6c200; }
 .reviews-container {

@@ -43,12 +43,11 @@
 
     <div class="product-image-container">
     {% if product.photo %}
-        <img src="{{ product.photo_big.url }}" alt="{{ product.title }}">
+        <img id="product-photo" src="{{ product.photo_big.url }}" alt="{{ product.title }}">
         {% else %}
         <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
         </div>
-
         <div class="product-info">
             <h3>{{ product.title }}</h3>
 
@@ -73,5 +72,40 @@
     <a href="{% url 'products'  product.rubric.rubric.name_translit product.rubric.title_translit %}" class="product_exit">
         ВЕРНУТЬСЯ В РАЗДЕЛ: {{ product.rubric.title }}
     </a></div>
+<!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <span class="close">&times;</span>
+        <img id="lightbox-img" src="" alt="Увеличенное фото" />
+    </div>
+  </div>
 </main>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const productPhoto = document.getElementById('product-photo');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = lightbox.querySelector('.close');
+
+  productPhoto.addEventListener('click', () => {
+    lightboxImg.src = productPhoto.src;
+    lightbox.style.display = 'flex';
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+  }
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+    }
+  });
+});
+</script>
+
 {% endblock %}
