@@ -176,6 +176,6 @@ celerybeat-schedule.db
 .env
 media/
 media_origin/
+media_clear/
 products/
 staticfiles/
-media_origin/

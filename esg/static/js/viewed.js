@@ -36,8 +36,6 @@ let priceBlock = '';
 const rawPrice = product.price;
 const priceNum = parseFloat(String(rawPrice).replace(',', '.'));
 
-console.log('product.price raw:', product.price, typeof product.price);
-
 if (!isNaN(priceNum) && priceNum > 0) {
   const formattedPrice = priceNum.toFixed(2).replace('.', ',');
   priceBlock = `

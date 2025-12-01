@@ -2,7 +2,7 @@ from PIL import Image, ImageOps
 import os
 
 input_folder = "media_origin/electro"
-output_folder = "media/electro"
+output_folder = "media_clear/electro"
 target_size1 = (800, 800)  # размер для карточек
 target_size2 = (300, 300)  # размер для карточек
 

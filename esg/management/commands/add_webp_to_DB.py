@@ -5,7 +5,7 @@ from django.db import transaction
 from esg.models import GasProduct, ElectroProduct, SantehProduct
 from esg_shop import settings
 
-out_folder = os.path.join(settings.BASE_DIR, "media", "electro")
+out_folder = os.path.join(settings.BASE_DIR, "media_clear", "electro")
 
 class Command(BaseCommand):
     '''Загружает картинки в базу'''
