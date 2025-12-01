@@ -27,7 +27,7 @@
   font-size: clamp(14px, 2vw, 22px);
 }
 .catalog-btn:hover {
-  background: linear-gradient(145deg, #e0c04f, #c8a717); /
+  background: linear-gradient(145deg, #e0c04f, #c8a717);
   color: white;
 }
 .catalog-btn:hover i { color: black; }
@@ -88,6 +88,8 @@
 .products-grid .product-card-catalog a h3 {
   margin: 2px 0;
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .products-grid .product-card-catalog a:hover h3 { color: #e6c200; }
 .subcategories-section {
@@ -362,6 +364,42 @@
     transition: background 0.2s ease;
 }
 .product_exit:hover { background: #8a9096; }
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: pointer;
+}
+.lightbox-content {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 12px;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: block;
+}
+.lightbox .close {
+  position: absolute;
+  top: -0px;
+  right: 10px;
+  color: black;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lightbox .close:hover { color: #FFD700; }
 
 @media (min-width: 1921px) {
   .catalog-card { flex: 0 0 20%; }
@@ -409,6 +447,14 @@
     max-width: 100%;
     width: 100%;
     box-sizing: border-box; }
+  .lightbox {
+    align-items: flex-start;
+    padding-top: 100px;
+  }
+  .lightbox img {
+    max-height: 80vh;
+    max-width: 90vw;
+  }
 }
 @media (min-width: 461px) and (max-width: 630px) {
   .catalog-card { flex: 0 0 45%; }
@@ -421,6 +467,14 @@
     width: 100%;
     box-sizing: border-box; }
   .product-carousel { gap: 12px; }
+  .lightbox {
+    align-items: flex-start;
+    padding-top: 100px;
+  }
+  .lightbox img {
+    max-height: 80vh;
+    max-width: 90vw;
+  }
 }
 @media (max-width: 460px) {
    .products-grid .product-card-catalog {
@@ -431,6 +485,14 @@
   }
   .catalog-card { flex: 0 0 90%; }
   .products-grid { grid-template-columns: 1fr; gap: 10px; }
+  .lightbox {
+    align-items: flex-start;
+    padding-top: 100px;
+  }
+  .lightbox img {
+    max-height: 80vh;
+    max-width: 90vw;
+  }
 }
 @media (max-width: 1350px) {
   .breadcrumbs {
@@ -455,7 +517,7 @@
 @media (max-width: 600px) {
   .product-card-content { flex-direction: column; }
   .product-image-container img { max-height: 280px; }
-  .list-pages { margin-bottom: 50px; }
+  .list-pages { margin-bottom: 60px; }
   .catalog-top-buttons {
     gap: 12px;
     justify-content: center;

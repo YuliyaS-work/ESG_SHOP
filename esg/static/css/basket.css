@@ -198,6 +198,8 @@
 .product-new-catalog h3 {
     margin: 2px 0;
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 .price {
   font-size: 0.9rem;
