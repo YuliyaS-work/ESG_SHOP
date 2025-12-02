@@ -473,6 +473,44 @@ button.basket.added {
     font-weight: 600;
   }
   .basket-item .remove { margin-left: 0; }
+  #order-form {
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+  }
+  #order-form h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  #order-form input[type="text"],
+  #order-form input[type="email"],
+  #order-form input[type="tel"],
+  #order-form textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+    width: 100%;
+  }
+  #order-modal {
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 300px;
+    padding: 20px;
+  }
+  .send-btn {
+    font-size: clamp(14px, 2.5vw, 16px);
+    padding: 12px 20px;
+  }
+  #order-alert {
+    width: 90%;
+    max-width: 300px;
+    padding: 20px 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+  }
   .agreement-wrapper {
     display: flex;
     flex-wrap: wrap;
