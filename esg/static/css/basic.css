@@ -132,11 +132,20 @@ body {
 .icon-mail { color: black; }
 .footer-nav a img { display: none; }
 .price_no {
-  display: inline-block;
-  padding: 4px 10px;
+  display: block;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  margin-top: auto;
+  padding: 8px 16px;
+  background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
+  border-radius: 10px;
+  border: none;
   color: #222;
-  font-weight: 600;
-  font-size: 0.85rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: default;
 }
 .sidebar {
   position: fixed;
