@@ -64,6 +64,7 @@
   object-fit: contain;
   border-radius: 5px;
   margin-bottom: 10px;
+  background: white;
 }
 .price {
   font-size: 0.9rem;
