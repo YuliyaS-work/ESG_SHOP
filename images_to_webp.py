@@ -1,8 +1,12 @@
 from PIL import Image, ImageOps
 import os
 
-input_folder = "media_origin/electro"
-output_folder = "media_clear/electro"
+# input_folder = "media_origin/electro"
+# output_folder = "media_clear/electro"
+
+input_folder = "media_origin/santeh"
+output_folder = "media_clear/santeh"
+
 target_size1 = (800, 800)  # размер для карточек
 target_size2 = (300, 300)  # размер для карточек
 
@@ -12,7 +16,7 @@ for filename in os.listdir(input_folder):
     if filename.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
         img_path = os.path.join(input_folder, filename)
         try:
-            img = Image.open(img_path)
+            img = Image.open(img_path).convert("RGB")
 
             # Приведение к квадрату с белым фоном
             img_square1 = ImageOps.pad(img, target_size1, color="white")
