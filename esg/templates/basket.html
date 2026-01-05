@@ -41,7 +41,14 @@
 
     <label class="agreement-wrapper">
   <input type="checkbox" id="agreement" name="agreement" required class="agreement">
-  <span class="agreem">Я даю согласие на обработку <a href="{% url 'privacy' %}" target="_blank" class="agree">персональных данных</a></span>
+  <span class="agreem">Я даю согласие на обработку персональных данных в соответствии с <a href="{% url 'privacy' %}#personal-data" target="_blank" class="agree" rel="noopener">Политикой обработки персональных данных</a></span>
+</label>
+    <label class="agreement-wrapper">
+  <input type="checkbox" required class="agreement">
+  <span class="agreem">
+    Я принимаю условия
+    <a href="{% url 'privacy' %}#oferta" target="_blank" rel="noopener" class="agree">Договора публичной оферты</a>
+  </span>
 </label>
 
   <div id="response-message-error" style="color:red;"></div>

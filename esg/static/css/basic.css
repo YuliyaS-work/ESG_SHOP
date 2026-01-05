@@ -700,11 +700,11 @@ body.sidebar-open .overlay_menu {
   cursor: pointer;
   font-size: clamp(0.85rem, 0.9vw + 0.5rem, 1rem);
   color: #222;
-  white-space: nowrap;
+  white-space: normal;
   margin-top: 10px;
 }
 .agreem {
-  display: inline;
+  display: inline-block;
   line-height: 1.3;
   margin: 0;
 }
@@ -957,7 +957,6 @@ body.sidebar-open .overlay_menu {
     flex-wrap: wrap;
   }
   .agreem {
-    display: inline-block;
     max-width: 90%;
     white-space: normal;
   }
@@ -1218,7 +1217,7 @@ body.sidebar-open .overlay_menu {
     top: 30%;
   }
   #feedback-alert.active { transform: translateX(-50%) translateY(0); }
-  #feedback-form .agreement-wrapper {
+  /*#feedback-form .agreement-wrapper {
     white-space: normal;
     flex-wrap: wrap;
     max-width: 100%;
@@ -1226,7 +1225,7 @@ body.sidebar-open .overlay_menu {
   #feedback-form .agreement-wrapper .agreem {
     flex: 1 1 auto;
     word-break: break-word;
-  }
+  }*/
 }
 @media (min-width: 901px) and (max-width: 1350px) {
   .header-grid {

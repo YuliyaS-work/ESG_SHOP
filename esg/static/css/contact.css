@@ -181,7 +181,7 @@ html { scroll-behavior: smooth; }
 }
 .payments {
   color: black;
-  font-size: clamp(1.3rem, 1vw + 1rem, 2rem);
+  font-size: clamp(1rem, 1vw + 1rem, 2rem);
   margin: 10px 0;
   border-left: 4px solid #e6c200;
   padding-left: 10px;
@@ -207,6 +207,12 @@ html { scroll-behavior: smooth; }
   line-height: 1.8;
   font-size: clamp(0.9rem, 0.7vw + 0.6rem, 1.1rem);
 }
+.pay-note a,
+.pay-note a:visited {
+  text-decoration: none;
+  color: #e6c200;
+}
+.pay-note a:hover { text-decoration: underline; }
 :target { scroll-margin-top: 185px; }
 .product_exit {
   display: inline-block;
@@ -232,7 +238,6 @@ a[href^="tel:"] {
   font-weight: 500;
 }
 a[href^="tel:"]:hover { color: #e6c200; }
-
 @media (max-width: 600px) {
   .anchor-nav,
   .certificate,
