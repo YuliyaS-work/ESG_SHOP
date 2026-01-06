@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict hHAKqMAgsEbhwukoFNsyajiGyEc8Fyo3jbICOeqIdf9gcOvdFpEN1vqCPp4xRwb
+\restrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 17.6
@@ -1406,6 +1406,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 604	2026-01-01 18:34:14.894971+03	6474	ElectroProduct object (6474)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 605	2026-01-01 18:34:25.29162+03	5628	ElectroProduct object (5628)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 606	2026-01-01 18:34:39.676715+03	465	ElectroProduct object (465)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+607	2026-01-06 22:22:06.698588+03	2043	ElectroProduct object (2043)	3		10	1
 \.
 
 
@@ -4404,7 +4405,6 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 2040	Катушка ПМЛ-1 220В	\N	\N	\N	3	14981	f	f	0	katushka-pml-1-220v	\N
 2041	Катушка ПМЛ-2 220В Этал	\N	\N	\N	3	5441	f	f	0	katushka-pml-2-220v-etal	\N
 2042	Катушка СТАНДАРТ ЭКО 10.AC.230 для соленоидного\r\nклапана АСТА тип ЭКО	\N	\N	\N	3	16900	f	f	0	katushka-standart-eko-10ac230-dlja-solenoidnogo-klapana-asta-tip-eko	\N
-2043	Квадрокоптер Evo Nano+Premium Bundle\\gray, арт Evo Nano Китай	\N	\N	\N	12	19815	f	f	0	kvadrokopter-evo-nanopremium-bundlegrayi-art-evo-nano-kitaj	\N
 2044	Кирпич полнотелый КРО 200 (1НФ)	\N	\N	\N	13	14732	f	f	0	kirpich-polnotelyj-kro-200-1nf	\N
 2045	Кисть плоская 1"-25мм ВОЛАТ	\N	\N	\N	13	18885	f	f	0	kist-ploskaja-1-25mm-volat	\N
 2046	Кисть плоская 1,5"-38мм ВОЛАТ	\N	\N	\N	13	17350	f	f	0	kist-ploskaja-1i5-38mm-volat	\N
@@ -9293,7 +9293,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 606, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 607, true);
 
 
 --
@@ -10145,5 +10145,5 @@ GRANT ALL ON SCHEMA public TO esg3_admin;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict hHAKqMAgsEbhwukoFNsyajiGyEc8Fyo3jbICOeqIdf9gcOvdFpEN1vqCPp4xRwb
+\unrestrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
 
