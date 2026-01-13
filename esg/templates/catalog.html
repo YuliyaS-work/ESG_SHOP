@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% load static %}
+{% load querystring %}
 
 {% block title %}Каталог: электроснабжение, газоснабжение, водоснабжение, канализация — СпецЭлектроБелТорг{% endblock %}
 
@@ -115,7 +116,7 @@
           {# Номера страниц: текущая, соседние #}
           {% for p in page_obj.paginator.page_range %}
             {% if p == page_obj.number %}
-              <li class="page-num page-num-selected">
+             <li class="page-num page-num-selected">
                   <form method="get" action="">
                      <input type="hidden" name="sort" value="{{ request.GET.sort }}">
                   <input type="number"
