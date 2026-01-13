@@ -196,7 +196,7 @@
   font-weight: 500;
   color: #4a4a4a;
 }
-.search-section { text-align: center; }
+.search-section { text-align: center; margin-bottom: 60px; }
 .search-title {
   display: block;
   width: fit-content;
@@ -315,10 +315,9 @@
   box-shadow: 0 0 0 2px rgba(191, 164, 111, 0.4);
 }
 .product-card-single {
-  max-width: 900px;
+  max-width: 400px;
   margin: 25px auto;
   padding: 20px;
-  border-radius: 12px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -337,7 +336,11 @@
 }
 .product-info {
   flex: 1 1 55%;
+  display: flex;
+  flex-direction: column;
   text-align: left;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .description {
   text-align: justify;
@@ -523,4 +526,5 @@
     gap: 12px;
     justify-content: center;
   }
+  .product_exit { margin-bottom: 60px; }
 }

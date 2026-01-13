@@ -37,6 +37,7 @@ html { scroll-behavior: smooth; }
   padding: 6px 6px;
   border-radius: 6px;
   transition: all 0.2s ease;
+  font-size: clamp(0.85rem, 0.9vw + 0.3rem, 1rem);
 }
 .anchor-nav a:hover,
 .anchor-nav a.active {
@@ -167,3 +168,22 @@ html { scroll-behavior: smooth; }
   text-decoration: none;
 }
 .adres_p:hover { text-decoration: underline; }
+@media (max-width: 1000px) {
+  :root { --controls-height: clamp(40px, calc(60px + 2vw), 70px); }
+  :target { scroll-margin-top: calc(var(--controls-height) + var(--top-offset)); }
+  .main-content { padding-top: clamp(70px, calc(80px + 2vw), 90px); }
+  .top-controls {
+    left: clamp(10px, 5vw, 40px);
+    right: clamp(10px, 5vw, 40px);
+    transform: none;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: clamp(4px, 2vw, 8px);
+  }
+  .back-btn { flex-shrink: 0; }
+  .anchor-nav { width: auto; }
+  .anchor-nav ul {
+    flex-wrap: wrap;
+    gap: 2px 6px;
+  }
+}
