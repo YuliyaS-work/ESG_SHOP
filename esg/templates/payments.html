@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Оплата и доставка товаров — Электротовары Логойск | СпецЭлектроБелТорг{% endblock %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/payments.css' %}">
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
 {% block meta %}
 <meta name="description" content="Информация о способах оплаты и доставке электротоваров в Логойске. Оплата картой, наличными, доставка, самовывоз.">
@@ -68,7 +68,7 @@
     <h2 class="payments">ДОСТАВКА</h2>
     <p>Доставка согласовывается с менеджером по телефону при подтверждении заказа.</p>
     <p><strong>Самовывоз:<br>
-    </strong> г. Логойск, Гайненское шоссе, 1 этаж (цокольный).</p>
+    </strong> г. Логойск, Гайненское шоссе, дом 1, 1 этаж (цокольный).</p>
     <p>Стоимость и сроки доставки уточняются у менеджера.</p>
   </section>
 
@@ -82,6 +82,12 @@
       <li>Безналичная оплата на расчетный счет.</li>
       <li>Наличными или банковской картой в кассе магазина при самовывозе.</li>
     </ul>
+    <p class="pay-note">
+  Оформление заказа на сайте не является заключением договора купли-продажи.
+  Условия покупки, оплаты и доставки регулируются
+  <a href="{% url 'privacy' %}#oferta" target="_blank" rel="noopener">
+    Договором публичной оферты
+  </a>.</p>
   </section>
 
   <!-- Раздел "Реквизиты" -->
@@ -97,45 +103,4 @@
   </section>
 </main>
 
-{% endblock %}
-{% block scripts %}
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const sections = document.querySelectorAll(".pay_section[id]");
-  const navLinks = document.querySelectorAll(".anchor-nav a");
-
-  function onScroll() {
-    let scrollPos = window.scrollY + 200; // Смещение для корректного попадания
-
-    sections.forEach((section) => {
-      const top = section.offsetTop;
-      const height = section.offsetHeight;
-      const id = section.getAttribute("id");
-
-      if (scrollPos >= top && scrollPos < top + height) {
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${id}`) {
-            link.classList.add("active");
-          }
-        });
-      }
-    });
-  }
-
-  // Привязываем обработчик
-  window.addEventListener("scroll", onScroll);
-
-  // При клике по якорю — плавное выделение
-  navLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      navLinks.forEach((l) => l.classList.remove("active"));
-      e.target.classList.add("active");
-    });
-  });
-
-  // Вызываем один раз при загрузке
-  onScroll();
-});
-</script>
 {% endblock %}

@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     consentPopup.innerHTML = `
       <p class="cookieEmoji"> 🍪</p>
-      <p class="cookieHeading">Мы используем cookies </p>
-      <p class="cookieDescription">Для удобства пользователей на сайте мы используем cookies<br><a href="privacy">Подробнее о политике cookies</a>.</p>
+      <p class="cookieHeading">Мы используем cookie </p>
+      <p class="cookieDescription">Для удобства пользователей на сайте мы используем cookie<br><a href="/privacy/#cookies">Подробнее - в Политике cookie</a>.</p>
       <div class="buttonContainer">
         <button id="cookie-accept" class="acceptButton">Принять</button>
         <button id="cookie-decline" class="declineButton">Отклонить</button>

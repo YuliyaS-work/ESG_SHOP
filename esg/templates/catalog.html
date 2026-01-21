@@ -1,11 +1,11 @@
 {% extends 'basic.html' %}
 {% load static %}
+{% load querystring %}
 
 {% block title %}Каталог: электроснабжение, газоснабжение, водоснабжение, канализация — СпецЭлектроБелТорг{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
-<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 {% block meta %}
 <meta name="description" content="Каталог электротоваров в Логойске — СпецЭлектроБелТорг. Электроснабжение, газоснабжение, водоснабжение и монтаж инженерных систем. Выбирайте товары и услуги онлайн.">
@@ -77,28 +77,22 @@
   <div class="products-grid">
     {% for product in page_obj %}
       <div class="product-card-catalog">
-<!--&lt;!&ndash;        одна строка новая&ndash;&gt;-->
-<!--        <div class="product-image-wrap">-->
+
         {% if product.photo %}
           <img src="{{ product.photo.url }}" alt="{{ product.title }}">
         {% else %}
           <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
         {% endif %}
-<!--&lt;!&ndash;          кнопка и один див&ndash;&gt;-->
-<!--        <button class="quick-view-btn"-->
-<!--        data-title="{{ product.title }}"-->
-<!--        data-price="{% if product.price %}{{ product.price|floatformat:2 }} руб.{% else %}по запросу{% endif %}"-->
-<!--        data-code="{{ product.code }}"-->
-<!--        data-description="{{ product.description|default:'Нет описания' }}"-->
-<!--        data-img="{% if product.photo %}{{ product.photo.url }}{% else %}{% static 'image/default-product.png' %}{% endif %}">-->
-<!--  Быстрый просмотр-->
-<!--    </button></div>-->
 
         <!-- ==название товара для генерации карусели просмотренных товаров=== -->
         {% include 'includes/product_card_for_viewed.html' %}
         <div class="card-bottom">
-        <p class="price">{{ product.price }} BYN</p>
-        <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+          {% if product.price %}
+          <p class="price">{{ product.price }} BYN</p>
+          <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+          {% else %}
+          <p class="price_no">Уточняйте цену</p>
+          {% endif %}
       </div>
 </div>
     {% endfor %}
@@ -122,7 +116,7 @@
           {# Номера страниц: текущая, соседние #}
           {% for p in page_obj.paginator.page_range %}
             {% if p == page_obj.number %}
-              <li class="page-num page-num-selected">
+             <li class="page-num page-num-selected">
                   <form method="get" action="">
                      <input type="hidden" name="sort" value="{{ request.GET.sort }}">
                   <input type="number"
@@ -148,45 +142,9 @@
     </nav>
   {% endif %}
 </div>
-<!--&lt;!&ndash;  пустая модалка для карточки&ndash;&gt;-->
-<!--  <div id="quick-view-overlay"></div>-->
-<!--<div id="quick-view-modal">-->
-<!--    <button id="quick-view-close" class="close-btn">&times;</button>-->
-<!--    <div class="quick-view-content">-->
-<!--        <div class="quick-image">-->
-<!--            <img id="qv-img" src="" alt="">-->
-<!--        </div>-->
-<!--        <div class="quick-info">-->
-<!--            <h3 id="qv-title"></h3>-->
-<!--            <p><b>Цена:</b> <span id="qv-price"></span></p>-->
-<!--            <p><b>Код:</b> <span id="qv-code"></span></p>-->
-<!--            <p id="qv-desc"></p>-->
-<!--            <button class="basket" id="qv-buy">Купить</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 </main>
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/catalog.js' %}" defer></script>
 <script src="{% static 'js/viewed.js' %}" defer></script>
-<!--&lt;!&ndash;скрипт для модалки карточки&ndash;&gt;-->
-<!--<script>document.querySelectorAll('.quick-view-btn').forEach(btn => {-->
-<!--    btn.addEventListener('click', () => {-->
-<!--        document.getElementById('qv-img').src = btn.dataset.img;-->
-<!--        document.getElementById('qv-title').innerText = btn.dataset.title;-->
-<!--        document.getElementById('qv-price').innerText = btn.dataset.price;-->
-<!--        document.getElementById('qv-code').innerText = btn.dataset.code;-->
-<!--        document.getElementById('qv-desc').innerText = btn.dataset.description;-->
-
-<!--        document.getElementById('quick-view-modal').classList.add('active');-->
-<!--        document.getElementById('quick-view-overlay').classList.add('active');-->
-<!--    });-->
-<!--});-->
-
-<!--document.getElementById('quick-view-close').onclick =-->
-<!--document.getElementById('quick-view-overlay').onclick = () => {-->
-<!--    document.getElementById('quick-view-modal').classList.remove('active');-->
-<!--    document.getElementById('quick-view-overlay').classList.remove('active');-->
-<!--};</script>-->
 {% endblock %}

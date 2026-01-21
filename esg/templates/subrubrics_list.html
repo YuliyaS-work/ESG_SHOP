@@ -1,11 +1,11 @@
 {% extends 'basic.html' %}
 {% load static %}
+{% load querystring %}
 
 {% block title %}Категории товаров — СпецЭлектроБелТорг, Логойск{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'css/catalog.css' %}">
-    <link rel="stylesheet" href="{% static 'css/pagination.css' %}">
 {% endblock %}
 {% block meta %}
 <meta name="description" content="Список категорий электротоваров: кабели, электроустановочные изделия, системы электроснабжения. Быстрый доступ к каждому подразделу каталога СпецЭлектроБелТорг в Логойске.">
@@ -86,8 +86,12 @@
         <!-- ==название товара  для генерации карусели просмотренных товаров=== -->
         {% include 'includes/product_card_for_viewed.html' %}
         <div class="card-bottom">
-        <p class="price">{{ product.price }} BYN</p>
-        <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+          {% if product.price %}
+          <p class="price">{{ product.price }} BYN</p>
+          <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+          {% else %}
+          <p class="price_no">Уточняйте цену</p>
+          {% endif %}
       </div></div>
     {% endfor %}
   </div>

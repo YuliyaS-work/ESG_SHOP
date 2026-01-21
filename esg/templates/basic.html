@@ -1,43 +1,26 @@
 <!DOCTYPE html>
 {% load static %}
-<!--<html lang="en">-->
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{% block title %}Электротовары Логойск — СпецЭлектроБелТорг: электро-, газо- и водоснабжение{% endblock %}</title>
-
     <meta name="description" content="Продажа и монтаж электротехники, услуги электроснабжения, газоснабжения, водоснабжения и канализации в Логойске. Надёжные решения для частных и промышленных объектов">
     <meta name="keywords" content="электроснабжение, газоснабжение, водоснабжение, канализация, монтаж, проектирование">
-
     <meta property="og:title" content="{% block og_title %}Электротовары Логойск — СпецЭлектроБелТорг{% endblock %}">
     <meta property="og:description" content="{% block og_description %}Продажа и монтаж электротехники, услуги электроснабжения, газоснабжения, водоснабжения и канализации{% endblock %}">
-    <meta property="og:image" content="{% static 'image/logo.png' %}"> <!-- превью изображения -->
+    <meta property="og:image" content="{% static 'image/logo.png' %}">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:type" content="website">
-
-    <meta name="robots" content="index, follow"> <!-- индексация страницы -->
-    <meta name="author" content="СпецЭлектроБелТорг, Логойск"> <!-- автор сайта -->
-
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="СпецЭлектроБелТорг, Логойск">
     <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/basic.css' %}">
-    <link rel="stylesheet" href="{% static 'css/button.css' %}">
-    <link rel="stylesheet" href="{% static 'css/feedback.css' %}">
-    <link rel="stylesheet" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media_header.css' %}">
-    <link rel="stylesheet" href="{% static 'css/media_footer.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cookies.css' %}">
-<!--    Подключаем остальные стили по страницам-->
     {% block styles %}{% endblock %}
-
 </head>
 <body>
 <header class="header-grid">
@@ -49,16 +32,14 @@
               <img src="{% static 'image/log.png' %}" alt="СпецЭлектроБелТорг">
          </a>
      </div>
-
     <nav class="header-top-links">
         <a href="{% url 'main' %}">Главная</a>
         <a href="{% url 'catalog' %}">Каталог</a>
         <a href="{% url 'payments' %}">Оплата и доставка</a>
         <a href="#" id="open-feedback">Обратная связь</a>
         <a href="{% url 'partners' %}">Наши партнёры</a>
-        <a href="{% url 'contacts' %}" >Контакты</a>
+        <a href="{% url 'contacts' %}">Контакты</a>
     </nav>
-
     <div class="bottom-right">
         <div class="header-search">
             <form action="{% url 'search' %}" method="get">
@@ -70,17 +51,14 @@
                 </div>
             </form>
         </div>
-
         <div class="header-contacts">
             <p><i class="fa-solid fa-phone"></i>
                 <a href="tel:+375177427127" class="phone-link">+375 17 742-71-27</a></p>
                 <p><i class="fa-solid fa-mobile-screen-button"></i>
                 <a href="tel:+375298677295" class="phone-link">+375 29 867-72-95</a></p>
         </div>
-
         <a href="#" id="open-feedback-mobile" class="contacts-icon">
           <i class="fa-solid fa-comment-dots"></i></a>
-
         <div class="header-cart">
             <a href="{% url 'basket' %}"><div class="cart-icon"><i class="fa-solid fa-shopping-cart"></i>
                 <span id="cart-count" class="cart-count">0</span> <!-- счётчик --></div></a>
@@ -92,7 +70,6 @@
         <ul>
             {% for rubric in rubrics %}
                 <li><a href="{% url 'subrubrics' rubric.name_translit %}">
-          <!-- Иконка категории -->
                     <i class="{% if rubric.rubric_name == 'Электрика' %}fas fa-lightbulb{% elif rubric.rubric_name == 'Сантехника' %}fas fa-tint{% elif rubric.rubric_name == 'Газификация' %}fas fa-fire{% else %}fas fa-folder{% endif %}"></i>
                 <div class="text">{{ rubric.rubric_name }}</div></a>
                     <ul class="subcategory">
@@ -110,7 +87,6 @@
             {% endfor %}
         </ul>
     </nav>
-
    <main class="main-content">
        {% block content %}{% endblock %}
    </main>
@@ -133,25 +109,31 @@
           <img src="{% static 'image/icons/contact.svg' %}" alt="Контакты">
           <span>Контакты</span></a>
       <a href="{% url 'privacy' %}">
-          <img src="{% static 'image/icons/privacy.svg' %}" alt="политика">
+          <img src="{% static 'image/icons/privacy.svg' %}" alt="Политика">
       <span>Политика</span></a>
     </nav>
-
     <div class="footer-info">
       <h4>Частное предприятие «СпецЭлектроБелТорг»</h4>
       <p>Магазин «Электротовары»</p>
       <p>УНП 690846458</p>
-        <p class="footer-copy">© 2025 СпецЭлектроБелТорг</p>
+        <div class="footer-tels">
+        <a href="tel:+375177427127" class="footer-tel">📞 +375 (17) 742 71 27</a> <a href="tel:+375298677295" class="footer-tel">📱 +375 29 867-72-95</a> <a href="mailto:Spelbtorg@mail.ru" class="footer-tel">✉️ Spelbtorg@mail.ru</a>
     </div>
+        </div>
     <div class="footer-contacts">
-      <p>📞 +375 17 742-71-27</p>
-      <p>📱 +375 29 867-72-95</p>
-      <p>✉️ Spelbtorg@mail.ru</p>
+        <p><a href="{% url 'privacy' %}#cookies" target="_blank" rel="noopener" class="cont">Политика использования cookie</a></p>
+        <p><a href="{% url 'privacy' %}#personal-data" target="_blank" rel="noopener" class="cont">Политика персональных данных</a></p>
+        <p><a href="{% url 'privacy' %}#oferta" target="_blank" rel="noopener" class="cont">Договор публичной оферты</a></p>
     </div>
   </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-inner">
+        <div class="footer-copy"><p>© 2025 СпецЭлектроБелТорг</p></div>
+    <div class="tilda-link"><a href="http://ytlabs.tilda.ws" target="_blank">
+    <i class="fas fa-code"></i>
+    <span>Дизайн и разработка сайта: YT LABS</span>
+</a></div></div></div>
 </footer>
-<!-- === ВСПЛЫВАЮЩАЯ ФОРМА ОБРАТНОЙ СВЯЗИ === -->
-
 <div id="overlay_fb"></div>
 <div id="feedback-modal">
   <button id="close-feedback" class="close-btn">&times;</button>
@@ -162,37 +144,42 @@
       <label for="phone">Телефон (+375 ХХ ХХХХХХХ)</label>
     <input type="tel" name="phone" id="phone" placeholder="Номер Вашего телефона" required>
       <label for="subject">Тема</label>
-    <input type="text" id="subject" name="subject" placeholder="Тема сообщения(необязательно)">
+    <input type="text" id="subject" name="subject" placeholder="Тема сообщения (необязательно)">
       <label for="message">Сообщение</label>
     <textarea name="message" id="message" placeholder="Ваше сообщение" rows="6" required></textarea>
-
       <label class="agreement-wrapper">
           <input type="checkbox" id="agreement" name="agreement" class="agreement" required>
-          <span class="agreem">Я даю согласие на обработку <a href="{% url 'privacy' %}" target="_blank" class="agree">персональных данных</a></span></label>
-
-
+          <span class="agreem">Я даю согласие на обработку персональных данных в соответствии с <a href="{% url 'privacy' %}#personal-data" target="_blank" class="agree" rel="noopener">Политикой обработки персональных данных</a></span></label>
       <div id="response-message-error_feedback" style="color:red;"></div>
     <button type="submit" class="send-btn">Отправить</button>
   </form>
 </div>
-
-<!-- === КАСТОМНЫЙ ALERT === -->
 <div id="feedback-alert">
   <div class="custom-alert-content">
     <p id="feedback-alert-message"></p>
     <button id="feedback-alert-btn" class="feedback-alert-btn">OK</button>
   </div>
 </div>
-
-
-<!--Общие скрипты, используемые на всех страницах -->
 <script src="{% static 'js/menu.js' %}" defer></script>
 <script src="{% static 'js/cookies.js' %}" defer></script>
 <script src="{% static 'js/set_basket.js' %}" defer></script>
 <script src="{% static 'js/utils.js' %}" defer></script>
 <script src="{% static 'js/cart_count.js' %}" defer></script>
 <script src="{% static 'js/feedback.js' %}" defer></script>
-<!--Блок для подключений JS на конкретных страницах-->
 {% block scripts %}{% endblock %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const header = document.querySelector(".header-grid");
+    if (!header) return;
+    const updateHeaderHeight = () => {
+        const height = header.offsetHeight;
+        document.documentElement.style.setProperty("--header-height", height + "px");
+    };
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    const ro = new ResizeObserver(updateHeaderHeight);
+    ro.observe(header);
+});
+</script>
 </body>
 </html>

@@ -38,10 +38,10 @@
 
     <div style="text-align: center; margin-bottom: 10px;">
     <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Новинки</h2>
-  </div>
+  </div> <div class="carousel-wrapper">
         <div class="product-carousel">
         {% for product in new_products %}
-            <div class="product-card-catalog">
+            <div class="product-new-catalog">
             {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
             {% else %}
@@ -51,21 +51,24 @@
             <!-- ==название товара для генерации карусели просмотренных товаров=== -->
             {% include 'includes/product_card_for_viewed.html' %}
             <div class="card-bottom">
-            <p>{{ product.description|truncatewords:15 }}</p>
-            <p class="price">{{ product.price }} BYN</p>
-            <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
-        </div></div>
+              {% if product.price %}
+              <p class="price">{{ product.price }} BYN</p>
+              <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+              {% else %}
+              <p class="price_no">Уточняйте цену</p>
+              {% endif %}
+            </div></div>
         {% empty %}
         <p>Товары отсутствуют.</p>
         {% endfor %}
-    </div>
+    </div> </div>
 
       <div style="text-align: center; margin-bottom: 10px; margin-top: 10px;">
          <h2 style="color: black; border-bottom: 2px solid #e6c200; display: inline-block; padding-bottom: 5px;">Популярные товары</h2>
-        </div>
+        </div> <div class="carousel-wrapper">
               <div class="product-carousel">
             {% for product in popular_products %}
-            <div class="product-card-catalog">
+            <div class="product-new-catalog">
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
               {% else %}
@@ -75,14 +78,17 @@
               <!-- ==название товара для генерации карусели просмотренных товаров=== -->
               {% include 'includes/product_card_for_viewed.html' %}
                 <div class="card-bottom">
-                <p class="price">{{ product.description }}</p>
-                <p>{{ product.price }} BYN</p>
-                <button type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                {% if product.price %}
+                <p class="price">{{ product.price }} BYN</p>
+                <button  type="button" class="basket" data-title="{{ product.title }}" data-price="{{ product.price|floatformat:2 }}">Купить</button>
+                {% else %}
+                <p class="price_no">Уточняйте цену</p>
+                {% endif %}
             </div></div>
             {% empty %}
             <p>Товары отсутствуют.</p>
             {% endfor %}
-        </div>
+        </div> </div>
 
 <section class="catalog-section">
 

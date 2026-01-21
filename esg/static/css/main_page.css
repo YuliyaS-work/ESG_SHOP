@@ -1,4 +1,3 @@
-/* === Страница main_page === */
 .catalog-grid {
    display: flex;
   flex-wrap: wrap;
@@ -9,20 +8,22 @@
   margin: 0 auto;
   padding: 0;
 }
-/*иконки подкатегорий */
 .catalog-card i.fas {
     font-size: 28px;
     color: #7b8287;
     margin-bottom: 8px;
 }
+.carousel-wrapper {
+  width: 100%;
+  max-width: 1900px;
+  margin: 0 auto;
+}
 .product-carousel {
-    display: flex;
-    flex-wrap: nowrap; /* не переносим карточки */
-    justify-content: left-start;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scrollbar-width: thin;
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
 }
 .product-carousel::-webkit-scrollbar {
     height: 6px;
@@ -32,77 +33,71 @@
     background: #888;
     border-radius: 3px;
 }
-.product-card-catalog {
-    flex: 0 0 220px; /* фиксированная ширина */
-    box-sizing: border-box;
-    background: #f8f8f8;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    text-decoration: none; /* убираем подчеркивание */
-  color: #6d7378;        /* фирменный серый как сайдбар цвет */
+.product-new-catalog {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 260px;
+  box-sizing: border-box;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.product-new-catalog:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.product-new-catalog img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.product-new-catalog p {
+    font-size: 0.9rem;
+}
+.product-new-catalog a {
+  text-decoration: none;
+  color: #6d7378;
   transition: color 0.2s ease;
   font-size: 0.95rem;
   display: block;
   margin: 5px 0;
 }
-.product-card-catalog:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-.product-card-catalog img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-.product-card-catalog p {
-    margin: 5px 0;
-    font-size: 0.9rem;
-}
-.product-card-catalog a {
-    text-decoration: none; /* убираем подчёркивание */
-    color: #6d7378;        /* фирменный серый */
-    transition: color 0.2s ease;
-    font-size: 0.95rem;
-}
-/* Если внутри a есть h3 */
-.product-card-catalog a h3 {
+.product-new-catalog a h3 {
     margin: 2px 0;
     font-size: 0.95rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
-/* Hover эффект */
-.product-card-catalog a:hover {
-    color: #e6c200; /* подсветка при наведении */
-}
-/* Отзывы */
+.product-new-catalog a:hover { color: #e6c200; }
 .reviews-container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 30px 15px;
+  padding: 0 0 clamp(20px, 5vw, 30px);
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
-/* Заголовок блока */
-.reviews-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
+.reviews-header { text-align: center; }
 .reviews-header h2 {
   color: #000;
   border-bottom: 2px solid #e6c200;
   display: inline-block;
-  padding-bottom: 5px;
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 4vw, 1.6rem);
 }
 .carousel {
   overflow-x: auto;
   display: flex;
-  scroll-snap-type: x mandatory; /* плавная фиксация карточек при скролле */
+  scroll-snap-type: x mandatory;
   gap: 16px;
-  padding: 10px 0 20px;
+  padding: 10px 0 10px;
 }
 #carousel-inner {
   display: flex;
@@ -140,57 +135,45 @@
   text-decoration: none;
   font-size: clamp(0.75rem, 0.8vw + 0.3rem, 0.85rem);
 }
-.review small a:hover {
-  text-decoration: underline;
-}
-/* на главной каталог */
-.catalog-section{
-padding: 20px;
-margin-top: 40px;
-}
+.review small a:hover { text-decoration: underline; }
+.catalog-section{ margin-top: 40px; }
 .category-block {
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 40px);
   text-align: center;
-  justify-content: flex-start;  /* карточки занимают всю ширину */
-   /*max-width: none;              /* убираем ограничение 1200px */
+  justify-content: flex-start;
   width: 100%;
-
 }
-
 .category-header {
   display: flex;
    align-items: center;
-   gap: 12px;
-   margin-bottom: 15px;
-   padding: 10px 20px;          /* внутренние отступы */
-   border-radius: 8px;          /* закругленные края */
-   background: linear-gradient(145deg, #8a9096, #6d7378); /* металлический градиент как сайдбар */
-   color: #fff;                  /* белый текст на темном фоне */
-   box-shadow: 2px 2px 6px rgba(0,0,0,0.1); /* лёгкая тень */
+   gap: clamp(8px, 2vw, 16px);
+   margin-bottom: clamp(10px, 3vw, 20px);
+   padding: clamp(8px, 2vw, 15px) clamp(12px, 4vw, 20px);
+   border-radius: clamp(6px, 2vw, 10px);
+   background: linear-gradient(145deg, #8a9096, #6d7378);
+   color: #fff;
+   box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
 }
-
 .category-header h3 {
-  font-size: 1.6em;
-    font-weight: 600;
-    margin: 0;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-weight: 600;
+  margin: 0;
 }
-
 .category-icon {
-  font-size: 28px;
+  font-size: clamp(20px, 4vw, 28px);
   color: #FFD700;
 }
-/* Карточка подкатегории */
 .catalog-card {
   flex: 1 1 160px;
   max-width: 160px;
-  height: 100px;                  /* фиксированная высота для равномерности */
+  height: 100px;
   background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
   border-radius: 10px;
   box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
- justify-content: flex-start;
-  align-items: center;            /* горизонтальное выравнивание */
+  justify-content: flex-start;
+  align-items: center;
   text-align: center;
   text-decoration: none;
   color: #222;
@@ -201,7 +184,6 @@ margin-top: 40px;
   transform: translateY(-3px);
   box-shadow: 3px 3px 8px rgba(0,0,0,0.2);
 }
-/* Название подкатегории */
 .catalog-card span {
   font-size: 0.9rem;
   line-height: 1.2;
@@ -209,44 +191,113 @@ margin-top: 40px;
   overflow-wrap: break-word;
   white-space: normal;
 }
-/* === Адаптивность === */
-
-/* Планшеты */
+@media (max-width: 500px) {
+  .product-carousel {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+  }
+  .product-carousel::-webkit-scrollbar {
+    height: 6px;
+    background: #f0f0f0;
+  }
+  .product-carousel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+  }
+  .product-new-catalog {
+    flex: 0 0 calc(50% - 4px);
+    max-width: calc(50% - 4px);
+    box-sizing: border-box;
+    padding: 8px;
+    background: #f8f8f8;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    scroll-snap-align: start;
+  }
+  .product-new-catalog img {
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 6px;
+  }
+  .product-new-catalog p,
+  .product-new-catalog a,
+  .product-new-catalog a h3 {
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    margin: 4px 0;
+  }
+  .product-new-catalog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+}
+@media (max-width: 600px) {
+  .carousel {
+    gap: clamp(6px, 2vw, 10px);
+    margin-bottom: clamp(20px, 2vw, 30px);
+  }
+  .review {
+    flex: 0 0 160px;
+    font-size: clamp(0.85rem, 1vw + 0.3rem, 0.95rem);
+  }
+  .review p { font-size: clamp(0.8rem, 1vw + 0.25rem, 0.9rem); }
+  .review strong { font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem); }
+  .review em { font-size: clamp(0.8rem, 0.8vw + 0.3rem, 0.9rem); }
+  .review small a { font-size: clamp(0.75rem, 0.8vw + 0.25rem, 0.85rem); }
+  .catalog-grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 2vw, 8px);
+    width: 100%;
+    padding-left: 10px;
+  }
+  .catalog-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: clamp(8px, 4vw, 12px);
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    padding: 6px 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    text-decoration: none;
+    color: #333;
+    box-sizing: border-box;
+  }
+  .catalog-card i.fas {
+    font-size: clamp(16px, 4vw, 20px);
+    width: clamp(18px, 4vw, 24px);
+    display: flex;
+    height: clamp(18px, 4vw, 24px);
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #7b8287;
+  }
+  .catalog-card span {
+    flex: 1 1 auto;
+    font-size: clamp(13px, 4vw, 15px);
+    line-height: 1.3;
+    white-space: normal;
+    text-align: left;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+  .catalog-card:hover { background: rgba(0,0,0,0.05); }
+}
 @media (max-width: 992px) {
   .review {
     flex: 0 0 220px;
     font-size: 0.9rem;
-  }
-}
-//* Мобильные телефоны */
-@media (max-width: 600px) {
-  .reviews-header h2 {
-    font-size: clamp(1.1rem, 3vw + 0.4rem, 1.4rem);
-  }
-  .carousel {
-    gap: 10px;
-    padding-bottom: 16px;
-  }
-
-  .review {
-    flex: 0 0 240px; /* фиксированная ширина карточки, выглядит аккуратно */
-    padding: 12px;
-    font-size: clamp(0.85rem, 1vw + 0.3rem, 0.95rem);
-  }
-
-  .review p {
-    font-size: clamp(0.8rem, 1vw + 0.25rem, 0.9rem);
-  }
-
-  .review strong {
-    font-size: clamp(0.9rem, 1vw + 0.4rem, 1rem);
-  }
-
-  .review em {
-    font-size: clamp(0.8rem, 0.8vw + 0.3rem, 0.9rem);
-  }
-
-  .review small a {
-    font-size: clamp(0.75rem, 0.8vw + 0.25rem, 0.85rem);
   }
 }
