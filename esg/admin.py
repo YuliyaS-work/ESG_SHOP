@@ -31,19 +31,19 @@ class ElectroProductAdmin(admin.ModelAdmin):
     list_display = ('code', 'title', 'rubric', 'photo_big', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('code', 'title','rubric__title')
-    readonly_fields = ('title_translit', 'photo')
+    readonly_fields = ('title_translit', 'photo', 'counter')
 
 class GasProductAdmin(admin.ModelAdmin):
     list_display = ('code', 'title', 'rubric', 'photo_big', 'price', 'status_popular', 'status_new')
     ordering = ('title',)
     search_fields = ('code', 'title','rubric__title')
-    readonly_fields = ('title_translit', 'photo')
+    readonly_fields = ('title_translit', 'photo', 'counter')
 
 class SantehProductAdmin(admin.ModelAdmin):
     list_display = ('code', 'title', 'rubric', 'photo_big', 'price', 'status_popular', 'status_new')
     ordering = ('title', )
     search_fields = ('code', 'title','rubric__title')
-    readonly_fields = ('title_translit', 'photo')
+    readonly_fields = ('title_translit', 'photo', 'counter')
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
