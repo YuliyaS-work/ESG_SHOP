@@ -188,6 +188,7 @@ class Product(models.Model):
         '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r',', "i", transliterated_name)
+        cleaned_name = re.sub(r'µ', 'm', cleaned_name)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
         translist = re.split(r'\s+', cleaned_name)
         translit_sp = [word for word in translist if word]
