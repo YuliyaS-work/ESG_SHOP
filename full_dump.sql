@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
+\restrict 1JnftqHeYOjqxe5qnWxFoCyZEwmByDDMgnHY2e36689rrrouHmR8VH6NRMtbNng
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 17.6
@@ -775,7 +775,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$1000000$qMzEFAWazNI8ng1gy0oolq$XPmbOV/8LY4ynp8KEdK77GdsFk8cceY0Z5hy1yHRHmk=	2026-01-01 14:50:24.508942+03	t	admin			yuliyasorokinawork@gmail.com	t	t	2025-11-09 21:23:45.871939+03
+1	pbkdf2_sha256$1000000$qMzEFAWazNI8ng1gy0oolq$XPmbOV/8LY4ynp8KEdK77GdsFk8cceY0Z5hy1yHRHmk=	2026-01-21 21:00:34.892384+03	t	admin			yuliyasorokinawork@gmail.com	t	t	2025-11-09 21:23:45.871939+03
 \.
 
 
@@ -1407,6 +1407,13 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 605	2026-01-01 18:34:25.29162+03	5628	ElectroProduct object (5628)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 606	2026-01-01 18:34:39.676715+03	465	ElectroProduct object (465)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 607	2026-01-06 22:22:06.698588+03	2043	ElectroProduct object (2043)	3		10	1
+608	2026-01-21 21:01:34.305768+03	35	GasProduct object (35)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+609	2026-01-21 21:02:15.541688+03	56	GasProduct object (56)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+610	2026-01-21 21:03:12.091467+03	148	GasProduct object (148)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+611	2026-01-21 22:01:35.659887+03	175	GasProduct object (175)	1	[{"added": {}}]	11	1
+612	2026-01-21 22:03:36.069882+03	175	GasProduct object (175)	3		11	1
+613	2026-01-21 22:22:20.419083+03	176	GasProduct object (176)	1	[{"added": {}}]	11	1
+614	2026-01-21 22:22:36.901979+03	176	GasProduct object (176)	3		11	1
 \.
 
 
@@ -1486,6 +1493,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 43	esg	0026_alter_electroproduct_title_translit_and_more	2025-11-09 21:22:38.29008+03
 44	sessions	0001_initial	2025-11-09 21:22:38.295551+03
 45	esg	0027_electroproduct_photo_big_gasproduct_photo_big_and_more	2025-11-11 11:58:01.417833+03
+46	esg	0028_alter_electroproduct_photo_and_more	2026-01-23 15:52:32.73089+03
+47	esg	0029_alter_electro_title_alter_gas_title_and_more	2026-01-23 15:52:32.784066+03
 \.
 
 
@@ -1498,6 +1507,7 @@ g1yomlu2jj0p27ldhrlft981ogvbx6lo	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQ
 z5fecbdpf0b327xl0cogdk4urndgbx2v	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vIWVA:HpZPdFzKZeKVabGVxvs4ZqZfBoeCN0YwcM_Lklz8eCI	2025-11-24 21:20:28.714131+03
 o29mdgqd5vvb5xh0zricttirz6k9315r	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vOKzv:wFn33zUmUGGQ8ZWF3U0XYpPs7bC7uGS5pju9bOkCbfs	2025-12-10 22:16:15.814396+03
 i76w4rmlsffrrmt1hep738y6cl7387pp	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vbHCC:AzGPsrNvl0644jk0hKmQ8DWpl5qUxxhweLPBigfgmN4	2026-01-15 14:50:24.512838+03
+k4mfk1peyki9cb4epjtbiccb6mygpa19	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vicVO:AYgeScDukJFUvQIobPI8B28cShUqxA1Fr_UwQrS9-FI	2026-02-04 21:00:34.901026+03
 \.
 
 
@@ -8284,11 +8294,11 @@ COPY public.esg_gasorder (id, quantity, gasproduct_id, order_id, total_cost) FRO
 --
 
 COPY public.esg_gasproduct (id, title, description, price, photo, rubric_id, code, status_new, status_popular, counter, title_translit, photo_big) FROM stdin;
-148	Шланг нерж. 1/2 1800 мм	\N	\N	gas/300_E15193.webp	7	15193	f	f	0	shlang-nerzh-12-1800-mm	gas/800_E15193.webp
 109	Счетчик газа Гранд 4 Б/К" ТК" G3/4"		\N	gas\\300_G14747.webp	1	14747	f	f	0	schetchik-gaza-grand-4-bk-tk-g34	gas\\800_G14747.webp
+148	Шланг нерж. 1/2 1800 мм		\N		7	15193	f	f	0	shlang-nerzh-12-1800-mm	
 82	Регулятор давления газа ARD 10 L линейный		\N	gas\\300_G1339.webp	4	1339	f	f	0	reguljator-davlenija-gaza-ard-10-l-linejnyj	gas\\800_G1339.webp
 120	Счётчик газа ультразвуковой Вега G1.6		\N	gas\\300_G15183.webp	1	15183	f	f	0	schetchik-gaza-ultrazvukovoj-vega-g16	gas\\800_G15183.webp
-35	Колено для ПЭ-труб вн. 20х1	\N	\N	gas/300_E15188.webp	5	15188	f	f	0	koleno-dlja-pe-trub-vn-20h1	gas/800_E15188.webp
+35	Колено для ПЭ-труб вн. 20х1		\N		5	15188	f	f	0	koleno-dlja-pe-trub-vn-20h1	
 132	Труба ПЭ 80 ГАЗ SDR 17,6 - 110 х 6,3 СТБ ГОСТ Р 50838-97 L100, Беларус		\N	gas\\300_G2028.webp	3	2028	f	f	0	truba-pe-80-gaz-sdr-17i6---110-h-6i3-stb-gost-r-50838-97-l100i-belarus	gas\\800_G2028.webp
 43	Кран шаровый ВВ 1/2" газовый Giacomini		\N	gas\\300_G3596.webp	3	3596	f	f	0	kran-sharovyj-vv-12-gazovyj-giacomini	gas\\800_G3596.webp
 44	Кран шаровый ВВ 3/4" газовый Giacomini		\N	gas\\300_G3597.webp	3	3597	f	f	0	kran-sharovyj-vv-34-gazovyj-giacomini	gas\\800_G3597.webp
@@ -8314,10 +8324,10 @@ COPY public.esg_gasproduct (id, title, description, price, photo, rubric_id, cod
 101	Сигнализатор загазованности S 092		\N	gas\\300_G3508.webp	4	3508	f	f	0	signalizator-zagazovannosti-s-092	gas\\800_G3508.webp
 23	Клапан запорный с электромагнитным управлением газовый КЗЭУГ-А-20М (Ал		\N	gas\\300_G15215.webp	4	15215	f	f	0	klapan-zapornyj-s-elektromagnitnym-upravleniem-gazovyj-kzeug-a-20m-al	gas\\800_G15215.webp
 128	Труба ПЭ 100 ГАЗ SDR 17,6 - 160 х 9,5		\N	gas\\300_G4549.webp	3	4549	f	f	0	truba-pe-100-gaz-sdr-17i6---160-h-9i5	gas\\800_G4549.webp
-56	КТР в сборе 1/2	\N	\N	gas/300_E15210.webp	3	15210	f	f	0	ktr-v-sbore-12	gas/800_E15210.webp
 71	Переход электросварной 00110х0063мм. ПЭ100 SDR11.		\N	gas\\300_G14426.webp	3	14426	f	f	0	perehod-elektrosvarnoj-00110h0063mm-pe100-sdr11	gas\\800_G14426.webp
 55	КТР 80 мм		\N	gas\\300_G14451.webp	3	14451	f	f	0	ktr-80-mm	gas\\800_G14451.webp
 48	КТР 1 1/4" (39-46)мм		\N	gas\\300_G15207.webp	3	15207	f	f	0	ktr-1-14-39-46mm	gas\\800_G15207.webp
+56	КТР в сборе 1/2		\N		3	15210	f	f	0	ktr-v-sbore-12	
 46	Кран шаровый цельносварной под приварку 11в672 ЦП DN25/20PN40 РФ	\N	\N	\N	3	15222	f	f	0	kran-sharovyj-tselnosvarnoj-pod-privarku-11v672-tsp-dn2520pn40-rf	\N
 49	КТР 114	\N	\N	\N	3	15242	f	f	0	ktr-114	\N
 50	КТР 15 мм	\N	\N	\N	3	5123	f	f	0	ktr-15-mm	\N
@@ -9293,7 +9303,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 607, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 614, true);
 
 
 --
@@ -9307,7 +9317,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 18, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 45, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 47, true);
 
 
 --
@@ -9356,7 +9366,7 @@ SELECT pg_catalog.setval('public.esg_gasorder_id_seq', 1, true);
 -- Name: esg_gasproduct_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.esg_gasproduct_id_seq', 174, true);
+SELECT pg_catalog.setval('public.esg_gasproduct_id_seq', 176, true);
 
 
 --
@@ -10145,5 +10155,5 @@ GRANT ALL ON SCHEMA public TO esg3_admin;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
+\unrestrict 1JnftqHeYOjqxe5qnWxFoCyZEwmByDDMgnHY2e36689rrrouHmR8VH6NRMtbNng
 
