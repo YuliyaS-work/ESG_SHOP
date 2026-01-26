@@ -88,202 +88,143 @@ class Rubric(models.Model):
         super().save(update_fields=['name_translit'])
 
 
-class Electro(models.Model):
+class Subrubric(models.Model):
+    """
+    Абстрактный класс для подразделов: сантехника, газификация, электрика.
+
+    Определены атрибуты классов.
+    Переопределен метод __save__ с учетом транслитерации.
+    """
+
+    title = models.CharField(max_length=255, unique=True, verbose_name='Подраздел')
+    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
+    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
+
+    class Meta:
+        abstract = True
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
+        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
+        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
+        translist = re.split(r'\s+', cleaned_name)
+        translit_sp = [word for word in translist if word]
+        transliterated_title = ('-').join(translit_sp)
+        if not self.pk:
+            super().save(*args, **kwargs)
+        qs = self.__class__.objects.exclude(pk=self.pk)
+        if qs.filter(title_translit=transliterated_title).exists():
+            self.title_translit = transliterated_title + f'{self.pk}'
+        else:
+            self.title_translit = transliterated_title
+        super().save(update_fields=['title_translit'])
+
+
+class Electro(Subrubric):
     '''Подразделы электрики.'''
-    title = models.CharField(max_length=255, unique=True, verbose_name='Подраздел электрики')
-    title_translit = models.CharField(max_length=255,  unique=True, verbose_name='Название латиницей')
-    rubric = models.ForeignKey(Rubric, on_delete = models.CASCADE, verbose_name='Раздел')
 
     class Meta:
         verbose_name_plural = 'Раздел "Электрика"'
         verbose_name = 'Раздел "Электрика"'
         ordering= ['title']
 
-    def __str__(self):
-        return self.title
 
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if not self.pk:
-            super().save(*args, **kwargs)
-        if Electro.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.pk}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(update_fields=['title_translit'])
-
-
-class Gas(models.Model):
+class Gas(Subrubric):
     '''Подразделы газификации.'''
-    title = models.CharField(max_length=255, unique=True, verbose_name='Подраздел газификации')
-    title_translit = models.CharField(max_length=255,  unique=True, verbose_name='Название латиницей')
-    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
         verbose_name_plural = 'Раздел "Газификация"'
         verbose_name = 'Раздел "Газификация"'
         ordering= ['title']
 
-    def __str__(self):
-        return self.title
 
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if not self.pk:
-            super().save(*args, **kwargs)
-        if Gas.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.pk}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(update_fields=['title_translit'])
-
-
-class Santeh(models.Model):
+class Santeh(Subrubric):
     '''Подразделы сантехники.'''
-    title = models.CharField(max_length=255, unique=True, verbose_name='Подраздел сантехники')
-    title_translit = models.CharField(max_length=255,  unique=True, verbose_name='Название латиницей')
-    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, verbose_name='Раздел')
 
     class Meta:
         verbose_name_plural = 'Раздел "Сантехника"'
         verbose_name = 'Раздел "Сантехника"'
         ordering= ['title']
 
-    def __str__(self):
-        return self.title
 
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", transliterated_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if not self.pk:
-            super().save(*args, **kwargs)
-        if Rubric.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.pk}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(update_fields=['title_translit'])
+class Product(models.Model):
+    """
+    Абстрактный класс для товаров следующих подразделов: сантехника, газификация, электрика.
 
-
-# Товары подразделов электрики
-class ElectroProduct(models.Model):
-    '''Товары подразделов электрики.'''
+    Определены некоторые атрибуты классов наследников.
+    Переопределен метод __save__ с учетом транслитерации.
+    """
     title = models.CharField(max_length=255, verbose_name='Наименование товара')
     title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
     price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    photo_big = models.ImageField(upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
-    photo = models.ImageField( upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
     code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
-    rubric = models.ForeignKey(Electro, on_delete = models.CASCADE, verbose_name='Электрика')
-    order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
     status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
     status_new = models.BooleanField(default=False, verbose_name='Новинка')
     counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        '''Переопределяем для автоматической транслитерации.'''
+        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
+        cleaned_name = re.sub(r',', "i", transliterated_name)
+        cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
+        translist = re.split(r'\s+', cleaned_name)
+        translit_sp = [word for word in translist if word]
+        transliterated_title = ('-').join(translit_sp)
+        qs = self.__class__.objects.exclude(pk=self.pk)
+        if qs.filter(title_translit=transliterated_title).exists():
+            self.title_translit = transliterated_title + f'{self.code}'
+        else:
+            self.title_translit = transliterated_title
+        super().save(*args, **kwargs)
+
+
+# Товары подразделов электрики
+class ElectroProduct(Product):
+    '''Товары подразделов электрики.'''
+    photo_big = models.ImageField(upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
+    photo = models.ImageField( upload_to='electro/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
+    rubric = models.ForeignKey(Electro, on_delete = models.CASCADE, verbose_name='Электрика')
+    order = models.ManyToManyField('Order', verbose_name='Заказ', through='ElectroOrder')
+
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Электрика"'
         verbose_name = 'Товар раздела"Электрика"'
         ordering= ['title']
 
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r',', "i", transliterated_name)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if ElectroProduct.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.code}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(*args, **kwargs)
-
-
 
 # Товары подразделов газификации
-class GasProduct(models.Model):
+class GasProduct(Product):
     '''Товары подразделов газификации.'''
-    title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
-    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
-    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, verbose_name='Цена')
     photo_big = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
     photo = models.ImageField(upload_to='gas/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
-    code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Gas, on_delete = models.CASCADE, verbose_name='Газификация')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='GasOrder')
-    status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
-    status_new = models.BooleanField(default=False, verbose_name='Новинка')
-    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Газификация"'
         verbose_name = 'Товар раздела "Газификация"'
         ordering= ['title']
 
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r',', "i", transliterated_name)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if GasProduct.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.code}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(*args, **kwargs)
 
-
-class SantehProduct(models.Model):
+class SantehProduct(Product):
     '''Товары подразделов сантехники.'''
-    title = models.CharField(max_length=255, verbose_name='Наименование товара')
-    title_translit = models.CharField(max_length=255, unique=True, verbose_name='Название латиницей')
-    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание товара')
-    price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     photo_big = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на странице')
     photo = models.ImageField(upload_to='santeh/', validators=[validate_image_extension], null=True, blank=True, verbose_name='Фото товара на карточке')
-    code = models.PositiveIntegerField(null=True, blank=True, verbose_name='Код наименования')
     rubric = models.ForeignKey(Santeh, on_delete = models.CASCADE, verbose_name='Сантехника')
     order = models.ManyToManyField('Order', verbose_name='Заказ', through='SantehOrder')
-    status_popular = models.BooleanField(default=False, verbose_name='Популярный товар')
-    status_new = models.BooleanField(default=False, verbose_name='Новинка')
-    counter = models.PositiveIntegerField(verbose_name='Количество заказов', default=0)
 
     class Meta:
         verbose_name_plural = 'Товары раздела "Сантехника"'
         verbose_name = 'Товар раздела "Сантехника"'
         ordering= ['title']
-
-    def save(self, *args, **kwargs):
-        '''Переопределяем для автоматической транслитерации.'''
-        transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
-        cleaned_name = re.sub(r',', "i", transliterated_name)
-        cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
-        translist = re.split(r'\s+', cleaned_name)
-        translit_sp = [word for word in translist if word]
-        transliterated_title = ('-').join(translit_sp)
-        if SantehProduct.objects.exclude(pk=self.pk).filter(title_translit=transliterated_title).exists():
-            self.title_translit = transliterated_title + f'{self.code}'
-        else:
-            self.title_translit = transliterated_title
-        super().save(*args, **kwargs)
 
 
 class Order(models.Model):

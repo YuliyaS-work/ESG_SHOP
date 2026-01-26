@@ -215,6 +215,11 @@ html { scroll-behavior: smooth; }
   color: #e6c200;
 }
 .pay-note a:hover { text-decoration: underline; }
+.partner_tel{
+  text-decoration: none;
+  color: #e6c200;
+}
+.partner_tel:hover { text-decoration: underline; }
 :target { scroll-margin-top: 185px; }
 .product_exit {
   display: inline-block;
