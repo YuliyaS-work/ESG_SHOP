@@ -13,7 +13,6 @@ from django.db.models import F
 from rest_framework import generics
 from rest_framework.response import Response
 
-from .documents import ElectroProductDocument, GasProductDocument, SantehProductDocument
 from .models import Rubric, Electro, Santeh, Gas, ElectroProduct, GasProduct, SantehProduct, Order, Feedback
 from .serializers import OrderSerializer, FeedbackSerializer
 from .tasks.email_order import process_order_task
@@ -251,59 +250,35 @@ def get_basket(request):
     return render(request, 'basket.html', context)
 
 
-def search_model_products(document_class, model_class, query):
-    '''Используется для search_view, для вызова внутри'''
-    results = []
-    search = document_class.search().query(
-        "multi_match",
-        query=query,
-        fields=['title', 'description'],
-        fuzziness="AUTO"
-    )
-    try:
-        response = search.execute()
-        for hit in response:
-            item = {
-                'title': hit.title,
-                'description': hit.description
-            }
-
-            product = model_class.objects.filter(title=hit.title).first()
-            if product:
-                item['product_title_translit'] = product.title_translit
-                item['subrubric_title_translit'] = product.rubric.title_translit
-                item['rubric_name_translit'] = product.rubric.rubric.name_translit
-                item['price'] = product.price
-                item['photo'] = product.photo
-
-            results.append(item)
-    except Exception as e:
-        print(f"Ошибка при поиске {model_class.__name__}: {e}")
-
-    return results
-
-
 def search_view(request):
     '''Посуществляет поиск товаров по сайту. '''
-    query = request.GET.get('q', '')
 
-    # Получаем рубрики для sidebar
+    query_title = request.GET.get('q', '').strip()
+
+    electro_qs = ElectroProduct.objects.all()
+    gas_qs = GasProduct.objects.all()
+    santeh_qs = SantehProduct.objects.all()
+
+    if query_title:
+        # electro_qs = ElectroProduct.objects.filter(title__icontains=query_title)
+        # gas_qs = GasProduct.objects.filter(title__icontains=query_title)
+        # santeh_qs = SantehProduct.objects.filter(title__icontains=query_title)
+
+        electro_qs = electro_qs.annotate(t=Lower('title')).filter(t__contains=query_title.lower())
+        gas_qs = gas_qs.annotate(t=Lower('title')).filter(t__contains=query_title.lower())
+        santeh_qs = santeh_qs.annotate(t=Lower('title')).filter(t__contains=query_title.lower())
+
+    results = list(electro_qs) + list(gas_qs) + list(santeh_qs)
+
+    # Получаем все рубрики для сайдбара
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
-    context = {'rubrics': rubrics}
+    context = {
+        'results': results,
+        'rubrics': rubrics,
+        'query_title': query_title,
+    }
 
-    if not query:
-        return render(request, 'search.html', {'results': [], 'message': 'Введите поисковый запрос', 'rubrics': rubrics})
-
-    results = []
-    results += search_model_products(ElectroProductDocument, ElectroProduct, query)
-    results += search_model_products(GasProductDocument, GasProduct, query)
-    results += search_model_products(SantehProductDocument, SantehProduct, query)
-
-    if not results:
-        context.update({'results': [], 'message': 'Ничего не найдено'})
-        return render(request, 'search.html', context)
-    context.update({'results': results})
     return render(request, 'search.html', context)
 
 

@@ -41,8 +41,8 @@
             {% else %}
               <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
             {% endif %}
-            {% if product.rubric_name_translit and product.subrubric_title_translit and product.product_title_translit %}
-              <a href="{% url 'product' product.rubric_name_translit product.subrubric_title_translit product.product_title_translit %}">
+            {% if product.rubric.rubric.name_translit and product.rubric.title_translit and product.title_translit %}
+              <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
                 <h3>{{ product.title }}</h3>
               </a>
             {% else %}

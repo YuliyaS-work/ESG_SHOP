@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'django_elasticsearch_dsl',
 
     'esg',
     'esg.templatetags',
@@ -144,17 +143,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts':config('ELASTICSEARCH_HOST'),
-        'http_auth': (
-            config('ELASTICSEARCH_USER'),
-            config('ELASTICSEARCH_PASSWORD')
-        ),
-        'verify_certs': config('ELASTICSEARCH_VERIFY_CERTS') == False,  # если самоподписанный сертификат
-    }
-}
 
 
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
