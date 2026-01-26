@@ -44,7 +44,7 @@
         <div class="header-search">
             <form action="{% url 'search' %}" method="get">
                 <div class="search-wrapper">
-                   <input type="text" name="q" placeholder="Поиск товаров">
+                   <input type="text" name="q" placeholder="Поиск товаров" value="{{ query_title }}">
                    <button type="submit">
                    <i class="fas fa-search"></i>
                    </button>

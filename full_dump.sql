@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
+\restrict LF0j7n4oG2gQ2Bf5zVo0McbVlSEn9FSUUQw3obV1ibqG7fUEM8kWfThd2wpHwaW
 
 -- Dumped from database version 17.6
 -- Dumped by pg_dump version 17.6
@@ -775,7 +775,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$1000000$qMzEFAWazNI8ng1gy0oolq$XPmbOV/8LY4ynp8KEdK77GdsFk8cceY0Z5hy1yHRHmk=	2026-01-01 14:50:24.508942+03	t	admin			yuliyasorokinawork@gmail.com	t	t	2025-11-09 21:23:45.871939+03
+1	pbkdf2_sha256$1000000$qMzEFAWazNI8ng1gy0oolq$XPmbOV/8LY4ynp8KEdK77GdsFk8cceY0Z5hy1yHRHmk=	2026-01-24 21:48:58.750985+03	t	admin			yuliyasorokinawork@gmail.com	t	t	2025-11-09 21:23:45.871939+03
 \.
 
 
@@ -1407,6 +1407,48 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 605	2026-01-01 18:34:25.29162+03	5628	ElectroProduct object (5628)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 606	2026-01-01 18:34:39.676715+03	465	ElectroProduct object (465)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
 607	2026-01-06 22:22:06.698588+03	2043	ElectroProduct object (2043)	3		10	1
+608	2026-01-21 21:01:34.305768+03	35	GasProduct object (35)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+609	2026-01-21 21:02:15.541688+03	56	GasProduct object (56)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+610	2026-01-21 21:03:12.091467+03	148	GasProduct object (148)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+611	2026-01-21 22:01:35.659887+03	175	GasProduct object (175)	1	[{"added": {}}]	11	1
+612	2026-01-21 22:03:36.069882+03	175	GasProduct object (175)	3		11	1
+613	2026-01-21 22:22:20.419083+03	176	GasProduct object (176)	1	[{"added": {}}]	11	1
+614	2026-01-21 22:22:36.901979+03	176	GasProduct object (176)	3		11	1
+615	2026-01-24 21:49:50.692069+03	1	ElectroProduct object (1)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+616	2026-01-24 21:50:18.01744+03	1	ElectroProduct object (1)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+617	2026-01-24 21:51:27.272219+03	17	ElectroProduct object (17)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+618	2026-01-24 21:52:18.394795+03	17	ElectroProduct object (17)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+619	2026-01-24 21:56:12.905059+03	18	ElectroProduct object (18)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+620	2026-01-24 21:56:29.177764+03	18	ElectroProduct object (18)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+621	2026-01-24 21:56:50.487771+03	29	ElectroProduct object (29)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+622	2026-01-24 21:57:07.168554+03	29	ElectroProduct object (29)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+623	2026-01-24 21:57:26.819261+03	30	ElectroProduct object (30)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+624	2026-01-24 21:57:48.857702+03	30	ElectroProduct object (30)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+625	2026-01-24 22:20:03.912287+03	51	ElectroProduct object (51)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+626	2026-01-24 22:20:42.572733+03	51	ElectroProduct object (51)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+627	2026-01-24 22:43:02.659363+03	2204	ElectroProduct object (2204)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+628	2026-01-24 22:43:28.052823+03	2204	ElectroProduct object (2204)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+629	2026-01-24 22:43:52.085222+03	2204	ElectroProduct object (2204)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+630	2026-01-24 22:50:53.729136+03	3003	ElectroProduct object (3003)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+631	2026-01-24 22:51:24.377747+03	3003	ElectroProduct object (3003)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+632	2026-01-24 22:52:07.295597+03	3003	ElectroProduct object (3003)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	10	1
+633	2026-01-24 23:25:56.439914+03	140	SantehProduct object (140)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+634	2026-01-24 23:27:47.601605+03	50	SantehProduct object (50)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+635	2026-01-24 23:28:06.163081+03	295	SantehProduct object (295)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+636	2026-01-24 23:28:14.019042+03	368	SantehProduct object (368)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+637	2026-01-24 23:28:37.463763+03	588	SantehProduct object (588)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+638	2026-01-24 23:28:47.905027+03	585	SantehProduct object (585)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+639	2026-01-24 23:29:00.643244+03	610	SantehProduct object (610)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+640	2026-01-24 23:29:10.852772+03	617	SantehProduct object (617)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+641	2026-01-24 23:29:22.613341+03	619	SantehProduct object (619)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+642	2026-01-24 23:29:33.188305+03	653	SantehProduct object (653)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+643	2026-01-24 23:30:30.38561+03	39	GasProduct object (39)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+644	2026-01-24 23:31:46.029487+03	39	GasProduct object (39)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+645	2026-01-24 23:32:32.877823+03	39	GasProduct object (39)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	11	1
+646	2026-01-24 23:33:25.70257+03	33	SantehProduct object (33)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+647	2026-01-24 23:35:22.132226+03	33	SantehProduct object (33)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+648	2026-01-24 23:36:16.395358+03	33	SantehProduct object (33)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
+649	2026-01-24 23:37:02.475884+03	100	SantehProduct object (100)	2	[{"changed": {"fields": ["\\u0424\\u043e\\u0442\\u043e \\u0442\\u043e\\u0432\\u0430\\u0440\\u0430 \\u043d\\u0430 \\u0441\\u0442\\u0440\\u0430\\u043d\\u0438\\u0446\\u0435"]}}]	13	1
 \.
 
 
@@ -1486,6 +1528,8 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 43	esg	0026_alter_electroproduct_title_translit_and_more	2025-11-09 21:22:38.29008+03
 44	sessions	0001_initial	2025-11-09 21:22:38.295551+03
 45	esg	0027_electroproduct_photo_big_gasproduct_photo_big_and_more	2025-11-11 11:58:01.417833+03
+46	esg	0028_alter_electroproduct_photo_and_more	2026-01-23 15:52:32.73089+03
+47	esg	0029_alter_electro_title_alter_gas_title_and_more	2026-01-23 15:52:32.784066+03
 \.
 
 
@@ -1498,6 +1542,8 @@ g1yomlu2jj0p27ldhrlft981ogvbx6lo	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQ
 z5fecbdpf0b327xl0cogdk4urndgbx2v	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vIWVA:HpZPdFzKZeKVabGVxvs4ZqZfBoeCN0YwcM_Lklz8eCI	2025-11-24 21:20:28.714131+03
 o29mdgqd5vvb5xh0zricttirz6k9315r	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vOKzv:wFn33zUmUGGQ8ZWF3U0XYpPs7bC7uGS5pju9bOkCbfs	2025-12-10 22:16:15.814396+03
 i76w4rmlsffrrmt1hep738y6cl7387pp	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vbHCC:AzGPsrNvl0644jk0hKmQ8DWpl5qUxxhweLPBigfgmN4	2026-01-15 14:50:24.512838+03
+k4mfk1peyki9cb4epjtbiccb6mygpa19	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vicVO:AYgeScDukJFUvQIobPI8B28cShUqxA1Fr_UwQrS9-FI	2026-02-04 21:00:34.901026+03
+2k9xi7esw1af3wy2lky5a5b9b95yuqbo	.eJxVjDsOwjAQBe_iGlmx4y8lPWewdr0bHEC2FCcV4u4QKQW0b2beSyTY1pK2zkuaSZyFEqffDSE_uO6A7lBvTeZW12VGuSvyoF1eG_Hzcrh_BwV6-dYAjpRlyKhVdBjZTF4ZAEOkbeCBPaIHZ2MOeYiBJz1yjMEp6x2Oxov3BwPmOBc:1vjigs:trpXjuWLcU-WYIwSwWNXf1CawDIIQy7aMov0m59X96g	2026-02-07 21:48:58.752989+03
 \.
 
 
@@ -1543,6 +1589,7 @@ COPY public.esg_electroorder (id, quantity, electroproduct_id, order_id, total_c
 
 COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id, code, status_new, status_popular, counter, title_translit, photo_big) FROM stdin;
 2144	Ключ разводной 250мм 10" STARTUL MASTER (ST4018-25) (раскрытие губок 3		\N	electro\\300_E13.webp	12	13	f	f	0	kljuch-razvodnoj-250mm-10-startul-master-st4018-25-raskrytie-gubok-3	electro\\800_E13.webp
+4372	Разрядник SPBT12-280/3, 3P, 12.5kA(10/350µs), 25kA(8/20µs), класс B+C,	\N	\N	\N	6	3108	f	f	0	razrjadnik-spbt12-2803i-3pi-125ka10350msi-25ka820msi-klass-bci	\N
 6196	Хомут ХМ-2	\N	\N	\N	3	15709	f	f	0	homut-hm-2	\N
 3108	Мешок для пылесоса BOSCH GAS 15 сменный GEPARD		\N	electro\\300_E24.webp	12	24	f	f	0	meshok-dlja-pylesosa-bosch-gas-15-smennyj-gepard	electro\\800_E24.webp
 2203	Коврик диэлектрический 50х50		\N	electro\\300_E260.webp	12	260	f	f	0	kovrik-dielektricheskij-50h50	electro\\800_E260.webp
@@ -1910,8 +1957,6 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 6331	Шнур асбестовый ШАОН 20.0	\N	\N	electro/300_E20071.webp	1	20071	f	f	0	shnur-asbestovyj-shaon-200	electro/800_E20071.webp
 425	Автоматический выключатель ВА 58-32 ( 100А 3р 35кА ) КС	\N	\N	electro/300_E20072.webp	8	20072	f	f	0	avtomaticheskij-vykljuchatel-va-58-32-100a-3r-35ka-ks20072	electro/800_E20072.webp
 922	Водонагреватель электрический Gfranterm Origin 30V	\N	\N	electro/300_E20080.webp	6	20080	f	f	0	vodonagrevatel-elektricheskij-gfranterm-origin-30v	electro/800_E20080.webp
-17	ATN000201 ATLASDESIGN 1-постовая РАМКА, БЕЖЕВЫЙ (530105)		\N	electro/300_E20094.webp	4	20094	f	f	0	atn000201-atlasdesign-1-postovaja-ramkai-bezhevyj-530105	electro/800_E20094.webp
-18	ATN000202 ATLASDESIGN 2-постовая РАМКА, универсальная, БЕЖЕВЫЙ (532207		\N	electro/300_E20095.webp	4	20095	f	f	0	atn000202-atlasdesign-2-postovaja-ramkai-universalnajai-bezhevyj-532207	electro/800_E20095.webp
 19	ATN000203 ATLASDESIGN 3-постовая РАМКА, универсальная, БЕЖЕВЫЙ (532208	\N	\N	electro/300_E20096.webp	4	20096	f	f	0	atn000203-atlasdesign-3-postovaja-ramkai-universalnajai-bezhevyj-532208	electro/800_E20096.webp
 20	ATN000204 ATLASDESIGN 4-постовая РАМКА, универсальная, БЕЖЕВЫЙ (532209	\N	\N	electro/300_E20097.webp	4	20097	f	f	0	atn000204-atlasdesign-4-postovaja-ramkai-universalnajai-bezhevyj-532209	electro/800_E20097.webp
 21	ATN000205 ATLASDESIGN 5-постовая РАМКА, универсальная, БЕЖЕВЫЙ (532544	\N	\N	electro/300_E20098.webp	4	20098	f	f	0	atn000205-atlasdesign-5-postovaja-ramkai-universalnajai-bezhevyj-532544	electro/800_E20098.webp
@@ -1919,9 +1964,10 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 23	ATN000211 ATLASDESIGN 1-клавишный ВЫКЛЮЧАТЕЛЬ, сх.1, 10АХ, механизм, Б	\N	\N	electro/300_E20100.webp	4	20100	f	f	0	atn000211-atlasdesign-1-klavishnyj-vykljuchateli-sh1i-10ahi-mehanizmi-b	electro/800_E20100.webp
 27	ATN000251 ATLASDESIGN 2-клавишный ВЫКЛЮЧАТЕЛЬ, сх.5, 10АХ, механизм, Б	\N	\N	electro/300_E20101.webp	4	20101	f	f	0	atn000251-atlasdesign-2-klavishnyj-vykljuchateli-sh5i-10ahi-mehanizmi-b	electro/800_E20101.webp
 462	Аккум. дрель-шуруповерт WORTEX BD 1820-1 Li в чем.ALL1 18 В 30 Hм 2х2		\N	electro\\300_E14443.webp	12	14443	f	f	0	akkum-drel-shurupovert-wortex-bd-1820-1-li-v-chemall1-18-v-30-hm-2h2	electro\\800_E14443.webp
+17	ATN000201 ATLASDESIGN 1-постовая РАМКА, БЕЖЕВЫЙ (530105)		\N	electro\\300_E20094.webp	4	20094	f	f	0	atn000201-atlasdesign-1-postovaja-ramkai-bezhevyj-530105	electro\\800_E20094.webp
+18	ATN000202 ATLASDESIGN 2-постовая РАМКА, универсальная, БЕЖЕВЫЙ (532207		\N	electro\\300_E20095.webp	4	20095	f	f	0	atn000202-atlasdesign-2-postovaja-ramkai-universalnajai-bezhevyj-532207	electro\\800_E20095.webp
 25	ATN000231 ATLASDESIGN 3-клавишный ВЫКЛЮЧАТЕЛЬ, сх.1+1+1, 10АХ, механиз	\N	\N	electro/300_E20102.webp	4	20102	f	f	0	atn000231-atlasdesign-3-klavishnyj-vykljuchateli-sh111i-10ahi-mehaniz	electro/800_E20102.webp
 28	ATN000261 ATLASDESIGN 1-клавишный ПЕРЕКЛЮЧАТЕЛЬ, сх.6, 10АХ, механизм,	\N	\N	electro/300_E20103.webp	4	20103	f	f	0	atn000261-atlasdesign-1-klavishnyj-perekljuchateli-sh6i-10ahi-mehanizmi	electro/800_E20103.webp
-29	ATN000265 ATLASDESIGN 2-клавишный ПЕРЕКЛЮЧАТЕЛЬ, сх.6, 10АХ, механизм,	\N	\N	electro/300_E20104.webp	4	20104	f	f	0	atn000265-atlasdesign-2-klavishnyj-perekljuchateli-sh6i-10ahi-mehanizmi	electro/800_E20104.webp
 22	ATN000209 ЗАГЛУШКА, БЕЖЕВЫЙ (535963)	\N	\N	electro/300_E20105.webp	4	20105	f	f	0	atn000209-zaglushkai-bezhevyj-535963	electro/800_E20105.webp
 24	ATN000224 ATLASDESIGN РОЗЕТКА двойная с заземлением, 16А, в сборе, БЕЖ	\N	\N	electro/300_E20106.webp	4	20106	f	f	0	atn000224-atlasdesign-rozetka-dvojnaja-s-zazemleniemi-16ai-v-sborei-bezh	electro/800_E20106.webp
 33	ATN000301 ATLASDESIGN 1-постовая РАМКА, АЛЮМИНИЙ (532221)	\N	\N	electro/300_E20107.webp	4	20107	f	f	0	atn000301-atlasdesign-1-postovaja-ramkai-aljuminij-532221	electro/800_E20107.webp
@@ -1934,12 +1980,12 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 40	ATN000311 ATLASDESIGN 2-клавишный ВЫКЛЮЧАТЕЛЬ, сх.1, 10АХ, механизм, А	\N	\N	electro/300_E20114.webp	4	20114	f	f	0	atn000311-atlasdesign-2-klavishnyj-vykljuchateli-sh1i-10ahi-mehanizmi-a	electro/800_E20114.webp
 42	ATN000331 ATLASDESIGN 3-клавишный ВЫКЛЮЧАТЕЛЬ, сх.1+1+1, 10АХ, механиз	\N	\N	electro/300_E20115.webp	4	20115	f	f	0	atn000331-atlasdesign-3-klavishnyj-vykljuchateli-sh111i-10ahi-mehaniz	electro/800_E20115.webp
 791	Бур по бетону 18х400х460 sps plus Bosch		\N	electro\\300_E14577.webp	12	14577	f	f	0	bur-po-betonu-18h400h460-sps-plus-bosch	electro\\800_E14577.webp
+29	ATN000265 ATLASDESIGN 2-клавишный ПЕРЕКЛЮЧАТЕЛЬ, сх.6, 10АХ, механизм,		\N	electro\\300_E20104.webp	4	20104	f	f	0	atn000265-atlasdesign-2-klavishnyj-perekljuchateli-sh6i-10ahi-mehanizmi	electro\\800_E20104.webp
 44	ATN000365 ATLASDESIGN 2-клавишный ПЕРЕКЛЮЧАТЕЛЬ, сх.6, 10АХ, механизм,	\N	\N	electro/300_E20116.webp	4	20116	f	f	0	atn000365-atlasdesign-2-klavishnyj-perekljuchateli-sh6i-10ahi-mehanizmi	electro/800_E20116.webp
 38	ATN000309 ЗАГЛУШКА, АЛЮМИНИЙ (532226)	\N	\N	electro/300_E20117.webp	4	20117	f	f	0	atn000309-zaglushkai-aljuminij-532226	electro/800_E20117.webp
 41	ATN000324 ATLASDESIGN РОЗЕТКА двойная с заземлением, 16А, в сборе, АЛЮ	\N	\N	electro/300_E20118.webp	4	20118	f	f	0	atn000324-atlasdesign-rozetka-dvojnaja-s-zazemleniemi-16ai-v-sborei-alju	electro/800_E20118.webp
 32	ATN000291 ATLASDESIGN TV РОЗЕТКА оконечная 1DB, механизм, БЕЖЕВЫЙ (534	\N	\N	electro/300_E20119.webp	4	20119	f	f	0	atn000291-atlasdesign-tv-rozetka-okonechnaja-1dbi-mehanizmi-bezhevyj-534	electro/800_E20119.webp
 31	ATN000283 ATLASDESIGN РОЗЕТКА компьютерная RJ45, механизм, БЕЖЕВЫЙ (52	\N	\N	electro/300_E20120.webp	4	20120	f	f	0	atn000283-atlasdesign-rozetka-kompjuternaja-rj45i-mehanizmi-bezhevyj-52	electro/800_E20120.webp
-30	ATN000281 ATLASDESIGN РОЗЕТКА телефонная RJ11, механизм, БЕЖЕВЫЙ (5369	\N	\N	electro/300_E20121.webp	4	20121	f	f	0	atn000281-atlasdesign-rozetka-telefonnaja-rj11i-mehanizmi-bezhevyj-5369	electro/800_E20121.webp
 47	ATN000391 ATLASDESIGN TV РОЗЕТКА оконечная 1DB, механизм, АЛЮМИНИЙ (52	\N	\N	electro/300_E20122.webp	4	20122	f	f	0	atn000391-atlasdesign-tv-rozetka-okonechnaja-1dbi-mehanizmi-aljuminij-52	electro/800_E20122.webp
 46	ATN000383 ATLASDESIGN РОЗЕТКА компьютерная RJ45, механизм, АЛЮМИНИЙ (5	\N	\N	electro/300_E20123.webp	4	20123	f	f	0	atn000383-atlasdesign-rozetka-kompjuternaja-rj45i-mehanizmi-aljuminij-5	electro/800_E20123.webp
 45	ATN000381 ATLASDESIGN РОЗЕТКА телефонная RJ11, механизм, АЛЮМИНИЙ (537	\N	\N	electro/300_E20124.webp	4	20124	f	f	0	atn000381-atlasdesign-rozetka-telefonnaja-rj11i-mehanizmi-aljuminij-537	electro/800_E20124.webp
@@ -1950,6 +1996,7 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 6342	Шнур ШВВП-с 2*0,75 бел Автопровод	\N	\N	electro/300_E2138.webp	1	2138	f	f	0	shnur-shvvp-s-20i75-bel-avtoprovod	electro/800_E2138.webp
 687	Бокс ЩРВ-П-36 модулей встраиваемый пластик КС	\N	\N	electro/300_E2289.webp	7	2289	f	f	0	boks-schrv-p-36-modulej-vstraivaemyj-plastik-ks	electro/800_E2289.webp
 6327	Шлифмашина для стен и потолков WORTEX DG 1875 в кор. 750 Вт, 180 мм, L		\N	electro\\300_E14881.webp	12	14881	f	f	0	shlifmashina-dlja-sten-i-potolkov-wortex-dg-1875-v-kor-750-vti-180-mmi-l	electro\\800_E14881.webp
+30	ATN000281 ATLASDESIGN РОЗЕТКА телефонная RJ11, механизм, БЕЖЕВЫЙ (5369		\N	electro\\300_E20121.webp	4	20121	f	f	0	atn000281-atlasdesign-rozetka-telefonnaja-rj11i-mehanizmi-bezhevyj-5369	electro\\800_E20121.webp
 258	Авт. выкл. ВА 47-29 3р 20А 4,5кА х-ка C TDM	\N	\N	electro/300_E2576.webp	8	2576	f	f	0	avt-vykl-va-47-29-3r-20a-4i5ka-h-ka-c-tdm	electro/800_E2576.webp
 2809	Лампа ДНаТ 100Вт Е40	\N	\N	electro/300_E2933.webp	5	2933	f	f	0	lampa-dnat-100vt-e40	electro/800_E2933.webp
 1547	Знак "Направление к эвакуационному выходу прямо" 350х124мм для ССА	\N	\N	electro/300_E3034.webp	13	3034	f	f	0	znak-napravlenie-k-evakuatsionnomu-vyhodu-prjamo-350h124mm-dlja-ssa	electro/800_E3034.webp
@@ -1977,7 +2024,6 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 58	PA16-044B 1-АЯ РОЗЕТКА С ЗАЗЕМЛЕНИЕМ, СО ШТОРКАМИ, IP44 (448799)	\N	\N	electro/300_E4484.webp	4	4484	f	f	0	pa16-044b-1-aja-rozetka-s-zazemleniemi-so-shtorkamii-ip44-448799	electro/800_E4484.webp
 236	Авт. выкл. ВА 47-29 1Р 25А КС	\N	\N	electro/300_E45.webp	8	45	f	f	0	avt-vykl-va-47-29-1r-25a-ks	electro/800_E45.webp
 2824	Лампа люминесцентная L 36W /765G13 дневного света	\N	\N	electro/300_E4581.webp	5	4581	f	f	0	lampa-ljuminestsentnaja-l-36w-765g13-dnevnogo-sveta	electro/800_E4581.webp
-1	15мм Рукав  метал.Р3-Ц ПВХ		\N	electro/300_E4584.webp	2	4584	f	f	1	15mm-rukav-metalr3-ts-pvh	electro/800_E4584.webp
 4	18мм Рукав мет. Р3-Ц В ПВХ		\N	electro/300_E4585.webp	2	4585	f	f	1	18mm-rukav-met-r3-ts-v-pvh	electro/800_E4585.webp
 87	АВДТ NX6R 1P+N C16 30mA тип AC 6kA (R) Wilderness	\N	\N	electro/300_E4642.webp	8	4642	f	f	0	avdt-nx6r-1pn-c16-30ma-tip-ac-6ka-r-wilderness	electro/800_E4642.webp
 90	АВДТ NX6R 3P+N C16 30mA тип AC 6kA (R) Wilderness	\N	\N	electro/300_E4688.webp	8	4688	f	f	0	avdt-nx6r-3pn-c16-30ma-tip-ac-6ka-r-wilderness	electro/800_E4688.webp
@@ -1990,6 +2036,7 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 159	Авт. выкл. NB1-63H 3P 25A 10kA C CHINT	\N	\N	electro/300_E5024.webp	8	5024	f	f	0	avt-vykl-nb1-63h-3p-25a-10ka-c-chint	electro/800_E5024.webp
 52	DIN-рейка (100 см) оцинкованная	\N	\N	electro/300_E5047.webp	9	5047	f	f	0	din-rejka-100-sm-otsinkovannaja	electro/800_E5047.webp
 1199	Головки ударные, набор 25пр. 1/4", 1/2" (4-32мм) 6гр.FORCEKRAFT FK-5		\N	electro\\300_E15687.webp	12	15687	f	f	0	golovki-udarnyei-nabor-25pr-14i-12-4-32mm-6grforcekraft-fk-5	electro\\800_E15687.webp
+1	15мм Рукав  метал.Р3-Ц ПВХ		\N	electro\\300_E4584.webp	2	4584	f	f	1	15mm-rukav-metalr3-ts-pvh	electro\\800_E4584.webp
 2644	Корпус НСП 03-60 IP54 TDM	\N	\N	electro/300_E5139.webp	7	5139	f	f	0	korpus-nsp-03-60-ip54-tdm	electro/800_E5139.webp
 1705	Кабель АВВГ  2х10	\N	\N	electro/300_E5145.webp	1	5145	f	f	0	kabel-avvg-2h10	electro/800_E5145.webp
 259	Авт. выкл. ВА 47-29 3р 20А 4,5кА х-ка CHINT	\N	\N	electro/300_E5167.webp	8	5167	f	f	0	avt-vykl-va-47-29-3r-20a-4i5ka-h-ka-chint	electro/800_E5167.webp
@@ -2003,12 +2050,12 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 1631	Изолятор SM40 силовой H40*D40*M8мм TDM	\N	\N	electro/300_E5530.webp	10	5530	f	f	0	izoljator-sm40-silovoj-h40d40m8mm-tdm	electro/800_E5530.webp
 1225	Датчик движения PMS-IR 009 1200Вт 180° 12м IP44 WH Jazzway (5012912)	\N	\N	electro/300_E5563.webp	5	5563	f	f	0	datchik-dvizhenija-pms-ir-009-1200vt-180-12m-ip44-wh-jazzway-5012912	electro/800_E5563.webp
 2627	Корпус металлический ЩУРВ-3/24 (580х520х165)	\N	\N	electro/300_E5675.webp	7	5675	f	f	0	korpus-metallicheskij-schurv-324-580h520h165	electro/800_E5675.webp
-51	DIN  рейка (7,5см.)	\N	\N	electro/300_E5808.webp	9	5808	f	f	0	din-rejka-7i5sm	electro/800_E5808.webp
 143	Авт. выкл. DZ158-125H 3P 100A 10kA х-ка (8-12In) (R) (CHINT)	\N	\N	electro/300_E74.webp	8	74	f	f	0	avt-vykl-dz158-125h-3p-100a-10ka-h-ka-8-12in-r-chint	electro/800_E74.webp
 2	15мм Рукав мет.негерм т.Р3-Ц		\N	electro/300_E76.webp	2	76	f	f	1	15mm-rukav-metnegerm-tr3-ts	electro/800_E76.webp
 5	20мм Рукав мет.негерм т.Р3-Ц		\N	electro/300_E77.webp	2	77	f	f	1	20mm-rukav-metnegerm-tr3-ts	electro/800_E77.webp
 8	25мм Рукав мет.негерм т.Р3-Ц		\N	electro/300_E78.webp	2	78	f	f	0	25mm-rukav-metnegerm-tr3-ts	electro/800_E78.webp
 1196	Головка ударная 1/2" 17мм 6гр.глубокая PRO STARTUL		\N	electro\\300_E15897.webp	12	15897	f	f	0	golovka-udarnaja-12-17mm-6grglubokaja-pro-startul	electro\\800_E15897.webp
+51	DIN  рейка (7,5см.)		\N	electro\\300_E5808.webp	9	5808	f	f	0	din-rejka-7i5sm	electro\\800_E5808.webp
 512	Анкер с крюком М10х12х130 мм	\N	\N	electro/300_E803.webp	3	803	f	f	0	anker-s-krjukom-m10h12h130-mm	electro/800_E803.webp
 9	25мм Рукав мет.Р3-Ц ПВХ		\N	electro/300_E84.webp	2	84	f	f	0	25mm-rukav-metr3-ts-pvh	electro/800_E84.webp
 802	Бур по бетону 28х1000мм SPS PLUS Matrix		\N	electro\\300_E16075.webp	12	16075	f	f	0	bur-po-betonu-28h1000mm-sps-plus-matrix	electro\\800_E16075.webp
@@ -5276,10 +5323,10 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 3016	Лист х/к (2,0х1250х2500 08пс	\N	\N	\N	3	20129	f	f	0	list-hk-2i0h1250h2500-08ps	\N
 3017	Лопата автомобильная со съёмной ручкой оранжевый флюр	\N	\N	\N	12	18206	f	f	0	lopata-avtomobilnaja-so-semnoj-ruchkoj-oranzhevyj-fljur	\N
 3020	Лопата снегоуборочная пластиковая с дополнительной рукояткой, черная,	\N	\N	\N	12	5371	f	f	0	lopata-snegouborochnaja-plastikovaja-s-dopolnitelnoj-rukojatkoji-chernajai	\N
+3003	Лестница-стремянка алюм. 103см 5ступ Стартул		\N		12	18371	f	f	0	lestnitsa-stremjanka-aljum-103sm-5stup-startul	
 2997	Лестница алюм. 3-х секц. 201/474/214см 3х8 ступ., 9,9кг PRO STARTUL		\N	electro\\300_E15502.webp	12	15502	f	f	0	lestnitsa-aljum-3-h-sekts-201474214sm-3h8-stupi-9i9kg-pro-startul	electro\\800_E15502.webp
 3018	Лопата поликарбонатная "АРКТИКА" СТАНДАРТ		\N	electro\\300_E15684.webp	12	15684	f	f	0	lopata-polikarbonatnaja-arktika-standart	electro\\800_E15684.webp
 3000	Лестница алюм. многофункц. 4х6 ступ. (стрем.-330см, лестн.-680см) 15,8		\N	electro\\300_E17808.webp	12	17808	f	f	0	lestnitsa-aljum-mnogofunkts-4h6-stup-strem-330smi-lestn-680sm-15i8	electro\\800_E17808.webp
-3003	Лестница-стремянка алюм. 103см 5ступ Стартул		\N	electro\\300_E18371.webp	12	18371	f	f	0	lestnitsa-stremjanka-aljum-103sm-5stup-startul	electro\\800_E18371.webp
 3011	Лестница-трансформер Новая Высота NV 2330		\N	electro\\300_E18373.webp	12	18373	f	f	0	lestnitsa-transformer-novaja-vysota-nv-2330	electro\\800_E18373.webp
 3005	Лестница-стремянка алюм. 194см 9ступ Стартул		\N	electro\\300_E18673.webp	12	18673	f	f	0	lestnitsa-stremjanka-aljum-194sm-9stup-startul	electro\\800_E18673.webp
 3021	Лопата штыковая Fiskars Solid 1066716		\N	electro\\300_E19469.webp	12	19469	f	f	0	lopata-shtykovaja-fiskars-solid-1066716	electro\\800_E19469.webp
@@ -6601,7 +6648,6 @@ COPY public.esg_electroproduct (id, title, description, price, photo, rubric_id,
 4369	Разветвитель РВ16-377	\N	\N	\N	4	4741	f	f	0	razvetvitel-rv16-377	\N
 4370	Разделитель лотка ЛМс-Р 100 L 2000	\N	\N	\N	2	17177	f	f	0	razdelitel-lotka-lms-r-100-l-2000	\N
 4371	Разделитель лотковый ЛМс-Р 50L 3000	\N	\N	\N	2	14750	f	f	0	razdelitel-lotkovyj-lms-r-50l-3000	\N
-4372	Разрядник SPBT12-280/3, 3P, 12.5kA(10/350µs), 25kA(8/20µs), класс B+C,	\N	\N	\N	6	3108	f	f	0	razrjadnik-spbt12-2803i-3pi-125ka10350µsi-25ka820µsi-klass-bci	\N
 4373	Разрядник ВЛ 0,4 кВ	\N	\N	\N	6	19736	f	f	0	razrjadnik-vl-0i4-kv	\N
 4374	Разрядник ОПН-П-РВО-10 УХЛ1 с кронштейном	\N	\N	\N	6	14698	f	f	0	razrjadnik-opn-p-rvo-10-uhl1-s-kronshtejnom	\N
 4375	Разрядник РВН-0,4	\N	\N	\N	6	16326	f	f	0	razrjadnik-rvn-0i4	\N
@@ -8284,21 +8330,21 @@ COPY public.esg_gasorder (id, quantity, gasproduct_id, order_id, total_cost) FRO
 --
 
 COPY public.esg_gasproduct (id, title, description, price, photo, rubric_id, code, status_new, status_popular, counter, title_translit, photo_big) FROM stdin;
-148	Шланг нерж. 1/2 1800 мм	\N	\N	gas/300_E15193.webp	7	15193	f	f	0	shlang-nerzh-12-1800-mm	gas/800_E15193.webp
 109	Счетчик газа Гранд 4 Б/К" ТК" G3/4"		\N	gas\\300_G14747.webp	1	14747	f	f	0	schetchik-gaza-grand-4-bk-tk-g34	gas\\800_G14747.webp
+148	Шланг нерж. 1/2 1800 мм		\N		7	15193	f	f	0	shlang-nerzh-12-1800-mm	
 82	Регулятор давления газа ARD 10 L линейный		\N	gas\\300_G1339.webp	4	1339	f	f	0	reguljator-davlenija-gaza-ard-10-l-linejnyj	gas\\800_G1339.webp
 120	Счётчик газа ультразвуковой Вега G1.6		\N	gas\\300_G15183.webp	1	15183	f	f	0	schetchik-gaza-ultrazvukovoj-vega-g16	gas\\800_G15183.webp
-35	Колено для ПЭ-труб вн. 20х1	\N	\N	gas/300_E15188.webp	5	15188	f	f	0	koleno-dlja-pe-trub-vn-20h1	gas/800_E15188.webp
+35	Колено для ПЭ-труб вн. 20х1		\N		5	15188	f	f	0	koleno-dlja-pe-trub-vn-20h1	
 132	Труба ПЭ 80 ГАЗ SDR 17,6 - 110 х 6,3 СТБ ГОСТ Р 50838-97 L100, Беларус		\N	gas\\300_G2028.webp	3	2028	f	f	0	truba-pe-80-gaz-sdr-17i6---110-h-6i3-stb-gost-r-50838-97-l100i-belarus	gas\\800_G2028.webp
 43	Кран шаровый ВВ 1/2" газовый Giacomini		\N	gas\\300_G3596.webp	3	3596	f	f	0	kran-sharovyj-vv-12-gazovyj-giacomini	gas\\800_G3596.webp
 44	Кран шаровый ВВ 3/4" газовый Giacomini		\N	gas\\300_G3597.webp	3	3597	f	f	0	kran-sharovyj-vv-34-gazovyj-giacomini	gas\\800_G3597.webp
+39	Кран шаровый LD КШЦП Gas П/П.02 из стали 20 Ду25 Ру4,0МПа		\N		3	15234	f	f	0	kran-sharovyj-ld-kshtsp-gas-pp02-iz-stali-20-du25-ru4i0mpa	
 32	Кожух для регулятора давления газа		\N	gas\\300_G3651.webp	6	3651	f	f	0	kozhuh-dlja-reguljatora-davlenija-gaza	gas\\800_G3651.webp
 34	Кожух для счетчика и регулятора давления газа		\N	gas\\300_G3655.webp	6	3655	f	f	0	kozhuh-dlja-schetchika-i-reguljatora-davlenija-gaza	gas\\800_G3655.webp
 33	Кожух для счетчика газа		\N	gas\\300_G3658.webp	6	3658	f	f	0	kozhuh-dlja-schetchika-gaza	gas\\800_G3658.webp
 38	Кран шаровый LD DN 40 мм КШЦП		\N	gas\\300_G14745.webp	3	14745	f	f	0	kran-sharovyj-ld-dn-40-mm-kshtsp	gas\\800_G14745.webp
 86	Редуктор баллонный (пропан) РДСГ-1-1,2 (НОВОГАЗ) (НЗ 31.00.00-04)		\N	gas\\300_G15186.webp	4	15186	f	f	0	reduktor-ballonnyj-propan-rdsg-1-1i2-novogaz-nz-310000-04	gas\\800_G15186.webp
 30	Клапан электромагнитный НО М16/RMC Ду 25, RMC04 001 Италия		\N	gas\\300_G15227.webp	4	15227	f	f	0	klapan-elektromagnitnyj-no-m16rmc-du-25i-rmc04-001-italija	gas\\800_G15227.webp
-39	Кран шаровый LD КШЦП Gas П/П.02 из стали 20 Ду25 Ру4,0МПа		\N	gas\\300_G15234.webp	3	15234	f	f	0	kran-sharovyj-ld-kshtsp-gas-pp02-iz-stali-20-du25-ru4i0mpa	gas\\800_G15234.webp
 31	КОВЕР325	\N	\N	\N	4	14445	f	f	0	kover325	\N
 20	Клапан EVRMNA 3OZ	\N	\N	\N	4	15201	f	f	0	klapan-evrmna-3oz	\N
 36	Колено для ПЭ-труб вн. 20х3/4	\N	\N	\N	5	15187	f	f	0	koleno-dlja-pe-trub-vn-20h34	\N
@@ -8314,10 +8360,10 @@ COPY public.esg_gasproduct (id, title, description, price, photo, rubric_id, cod
 101	Сигнализатор загазованности S 092		\N	gas\\300_G3508.webp	4	3508	f	f	0	signalizator-zagazovannosti-s-092	gas\\800_G3508.webp
 23	Клапан запорный с электромагнитным управлением газовый КЗЭУГ-А-20М (Ал		\N	gas\\300_G15215.webp	4	15215	f	f	0	klapan-zapornyj-s-elektromagnitnym-upravleniem-gazovyj-kzeug-a-20m-al	gas\\800_G15215.webp
 128	Труба ПЭ 100 ГАЗ SDR 17,6 - 160 х 9,5		\N	gas\\300_G4549.webp	3	4549	f	f	0	truba-pe-100-gaz-sdr-17i6---160-h-9i5	gas\\800_G4549.webp
-56	КТР в сборе 1/2	\N	\N	gas/300_E15210.webp	3	15210	f	f	0	ktr-v-sbore-12	gas/800_E15210.webp
 71	Переход электросварной 00110х0063мм. ПЭ100 SDR11.		\N	gas\\300_G14426.webp	3	14426	f	f	0	perehod-elektrosvarnoj-00110h0063mm-pe100-sdr11	gas\\800_G14426.webp
 55	КТР 80 мм		\N	gas\\300_G14451.webp	3	14451	f	f	0	ktr-80-mm	gas\\800_G14451.webp
 48	КТР 1 1/4" (39-46)мм		\N	gas\\300_G15207.webp	3	15207	f	f	0	ktr-1-14-39-46mm	gas\\800_G15207.webp
+56	КТР в сборе 1/2		\N		3	15210	f	f	0	ktr-v-sbore-12	
 46	Кран шаровый цельносварной под приварку 11в672 ЦП DN25/20PN40 РФ	\N	\N	\N	3	15222	f	f	0	kran-sharovyj-tselnosvarnoj-pod-privarku-11v672-tsp-dn2520pn40-rf	\N
 49	КТР 114	\N	\N	\N	3	15242	f	f	0	ktr-114	\N
 50	КТР 15 мм	\N	\N	\N	3	5123	f	f	0	ktr-15-mm	\N
@@ -8511,18 +8557,18 @@ COPY public.esg_santehorder (id, quantity, order_id, santehproduct_id, total_cos
 
 COPY public.esg_santehproduct (id, title, description, price, photo, rubric_id, code, status_new, status_popular, counter, title_translit, photo_big) FROM stdin;
 357	Ниппель нар-нар 1/2 Цветлит		\N	santeh\\300_S31.webp	6	31	f	f	0	nippel-nar-nar-12-tsvetlit	santeh\\800_S31.webp
-653	Труба напорная ПЭ 32	\N	\N	santeh/300_E307.webp	3	307	f	f	0	truba-napornaja-pe-32	santeh/800_E307.webp
-585	Тройник для ПЭ труб 20	\N	\N	santeh/300_E334.webp	3	334	f	f	0	trojnik-dlja-pe-trub-20	santeh/800_E334.webp
-588	Тройник для ПЭ-труб 40	\N	\N	santeh/300_E335.webp	3	335	f	f	0	trojnik-dlja-pe-trub-40	santeh/800_E335.webp
-610	Тройник ПП 25 серый РосТурПласт	\N	\N	santeh/300_E41.webp	3	41	f	f	0	trojnik-pp-25-seryj-rosturplast	santeh/800_E41.webp
-617	Тройник ПП комбинированный с НР 25х3/4 серый РосТурПласт	\N	\N	santeh/300_E45.webp	3	45	f	f	0	trojnik-pp-kombinirovannyj-s-nr-25h34-seryj-rosturplast	santeh/800_E45.webp
-140	Колено ПП 32х90 серый РосТурПласт	\N	\N	santeh/300_E74.webp	3	74	f	f	0	koleno-pp-32h90-seryj-rosturplast	santeh/800_E74.webp
-295	Муфта ПП 32 РосТурПласт	\N	\N	santeh/300_E76.webp	3	76	f	f	0	mufta-pp-32-rosturplast	santeh/800_E76.webp
-368	Ниппель ПП комбинированная НР 32х1 серая Ламин	\N	\N	santeh/300_E78.webp	6	78	f	f	0	nippel-pp-kombinirovannaja-nr-32h1-seraja-lamin	santeh/800_E78.webp
-619	Тройник ПП переходной 25х20х25 белый	\N	\N	santeh/300_E84.webp	3	84	f	f	0	trojnik-pp-perehodnoj-25h20h25-belyj	santeh/800_E84.webp
+588	Тройник для ПЭ-труб 40		\N		3	335	f	f	0	trojnik-dlja-pe-trub-40	
+585	Тройник для ПЭ труб 20		\N		3	334	f	f	0	trojnik-dlja-pe-trub-20	
+653	Труба напорная ПЭ 32		\N		3	307	f	f	0	truba-napornaja-pe-32	
 364	Ниппель ПП комбинированная НР 20х1/2 серый РосТурПласт		\N	santeh\\300_S33.webp	6	33	f	f	0	nippel-pp-kombinirovannaja-nr-20h12-seryj-rosturplast	santeh\\800_S33.webp
 145	Колено ПП комб. НР 25х1/2 белый РосТурПласт		\N	santeh\\300_S77.webp	3	77	f	f	0	koleno-pp-komb-nr-25h12-belyj-rosturplast	santeh\\800_S77.webp
 658	Труба НК 110х3000мм. SN2 РТП (Для наружной канализации)		\N	santeh\\300_S424.webp	4	424	f	f	0	truba-nk-110h3000mm-sn2-rtp-dlja-naruzhnoj-kanalizatsii	santeh\\800_S424.webp
+140	Колено ПП 32х90 серый РосТурПласт		\N		3	74	f	f	0	koleno-pp-32h90-seryj-rosturplast	
+295	Муфта ПП 32 РосТурПласт		\N		3	76	f	f	0	mufta-pp-32-rosturplast	
+368	Ниппель ПП комбинированная НР 32х1 серая Ламин		\N		6	78	f	f	0	nippel-pp-kombinirovannaja-nr-32h1-seraja-lamin	
+610	Тройник ПП 25 серый РосТурПласт		\N		3	41	f	f	0	trojnik-pp-25-seryj-rosturplast	
+617	Тройник ПП комбинированный с НР 25х3/4 серый РосТурПласт		\N		3	45	f	f	0	trojnik-pp-kombinirovannyj-s-nr-25h34-seryj-rosturplast	
+619	Тройник ПП переходной 25х20х25 белый		\N		3	84	f	f	0	trojnik-pp-perehodnoj-25h20h25-belyj	
 114	Колено для ПЭ-труб вн. 20х3/4		\N	santeh\\300_S54.webp	3	54	f	f	0	koleno-dlja-pe-trub-vn-20h34	santeh\\800_S54.webp
 267	Муфта для ПЭ-труб вн. 25х1		\N	santeh\\300_S64.webp	3	64	f	f	0	mufta-dlja-pe-trub-vn-25h1	santeh\\800_S64.webp
 142	Колено ПП ком. с креплен. ВР 20х1/2 серый РосТурПласт		\N	santeh\\300_S86.webp	3	86	f	f	0	koleno-pp-kom-s-kreplen-vr-20h12-seryj-rosturplast	santeh\\800_S86.webp
@@ -8766,10 +8812,10 @@ COPY public.esg_santehproduct (id, title, description, price, photo, rubric_id, 
 95	Колено ВН 1" Цветлит		\N	santeh\\300_S123.webp	3	123	f	f	0	koleno-vn-1-tsvetlit	santeh\\800_S123.webp
 48	Вентиль запорный (клапан) муфтовый 15кч18п Ру16 Ду 50		\N	santeh\\300_S204.webp	3	204	f	f	0	ventil-zapornyj-klapan-muftovyj-15kch18p-ru16-du-50	santeh\\800_S204.webp
 61	Заглушка ВН 1/2 с прокладкой AV		\N	santeh\\300_S433.webp	4	433	f	f	0	zaglushka-vn-12-s-prokladkoj-av	santeh\\800_S433.webp
-50	Воздухоотводчик авт.STI 1/2" ник.	\N	\N	santeh/300_E553.webp	1	553	f	f	0	vozduhootvodchik-avtsti-12-nik	santeh/800_E553.webp
 56	Группа безопасности котла 3/4", AV Engineering (AVE1160234)		\N	santeh\\300_S576.webp	3	576	f	f	0	gruppa-bezopasnosti-kotla-34i-av-engineering-ave1160234	santeh\\800_S576.webp
 52	Вставка ремонтная для счетчиков воды		\N	santeh\\300_S623.webp	6	623	f	f	0	vstavka-remontnaja-dlja-schetchikov-vody	santeh\\800_S623.webp
 55	Группа безопасности котла 1", AV Engineering		\N	santeh\\300_S656.webp	3	656	f	f	0	gruppa-bezopasnosti-kotla-1i-av-engineering	santeh\\800_S656.webp
+50	Воздухоотводчик авт.STI 1/2" ник.		\N		1	553	f	f	0	vozduhootvodchik-avtsti-12-nik	
 30	Американка чугун Ду 15 ВР/ВР Fittex PLUS	\N	\N	\N	3	601	f	f	0	amerikanka-chugun-du-15-vrvr-fittex-plus	\N
 31	Американка чугун Ду 15 ВР/НР Fittex PLUS	\N	\N	\N	3	607	f	f	0	amerikanka-chugun-du-15-vrnr-fittex-plus	\N
 46	Бачок к унитазу-компакт "ЦОП" кнопка,нижн.подввод	\N	\N	\N	1	586	f	f	0	bachok-k-unitazu-kompakt-tsop-knopkainizhnpodvvod	\N
@@ -8796,7 +8842,7 @@ COPY public.esg_santehproduct (id, title, description, price, photo, rubric_id, 
 89	Клипса опора для пп труб 32, РосТурПласт (Опора (держатель) 32 мм.)		\N	santeh\\300_S158.webp	6	158	f	f	0	klipsa-opora-dlja-pp-trub-32i-rosturplast-opora-derzhatel-32-mm	santeh\\800_S158.webp
 75	Заглушка ПП 20 (750/125) VALFEX		\N	santeh\\300_S674.webp	4	674	f	f	0	zaglushka-pp-20-750125-valfex	santeh\\800_S674.webp
 102	Колено для внутренней канализации 50х87		\N	santeh\\300_S166.webp	4	166	f	f	0	koleno-dlja-vnutrennej-kanalizatsii-50h87	santeh\\800_S166.webp
-100	Колено для внутренней канализации 50х30		\N	santeh\\300_S286.webp	4	286	f	f	0	koleno-dlja-vnutrennej-kanalizatsii-50h30	santeh\\800_S286.webp
+100	Колено для внутренней канализации 50х30		\N		4	286	f	f	0	koleno-dlja-vnutrennej-kanalizatsii-50h30	
 110	Колено для ПЭ-труб 32 Unidelta		\N	santeh\\300_S369.webp	3	369	f	f	0	koleno-dlja-pe-trub-32-unidelta	santeh\\800_S369.webp
 71	Заглушка НР 1/2 General	\N	\N	\N	4	306	f	f	0	zaglushka-nr-12-general	\N
 72	Заглушка НР 1/2 Цветлит	\N	\N	\N	4	12	f	f	0	zaglushka-nr-12-tsvetlit	\N
@@ -8980,7 +9026,7 @@ COPY public.esg_santehproduct (id, title, description, price, photo, rubric_id, 
 1	Адаптер внешний 1/2 и 3/4 Startul Garden		\N	santeh\\300_S275.webp	3	275	t	t	0	adapter-vneshnij-12-i-34-startul-garden	santeh\\800_S275.webp
 3	Адаптер внутренний 1/2 Startul garden		\N	santeh\\300_S276.webp	3	276	t	t	0	adapter-vnutrennij-12-startul-garden	santeh\\800_S276.webp
 2	Адаптер внешний 1/2 и 3/4 ВОЛАТ		\N	santeh\\300_S418.webp	3	418	t	t	0	adapter-vneshnij-12-i-34-volat	santeh\\800_S418.webp
-33	Американка чугун Ду 20 ВР/ВР АV Engineering		\N	santeh\\300_S675.webp	3	675	f	f	0	amerikanka-chugun-du-20-vrvr-av-engineering	santeh\\800_S675.webp
+33	Американка чугун Ду 20 ВР/ВР АV Engineering		\N		3	675	f	f	0	amerikanka-chugun-du-20-vrvr-av-engineering	
 518	Седелка 75 х 1 1/4"	\N	\N	\N	3	724	f	f	0	sedelka-75-h-1-14	\N
 216	Крепление для п/с	\N	\N	\N	5	714	f	f	0	kreplenie-dlja-ps	\N
 682	Умывальник БРАВО	\N	\N	\N	1	484	f	f	0	umyvalnik-bravo	\N
@@ -9293,7 +9339,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 607, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 649, true);
 
 
 --
@@ -9307,7 +9353,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 18, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 45, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 47, true);
 
 
 --
@@ -9356,7 +9402,7 @@ SELECT pg_catalog.setval('public.esg_gasorder_id_seq', 1, true);
 -- Name: esg_gasproduct_id_seq; Type: SEQUENCE SET; Schema: public; Owner: esg3_admin
 --
 
-SELECT pg_catalog.setval('public.esg_gasproduct_id_seq', 174, true);
+SELECT pg_catalog.setval('public.esg_gasproduct_id_seq', 176, true);
 
 
 --
@@ -10145,5 +10191,5 @@ GRANT ALL ON SCHEMA public TO esg3_admin;
 -- PostgreSQL database dump complete
 --
 
-\unrestrict pTiVNzaVHt51kwYvwSbsHXjRQXUQRi9g52YrnWnAB9f91doOIpZS5ubehkFU5Ki
+\unrestrict LF0j7n4oG2gQ2Bf5zVo0McbVlSEn9FSUUQw3obV1ibqG7fUEM8kWfThd2wpHwaW
 

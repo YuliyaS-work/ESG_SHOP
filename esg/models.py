@@ -33,12 +33,27 @@ def resave_photos(instance):
                 img_square1 = ImageOps.pad(img, (800, 800), color="white")
                 img_square2 = ImageOps.pad(img, (300, 300), color="white")
 
-                if instance.rubric.rubric.rubric_name == 'Электрика':
-                    base_name = f'E{instance.code}'
-                elif instance.rubric.rubric.rubric_name == 'Сантехника':
-                    base_name = f'S{instance.code}'
-                elif instance.rubric.rubric.rubric_name == 'Газификация':
-                    base_name = f'G{instance.code}'
+                rub = instance.rubric.rubric.rubric_name
+                count = ElectroProduct.objects.filter(code=instance.code).count()
+
+                if rub == 'Электрика':
+                    count = ElectroProduct.objects.filter(code=instance.code).count()
+                    if count >= 2:
+                        base_name = f'E{instance.code}_{instance.id}'
+                    else:
+                        base_name = f'E{instance.code}'
+                elif rub == 'Сантехника':
+                    count = SantehProduct.objects.filter(code=instance.code).count()
+                    if count >= 2:
+                        base_name = f'S{instance.code}_{instance.id}'
+                    else:
+                        base_name = f'S{instance.code}'
+                elif rub == 'Газификация':
+                    count = GasProduct.objects.filter(code=instance.code).count()
+                    if count >= 2:
+                        base_name = f'G{instance.code}_{instance.id}'
+                    else:
+                        base_name = f'G{instance.code}'
                 dir_name = os.path.dirname(image_field1.path)
 
                 image_field1_path = os.path.join(dir_name, "800_" + base_name + ".webp")
@@ -173,6 +188,7 @@ class Product(models.Model):
         '''Переопределяем для автоматической транслитерации.'''
         transliterated_name = translit(self.title.lower(), 'ru', reversed=True)
         cleaned_name = re.sub(r',', "i", transliterated_name)
+        cleaned_name = re.sub(r'µ', 'm', cleaned_name)
         cleaned_name = re.sub(r'[^\w\s\-]+', "", cleaned_name)
         translist = re.split(r'\s+', cleaned_name)
         translit_sp = [word for word in translist if word]

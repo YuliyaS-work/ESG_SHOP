@@ -4,7 +4,7 @@ from django.core.management import BaseCommand
 from django.db import transaction
 from esg.models import GasProduct, ElectroProduct, SantehProduct, Gas, Electro, Santeh
 
-csv_path = 'products/santeh.csv'
+csv_path = 'products/electro.csv' # замена
 
 class Command(BaseCommand):
     '''Переносит данные из csv-файла в базу данных postgres.'''
@@ -21,18 +21,18 @@ class Command(BaseCommand):
                         code = int(row[0])
                         title = row[1]
                         rubric_id = int(float(row[2]))
-                        rubric = Santeh.objects.get(pk=rubric_id)
+                        rubric = Electro.objects.get(pk=rubric_id) # замена
 
-                        product = SantehProduct(
+                        product = ElectroProduct(
                             code=code,
                             title=title,
                             rubric=rubric,
                             status_new=False,         # по умолчанию
                             status_popular=False,     # по умолчанию
                             counter=0                 # по умолчанию
-                        )
+                        )   # замена
                         product.save()  # вызовет транслитерацию
-                    except Santeh.DoesNotExist:
+                    except Electro.DoesNotExist: # замена
                         print(f"Rubric с id={rubric_id} не найден. Строка пропущена.")
                     except Exception as e:
                         print(f"Ошибка при обработке строки {row}: {e}")

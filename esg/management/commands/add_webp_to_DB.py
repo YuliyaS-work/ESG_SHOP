@@ -50,8 +50,8 @@ class Command(BaseCommand):
         #         except Exception as e:
         #             print(f"⚠️ Ошибка при обработке {image}: {e}")
         #             raise
-        #
-        #
+
+
         # для сантехпродуктов
         with transaction.atomic():
             for image in os.listdir(out_folder):
