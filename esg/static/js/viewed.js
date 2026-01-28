@@ -27,7 +27,7 @@ wrapper.className = 'carousel-wrapper';
 
     const photoUrl = product.photo && product.photo.trim() !== ''
       ? product.photo
-      : '/static/image/default-product.png';
+      : '/static/image/default-product.webp';
 
      const href = product.url || '/';
 

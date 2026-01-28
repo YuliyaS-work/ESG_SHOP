@@ -80,10 +80,10 @@
         {% if product.photo %}
           <img src="{{ product.photo.url }}" alt="{{ product.title }}">
         {% else %}
-          <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+          <img src="{% static 'image/default-product.webp' %}" alt="Нет изображения">
         {% endif %}
 
-        <!-- ==название товара  для генерации карусели просмотренных товаров=== -->
+        <!-- ==название товара для генерации карусели просмотренных товаров=== -->
         {% include 'includes/product_card_for_viewed.html' %}
         <div class="card-bottom">
           {% if product.price %}

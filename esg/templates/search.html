@@ -39,7 +39,7 @@
             {% if product.photo %}
               <img src="{{ product.photo.url }}" alt="{{ product.title }}">
             {% else %}
-              <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+              <img src="{% static 'image/default-product.webp' %}" alt="Нет изображения">
             {% endif %}
             {% if product.rubric.rubric.name_translit and product.rubric.title_translit and product.title_translit %}
               <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
