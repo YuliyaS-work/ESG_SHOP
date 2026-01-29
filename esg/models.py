@@ -296,7 +296,7 @@ class SantehOrder(models.Model):
 
 class Feedback(models.Model):
     '''Обратная связь от потребителей.'''
-    name = models.CharField(max_length=50, verbose_name='Имя', validators =[RegexValidator(regex='^[A-Za-zА-Яа-яЁё]+$', message='Введите только буквы.', code='invalid_name')])
+    name = models.CharField(max_length=50, verbose_name='Имя', validators =[RegexValidator(regex=r'^[A-Za-zА-Яа-яЁё]+(?: [A-Za-zА-Яа-яЁё]+)*$', message='Введите только буквы.', code='invalid_name')])
     phone = PhoneNumberField(region='BY', verbose_name='Телефон (+375 ХХ ХХХХХХХ)')
     subject = models.CharField(max_length=50, verbose_name='Тема', null=True, blank=True, default='')
     message = models.TextField(verbose_name='Ваше сообщение')
