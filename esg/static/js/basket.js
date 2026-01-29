@@ -28,7 +28,7 @@ function renderBasket() {
   if (titles.length === 0) {
     basketContainer.innerHTML = `
     <div class="empty-basket">
-      <img src="/static/image/basket.png" alt="Корзина пуста" class="empty-basket-img flip">
+      <img src="/static/image/basket.webp" alt="Корзина пуста" class="empty-basket-img flip">
       <p>Корзина пуста</p>
     </div>
   `;

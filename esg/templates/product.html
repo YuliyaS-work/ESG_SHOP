@@ -37,7 +37,7 @@
     {% if product.photo %}
         <img id="product-photo" src="{{ product.photo_big.url }}" alt="{{ product.title }}">
         {% else %}
-        <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+        <img src="{% static 'image/default-product.webp' %}" alt="Нет изображения">
         {% endif %}
         <div class="product-info">
             <h3>{{ product.title }}</h3>

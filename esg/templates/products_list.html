@@ -55,14 +55,14 @@
 
 
   <!-- === Все товары === -->
-  <section class="products-section">
+  <section class="products-section step_list">
   <div class="products-grid">
     {% for product in page_obj %}
       <div class="product-card-catalog">
         {% if product.photo %}
           <img src="{{ product.photo.url }}" alt="{{ product.title }}">
         {% else %}
-          <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+          <img src="{% static 'image/default-product.webp' %}" alt="Нет изображения">
         {% endif %}
 
          <!-- ==название товара для генерации карусели просмотренных товаров=== -->

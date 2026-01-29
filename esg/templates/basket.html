@@ -71,11 +71,11 @@
               {% if product.photo %}
                 <img src="{{ product.photo.url }}" alt="{{ product.title }}">
               {% else %}
-                <img src="{% static 'image/default-product.png' %}" alt="Нет изображения">
+                <img src="{% static 'image/default-product.webp' %}" alt="Нет изображения">
               {% endif %}
                  <!--  === название товара адаптированное для вывода в "Вы смотрели" -->
          {% if product.photo %}
-         {% static 'image/default-product.png' as default_photo %}
+         {% static 'image/default-product.webp' as default_photo %}
            <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}"
              class="product-title"
              data-id="{{ product.pk }}"
@@ -88,7 +88,7 @@
              data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% else %}
-         {% static 'image/default-product.png' as default_photo %}
+         {% static 'image/default-product.webp' as default_photo %}
            <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}"
              class="product-title"
              data-id="{{ product.pk }}"
