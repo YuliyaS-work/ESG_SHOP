@@ -179,3 +179,4 @@ media_origin/
 media_clear/
 products/
 staticfiles/
+main.py
