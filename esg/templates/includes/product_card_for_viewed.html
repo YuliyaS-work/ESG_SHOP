@@ -2,7 +2,7 @@
 
           <!--  === название товара адаптированное для вывода в "Вы смотрели" -->
          {% if product.photo %}
-         {% static 'image/default-product.png' as default_photo %}
+         {% static 'image/default-product.webp' as default_photo %}
            <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}"
              class="product-title"
              data-id="{{ product.pk }}"
@@ -14,7 +14,7 @@
              data-url="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}">
              <h3>{{ product.title }}</h3></a>
          {% else %}
-         {% static 'image/default-product.png' as default_photo %}
+         {% static 'image/default-product.webp' as default_photo %}
            <a href="{% url 'product' product.rubric.rubric.name_translit product.rubric.title_translit product.title_translit %}"
              class="product-title"
              data-id="{{ product.pk }}"
