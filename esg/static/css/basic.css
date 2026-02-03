@@ -8,6 +8,9 @@ html, body {
 :root {
     --header-height: 0px;
     --footer-height: 160px;
+    --loader-color: #e6c200;
+    --loader-size: 48px;
+    --loader-speed: 1.2s;
 }
 body {
     display: flex;
@@ -26,6 +29,25 @@ body {
   box-shadow: 0 2px 3px rgba(0,0,0,0.1);
   transition: margin-left 0.3s ease;
 }
+.devutilx-loader-wrapper {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.loader-ring {
+  width: var(--loader-size);
+  height: var(--loader-size);
+  border: calc(var(--loader-size) / 10) solid rgba(0,0,0,0.08);
+  border-top-color: var(--loader-color);
+  border-radius: 50%;
+  animation: spin var(--loader-speed) linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 .footer {
   width: 100vw;
   min-height: var(--footer-height);
