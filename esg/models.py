@@ -29,7 +29,14 @@ def resave_photos(instance):
         ext = os.path.splitext(image_field1.name)[1].lower()  # расширение файла
         if ext in VALID_EXTENSIONS:
             try:
-                img = Image.open(image_field1.path).convert("RGB")
+                img = Image.open(image_field1.path)
+                if img.mode in ("RGBA", "LA"):
+                    background = Image.new("RGB", img.size, "white")
+                    background.paste(img, mask=img.split()[-1])  # альфа-канал как маска
+                    img = background
+                else:
+                    img = img.convert("RGB")
+
                 img_square1 = ImageOps.pad(img, (800, 800), color="white")
                 img_square2 = ImageOps.pad(img, (300, 300), color="white")
 

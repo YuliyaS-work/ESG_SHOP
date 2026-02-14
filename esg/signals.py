@@ -3,7 +3,6 @@ from django.db.models.signals import pre_save, post_delete, post_save
 from django.dispatch import receiver
 from .models import ElectroProduct, SantehProduct, GasProduct, resave_photos
 
-MODELS = (ElectroProduct, SantehProduct, GasProduct)
 
 def _delete_file(field):
     """Удаляет файл с диска, если он существует."""
@@ -14,10 +13,12 @@ def _delete_file(field):
         pass
 
 
-@receiver(pre_save)
+@receiver(pre_save, sender=ElectroProduct)
+@receiver(pre_save, sender=SantehProduct)
+@receiver(pre_save, sender=GasProduct)
 def delete_old_files_on_change(sender, instance, **kwargs):
     """Удаляет старые файлы при замене photo_big/photo."""
-    if sender not in MODELS or not instance.pk:
+    if not instance.pk:
         return
 
     try:
@@ -32,7 +33,7 @@ def delete_old_files_on_change(sender, instance, **kwargs):
         instance.photo = None  # очистим поле в базе
 
     # если заменили photo_big
-    elif old_instance.photo_big and old_instance.photo_big != instance.photo_big:
+    elif old_instance.photo_big and old_instance.photo_big.name != instance.photo_big.name:
         _delete_file(old_instance.photo_big)
         _delete_file(old_instance.photo)
 
