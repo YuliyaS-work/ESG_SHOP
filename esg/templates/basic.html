@@ -89,9 +89,9 @@
             {% endfor %}
         </ul>
     </nav>
-<div id="loader" class="devutilx-loader-wrapper" aria-label="Loading">
-  <div class="loader-ring"></div>
-</div>
+<!--<div id="loader" class="devutilx-loader-wrapper" aria-label="Loading">-->
+<!--  <div class="loader-ring"></div>-->
+<!--</div>-->
    <main class="main-content">
        {% block content %}{% endblock %}
    </main>
@@ -184,12 +184,23 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('resize', updateHeaderHeight);
     const ro = new ResizeObserver(updateHeaderHeight);
     ro.observe(header);
-    window.addEventListener("load", () => {
-        const loader = document.getElementById("loader");
-        if (loader) {
-            loader.style.display = "none";
-        }
-    });
+
+<!--    const showDelay = 300;-->
+<!--    let spinnerTimeout = setTimeout(() => {-->
+<!--        const loader = document.getElementById("loader");-->
+<!--        if (loader) {-->
+<!--            loader.style.display = "block";-->
+<!--        }-->
+<!--    }, showDelay);-->
+<!--    window.addEventListener("load", () => {-->
+<!--        clearTimeout(spinnerTimeout);-->
+
+<!--        const loader = document.getElementById("loader");-->
+<!--        if (loader) {-->
+<!--            loader.style.display = "none";-->
+<!--        }-->
+<!--    });-->
+
 });
 </script>
 </body>
