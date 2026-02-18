@@ -1,0 +1,44 @@
+<!--{% if breadcrumbs %}-->
+<!--  <nav class="breadcrumbs" aria-label="breadcrumb">-->
+<!--    <ol>-->
+<!--    {% for crumb in breadcrumbs %}-->
+<!--      {% if forloop.last %}-->
+<!--        <li class="breadcrumb-item current">{{ crumb.label }}</li>-->
+<!--      {% else %}-->
+<!--      <li class="breadcrumb-item">-->
+<!--        <a href="{{ crumb.url }}">{{ crumb.label }}</a>-->
+<!--      <span class="separator">▸</span>-->
+<!--         </li>-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+<!--      </ol>-->
+<!--  </nav>-->
+<!--{% endif %}-->
+{% if breadcrumbs %}
+  <nav class="breadcrumbs" aria-label="breadcrumb">
+    <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    {% for crumb in breadcrumbs %}
+      {% if forloop.last %}
+        <li class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem">
+          <span itemprop="name">{{ crumb.label }}</span>
+          <meta itemprop="position" content="{{ forloop.counter }}" />
+        </li>
+      {% else %}
+        <li class="breadcrumb-item"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem">
+          <a href="{{ crumb.url }}" itemprop="item">
+            <span itemprop="name">{{ crumb.label }}</span>
+          </a>
+          <meta itemprop="position" content="{{ forloop.counter }}" />
+          <span class="separator">▸</span>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ol>
+  </nav>
+{% endif %}
