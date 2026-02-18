@@ -70,6 +70,7 @@
     </div>
     </header>
   <div class="overlay_menu"></div>
+  {% if rubrics %}
     <nav class="sidebar">
         <ul>
             {% for rubric in rubrics %}
@@ -91,6 +92,7 @@
             {% endfor %}
         </ul>
     </nav>
+  {% endif %}
 <!--<div id="loader" class="devutilx-loader-wrapper" aria-label="Loading">-->
 <!--  <div class="loader-ring"></div>-->
 <!--</div>-->

@@ -43,6 +43,10 @@ def get_main_page(request):
     electro = Electro.objects.first()
     santeh = Santeh.objects.first()
     gas = Gas.objects.first()
+
+    if not any([electro, santeh, gas]):
+        raise Http404("Нет данных для главной страницы")
+
     rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
 
     popular_products = get_popular_products()
@@ -71,6 +75,9 @@ def get_catalog(request):
     santeh_qs = SantehProduct.objects.select_related('rubric', 'rubric__rubric').all()
 
     all_products = list(chain(electro_qs, gas_qs, santeh_qs))
+
+    if not all_products:
+        raise Http404("Нет товаров в каталоге")
 
     # фильтр
     sort = request.GET.get('sort', '')
@@ -103,6 +110,9 @@ def get_catalog(request):
 
 def get_subrubrics(request, rubric_name_translit):
     '''Список подразделов раздела '''
+    if rubric_name_translit in ['partners', 'contacts', 'payments', 'privacy', 'basket', 'search', 'catalog', 'main']:
+        raise Http404()
+
     rubric = get_object_or_404(Rubric, name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
@@ -147,6 +157,9 @@ def get_subrubrics(request, rubric_name_translit):
 
 def get_products(request, rubric_name_translit, subrubric_title_translit):
     '''Выводит страницу оттдельного подраздела товары'''
+    if rubric_name_translit in ['partners', 'contacts', 'payments', 'privacy', 'basket', 'search', 'catalog', 'main']:
+        raise Http404()
+
     rubric = get_object_or_404(Rubric,name_translit=rubric_name_translit)
 
     if rubric.rubric_name == 'Газификация':
@@ -191,6 +204,9 @@ def get_products(request, rubric_name_translit, subrubric_title_translit):
 
 def get_product(request, rubric_name_translit, subrubric_title_translit, product_title_translit):
     '''Рендерит страницу одного продукта.'''
+    if rubric_name_translit in ['partners', 'contacts', 'payments', 'privacy', 'basket', 'search', 'catalog', 'main']:
+        raise Http404()
+
     rubric = get_object_or_404(Rubric, name_translit=rubric_name_translit)
 
 

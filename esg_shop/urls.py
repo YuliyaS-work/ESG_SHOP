@@ -21,9 +21,9 @@ from django.urls import path, include
 
 from esg.views import get_custom_404
 
-handler404 = 'esg.views.get_custom_404'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('esg.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # для прода закомментить
+
+handler404 = 'esg.views.get_custom_404'
