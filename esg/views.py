@@ -324,7 +324,10 @@ class FeedbackAPICreate(generics.CreateAPIView):
 
 def get_custom_404(request, exception):
     '''Загружает кастомную 404 страницу'''
-    rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    try:
+        rubrics = Rubric.objects.prefetch_related('electro_set', 'gas_set', 'santeh_set').all()
+    except Exception:
+        rubrics = []
     context = {'rubrics': rubrics}
     return render(request, '404.html',  context, status=404)
 
