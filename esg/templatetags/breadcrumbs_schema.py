@@ -39,4 +39,4 @@ def breadcrumb_json_ld(context):
 
     json_ld = json.dumps(schema, ensure_ascii=False, indent=2)
 
-    return mark_safe(f'<script type="application/ld+json">\\n{json_ld}\\n</script>')
+    return mark_safe(f'<script type="application/ld+json">{json_ld}</script>')
