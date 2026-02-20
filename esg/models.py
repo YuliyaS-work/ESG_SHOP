@@ -25,57 +25,82 @@ def validate_image_extension(value):
 def resave_photos(instance):
     '''Обрабатывает фото при загрузке'''
     image_field1 = getattr(instance, 'photo_big')
-    if image_field1 and os.path.exists(image_field1.path):
-        ext = os.path.splitext(image_field1.name)[1].lower()  # расширение файла
-        if ext in VALID_EXTENSIONS:
-            try:
-                img = Image.open(image_field1.path)
-                if img.mode in ("RGBA", "LA"):
-                    background = Image.new("RGB", img.size, "white")
-                    background.paste(img, mask=img.split()[-1])  # альфа-канал как маска
-                    img = background
-                else:
-                    img = img.convert("RGB")
 
-                img_square1 = ImageOps.pad(img, (800, 800), color="white")
-                img_square2 = ImageOps.pad(img, (300, 300), color="white")
+    # Нет файла — выходим
+    if not image_field1 or not hasattr(image_field1, "path"):
+        return
 
-                rub = instance.rubric.rubric.rubric_name
-                count = ElectroProduct.objects.filter(code=instance.code).count()
+    original_path = image_field1.path
 
-                if rub == 'Электрика':
-                    count = ElectroProduct.objects.filter(code=instance.code).count()
-                    if count >= 2:
-                        base_name = f'E{instance.code}_{instance.id}'
-                    else:
-                        base_name = f'E{instance.code}'
-                elif rub == 'Сантехника':
-                    count = SantehProduct.objects.filter(code=instance.code).count()
-                    if count >= 2:
-                        base_name = f'S{instance.code}_{instance.id}'
-                    else:
-                        base_name = f'S{instance.code}'
-                elif rub == 'Газификация':
-                    count = GasProduct.objects.filter(code=instance.code).count()
-                    if count >= 2:
-                        base_name = f'G{instance.code}_{instance.id}'
-                    else:
-                        base_name = f'G{instance.code}'
-                dir_name = os.path.dirname(image_field1.path)
+    # Файл отсутствует на диске
+    if not os.path.isfile(original_path):
+        return
 
-                image_field1_path = os.path.join(dir_name, "800_" + base_name + ".webp")
-                image_field2_path = os.path.join(dir_name, "300_" + base_name + ".webp")
+    # Если уже webp — не обрабатываем повторно
+    if image_field1.name.lower().endswith(".webp"):
+        return
 
-                img_square1.save(image_field1_path, format="WEBP", quality=95)
-                img_square2.save(image_field2_path, format="WEBP", quality=95)
+    ext = os.path.splitext(image_field1.name)[1].lower()  # расширение файла
+    if ext not in VALID_EXTENSIONS:
+        return
 
-                os.remove(image_field1.path)
+    try:
+        img = Image.open(original_path)
+        if img.mode in ("RGBA", "LA"):
+            background = Image.new("RGB", img.size, "white")
+            background.paste(img, mask=img.split()[-1])  # альфа-канал как маска
+            img = background
+        else:
+            img = img.convert("RGB")
 
-                instance.photo_big.name = os.path.relpath(image_field1_path, settings.MEDIA_ROOT)
-                instance.photo.name = os.path.relpath(image_field2_path, settings.MEDIA_ROOT)
+        img_square1 = ImageOps.pad(img, (800, 800), color="white")
+        img_square2 = ImageOps.pad(img, (300, 300), color="white")
 
-            except Exception as e:
-                print(f"Ошибка при обработке {image_field1.path}: {e}")
+        rub = instance.rubric.rubric.rubric_name
+
+        if rub == 'Электрика':
+            count = ElectroProduct.objects.filter(code=instance.code).count()
+            prefix = 'E'
+        elif rub == 'Сантехника':
+            count = SantehProduct.objects.filter(code=instance.code).count()
+            prefix = 'S'
+        elif rub == 'Газификация':
+            count = GasProduct.objects.filter(code=instance.code).count()
+            prefix = 'G'
+        else:
+            return
+
+        if count >= 2:
+            base_name = f'{prefix}{instance.code}_{instance.id}'
+        else:
+            base_name = f'{prefix}{instance.code}'
+
+        dir_name = os.path.dirname(original_path)
+        upload_dir = os.path.dirname(image_field1.name) or ""
+
+        big_filename = f"800_{base_name}.webp"
+        small_filename = f"300_{base_name}.webp"
+
+        big_abs_path = os.path.join(dir_name, big_filename)
+        small_abs_path = os.path.join(dir_name, small_filename)
+
+        img_square1.save(big_abs_path, format="WEBP", quality=95)
+        img_square2.save(small_abs_path, format="WEBP", quality=95)
+
+        img.close()
+        img_square1.close()
+        img_square2.close()
+
+        # удаляем оригинал после успешного сохранения файлов
+        if os.path.exists(original_path):
+            os.remove(original_path)
+
+        instance.photo_big.name = os.path.join(upload_dir, big_filename).replace("\\", "/")
+        instance.photo.name = os.path.join(upload_dir, small_filename).replace("\\", "/")
+
+    except Exception as e:
+        print(f"Ошибка при обработке {original_path}: {e}")
+        raise
 
 
 class Rubric(models.Model):

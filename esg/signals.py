@@ -41,12 +41,23 @@ def delete_old_files_on_change(sender, instance, **kwargs):
 @receiver(post_save, sender=SantehProduct)
 @receiver(post_save, sender=GasProduct)
 def process_photos_after_save(sender, instance, created, **kwargs):
-    if instance.photo_big:
-        resave_photos(instance)
-        sender.objects.filter(pk=instance.pk).update(
-            photo_big=instance.photo_big.name,
-            photo=instance.photo.name
-        )
+    # если нет атрибута - ничего не делаем
+    if not instance.photo_big:
+        return
+
+    # если отсутсвует файл на диске - ничего не делаем
+    if not hasattr(instance.photo_big, 'path') or not os.path.isfile(instance.photo_big.path):
+        return
+
+    # если фото есть - значит добавляли его и не трогаем
+    if instance.photo_big.name.lower().endswith(".webp"):
+        return
+
+    resave_photos(instance)
+    sender.objects.filter(pk=instance.pk).update(
+        photo_big=instance.photo_big.name,
+        photo=instance.photo.name
+    )
 
 
 @receiver(post_delete, sender=ElectroProduct)
